@@ -1,0 +1,13 @@
+# Built place/model files (build them locally with `rojo build`)
+*.rbxl
+*.rbxlx
+*.rbxm
+*.rbxmx
+*.rbxl.lock
+*.rbxlx.lock
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+sourcemap.json
