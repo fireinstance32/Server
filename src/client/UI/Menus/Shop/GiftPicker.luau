@@ -36,6 +36,7 @@ function GiftPicker.open(over: GuiObject, item: string)
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.5, 0.5),
 		ZIndex = 21,
+		Active = true, -- clicks on the panel don't reach the backdrop
 	})
 	Theme.pop(panel)
 	Icon.new("gifts", { Size = UDim2.fromOffset(70, 70), AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromOffset(6, 0), Rotation = -12, ZIndex = 23, Parent = panel })

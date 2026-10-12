@@ -71,6 +71,7 @@ function Slider.new(props: { [string]: any }, onChange: (number) -> (), onCommit
 	end
 
 	local dragging = false
+	local dragInput: InputObject? = nil -- the touch/mouse that started the drag
 	local function fromX(x: number)
 		local width = math.max(track.AbsoluteSize.X, 1)
 		set((x - track.AbsolutePosition.X) / width * 100)
@@ -79,19 +80,25 @@ function Slider.new(props: { [string]: any }, onChange: (number) -> (), onCommit
 	local function begin(input: InputObject)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 			dragging = true
+			dragInput = if input.UserInputType == Enum.UserInputType.Touch then input else nil
 			fromX(input.Position.X)
 		end
 	end
 	track.InputBegan:Connect(begin)
 	knob.InputBegan:Connect(begin)
 	local moved = UserInputService.InputChanged:Connect(function(input)
-		if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+		if not dragging then
+			return
+		end
+		-- Only the finger that grabbed the slider moves it (not the thumbstick).
+		if (dragInput and input == dragInput) or (not dragInput and input.UserInputType == Enum.UserInputType.MouseMovement) then
 			fromX(input.Position.X)
 		end
 	end)
 	local ended = UserInputService.InputEnded:Connect(function(input)
-		if dragging and (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
+		if dragging and ((dragInput and input == dragInput) or (not dragInput and input.UserInputType == Enum.UserInputType.MouseButton1)) then
 			dragging = false
+			dragInput = nil
 			onCommit(current)
 		end
 	end)

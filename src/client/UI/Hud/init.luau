@@ -12,9 +12,11 @@ local Players = game:GetService("Players")
 
 local Theme = require(script.Parent.Theme)
 local Visibility = require(script.Visibility)
+local ScreenScale = require(script.Parent.Components.ScreenScale)
 local Gradient = require(script.Parent.Components.Gradient)
 local Purchases = require(script.Parent.Parent.Purchases)
 local Popups = require(script.Popups)
+local RewardPopup = require(script.RewardPopup)
 local StatRow = require(script.StatRow)
 local LevelBar = require(script.LevelBar)
 local PackRow = require(script.PackRow)
@@ -40,6 +42,7 @@ local hopButton: TextButton
 Hud.toast = Popups.toast
 Hud.floatText = Popups.floatText
 Hud.banner = Popups.banner
+Hud.reward = RewardPopup.show
 Hud.distance = DistanceMeter
 
 -- mode: "Train" (with the pond), "Launch", or nil. Training is automatic,
@@ -100,6 +103,7 @@ function Hud.init(callbacks: {
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		Parent = Players.LocalPlayer:WaitForChild("PlayerGui"),
 	})
+	ScreenScale.attach(gui)
 
 	-- Bottom-centre stack: stat row (40) · level bar (60) · packs (72).
 	local bottom = Theme.new("Frame", {
@@ -145,13 +149,16 @@ function Hud.init(callbacks: {
 	QuestBar.init(gui)
 	TipTicker.init(gui)
 	-- Toasts and banners draw above menu windows (DisplayOrder 10).
-	Popups.init(Theme.new("ScreenGui", {
+	local popups = Theme.new("ScreenGui", {
 		Name = "FrogHopPopups",
 		ResetOnSpawn = false,
 		DisplayOrder = 20,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		Parent = Players.LocalPlayer:WaitForChild("PlayerGui"),
-	}))
+	})
+	ScreenScale.attach(popups)
+	Popups.init(popups)
+	RewardPopup.init(popups)
 
 	Purchases.onNotForSale(function(text)
 		Popups.toast(text, Theme.Colors.Ink)

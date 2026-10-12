@@ -54,6 +54,24 @@ function PetTile.bonusRow(parent: Instance, bonus: number, height: number, z: nu
 	return row
 end
 
+local SELECTED_FILL = { Color3.fromRGB(112, 150, 178), Color3.fromRGB(62, 86, 108) }
+local IDLE_FILL = { Color3.fromRGB(116, 117, 126), Color3.fromRGB(78, 79, 88) }
+
+-- Highlights (or un-highlights) a tile in place.
+function PetTile.setSelected(tile: GuiObject, selected: boolean)
+	local stroke = tile:FindFirstChildOfClass("UIStroke")
+	if stroke then
+		stroke.Thickness = if selected then 4 else 3
+		stroke.Color = if selected then SELECTED_EDGE else IDLE_EDGE
+	end
+	-- Gradient.apply only caches named presets, so swap the colours directly.
+	local gradient = tile:FindFirstChildOfClass("UIGradient")
+	if gradient then
+		gradient:Destroy()
+	end
+	Gradient.apply(tile, if selected then SELECTED_FILL else IDLE_FILL)
+end
+
 function PetTile.build(grid: Instance, order: number, pet: any, selected: boolean, onSelect: () -> ()): TextButton
 	local def = Pets.ById[pet.id]
 	local tile = new("TextButton", {
@@ -62,10 +80,8 @@ function PetTile.build(grid: Instance, order: number, pet: any, selected: boolea
 		AutoButtonColor = false,
 		LayoutOrder = order,
 		Parent = grid,
-	}, { Theme.corner(12), Theme.stroke(if selected then 4 else 3, if selected then SELECTED_EDGE else IDLE_EDGE) })
-	Gradient.apply(tile, if selected
-		then { Color3.fromRGB(112, 150, 178), Color3.fromRGB(62, 86, 108) }
-		else { Color3.fromRGB(116, 117, 126), Color3.fromRGB(78, 79, 88) })
+	}, { Theme.corner(12), Theme.stroke(3, IDLE_EDGE) })
+	PetTile.setSelected(tile, selected)
 
 	-- Thin rarity strip at the top so rarities read at a glance.
 	new("Frame", {

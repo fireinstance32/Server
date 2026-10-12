@@ -119,21 +119,36 @@ function PetsTab.build(content: Frame)
 
 	-- Tiles and the index only rebuild when what they show changes (the
 	-- server pushes a snapshot every few hundred ms while training).
+	-- Picking a tile only re-highlights two tiles and refills the details.
+	local tiles: { [string]: GuiObject } = {}
+	local function select(uid: string?)
+		if selected and tiles[selected] then
+			PetTile.setSelected(tiles[selected], false)
+		end
+		selected = uid
+		if uid and tiles[uid] then
+			PetTile.setSelected(tiles[uid], true)
+		end
+		local pets = lastData and lastData.pets or {}
+		showDetails(if uid and pets[uid] then { uid = uid, pet = pets[uid] } else nil)
+	end
 	local renderGrid = Signature.guard(function(data)
-		return Signature.of(SORTS[sortMode], selected, data.pets)
+		return Signature.of(SORTS[sortMode], data.pets)
 	end, function(data)
 		Window.clear(grid)
+		table.clear(tiles)
 		local entries = sortedPets(data, SORTS[sortMode])
 		if not (selected and data.pets[selected]) then
 			selected = if entries[1] then entries[1].uid else nil
 		end
 		for i, entry in entries do
-			PetTile.build(grid, i, entry.pet, entry.uid == selected, function()
-				selected = entry.uid
-				render(data)
+			tiles[entry.uid] = PetTile.build(grid, i, entry.pet, entry.uid == selected, function()
+				if selected ~= entry.uid then
+					select(entry.uid)
+				end
 			end)
 		end
-		showDetails(if selected then { uid = selected, pet = data.pets[selected] } else nil)
+		select(selected)
 	end)
 	local renderIndex = Signature.guard(function(data)
 		return Signature.of(data.discovered)

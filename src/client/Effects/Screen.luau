@@ -40,22 +40,28 @@ end
 -- starting offset in studs (0.3 = a thump, 1 = huge). Off with the
 -- "Camera Shake" setting.
 local shakeUntil, shakeStrength, shakeLength = 0, 0, 1
+local shakeBound = false
 function Screen.shake(strength: number, duration: number)
 	if not Settings.get("shake") then
 		return
 	end
 	local now = os.clock()
-	if now < shakeUntil then
+	if shakeBound then
 		shakeStrength = math.max(shakeStrength, strength)
 		shakeUntil = math.max(shakeUntil, now + duration)
+		shakeLength = math.max(shakeLength, shakeUntil - now)
 		return
 	end
 	shakeStrength, shakeUntil, shakeLength = strength, now + duration, duration
+	shakeBound = true
+	-- Runs after the camera scripts (Camera + 1), so the offset is applied on
+	-- top of this frame's camera and never fed back into it.
 	RunService:BindToRenderStep("ScreenShake", Enum.RenderPriority.Camera.Value + 1, function()
 		local left = shakeUntil - os.clock()
 		local camera = Workspace.CurrentCamera
 		if left <= 0 or not camera then
 			RunService:UnbindFromRenderStep("ScreenShake")
+			shakeBound = false
 			return
 		end
 		local power = shakeStrength * (left / shakeLength)

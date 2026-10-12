@@ -25,6 +25,7 @@ local BRIGHT: { [Color3]: Color3 } = {
 	[C.Gold] = Color3.fromRGB(255, 220, 70),
 }
 local MAX_TOASTS = 3
+local toastCount = 0
 
 function Popups.toast(text: string, color: Color3?)
 	local tint = BRIGHT[color or C.Ink] or (color or C.White):Lerp(C.White, 0.25)
@@ -41,12 +42,13 @@ function Popups.toast(text: string, color: Color3?)
 		toasts[i]:Destroy()
 	end
 
+	toastCount += 1
 	local label = Theme.label({
 		Name = "Toast",
 		Size = UDim2.new(1, 0, 0, 38),
 		Text = text,
 		TextColor3 = tint,
-		LayoutOrder = os.clock() * 1000 // 1,
+		LayoutOrder = toastCount,
 		Parent = toastHolder,
 	})
 	local stroke = Theme.textStroke(3.5)

@@ -22,6 +22,9 @@ status: ready
 - [ ] On a pond: AUTO REBIRTH button with icon and "ONLY ⏣ 99" (or ON/OFF if owned)
 - [ ] Toasts are coloured outlined text (no pill) under the quest bar, or at the very top while a menu is open; the landing banner appears mid-screen
 
+## Screen sizes
+- [ ] Resize the Studio window / use the Device Emulator (phone, tablet): the whole UI shrinks evenly, the right-side buttons stay at the right edge, nothing spills off-screen (`Components/ScreenScale`; tell me if anything sits in the wrong place)
+
 ## Menus
 - [ ] Every menu pops in (and shrinks away on close), world blurred behind it, big icon top-left, red X top-right; Auto Hop, quest bar, tips and the bottom bar hide while it's open and come back after
 - [ ] Rebirth window is short (no empty space); bolt cards, studded progress bar
@@ -30,6 +33,7 @@ status: ready
 - [ ] Inventory: big tabs left of the window; title changes to My Frogs / My Pets / My Trails / My Boosts / My Titles
 - [ ] My Pets: click a tile → left panel shows it on spinning rays with EQUIP/UNEQUIP, lock, delete; trash "Auto" opens the rarity toggles; Delete asks "Sure?"; sort icon cycles; INDEX swaps the grid
 - [ ] My Boosts: click a potion → white card shows it; USE uses one; timer shows on the tile while active
+- [ ] Claiming a daily reward or a gift shows a "YOU GOT …" pop-up with the picture on spinning rays + confetti
 - [ ] My Titles: "N / 27 Titles"; first throw unlocks Tadpole (toast + appears unlocked); clicking it shows it above your head for everyone; the boost shows in the multiplier breakdown
 - [ ] Worlds (globe, top right): World 1 says YOU ARE HERE; locked worlds say NEEDS … HOPS and LOCKED; with enough Hops it says UNLOCK and teleports
 

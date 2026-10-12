@@ -14,6 +14,7 @@ local Studs = require(script.Parent.Parent.Components.Studs)
 local RewardIcon = require(script.Parent.Parent.Components.RewardIcon)
 local Icon = require(script.Parent.Parent.Components.Icon)
 local Window = require(script.Parent.Window)
+local Hud = require(script.Parent.Parent.Hud)
 
 local new = Theme.new
 
@@ -93,18 +94,27 @@ function DailyMenu.build(body: Frame)
 		days[i] = { card = card, claimed = claimed }
 	end
 
+	local lastStatus = nil
 	local claim = Window.button({
 		Size = UDim2.fromOffset(380, 66),
 		AnchorPoint = Vector2.new(0.5, 1),
 		Position = UDim2.new(0.5, 0, 1, 0),
 		Text = "CLAIM YOUR REWARD",
 	}, "Green", function()
-		Window.report(Net.func("ClaimDaily"):InvokeServer())
+		local day = lastStatus and lastStatus.day
+		local ok, message = Net.func("ClaimDaily"):InvokeServer()
+		local reward = ok and day and DailyRewards.Days[day]
+		if reward then
+			Hud.reward(reward, reward.label)
+		else
+			Window.report(ok, message)
+		end
 	end)
 	claim.Parent = body
 
 	return function(data)
 		local status = data.daily or { canClaim = false, day = 1, streak = 0 }
+		lastStatus = status
 		for i, entry in days do
 			entry.claimed.Visible = if status.canClaim then i < status.day else i <= status.day
 			local stroke = entry.card:FindFirstChildOfClass("UIStroke")

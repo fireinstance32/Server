@@ -18,6 +18,7 @@ local Hud = require(script.Parent.Hud)
 local Icon = require(script.Parent.Components.Icon)
 local PetImage = require(script.Parent.Components.PetImage)
 local Rays = require(script.Parent.Components.Rays)
+local ScreenScale = require(script.Parent.Components.ScreenScale)
 local ScreenFx = require(script.Parent.Parent.Effects.Screen)
 local Sfx = require(script.Parent.Parent.Sfx)
 
@@ -65,11 +66,12 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 
 	local gui = new("ScreenGui", {
 		Name = "HatchScreen",
-		DisplayOrder = 20,
+		DisplayOrder = 25, -- above toasts (20), below the effects layer (30)
 		IgnoreGuiInset = true,
 		ResetOnSpawn = false,
 		Parent = Players.LocalPlayer:WaitForChild("PlayerGui"),
 	})
+	ScreenScale.attach(gui)
 	local clickCatcher = new("TextButton", {
 		Size = UDim2.fromScale(1, 1),
 		BackgroundColor3 = Color3.new(0, 0, 0),
@@ -165,6 +167,7 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 					Size = UDim2.fromOffset(240, 240),
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.new(0.5, 0, 0, 154),
+					ZIndex = 0,
 					Parent = cell,
 				}, Pets.RarityColors[def.rarity]:Lerp(C.White, 0.3), 10)
 			end

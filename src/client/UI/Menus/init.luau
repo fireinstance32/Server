@@ -71,10 +71,18 @@ function Menus.show(name: string)
 	end
 	local frame, body = Window.create(spec.title, spec.icon, Menus.close, spec.height, spec.tabs)
 	Hud.setMenuOpen(true)
-	local refresh = spec.build(body)
-	current = { name = name, frame = frame, refresh = refresh }
+	-- Track the window before building it, so its X still works if the build
+	-- errors.
+	local entry = { name = name, frame = frame, refresh = function(_data) end }
+	current = entry
+	local ok, result = pcall(spec.build, body)
+	if not ok then
+		warn(`Menu {name} failed to build: {result}`)
+		return
+	end
+	entry.refresh = result
 	if State.data then
-		refresh(State.data)
+		result(State.data)
 	end
 end
 

@@ -9,6 +9,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Net = require(Shared.Net)
+local Signal = require(Shared.Util.Signal)
 
 local Leaderstats = require(script.Parent.Parent.Leaderstats)
 local Template = require(script.Template)
@@ -21,13 +22,14 @@ local profiles: { [Player]: any } = {}
 local loaded: { [Player]: boolean } = {} -- true once this server owns the saved profile
 
 -- Fires (player, data) after every change, for server systems that react
--- to data (e.g. the frog held in hand).
-local changedEvent = Instance.new("BindableEvent")
-DataService.Changed = changedEvent.Event
+-- to data (e.g. the frog held in hand). A Luau Signal, not a BindableEvent:
+-- handlers get the real profile table and may change it.
+local changedEvent = Signal.new()
+DataService.Changed = changedEvent
 
 -- Fires (player, data) once a player's profile has loaded.
-local loadedEvent = Instance.new("BindableEvent")
-DataService.Loaded = loadedEvent.Event
+local loadedEvent = Signal.new()
+DataService.Loaded = loadedEvent
 
 function DataService.get(player: Player): any?
 	return profiles[player]

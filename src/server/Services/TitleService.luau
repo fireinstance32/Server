@@ -60,7 +60,11 @@ local function refreshTag(player: Player, data: any)
 end
 
 -- Grants every title the player has newly qualified for.
-local function check(player: Player, data: any)
+local function check(player: Player, _snapshot: any)
+	local data = DataService.get(player)
+	if not data then
+		return
+	end
 	local earned = Titles.newlyEarned(data)
 	if #earned == 0 then
 		refreshTag(player, data)

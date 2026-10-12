@@ -11,6 +11,7 @@ local Theme = require(script.Parent.Parent.Theme)
 local Hud = require(script.Parent.Parent.Hud)
 local Icon = require(script.Parent.Parent.Components.Icon)
 local Layout = require(script.Layout)
+local ScreenScale = require(script.Parent.Parent.Components.ScreenScale)
 local Sfx = require(script.Parent.Parent.Parent.Sfx)
 
 local new = Theme.new
@@ -34,6 +35,7 @@ Window.clear = Layout.clear
 Window.recolor = Layout.recolor
 
 local screen: ScreenGui? = nil
+local blurs: { [Frame]: BlurEffect } = {} -- each window's own blur
 
 -- Menus draw above the HUD (bottom bar, quest bar) but under toasts.
 local function menuScreen(): ScreenGui
@@ -46,6 +48,7 @@ local function menuScreen(): ScreenGui
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			Parent = Players.LocalPlayer:WaitForChild("PlayerGui"),
 		})
+		ScreenScale.attach(screen :: ScreenGui)
 	end
 	return screen :: ScreenGui
 end
@@ -109,6 +112,7 @@ function Window.create(title: string, icon: string, onClose: () -> (), height: n
 		Position = UDim2.new(0.5, shift, 0.53, 0),
 		BackgroundColor3 = Window.PanelColor,
 		BackgroundTransparency = 0.16,
+		Active = true, -- clicks on the panel don't fall through to the world/HUD
 		Parent = menuScreen(),
 	}, {
 		Theme.corner(18),
@@ -148,7 +152,9 @@ function Window.create(title: string, icon: string, onClose: () -> (), height: n
 	-- Blur the world behind the window while it's open.
 	local blur = new("BlurEffect", { Name = "MenuBlur", Size = 0, Parent = Lighting })
 	TweenService:Create(blur, TweenInfo.new(0.25), { Size = 16 }):Play()
+	blurs[frame] = blur
 	frame.Destroying:Connect(function()
+		blurs[frame] = nil
 		blur:Destroy()
 	end)
 
@@ -166,7 +172,9 @@ end
 -- Shrinks the window away, then destroys it.
 function Window.dismiss(frame: Frame)
 	local scale = frame:FindFirstChildOfClass("UIScale")
-	local blur = Lighting:FindFirstChild("MenuBlur")
+	-- Dead to clicks while it shrinks (its X must not close the next window).
+	frame.Interactable = false
+	local blur = blurs[frame]
 	if blur then
 		TweenService:Create(blur, TweenInfo.new(0.12), { Size = 0 }):Play()
 	end

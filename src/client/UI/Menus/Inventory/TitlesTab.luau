@@ -86,27 +86,21 @@ local function card(grid: Instance, order: number, t: Titles.Title, data: any)
 		Parent = button,
 	})
 
-	-- Bonus line: icon + "+4 Hops" / "x1.2 Wins".
+	-- Bonus line: icon + "+4 Hops" / "x1.2 Wins", centred as a pair.
 	local bonus = new("Frame", {
-		Size = UDim2.new(1, -16, 0, 30),
-		Position = UDim2.fromOffset(8, 64),
+		Size = UDim2.fromOffset(150, 30),
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.new(0.5, 0, 0, 64),
 		BackgroundTransparency = 1,
 		Parent = button,
-	}, {
-		new("UIListLayout", {
-			FillDirection = Enum.FillDirection.Horizontal,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Padding = UDim.new(0, 4),
-		}),
 	})
-	Icon.new(if t.stat == "hops" then "bolt" else "trophy", { Size = UDim2.fromOffset(28, 28), LayoutOrder = 1, Parent = bonus })
+	Icon.new(if t.stat == "hops" then "bolt" else "trophy", { Size = UDim2.fromOffset(28, 28), Position = UDim2.fromOffset(0, 1), Parent = bonus })
 	local bonusText = Theme.label({
-		Size = UDim2.new(0, 0, 1, 0),
-		AutomaticSize = Enum.AutomaticSize.X,
+		Size = UDim2.new(1, -32, 1, 0),
+		Position = UDim2.fromOffset(32, 0),
 		Text = Titles.bonusText(t),
 		TextColor3 = Color3.fromRGB(120, 245, 90),
-		LayoutOrder = 2,
+		TextXAlignment = Enum.TextXAlignment.Left,
 		Parent = bonus,
 	})
 	Theme.textStroke(3).Parent = bonusText

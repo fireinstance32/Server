@@ -57,8 +57,8 @@ function Scene.build(card: GuiObject, world: Worlds.World)
 	Gradient.apply(river, { WATER:Lerp(Color3.new(1, 1, 1), 0.3), WATER })
 	for i = 1, 6 do
 		new("Frame", {
-			Size = UDim2.fromScale(0.07, 0.55),
-			SizeConstraint = Enum.SizeConstraint.RelativeXX,
+			Size = UDim2.fromScale(1.3, 0.55),
+			SizeConstraint = Enum.SizeConstraint.RelativeYY,
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.08 + i * 0.13, 0.5),
 			BackgroundColor3 = theme.pad,

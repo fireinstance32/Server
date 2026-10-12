@@ -16,13 +16,17 @@ function FollowCamera.start(target: BasePart)
 	FollowCamera.stop()
 	local camera = Workspace.CurrentCamera
 	camera.CameraType = Enum.CameraType.Scriptable
+	-- Smooth our own CFrame, not camera.CFrame, so effects that nudge the
+	-- camera after us (Screen.shake) don't build up frame to frame.
+	local smoothed = camera.CFrame
 	connection = RunService.RenderStepped:Connect(function(dt)
 		if not target.Parent then
 			return
 		end
 		local focus = target.Position
 		local goal = CFrame.lookAt(focus + OFFSET, focus + LOOK_AHEAD)
-		camera.CFrame = camera.CFrame:Lerp(goal, math.min(dt * SMOOTHING, 1))
+		smoothed = smoothed:Lerp(goal, math.min(dt * SMOOTHING, 1))
+		camera.CFrame = smoothed
 	end)
 end
 

@@ -72,8 +72,12 @@ function listContent(n, w, h) {
 
 function sizeOf(n, pw, ph) {
   const s = ud2(n, 'Size', [0, 100, 0, 100]);
-  let w = pw * s[0] + s[1];
-  let h = ph * s[2] + s[3];
+  // SizeConstraint: both scales relative to the parent's width or height.
+  const constraint = P(n, 'SizeConstraint', 'RelativeXY');
+  const sx = constraint === 'RelativeYY' ? ph : pw;
+  const sy = constraint === 'RelativeXX' ? pw : ph;
+  let w = sx * s[0] + s[1];
+  let h = sy * s[2] + s[3];
   const auto = P(n, 'AutomaticSize', 'None');
   if (auto !== 'None' && n.c !== 'ScrollingFrame') {
     const content = listContent(n, w, h);

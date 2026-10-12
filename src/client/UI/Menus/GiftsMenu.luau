@@ -10,6 +10,7 @@ local Net = require(Shared.Net)
 
 local Theme = require(script.Parent.Parent.Theme)
 local Window = require(script.Parent.Window)
+local Hud = require(script.Parent.Parent.Hud)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
 local RewardIcon = require(script.Parent.Parent.Components.RewardIcon)
 
@@ -55,7 +56,12 @@ function GiftsMenu.build(body: Frame)
 			Position = UDim2.new(0, 10, 1, -54),
 			Text = "",
 		}, "Grey", function()
-			Window.report(Net.func("ClaimGift"):InvokeServer(i))
+			local ok, message = Net.func("ClaimGift"):InvokeServer(i)
+			if ok then
+				Hud.reward(gift.reward, gift.label)
+			else
+				Window.report(ok, message)
+			end
 		end)
 		button.Parent = card
 		buttons[i] = button

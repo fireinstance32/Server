@@ -112,7 +112,10 @@ function Toolbar.build(parent: Instance, getData: () -> any, onSort: () -> strin
 	local deleteButton: TextButton
 	local function setArmed(on: boolean)
 		armed = on
-		local caption = deleteButton:FindFirstChild("Caption") :: TextLabel
+		local caption = deleteButton:FindFirstChild("Caption") :: TextLabel?
+		if not caption then
+			return -- the tab was closed meanwhile
+		end
 		caption.Text = if on then "Sure?" else "Delete"
 		Window.recolor(deleteButton, if on then "Yellow" else "Red")
 	end
