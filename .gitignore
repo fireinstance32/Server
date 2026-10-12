@@ -5,9 +5,9 @@
 *.rbxlx.lock
 sourcemap.json
 
-# Obsidian per-user state
-docs/.obsidian/workspace*.json
-docs/.obsidian/cache
+# Obsidian: the vault is the repo root; settings are per-user
+.obsidian/
+.trash/
 
 # OS / editor
 .DS_Store

@@ -22,7 +22,7 @@ Enable *Game Settings → Security → Studio Access to API Services* so progres
 | `src/shared` | Configs (balance), remotes, utilities → ReplicatedStorage.Shared |
 | `src/server` | Services → ServerScriptService.Server |
 | `src/client` | UI + controllers → StarterPlayerScripts.Client |
-| `docs/` | Obsidian vault: design, research, architecture, roadmap, devlog |
+| `docs/` | Obsidian notes (vault = repo root): design, research, architecture, roadmap, devlog |
 | `tools/luau-check` | Offline Luau compile + lint (`npm install && npm run check`) |
 
-Design and architecture details: open `docs/` as an Obsidian vault and start at **Home**.
+Design and architecture details: open `C:\1FrogHop` as an Obsidian vault and start at `docs/Home`.

@@ -4,4 +4,4 @@
 - Balance numbers only in `src/shared/Config/`. Reward maths only in `src/server/Stats.luau`.
 - Server-authoritative: the client never decides rewards. Remotes are declared in `src/shared/Net.luau`.
 - Before committing: `cd tools/luau-check && npm install && npm run check` (must print 0 diagnostics).
-- Keep the Obsidian vault in `docs/` updated: add a devlog note per session, tick items in `docs/Roadmap.md`.
+- The user's Obsidian vault is the repo root (`C:\1FrogHop`); notes live in `docs/`. Keep them updated: add a devlog note per session, tick items in `docs/Roadmap.md`.
