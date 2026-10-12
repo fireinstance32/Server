@@ -3,6 +3,7 @@
 -- x7 → x9), like the reference game.
 
 local WorldContent = require(script.Parent.WorldContent) :: { any }
+local Events = require(script.Parent.Events) :: any
 
 export type Rarity = "Common" | "Uncommon" | "Rare" | "Epic" | "Legendary" | "Rainbow"
 
@@ -24,6 +25,7 @@ export type Egg = {
 	color: Color3,
 	position: Vector3, -- local position within its world's layout
 	world: string?, -- nil = Lily Valley
+	event: string?, -- seasonal event id: price is in that event's currency
 	pets: { EggEntry },
 }
 
@@ -143,18 +145,13 @@ for _, content in WorldContent do
 	end
 end
 
--- Old pet ids from the v0.1 test build, converted on load so nobody loses pets.
-local Legacy: { [string]: string } = {
-	Fly = "PebblePup",
-	Snail = "CloverBun",
-	Dragonfly = "BrookOtter",
-	Turtle = "MossTurtle",
-	Duck = "LilyFrogling",
-	Fish = "ReedFox",
-	Crab = "PondPanda",
-	Axolotl = "CrystalAxolotl",
-	RainbowToad = "RainbowFrog",
-}
+-- Seasonal event pets and eggs (Config/Events); event eggs stand in Lily Valley.
+for _, event in Events.List do
+	for _, p in event.pets do
+		table.insert(Pets, p :: Pet)
+	end
+	table.insert(Eggs, event.egg :: Egg)
+end
 
 -- Multi-hatch: how many eggs at once each pass allows (reference "+3 / +8").
 local MultiHatch = {
@@ -192,6 +189,5 @@ return {
 	RarityColors = RarityColors,
 	RarityOrder = RarityOrder,
 	LuckMinRarity = LuckMinRarity,
-	Legacy = Legacy,
 	MultiHatch = MultiHatch,
 }

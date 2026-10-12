@@ -50,6 +50,7 @@ local function processReceipt(receipt)
 		return Enum.ProductPurchaseDecision.NotProcessedYet
 	end
 	rememberReceipt(data, receipt.PurchaseId)
+	data.stats.robuxSpent += receipt.CurrencySpent or 0 -- Top Robux Spent board
 	DataService.changed(player)
 	DataService.saveNow(player)
 	return Enum.ProductPurchaseDecision.PurchaseGranted
@@ -92,6 +93,10 @@ function MonetizationService.start()
 		local name = Passes.nameForId(passId)
 		if purchased and name then
 			Passes.grant(player, name)
+			local data = DataService.get(player)
+			if data then
+				data.stats.robuxSpent += Monetization.Passes[name].price
+			end
 			DataService.changed(player)
 		end
 	end)

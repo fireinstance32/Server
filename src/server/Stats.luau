@@ -12,6 +12,7 @@ local Levels = require(Shared.Config.Levels)
 local Ponds = require(Shared.Config.Ponds)
 local Trails = require(Shared.Config.Trails)
 local Potions = require(Shared.Config.Potions)
+local Events = require(Shared.Config.Events)
 local Multipliers = require(Shared.Util.Multipliers)
 
 local Passes = require(script.Parent.Passes)
@@ -178,6 +179,11 @@ end
 function Stats.perBounce(data: any): number
 	local frog = Frogs.ById[data.equippedFrog] or Frogs.ById[Frogs.Default]
 	return frog.perBounce
+end
+
+-- Seasonal event currency for a river hop that reached `zoneIndex`.
+function Stats.eventCurrency(_player: Player, _data: any, zoneIndex: number): number
+	return zoneIndex * Events.CurrencyPerZone
 end
 
 function Stats.maxPetInventory(player: Player): number

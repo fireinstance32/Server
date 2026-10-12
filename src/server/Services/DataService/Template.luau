@@ -4,9 +4,21 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Frogs = require(Shared.Config.Frogs)
-local Pets = require(Shared.Config.Pets)
 
 local Template = {}
+
+-- Old pet ids from the v0.1 test build, converted on load so nobody loses pets.
+local Legacy: { [string]: string } = {
+	Fly = "PebblePup",
+	Snail = "CloverBun",
+	Dragonfly = "BrookOtter",
+	Turtle = "MossTurtle",
+	Duck = "LilyFrogling",
+	Fish = "ReedFox",
+	Crab = "PondPanda",
+	Axolotl = "CrystalAxolotl",
+	RainbowToad = "RainbowFrog",
+}
 
 function Template.new()
 	return {
@@ -60,7 +72,7 @@ function Template.reconcile(data: any)
 	end
 	-- Convert pets from the v0.1 test build to their new ids.
 	for _, pet in data.pets do
-		local newId = Pets.Legacy[pet.id]
+		local newId = Legacy[pet.id]
 		if newId then
 			pet.id = newId
 		end

@@ -1,41 +1,23 @@
--- Chat commands for playtesting. Type /help in chat (Studio only by default).
--- Every command edits the profile through the same path real gameplay uses.
+-- The playtest chat commands (/help lists them). Each edits the profile;
+-- DevService handles chat, permissions and replies.
 
-local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local RunService = game:GetService("RunService")
-local TextChatService = game:GetService("TextChatService")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
-local Dev = require(Shared.Config.Dev)
 local Levels = require(Shared.Config.Levels)
 local Frogs = require(Shared.Config.Frogs)
 local Game = require(Shared.Config.Game)
 local Ponds = require(Shared.Config.Ponds)
 local Worlds = require(Shared.Config.Worlds)
 local Potions = require(Shared.Config.Potions)
-local Net = require(Shared.Net)
-
-local DataService = require(script.Parent.DataService)
-local MonetizationService = require(script.Parent.MonetizationService)
-local WorldService = require(script.Parent.WorldService)
-local Passes = require(script.Parent.Parent.Passes)
+local Events = require(Shared.Config.Events)
 local Monetization = require(Shared.Config.Monetization)
-local PetService = require(script.Parent.PetService)
 
-local DevService = {}
-
-local function allowed(player: Player): boolean
-	if RunService:IsStudio() and Dev.EnabledInStudio then
-		return true
-	end
-	return table.find(Dev.AllowedUserIds, player.UserId) ~= nil
-end
-
-local function say(player: Player, text: string)
-	print(`[Dev] {player.Name}: {text}`)
-	Net.event("Notify"):FireClient(player, { kind = "Dev", text = text })
-end
+local DataService = require(script.Parent.Parent.DataService)
+local MonetizationService = require(script.Parent.Parent.MonetizationService)
+local WorldService = require(script.Parent.Parent.WorldService)
+local PetService = require(script.Parent.Parent.PetService)
+local Passes = require(script.Parent.Parent.Parent.Passes)
 
 local function number(arg: string?): number?
 	local n = tonumber(arg)
@@ -45,7 +27,7 @@ local function number(arg: string?): number?
 	return nil
 end
 
-type Command = { usage: string, run: (Player, any, { string }) -> string }
+export type Command = { usage: string, run: (Player, any, { string }) -> string }
 
 local COMMANDS: { [string]: Command } = {
 	hops = {
@@ -169,6 +151,30 @@ local COMMANDS: { [string]: Command } = {
 			return "Pretending a day has passed"
 		end,
 	},
+	event = {
+		usage = "/event <id|none|auto> [n]  force an event on/off, or give n event currency",
+		run = function(_, data, args)
+			local arg = args[1]
+			if arg == "auto" then
+				ReplicatedStorage:SetAttribute(Events.OverrideAttribute, nil)
+				return "Events follow the calendar again"
+			elseif arg == "none" then
+				ReplicatedStorage:SetAttribute(Events.OverrideAttribute, "none")
+				return "No event running"
+			end
+			for _, event in Events.List do
+				if string.lower(event.id) == arg or string.lower(event.name) == arg then
+					ReplicatedStorage:SetAttribute(Events.OverrideAttribute, event.id)
+					if data.event.id ~= event.id then
+						data.event = { id = event.id, currency = 0 }
+					end
+					data.event.currency += number(args[2]) or 0
+					return `{event.name} is running ({data.event.currency} {event.currency})`
+				end
+			end
+			return "Unknown event (see Config/Events)"
+		end,
+	},
 	reset = {
 		usage = "/reset  wipe your data to a new player",
 		run = function(player)
@@ -179,67 +185,4 @@ local COMMANDS: { [string]: Command } = {
 	},
 }
 
-local function onChatted(player: Player, message: string)
-	if string.sub(message, 1, 1) ~= "/" or not allowed(player) then
-		return
-	end
-	local words = string.split(string.lower(string.sub(message, 2)), " ")
-	local name = table.remove(words, 1)
-	if name == "help" then
-		local lines = {}
-		for _, command in COMMANDS do
-			table.insert(lines, command.usage)
-		end
-		table.sort(lines)
-		say(player, table.concat(lines, "\n"))
-		return
-	end
-	local command = name and COMMANDS[name]
-	local data = DataService.get(player)
-	if not command or not data then
-		return
-	end
-	local result = command.run(player, data, words)
-	if name ~= "reset" then
-		DataService.changed(player)
-	end
-	say(player, result)
-end
-
-function DevService.start()
-	if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
-		-- Modern chat: register real chat commands (they fire on the server).
-		local folder = Instance.new("Folder")
-		folder.Name = "DevCommands"
-		local names = { "help" }
-		for name in COMMANDS do
-			table.insert(names, name)
-		end
-		for _, name in names do
-			local command = Instance.new("TextChatCommand")
-			command.Name = "Dev_" .. name
-			command.PrimaryAlias = "/" .. name
-			command.Triggered:Connect(function(source: TextSource, message: string)
-				local player = Players:GetPlayerByUserId(source.UserId)
-				if player then
-					onChatted(player, message)
-				end
-			end)
-			command.Parent = folder
-		end
-		folder.Parent = TextChatService
-	else
-		-- Legacy chat fallback.
-		local function hook(player: Player)
-			player.Chatted:Connect(function(message)
-				onChatted(player, message)
-			end)
-		end
-		Players.PlayerAdded:Connect(hook)
-		for _, player in Players:GetPlayers() do
-			hook(player)
-		end
-	end
-end
-
-return DevService
+return COMMANDS

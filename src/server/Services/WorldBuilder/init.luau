@@ -15,6 +15,7 @@ local Stands = require(script.Stands)
 local PondRow = require(script.PondRow)
 local FrogPodiums = require(script.FrogPodiums)
 local Portals = require(script.Portals)
+local Leaderboards = require(script.Leaderboards)
 
 local WorldBuilder = {}
 
@@ -42,6 +43,7 @@ function WorldBuilder.init()
 		PondRow.build(world)
 		FrogPodiums.build(world, config)
 		Portals.build(world, config)
+		Leaderboards.build(world)
 		world:TranslateBy(Worlds.offset(config))
 		world.Parent = root
 	end

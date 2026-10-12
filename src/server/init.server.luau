@@ -24,6 +24,9 @@ local ORDER = {
 	"WorldService",
 	"PetService",
 	"ProgressionService",
+	"LeaderboardService",
+	"AnalyticsTracker",
+	"EventService",
 	"DevService",
 }
 

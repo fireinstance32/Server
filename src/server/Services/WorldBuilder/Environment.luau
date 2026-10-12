@@ -64,6 +64,14 @@ local function buildGround(world: Model, config: Worlds.World)
 			end
 		end
 	end
+	-- Performance (8.5): hundreds of small props per world; they don't need
+	-- shadows or to be hit by raycasts.
+	for _, part in props:GetDescendants() do
+		if part:IsA("BasePart") then
+			part.CastShadow = false
+			part.CanQuery = false
+		end
+	end
 
 	-- Start plaza west of the river.
 	Parts.block("Plaza", Vector3.new(260, 6, 380), CFrame.new(-130, Parts.GroundTop - 3, 0), Parts.Colors.Grass, world, Enum.Material.Grass)

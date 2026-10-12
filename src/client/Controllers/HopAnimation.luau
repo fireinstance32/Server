@@ -16,6 +16,7 @@ local Zones = require(Shared.Config.Zones)
 local Ponds = require(Shared.Config.Ponds)
 local Worlds = require(Shared.Config.Worlds)
 local Trails = require(Shared.Config.Trails)
+local Events = require(Shared.Config.Events)
 local Format = require(Shared.Util.Format)
 local Models = require(Shared.Util.Models)
 
@@ -168,6 +169,10 @@ function HopAnimation.playLaunch(result)
 
 	Hud.distance.set(result.meters, result.newBest)
 	local subtitle = `{result.meters} m  •  +{Format.abbreviate(result.winsGained)} Wins`
+	if result.eventGained and result.eventGained > 0 then
+		local event = Events.active(Workspace:GetServerTimeNow(), ReplicatedStorage:GetAttribute(Events.OverrideAttribute))
+		subtitle ..= `  •  +{result.eventGained} {if event then event.icon else "🎉"}`
+	end
 	if result.newBest then
 		subtitle ..= "  •  NEW BEST!"
 	end

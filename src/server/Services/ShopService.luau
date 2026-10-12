@@ -7,6 +7,7 @@ local Frogs = require(Shared.Config.Frogs)
 local Worlds = require(Shared.Config.Worlds)
 
 local DataService = require(script.Parent.DataService)
+local AnalyticsTracker = require(script.Parent.AnalyticsTracker)
 local Remotes = require(script.Parent.Parent.Remotes)
 
 local ShopService = {}
@@ -38,6 +39,7 @@ local function buyFrog(player: Player, frogId: unknown): (boolean, string)
 	end
 
 	data.wins -= frog.price
+	AnalyticsTracker.spend(player, frog.price, data.wins, "Frog", frog.id)
 	data.frogs[frog.id] = true
 	data.equippedFrog = frog.id
 	DataService.changed(player)

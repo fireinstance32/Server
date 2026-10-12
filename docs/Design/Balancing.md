@@ -81,6 +81,13 @@ Hatch 1 by default; 3 / 8 at once with the HatchTriple / HatchOcto passes. Inven
 | Rainbow | Robux 99 | +10 |
 | Void | Robux 149 | +15 |
 
+## Events
+| Event | Dates (UTC) | Currency | Egg (cost) | Pets (bonus, weight) |
+|---|---|---|---|---|
+| Halloween | 24 Oct – 3 Nov 2026 | Candy Corn: zone number per river hop | Pumpkin Egg (25) | Candy Bat +20 (55), Pumpkin Cat +50 (30), Ghost Frog +150 (13), Spooky Dragon +500 (2) |
+
+Event currency resets when the next event starts; event pets are kept forever.
+
 ## Retention numbers
 - Potions: x2 for 10 min, stacking time.
 - Offline training: 0.8 pads/s × frog Hops/pad × multiplier, from 1 min up to 8 h (x2 with OfflineDouble).

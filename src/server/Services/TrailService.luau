@@ -7,6 +7,7 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Trails = require(Shared.Config.Trails)
 
 local DataService = require(script.Parent.DataService)
+local AnalyticsTracker = require(script.Parent.AnalyticsTracker)
 local Remotes = require(script.Parent.Parent.Remotes)
 
 local TrailService = {}
@@ -33,6 +34,7 @@ local function buy(player: Player, trailId: unknown): (boolean, string)
 		return false, "Not enough Wins"
 	end
 	data.wins -= trail.price
+	AnalyticsTracker.spend(player, trail.price, data.wins, "Trail", trail.id)
 	TrailService.grant(data, trail.id)
 	DataService.changed(player)
 	return true, `Unlocked {trail.name}!`

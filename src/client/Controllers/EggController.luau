@@ -101,16 +101,23 @@ local function toggleAuto()
 	end
 	autoEgg = egg.id
 	Hud.toast(`Auto hatch ON: {egg.name} (T to stop)`, Theme.Colors.DarkGreen)
+	-- Wins, or the event currency for event eggs.
+	local function balance(data): number
+		if egg.event then
+			return if data.event and data.event.id == egg.event then data.event.currency else 0
+		end
+		return data.wins
+	end
 	task.spawn(function()
 		while autoEgg == egg.id do
 			local here = nearestEgg()
 			local data = State.data
-			if not here or here.id ~= egg.id or not data or data.wins < egg.price then
+			if not here or here.id ~= egg.id or not data or balance(data) < egg.price then
 				autoEgg = nil
 				Hud.toast("Auto hatch stopped", Theme.Colors.Ink)
 				break
 			end
-			local count = math.min(multiCount(), math.floor(data.wins / math.max(egg.price, 1)))
+			local count = math.min(multiCount(), math.floor(balance(data) / math.max(egg.price, 1)))
 			count = if count >= 8 then 8 elseif count >= 3 then 3 else 1
 			if not EggController.hatch(egg.id, count, true) then
 				autoEgg = nil

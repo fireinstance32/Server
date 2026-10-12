@@ -14,6 +14,7 @@ function Parts.block(name: string, size: Vector3, cframe: CFrame, color: Color3,
 	local p = Instance.new("Part")
 	p.Name = name
 	p.Anchored = true
+	p.CanTouch = false -- nothing uses Touched; saves physics work (8.5)
 	p.Size = size
 	p.CFrame = cframe
 	p.Color = color

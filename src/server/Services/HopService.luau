@@ -15,6 +15,7 @@ local Stats = require(script.Parent.Parent.Stats)
 local DataService = require(script.Parent.DataService)
 local ProgressionService = require(script.Parent.ProgressionService)
 local HeldFrogService = require(script.Parent.HeldFrogService)
+local EventService = require(script.Parent.EventService)
 local Passes = require(script.Parent.Parent.Passes)
 local Remotes = require(script.Parent.Parent.Remotes)
 
@@ -46,6 +47,7 @@ local function launch(player: Player, data: any, world: Worlds.World)
 	local context = { mode = "Launch", zone = zone.index }
 	local hopsGained = math.floor(bounces * Stats.perBounce(data) * Stats.hopsMultiplier(player, data, context))
 	local winsGained = math.floor(zone.wins * Stats.winsMultiplier(player, data, context))
+	local eventGained = EventService.launchReward(player, data, zone.index)
 	local flight = Game.flightTime(bounces)
 	local previousBest = data.bestDistance
 
@@ -63,6 +65,7 @@ local function launch(player: Player, data: any, world: Worlds.World)
 		data.wins += winsGained
 		data.stats.winsEarned += winsGained
 		data.stats.launches += 1
+		EventService.award(data, eventGained)
 		ProgressionService.addXp(player, data, bounces)
 		if distance > data.bestDistance then
 			data.bestDistance = distance
@@ -83,6 +86,7 @@ local function launch(player: Player, data: any, world: Worlds.World)
 		zoneName = zone.name,
 		hopsGained = hopsGained,
 		winsGained = winsGained,
+		eventGained = eventGained,
 		flightTime = flight,
 	}
 end

@@ -12,6 +12,8 @@ local Hatch = require(Shared.Util.Hatch)
 local Stats = require(script.Parent.Parent.Parent.Stats)
 local Passes = require(script.Parent.Parent.Parent.Passes)
 local DataService = require(script.Parent.Parent.DataService)
+local AnalyticsTracker = require(script.Parent.Parent.AnalyticsTracker)
+local EventService = require(script.Parent.Parent.EventService)
 local Management = require(script.Parent.Management)
 
 local Hatching = {}
@@ -103,7 +105,7 @@ function Hatching.hatch(player: Player, eggId: unknown, count: unknown): (boolea
 		return false, `You need the +{n} Eggs pass`
 	end
 	local cost = egg.price * n
-	if data.wins < cost then
+	if not egg.event and data.wins < cost then
 		return false, "Not enough Wins"
 	end
 	local total = inventoryCount(data)
@@ -111,7 +113,15 @@ function Hatching.hatch(player: Player, eggId: unknown, count: unknown): (boolea
 		return false, "Your pet inventory is full"
 	end
 
-	data.wins -= cost
+	if egg.event then
+		local paid, message = EventService.spend(data, egg.event, cost)
+		if not paid then
+			return false, message
+		end
+	else
+		data.wins -= cost
+		AnalyticsTracker.spend(player, cost, data.wins, "Egg", egg.id)
+	end
 	local results = Hatching.grant(player, data, egg, n)
 	DataService.changed(player)
 	-- Models refresh is done by PetService (it requires this module, not the reverse).

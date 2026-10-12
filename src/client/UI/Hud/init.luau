@@ -27,6 +27,7 @@ local PotionTimers = require(script.PotionTimers)
 local TopRight = require(script.TopRight)
 local QuestBar = require(script.QuestBar)
 local TipTicker = require(script.TipTicker)
+local EventBanner = require(script.EventBanner)
 
 local Hud = {}
 
@@ -103,6 +104,7 @@ function Hud.init(callbacks: {
 	DistanceMeter.init(gui)
 	PotionTimers.init(gui)
 	TopRight.init(gui, callbacks.openMenu)
+	EventBanner.init(gui)
 	QuestBar.init(gui)
 	TipTicker.init(gui)
 	Popups.init(gui)

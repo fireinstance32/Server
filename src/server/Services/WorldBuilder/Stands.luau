@@ -5,6 +5,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Pets = require(Shared.Config.Pets)
 local Worlds = require(Shared.Config.Worlds)
+local Events = require(Shared.Config.Events)
 local Format = require(Shared.Util.Format)
 local Models = require(Shared.Util.Models)
 
@@ -38,7 +39,9 @@ local function buildStands(world: Model, config: Worlds.World)
 			egg.position,
 			Color3.fromRGB(240, 230, 210),
 			"Hatch",
-			if egg.product then `{egg.name} (Robux)` else `{egg.name} ({Format.abbreviate(egg.price)} Wins)`
+			if egg.product then `{egg.name} (Robux)`
+				elseif egg.event then `{egg.name} ({egg.price} {Events.ById[egg.event].currency})`
+				else `{egg.name} ({Format.abbreviate(egg.price)} Wins)`
 		)
 		local prompt = stand:FindFirstChildOfClass("ProximityPrompt") :: ProximityPrompt
 		prompt:SetAttribute("EggId", egg.id)

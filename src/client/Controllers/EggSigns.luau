@@ -8,6 +8,7 @@ local Workspace = game:GetService("Workspace")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Pets = require(Shared.Config.Pets)
 local Worlds = require(Shared.Config.Worlds)
+local Events = require(Shared.Config.Events)
 local Format = require(Shared.Util.Format)
 local Hatch = require(Shared.Util.Hatch)
 
@@ -39,6 +40,7 @@ local function buildSign(egg: Pets.Egg, anchor: BasePart, container: Instance)
 		Size = UDim2.new(1, 0, 0, 26),
 		Text = if egg.product
 			then `\u{E002} {Purchases.price("product", egg.product)}`
+			elseif egg.event then `{Events.ById[egg.event].icon} {egg.price} {Events.ById[egg.event].currency}`
 			else `🏆 {Format.abbreviate(egg.price)} Wins`,
 		TextColor3 = Theme.Colors.Gold,
 		Font = Enum.Font.BuilderSansBold,
@@ -67,6 +69,11 @@ local function buildSign(egg: Pets.Egg, anchor: BasePart, container: Instance)
 	})
 
 	return function(data)
+		if egg.event then
+			-- Event egg signs only show while their event runs.
+			local active = Events.active(Workspace:GetServerTimeNow(), ReplicatedStorage:GetAttribute(Events.OverrideAttribute))
+			gui.Enabled = active ~= nil and active.id == egg.event
+		end
 		local luck = if data.multipliers and data.multipliers.luck then data.multipliers.luck.total else 1
 		local chances = Hatch.chances(egg.pets, Hatch.weights(egg.pets, luck, isLucky))
 		for petId, row in rows do
@@ -89,6 +96,13 @@ function EggSigns.init()
 	State.observe(function(data)
 		for _, refresh in refreshers do
 			refresh(data)
+		end
+	end)
+	ReplicatedStorage:GetAttributeChangedSignal(Events.OverrideAttribute):Connect(function()
+		if State.data then
+			for _, refresh in refreshers do
+				refresh(State.data)
+			end
 		end
 	end)
 end
