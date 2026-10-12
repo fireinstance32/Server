@@ -103,6 +103,16 @@ local MODIFIERS: { Modifier } = {
 			return if trail then trail.bonus else nil
 		end,
 	},
+	{
+		id = "friends",
+		label = "Friend Boost",
+		stat = "hops",
+		kind = "add",
+		value = function(player)
+			local boost = player:GetAttribute("FriendBoost")
+			return if typeof(boost) == "number" and boost > 0 then boost else nil
+		end,
+	},
 	{ id = "doubleHops", label = "2x Hops", stat = "hops", kind = "mult", value = passFactor("DoubleHops", 2) },
 	{ id = "doubleWins", label = "2x Wins", stat = "wins", kind = "mult", value = passFactor("DoubleWins", 2) },
 }

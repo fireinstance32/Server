@@ -16,12 +16,12 @@ tags: [planning, phase3]
 - [x] 7-day calendar (UTC days, miss a day → Day 1), streak saved; Day 2 Fortune Neko pet, Day 7 limited Shooting Star Frog
 - [x] Auto-opens on join when a reward is ready; 📅 button top-right with "!" badge; `/daily next` to test
 
-## 3.4 Offline training
-- [ ] Hops earned while away (rate × hours, capped), "Welcome back" pop-up
-- [ ] Hook for an "Offline x2" product (Phase 4)
+## 3.4 Offline training ✅ (2026-10-12)
+- [x] Hops earned while away (0.8 pads/s × frog × multiplier, ≥1 min, max 8 h), "Welcome back" banner
+- [x] "Offline Rewards x2" pass (OfflineDouble) wired
 
-## 3.5 Friend Boost
-- [ ] +X% per friend in the server (via 1.1), invite button
+## 3.5 Friend Boost ✅ (2026-10-12)
+- [x] +10% per friend in the server, max +50% (via 1.1); invite button on the HUD
 
 ## 3.6 Playtime gifts
 - [ ] Claimable gifts every N minutes, Gifts menu

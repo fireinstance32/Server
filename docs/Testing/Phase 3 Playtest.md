@@ -20,3 +20,11 @@ status: draft
 - [ ] `/daily next` → Day 2 claimable → Fortune Neko pet arrives (+5)
 - [ ] Repeat to Day 7 → Shooting Star Frog unlocked (its podium sign says "🎁 Daily Day 7", can't be bought)
 - [ ] `/daily next` twice in a row without claiming → back to Day 1 (missed a day)
+
+## 3.4 Offline training
+- [ ] Leave the game for 2+ minutes (in Studio: stop, wait, Play again with API access on) → "Welcome back! 🐸 You trained offline for Nm: +X Hops" banner and Hops went up
+- [ ] Under 1 minute away → nothing
+
+## 3.5 Friend Boost
+- [ ] Alone: "Friend Boost +0%"
+- [ ] With a Roblox friend in the same server: "+10%" each (max +50%), and "Friend Boost" appears in the multiplier breakdown (needs a live server with a real friend; Studio test players aren't friends)

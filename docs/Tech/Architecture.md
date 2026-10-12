@@ -27,6 +27,8 @@ Rojo maps:
   - `TrailService` – buy/equip trails; Robux trail grants.
   - `PotionService` – potion inventory, use (stacking time), expiry loop.
   - `DailyService` – 7-day calendar claims.
+  - `OfflineService` – welcome-back offline training grant (on `DataService.Loaded`).
+  - `FriendService` – "FriendBoost" attribute from friends in the server.
   - `PetService/` – `init` (equip, Equip Best, pet models in `Workspace.Pets.<UserId>`) · `Hatching` (1/3/8 hatch, luck, discovered, Robux eggs) · `Management` (delete, lock, auto delete)
   - `MonetizationService` – receipts, pass purchases.
   - `DevService` – Studio-only test commands (see [[Testing Guide]]).
@@ -84,4 +86,5 @@ end },
 | Pond (training only) | hops | mult = pond multiplier |
 | Trail | hops | add trail bonus |
 | Potions | hops / wins / luck | mult x2 while active |
+| Friend Boost | hops | add 0.1 per friend (max 0.5) |
 | 2x Wins pass | wins | mult 2 |

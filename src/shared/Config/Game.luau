@@ -43,6 +43,25 @@ Game.MaxVisualHops = 40
 Game.SecondsPerVisualHop = 0.18
 Game.LandingPause = 0.6
 
+-- Offline training: while logged out you keep training at a fraction of
+-- the online rate (online ≈ 8 pads/s), capped at OfflineMaxHours.
+Game.OfflinePadsPerSecond = 0.8
+Game.OfflineMaxHours = 8
+Game.OfflineMinSeconds = 60 -- shorter breaks don't count
+
+function Game.offlineHops(seconds: number, perBounce: number, multiplier: number, doubled: boolean): number
+	if seconds < Game.OfflineMinSeconds then
+		return 0
+	end
+	local capped = math.min(seconds, Game.OfflineMaxHours * 3600)
+	local hops = capped * Game.OfflinePadsPerSecond * perBounce * multiplier
+	return math.floor(if doubled then hops * 2 else hops)
+end
+
+-- Friend Boost: +FriendBoostEach per friend in the server, up to the max.
+Game.FriendBoostEach = 0.1
+Game.FriendBoostMax = 0.5
+
 -- Pets
 Game.MaxEquippedPets = 3
 Game.MaxPetInventory = 50

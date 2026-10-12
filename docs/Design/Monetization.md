@@ -17,6 +17,7 @@ All items live in `src/shared/Config/Monetization.luau` as `{ id, price, label }
 | ExtraPetSlots | +2 equipped pets | 149 | wired |
 | HatchTriple / HatchOcto | Hatch 3 / 8 eggs at once | 149 / 399 | wired |
 | PetStorage | +100 pet inventory | 99 | wired |
+| OfflineDouble | Offline training x2 | 79 | wired |
 | PondGolden / PondRainbow / PondCosmic | Unlock the 3x / 15x / 50x training ponds (all worlds) | 90 / 225 / 540 | wired |
 
 ## Developer products

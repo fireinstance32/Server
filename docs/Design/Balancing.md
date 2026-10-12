@@ -70,6 +70,11 @@ Hatch 1 by default; 3 / 8 at once with the HatchTriple / HatchOcto passes. Inven
 | Rainbow | Robux 99 | +10 |
 | Void | Robux 149 | +15 |
 
+## Retention numbers
+- Potions: x2 for 10 min, stacking time.
+- Offline training: 0.8 pads/s × frog Hops/pad × multiplier, from 1 min up to 8 h (x2 with OfflineDouble).
+- Friend Boost: +10% per friend in the server, max +50% (added to the multiplier).
+
 ## Open questions
 - [ ] Playtest time-to-Zone-9 for a new player (target: ~25 min)
 - [ ] Is the late game too fast once Royal Frog + pets stack?

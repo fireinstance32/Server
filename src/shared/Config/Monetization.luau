@@ -15,6 +15,7 @@ local Passes: { [string]: Item } = {
 	HatchTriple = { id = 0, price = 149, label = "+3 Eggs (hatch 3 at once)" },
 	HatchOcto = { id = 0, price = 399, label = "+8 Eggs (hatch 8 at once)" },
 	PetStorage = { id = 0, price = 99, label = "+100 Pet Storage" },
+	OfflineDouble = { id = 0, price = 79, label = "Offline Rewards x2" },
 	-- Robux training ponds (Config/Ponds), valid in all worlds.
 	PondGolden = { id = 0, price = 90, label = "Golden Pond (3x)" },
 	PondRainbow = { id = 0, price = 225, label = "Rainbow Pond (15x)" },

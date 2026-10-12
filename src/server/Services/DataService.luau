@@ -42,6 +42,7 @@ local function template()
 		potions = {}, -- [potionId] = count
 		activePotions = {}, -- [potionId] = expiry (os.time)
 		daily = { lastDay = 0, streak = 0 }, -- UTC day number of the last claim
+		lastSeen = 0, -- os.time() of the last save (offline training)
 		nextPetUid = 1,
 		codes = {}, -- [code: string] = true
 	}
@@ -129,7 +130,7 @@ local function snapshot(player: Player, data: any)
 		daily = dailyStatus(data),
 		equippedTrail = data.equippedTrail,
 		passes = Passes.ownedList(player),
-		friendBoost = 0, -- filled in by Phase 3.5
+		friendBoost = player:GetAttribute("FriendBoost") or 0,
 	}
 end
 
@@ -150,6 +151,10 @@ end
 local changedEvent = Instance.new("BindableEvent")
 DataService.Changed = changedEvent.Event
 
+-- Fires (player, data) once a player's profile has loaded.
+local loadedEvent = Instance.new("BindableEvent")
+DataService.Loaded = loadedEvent.Event
+
 function DataService.changed(player: Player)
 	local data = profiles[player]
 	if not data then
@@ -165,6 +170,7 @@ local function save(player: Player)
 	if not data or not store or not loaded[player] then
 		return
 	end
+	data.lastSeen = os.time()
 	local ok, err = retry(3, function()
 		return (store :: DataStore):UpdateAsync(keyFor(player), function()
 			return data
@@ -199,6 +205,7 @@ local function onPlayerAdded(player: Player)
 	end
 	profiles[player] = data
 	DataService.changed(player)
+	loadedEvent:Fire(player, data)
 end
 
 local function onPlayerRemoving(player: Player)

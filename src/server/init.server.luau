@@ -17,6 +17,8 @@ local ORDER = {
 	"TrailService",
 	"PotionService",
 	"DailyService",
+	"OfflineService",
+	"FriendService",
 	"PetService",
 	"ProgressionService",
 	"DevService",

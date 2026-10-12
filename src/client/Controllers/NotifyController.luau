@@ -5,6 +5,7 @@ local SoundService = game:GetService("SoundService")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Sounds = require(Shared.Config.Sounds)
+local Format = require(Shared.Util.Format)
 local Net = require(Shared.Net)
 
 local Hud = require(script.Parent.Parent.UI.Hud)
@@ -37,6 +38,13 @@ function NotifyController.init()
 			for _, line in string.split(payload.text, "\n") do
 				Hud.toast(line, Theme.Colors.Ink)
 			end
+		elseif payload.kind == "Offline" then
+			local hours = payload.seconds // 3600
+			local minutes = (payload.seconds % 3600) // 60
+			local away = if hours > 0 then `{hours}h {minutes}m` else `{minutes}m`
+			task.delay(1, function()
+				Hud.banner("Welcome back! 🐸", `You trained offline for {away}: +{Format.abbreviate(payload.hops)} Hops`, Theme.Colors.Gold)
+			end)
 		elseif payload.kind == "LevelUp" then
 			NotifyController.playSound("LevelUp")
 			if payload.maxed then
