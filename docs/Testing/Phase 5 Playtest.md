@@ -20,16 +20,22 @@ status: ready
 - [ ] Buttons and tiles grow a little on hover and squish on click
 - [ ] Clicking "x… Multiplier" opens the breakdown above it (sized to its lines)
 - [ ] On a pond: AUTO REBIRTH button with icon and "ONLY ⏣ 99" (or ON/OFF if owned)
-- [ ] Toasts are rounded coloured pills; the landing banner appears mid-screen, not over the distance meter
+- [ ] Toasts are coloured outlined text (no pill) under the quest bar, or at the very top while a menu is open; the landing banner appears mid-screen
 
 ## Menus
-- [ ] Every menu: world is blurred behind it, translucent panel, big 3D icon top-left, red X top-right; the tip ticker hides while it's open
+- [ ] Every menu pops in (and shrinks away on close), world blurred behind it, big icon top-left, red X top-right; Auto Hop, quest bar, tips and the bottom bar hide while it's open and come back after
 - [ ] Rebirth window is short (no empty space); bolt cards, studded progress bar
 - [ ] Daily Rewards: orange DAY tabs, reward pictures, CLAIMED overlays on past days, today outlined green, rainbow Day 7 "Limited!"
-- [ ] Shop: Starter Pack icon + content tiles with icons; pass rows with icons
+- [ ] Shop: Starter Pack; gamepasses as coloured cards in 2 columns with a gift button (giftable ones) and price/OWNED; Hops packs 2×2; the gift button opens a player list (test with 2 players)
+- [ ] Inventory: big tabs left of the window; title changes to My Frogs / My Pets / My Trails / My Boosts / My Titles
+- [ ] My Pets: click a tile → left panel shows it on spinning rays with EQUIP/UNEQUIP, lock, delete; trash "Auto" opens the rarity toggles; Delete asks "Sure?"; sort icon cycles; INDEX swaps the grid
+- [ ] My Boosts: click a potion → white card shows it; USE uses one; timer shows on the tile while active
+- [ ] My Titles: "N / 27 Titles"; first throw unlocks Tadpole (toast + appears unlocked); clicking it shows it above your head for everyone; the boost shows in the multiplier breakdown
+- [ ] Worlds (globe, top right): World 1 says YOU ARE HERE; locked worlds say NEEDS … HOPS and LOCKED; with enough Hops it says UNLOCK and teleports
 
 ## Settings & pets
-- [ ] Gear button (top right) opens Settings; each toggle flips ON/OFF and stays after rejoining
+- [ ] Gear button (top right) opens Settings; volume sliders drag smoothly and save on release; each toggle flips ON/OFF; everything stays after rejoining
+- [ ] Camera Shake OFF: no shake on landings / ultimate hop; ON: a small thump per landing, a big one on the ultimate
 - [ ] Sound effects OFF: no UI/game sounds; Big effects OFF: no droplets/confetti (ripples stay); other players' pets OFF: their pets vanish for you only (test with 2 players)
 - [ ] My Pets: Sort cycles Best → Rarity → Name (equipped stay first); INDEX shows every pet, unhatched as black silhouettes with ???
 

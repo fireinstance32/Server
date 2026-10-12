@@ -21,7 +21,7 @@ type Spec = { title: string, icon: string, height: number?, tabs: boolean?, buil
 
 local MENUS: { [string]: Spec } = {
 	Shop = { title = "Shop", icon = "shop", build = ShopMenu.build },
-	Rebirth = { title = "Rebirth", icon = "rebirth", height = 0.5, build = RebirthMenu.build },
+	Rebirth = { title = "Rebirth", icon = "rebirth", height = 0.45, build = RebirthMenu.build },
 	Pets = { title = "My Pets", icon = "pets", tabs = true, build = function(body)
 		return InventoryMenu.build(body, "Pets")
 	end },
@@ -39,7 +39,7 @@ local MENUS: { [string]: Spec } = {
 	end },
 	Trails = { title = "Trails", icon = "trails", build = TrailsMenu.build },
 	Daily = { title = "Daily Rewards", icon = "daily", height = 0.66, build = DailyMenu.build },
-	Gifts = { title = "Gifts", icon = "gifts", height = 0.56, build = GiftsMenu.build },
+	Gifts = { title = "Gifts", icon = "gifts", height = 0.6, build = GiftsMenu.build },
 	Worlds = { title = "Worlds", icon = "globe", height = 0.7, build = WorldsMenu.build },
 	Settings = { title = "Settings", icon = "settings", height = 0.6, build = SettingsMenu.build },
 }

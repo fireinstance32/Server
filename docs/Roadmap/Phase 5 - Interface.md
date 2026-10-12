@@ -10,7 +10,7 @@ tags: [planning, phase5]
 
 ## 5.1 Design system 🟡
 - [x] Fonts/tokens: Fredoka One, near-black 3px outlines, dark glassy tiles, silver/colour gradients
-- [x] 27 glossy 3D icons rendered in Blender (`tools/blender/build_icons.py`) packed into **one sheet** (`assets/textures/ui/icons.png`, layout `Config/IconAtlas`) — emoji until uploaded
+- [x] 35 custom **vector** icons in the reference style (`tools/textures/vector_icons.py`, SVGs in `assets/vectors/icons/`) packed into **one sheet** (`assets/textures/ui/icons.png`, layout `Config/IconAtlas`) — emoji until uploaded ![[Icons Sheet.png]]
 - [x] Stud texture (`assets/textures/ui/studs.png`) on bars, packs, passes, buttons
 - [x] Components: `Icon` (sheet icon or emoji), `Studs`, restyled `IconTile`, `PassCard`
 - [ ] Upload the 2 images ([[Decisions]])
@@ -27,7 +27,12 @@ tags: [planning, phase5]
 - [x] Frogs rebuilt as cube frogs (pet builder) with per-frog extras; pet/frog picture sheets (`pets.png`, `frogs.png`)
 - [x] My Pets: Sort (Best / Rarity / Name) and INDEX view (hatched pets shown, the rest as silhouettes) — ![[Pet Index Preview.png]]
 - [x] Settings menu (gear by Daily): sound effects, music, other players' pets, big effects — saved with your data
-- [ ] My Pets details panel
+- [x] Windows above the HUD (centre HUD hides), pop in/out, Inventory side tabs with "My …" titles
+- [x] My Pets details panel + small tiles + toolbar icons — ![[Pets Menu Preview.png]]
+- [x] My Boosts info card, My Titles grid (new Titles system), Trails cards, Frogs tiles
+- [x] Settings sliders + ON/OFF + Camera Shake — ![[Settings Preview.png]]
+- [x] Worlds menu — ![[Worlds Preview.png]]
+- [x] Shop gamepass grid with gift buttons, Hops pack grid, gift picker — ![[Shop Preview.png]]
 
 ## 5.4 Reward & hatch animations 🟡
 - [x] Egg hatch reveal to the reference: floating pet picture, name, chance, tilted NEW!, bolt +bonus, lighter overlay — ![[Hatch Preview.png]]
@@ -40,7 +45,7 @@ tags: [planning, phase5]
 
 ## 5.6 Feedback & juice 🟡
 - [x] Hover grow + press squish on every button and tile, click/hover sound hooks (`Sfx`, ids in `Config/Sounds`), Hops/Wins count up
-- [x] Toast pills, landing banner mid-screen, Auto Rebirth with icon, multiplier breakdown panel
+- [x] Outlined text toasts at the top (reference), landing banner mid-screen, Auto Rebirth with icon, multiplier breakdown panel
 - [ ] Sound ids (Phase 6.4)
 
 ## 5.7 Mobile & console layouts

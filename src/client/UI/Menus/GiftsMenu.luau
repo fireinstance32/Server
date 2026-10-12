@@ -10,6 +10,7 @@ local Net = require(Shared.Net)
 
 local Theme = require(script.Parent.Parent.Theme)
 local Window = require(script.Parent.Window)
+local Gradient = require(script.Parent.Parent.Components.Gradient)
 local RewardIcon = require(script.Parent.Parent.Components.RewardIcon)
 
 local GiftsMenu = {}
@@ -25,10 +26,23 @@ function GiftsMenu.elapsed(): number
 end
 
 function GiftsMenu.build(body: Frame)
-	local grid = Window.grid(body, 150, 180)
+	local header = Theme.label({
+		Size = UDim2.new(1, -120, 0, 32),
+		Position = UDim2.fromOffset(120, 0),
+		Text = "Keep playing to open more gifts!",
+		TextXAlignment = Enum.TextXAlignment.Left,
+		Parent = body,
+	})
+	header:FindFirstChildOfClass("UIStroke").Thickness = 3
+	local panel = Window.inset(body, { Size = UDim2.new(1, 0, 1, -40), Position = UDim2.fromOffset(0, 40) })
+	local grid = Window.grid(panel, 150, 184)
 	local buttons = {}
 	for i, gift in Gifts.List do
-		local card = Window.card(grid, i)
+		local card = Theme.new("Frame", { Name = `Gift{i}`, LayoutOrder = i, Parent = grid }, {
+			Theme.corner(14),
+			Theme.stroke(3, Color3.fromRGB(150, 152, 162)),
+		})
+		Gradient.apply(card, { Color3.fromRGB(116, 117, 126), Color3.fromRGB(70, 71, 80) })
 		RewardIcon.new(gift.reward, {
 			Size = UDim2.fromOffset(78, 70),
 			AnchorPoint = Vector2.new(0.5, 0),

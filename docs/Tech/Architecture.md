@@ -38,7 +38,8 @@ Rojo maps:
   - `LeaderboardService` – time played, OrderedDataStore writes/reads, fills the hub boards.
   - `AnalyticsTracker` – onboarding funnel (`Config/Funnel`) + Wins sink events.
   - `EventService` – active seasonal event, event currency, event egg stand + props.
-  - `SettingsService` – `SetSetting`: saves the player's on/off settings (`Config/Settings`).
+  - `SettingsService` – `SetSetting`: saves the player's settings (`Config/Settings`: toggles and 0–100 sliders).
+  - `TitleService` – unlocks titles (`Config/Titles`) as milestones are reached, `EquipTitle`, name tag above the head; the boost is in `Stats`.
   - `DevService/` – `init` (chat plumbing, permissions) · `Commands` (Studio-only test commands, see [[Testing Guide]]).
 
 ## Shared (`src/shared`)
@@ -55,10 +56,12 @@ Rojo maps:
 - `Sfx` – plays named sounds from `Config/Sounds` (silent until ids are filled in).
 - `Effects/` – `World` (splashes, landing burst, sparkles), `Screen` (confetti, flashes), `Ultimate/` (`init` aura + beam, `CutIn`).
 - `PondAccess` – which ponds this player can use (signs, HOP button, auto-train).
-- `UI/Components/` – reusable pieces: `Gradient` (presets), `RobuxChip`, `Badge`, `IconTile`, `PassCard`, `Icon` (icon sheet or emoji), `Studs` (panel texture), `CountUp` (rolling numbers), `ModelView` (ViewportFrame), `PetImage` (pet/frog picture or 3D), `RewardIcon`.
+- `UI/Components/` – reusable pieces: `Gradient` (presets), `RobuxChip`, `Badge`, `IconTile`, `PassCard`, `Icon` (icon sheet or emoji), `Studs` (panel texture), `CountUp` (rolling numbers), `ModelView` (ViewportFrame), `PetImage` (pet/frog picture or 3D), `RewardIcon`, `Rays` (spinning sunburst), `Slider` (0–100 with studded knob).
 - `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `DistanceMeter` · `PotionTimers` · `TopRight` (Daily button) · `QuestBar` · `TipTicker` · `EventBanner` · `AutoRebirth` · `AutoTrain` · `Popups`
 - `UI/HatchScreen` – full-screen hatch sequence (blur, eggs, wobble, reveal cards).
-- `UI/Menus/` – `init` (open/close by name) · `Window` (panel, list, grid, card, button) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `GiftSection`, `CodesSection`) · `RebirthMenu` · `TrailsMenu` · `DailyMenu` · `GiftsMenu` · `Inventory/` (`FrogsTab`, `PetsTab/` (`PetCard`, `Toolbar`), `BoostsTab`) · `ComingSoonMenu`
+- `UI/Menus/` – `init` (open/close by name; `show` never toggles) · `Window/` (`init`: window chrome on its own ScreenGui, pop in/out, `setTitle`; `Layout`: list, grid, card, inset panel, studded `button`/`priceButton`, `recolor`) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `GiftPicker`, `CodesSection`) · `RebirthMenu` · `TrailsMenu` · `DailyMenu` · `GiftsMenu` · `SettingsMenu` · `WorldsMenu/` (`Scene`) · `Inventory/` (side tabs; `FrogsTab`, `PetsTab/` (`PetTile`, `Details`, `Toolbar`, `Index`), `BoostsTab`, `TitlesTab`)
+- `UI/Hud/Visibility` – show/hide HUD parts without fighting the menu (the centre HUD hides while a window is open).
+- Menus re-render only when what they show changes: `Shared/Util/Signature` (`of` / `guard`).
 - `Controllers/`
   - `HopController` – spot detection (pond pad / Hop Zone), server call, auto-train and Auto Hop
   - `HopAnimation` – frog hop visuals, splashes, camera, landing banner

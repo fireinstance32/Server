@@ -17,7 +17,11 @@ Things I need from you, or choices I made for now that you can change. Newest fi
 | Topic | What I picked | Why / alternatives |
 |---|---|---|
 | UI fonts | Fredoka One everywhere (Roblox `FredokaOne`) | Closest to the reference look; could use Gotham Black for numbers |
-| UI images | 1 icon sheet + 1 stud texture, emoji until uploaded | Fewest uploads; icons are 3D renders from Blender |
+| UI images | 1 icon sheet + 1 stud texture, emoji until uploaded | Fewest uploads |
+| Icons | Hand-drawn vector icons (SVG) in the reference style | You asked for custom vectors; the old Blender 3D icons can come back with `build_icons.py` |
+| Titles | 27 milestone titles (throws, distance, eggs, playtime, frogs, pets, rebirths, level, Wins), +0.5…+15 Hops or x1.05…x2 Wins, shown above the head | Names/numbers in `Config/Titles.luau` – rename or retune freely |
+| Worlds menu pictures | Painted in code from each world's colours | Send me Studio screenshots of each hub (or upload them) and the cards can show real pictures like the reference |
+| Settings | Volume sliders for sound/music; Camera Shake, Effects, Other pets toggles; no "Hide HUD" yet | Hide HUD needs a way back (key/button) – say if you want it |
 | HUD layout | Follows the Stone Skipping HUD (grid left, passes right, level bar bottom) | — |
 | Pets | Part-built cube pets with decal faces | Blender pets later for comparison (you asked to try parts first) |
 | Frogs | Cube frogs built like the pets (eyes on top, frog face), extras: crowns for Kings, Ninja headband, Golden shiny, Phoenix wings, Mushroom cap, Astro helmet | Matches the cube style; the round part frog is gone |
@@ -26,4 +30,4 @@ Things I need from you, or choices I made for now that you can change. Newest fi
 | World gates | 1M / 50M / 2.5B / 100B Hops | Tune after the Phase 7 playtest |
 | Max players | 12 | More = more Friend Boost and busier boards |
 | Performance | No StreamingEnabled yet (forced off in default.project.json; sign/podium controllers WaitForChild on far worlds) | Decide after the Phase 8 playtest numbers |
-| Sounds | Hooks everywhere (click, hover, claim, hop, splash, hatch, level up, purchase), all silent | Pick sounds from the Creator Store (or let me suggest ids) → `Config/Sounds.luau` |
+| Sounds | Hooks everywhere (click, hover, open, tab, error, claim, hop, splash, hatch, level up, purchase, music), all silent | Pick sounds from the Creator Store (or let me suggest ids) → `Config/Sounds.luau` |

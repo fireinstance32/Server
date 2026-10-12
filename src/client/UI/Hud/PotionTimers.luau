@@ -17,7 +17,7 @@ function PotionTimers.init(gui: ScreenGui)
 		Name = "PotionTimers",
 		Size = UDim2.fromOffset(220, 120),
 		AnchorPoint = Vector2.new(0, 1),
-		Position = UDim2.new(0, 20, 0.5, -186),
+		Position = UDim2.new(0, 20, 0.5, -210),
 		BackgroundTransparency = 1,
 		Parent = gui,
 	}, {
@@ -28,18 +28,26 @@ function PotionTimers.init(gui: ScreenGui)
 	})
 	local labels = {}
 	for i, potion in Potions.List do
+		-- Dark pill so the timer reads over any background.
 		local row = new("Frame", {
 			Name = potion.id,
-			Size = UDim2.new(1, 0, 0, 34),
-			BackgroundTransparency = 1,
+			Size = UDim2.fromOffset(196, 34),
+			BackgroundColor3 = Color3.fromRGB(30, 31, 38),
+			BackgroundTransparency = 0.3,
 			Visible = false,
 			LayoutOrder = i,
 			Parent = frame,
+		}, { Theme.corner(17), Theme.stroke(2, Color3.fromRGB(12, 12, 16)) })
+		Icon.new(`potion_{string.lower(potion.id)}`, {
+			Size = UDim2.fromOffset(42, 42),
+			AnchorPoint = Vector2.new(0, 0.5),
+			Position = UDim2.new(0, -6, 0.5, -2),
+			ZIndex = 2,
+			Parent = row,
 		})
-		Icon.new(`potion_{string.lower(potion.id)}`, { Size = UDim2.fromOffset(36, 36), Position = UDim2.fromOffset(0, -1), Parent = row })
 		labels[potion.id] = Theme.label({
-			Size = UDim2.new(1, -42, 1, 0),
-			Position = UDim2.fromOffset(42, 0),
+			Size = UDim2.new(1, -50, 0.8, 0),
+			Position = UDim2.new(0, 40, 0.1, 0),
 			Text = "",
 			TextXAlignment = Enum.TextXAlignment.Left,
 			Parent = row,

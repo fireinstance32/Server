@@ -70,6 +70,7 @@ local UNDER_MENU = { "AutoHop", "QuestBar", "TipTicker", "BottomBar", "HopButton
 
 -- While a menu is open, hide the centre HUD; put it back as it was after.
 function Hud.setMenuOpen(open: boolean)
+	Popups.setMenuOpen(open)
 	for _, name in UNDER_MENU do
 		local item = gui:FindFirstChild(name)
 		if item and item:IsA("GuiObject") then

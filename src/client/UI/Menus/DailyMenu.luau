@@ -12,6 +12,7 @@ local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
 local Studs = require(script.Parent.Parent.Components.Studs)
 local RewardIcon = require(script.Parent.Parent.Components.RewardIcon)
+local Icon = require(script.Parent.Parent.Components.Icon)
 local Window = require(script.Parent.Window)
 
 local new = Theme.new
@@ -37,10 +38,10 @@ function DailyMenu.build(body: Frame)
 	for i, reward in DailyRewards.Days do
 		local isBig = i == count
 		local card = new("Frame", {
-			Size = if isBig then UDim2.new(0.24, 0, 1, -94) else UDim2.new(0.235, 0, 0.5, -58),
+			Size = if isBig then UDim2.new(0.24, 0, 1, -112) else UDim2.new(0.235, 0, 0.5, -68),
 			Position = if isBig
-				then UDim2.new(0.76, 0, 0, 14)
-				else UDim2.new(((i - 1) % 3) * 0.25, 0, if i <= 3 then 0 else 0.5, if i <= 3 then 14 else -22),
+				then UDim2.new(0.76, 0, 0, 30)
+				else UDim2.new(((i - 1) % 3) * 0.25, 0, if i <= 3 then 0 else 0.5, if i <= 3 then 30 else -14),
 			Parent = body,
 		}, { Theme.corner(12), Theme.stroke(3) })
 		Gradient.apply(card, if isBig then "Rainbow" else "Yellow")
@@ -81,7 +82,14 @@ function DailyMenu.build(body: Frame)
 			ZIndex = 5,
 			Parent = card,
 		}, { Theme.corner(12) })
-		Theme.label({ Size = UDim2.fromScale(0.86, 0.22), Position = UDim2.fromScale(0.07, 0.4), Text = "CLAIMED", ZIndex = 6, Parent = claimed })
+		Icon.new("check", {
+			Size = UDim2.fromScale(0.5, 0.5),
+			SizeConstraint = Enum.SizeConstraint.RelativeXX,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			ZIndex = 6,
+			Parent = claimed,
+		})
 		days[i] = { card = card, claimed = claimed }
 	end
 

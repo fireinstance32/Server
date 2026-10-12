@@ -17,6 +17,7 @@ local Theme = require(script.Parent.Theme)
 local Hud = require(script.Parent.Hud)
 local Icon = require(script.Parent.Components.Icon)
 local PetImage = require(script.Parent.Components.PetImage)
+local Rays = require(script.Parent.Components.Rays)
 local ScreenFx = require(script.Parent.Parent.Effects.Screen)
 local Sfx = require(script.Parent.Parent.Sfx)
 
@@ -158,9 +159,19 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 				})
 				Theme.textStroke().Parent = newTag
 			end
+			-- Spinning rays in the rarity colour behind Rare and better.
+			if Pets.RarityOrder[def.rarity] >= Pets.RarityOrder.Rare then
+				Rays.new({
+					Size = UDim2.fromOffset(240, 240),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.new(0.5, 0, 0, 154),
+					Parent = cell,
+				}, Pets.RarityColors[def.rarity]:Lerp(C.White, 0.3), 10)
+			end
 			PetImage.new("pet", result.pet, {
 				Size = UDim2.new(1, -20, 0, 180),
 				Position = UDim2.fromOffset(10, 64),
+				ZIndex = 2,
 				Parent = cell,
 			})
 			Icon.new("bolt", { Size = UDim2.fromOffset(44, 44), Position = UDim2.new(0.5, -64, 0, 248), Parent = cell })

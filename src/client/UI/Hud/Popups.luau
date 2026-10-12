@@ -3,7 +3,6 @@
 local TweenService = game:GetService("TweenService")
 
 local Theme = require(script.Parent.Parent.Theme)
-local Gradient = require(script.Parent.Parent.Components.Gradient)
 
 local new = Theme.new
 local C = Theme.Colors
@@ -13,36 +12,52 @@ local Popups = {}
 local gui: ScreenGui
 local toastHolder: Frame
 
--- The gradient sits on the pill frame and the text in a child label, so the
--- gradient doesn't tint the text.
+-- Toasts are bright text with a heavy outline across the top of the screen
+-- (reference: "Scallop Shell equipped."). Callers pass a theme colour; dark
+-- ones are swapped for a bright version so the text reads.
+local BRIGHT: { [Color3]: Color3 } = {
+	[C.DarkGreen] = Color3.fromRGB(110, 245, 110),
+	[C.Green] = Color3.fromRGB(110, 245, 110),
+	[C.Red] = Color3.fromRGB(255, 92, 92),
+	[C.Ink] = C.White,
+	[C.Blue] = Color3.fromRGB(120, 205, 255),
+	[C.Purple] = Color3.fromRGB(215, 150, 255),
+	[C.Gold] = Color3.fromRGB(255, 220, 70),
+}
+local MAX_TOASTS = 3
+
 function Popups.toast(text: string, color: Color3?)
-	local base = color or C.Ink
-	local border = Theme.stroke(3)
-	local toast = new("Frame", {
-		Size = UDim2.new(1, 0, 0, 44),
-		BackgroundColor3 = base,
-		Parent = toastHolder,
-	}, { Theme.corner(22), border })
-	Gradient.apply(toast, { base:Lerp(Color3.new(1, 1, 1), 0.2), base:Lerp(Color3.new(0, 0, 0), 0.15) })
+	local tint = BRIGHT[color or C.Ink] or (color or C.White):Lerp(C.White, 0.25)
+	local toasts = {}
+	for _, child in toastHolder:GetChildren() do
+		if child:IsA("TextLabel") then
+			table.insert(toasts, child)
+		end
+	end
+	table.sort(toasts, function(a, b)
+		return a.LayoutOrder < b.LayoutOrder
+	end)
+	for i = 1, #toasts - MAX_TOASTS + 1 do
+		toasts[i]:Destroy()
+	end
+
 	local label = Theme.label({
-		Name = "Label",
-		Size = UDim2.fromScale(1, 1),
+		Name = "Toast",
+		Size = UDim2.new(1, 0, 0, 38),
 		Text = text,
-		ZIndex = 2,
-		Parent = toast,
+		TextColor3 = tint,
+		LayoutOrder = os.clock() * 1000 // 1,
+		Parent = toastHolder,
 	})
-	local textStroke = label:FindFirstChildOfClass("UIStroke") :: UIStroke
-	textStroke.Thickness = 2.5
-	new("UIPadding", { PaddingTop = UDim.new(0, 7), PaddingBottom = UDim.new(0, 7), PaddingLeft = UDim.new(0, 16), PaddingRight = UDim.new(0, 16), Parent = label })
-	Theme.pop(toast)
-	task.delay(2.5, function()
-		local fade = TweenInfo.new(0.3)
-		TweenService:Create(toast, fade, { BackgroundTransparency = 1 }):Play()
+	local stroke = Theme.textStroke(3.5)
+	stroke.Parent = label
+	Theme.pop(label)
+	task.delay(2.4, function()
+		local fade = TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
 		TweenService:Create(label, fade, { TextTransparency = 1 }):Play()
-		TweenService:Create(border, fade, { Transparency = 1 }):Play()
-		TweenService:Create(textStroke, fade, { Transparency = 1 }):Play()
-		task.wait(0.3)
-		toast:Destroy()
+		TweenService:Create(stroke, fade, { Transparency = 1 }):Play()
+		task.wait(0.35)
+		label:Destroy()
 	end)
 end
 
@@ -97,18 +112,29 @@ function Popups.banner(title: string, subtitle: string?, color: Color3?)
 	end)
 end
 
+-- With a menu open the top HUD is hidden, so toasts move to the top edge
+-- (above the window title, like the reference); otherwise they sit under the
+-- quest bar and tips.
+function Popups.setMenuOpen(open: boolean)
+	if toastHolder then
+		toastHolder.Position = UDim2.new(0.5, 0, 0, if open then 4 else 300)
+	end
+end
+
 function Popups.init(screen: ScreenGui)
 	gui = screen
 	toastHolder = new("Frame", {
-		Size = UDim2.fromOffset(420, 200),
+		Name = "Toasts",
+		Size = UDim2.fromOffset(900, 130),
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 366), -- below Auto Hop, quest bar, tips and distance meter
+		Position = UDim2.new(0.5, 0, 0, 300), -- under the quest bar and tips (see Popups.setMenuOpen)
 		BackgroundTransparency = 1,
 		Parent = gui,
 	}, {
 		new("UIListLayout", {
-			Padding = UDim.new(0, 6),
+			Padding = UDim.new(0, 2),
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 	})
 end
