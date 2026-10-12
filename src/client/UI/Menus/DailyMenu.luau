@@ -107,7 +107,7 @@ function DailyMenu.build(body: Frame)
 			end
 		end
 		Theme.setText(claim, if status.canClaim then "CLAIM YOUR REWARD" else "Come back tomorrow!")
-		Gradient.apply(claim, if status.canClaim then "Green" else "Grey")
+		Window.recolor(claim, if status.canClaim then "Green" else "Grey")
 	end
 end
 

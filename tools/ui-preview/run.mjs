@@ -86,7 +86,9 @@ lua.globals.set('emit', lua.createFunction((s) => { tree = s; }));
 const stub = fs.readFileSync(path.join(here, 'stub.luau'), 'utf8');
 const sceneSource = fs.readFileSync(path.join(here, 'scenes', `${scene}.luau`), 'utf8');
 try {
-  lua.execute(stub + '\n' + bundle(sceneSource) + '\n' + sceneSource + '\nemit(DUMP_GUI())\n', { name: scene });
+  const chunk = stub + '\n' + bundle(sceneSource) + '\n' + sceneSource + '\nemit(DUMP_GUI())\n';
+  if (process.env.DUMP_CHUNK) fs.writeFileSync(process.env.DUMP_CHUNK, chunk);
+  lua.execute(chunk, { name: scene });
 } catch (err) {
   console.error(err.message);
   for (const l of logs) console.error(l);

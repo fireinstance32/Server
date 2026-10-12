@@ -22,6 +22,21 @@ Gradient.Presets = {
 	},
 }
 
+-- Outline colour that goes with each preset on studded buttons (reference:
+-- a green button has a dark green edge, not a black one).
+Gradient.Edges = {
+	Yellow = Color3.fromRGB(150, 90, 0),
+	Red = Color3.fromRGB(120, 16, 28),
+	Green = Color3.fromRGB(22, 100, 20),
+	Blue = Color3.fromRGB(14, 66, 150),
+	Purple = Color3.fromRGB(76, 24, 140),
+	Pink = Color3.fromRGB(130, 14, 80),
+	Grey = Color3.fromRGB(26, 26, 32),
+	Tile = Color3.fromRGB(16, 16, 22),
+	Silver = Color3.fromRGB(110, 114, 126),
+	Rainbow = Color3.fromRGB(40, 20, 60),
+} :: { [string]: Color3 }
+
 -- Applies a gradient. `colors` is a preset name or a list of Color3.
 -- Rainbow runs left→right; everything else top→bottom.
 -- Re-applying the preset already on the object is a no-op (menus refresh

@@ -167,6 +167,7 @@ function HopAnimation.playLaunch(result)
 	end
 	Hud.banner(`ZONE {result.zone}: {result.zoneName}`, subtitle, zones[result.zone].color)
 	WorldFx.landingBurst(from, zones[result.zone].color)
+	ScreenFx.shake(0.15 + 0.06 * result.zone, 0.35)
 	if result.newBest then
 		ScreenFx.confetti(70)
 	end

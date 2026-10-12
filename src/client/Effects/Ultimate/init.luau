@@ -9,6 +9,7 @@ local Workspace = game:GetService("Workspace")
 
 local CutIn = require(script.CutIn)
 local WorldFx = require(script.Parent.World)
+local ScreenFx = require(script.Parent.Screen)
 
 local Ultimate = {}
 
@@ -69,6 +70,7 @@ function Ultimate.play(character: Model?, frog: { id: string, color: Color3 }, r
 	task.delay(0.55, function()
 		beam(releasePoint, frog.color)
 		WorldFx.landingBurst(releasePoint - Vector3.new(0, 2, 0), frog.color)
+		ScreenFx.shake(0.9, 0.7)
 	end)
 end
 

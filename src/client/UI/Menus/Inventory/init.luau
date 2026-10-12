@@ -1,10 +1,14 @@
--- Inventory window with tabs down the left (reference "My Pets" layout):
--- Frogs, Pets, Trails, Boosts, Titles. Pets/Inventory buttons open different tabs.
+-- Inventory window with big tabs down the left, outside the panel (reference
+-- "My Stones" layout): Frogs, Pets, Trails, Boosts, Titles. The window title
+-- and corner icon follow the tab ("My Pets").
+
+local TweenService = game:GetService("TweenService")
 
 local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
 local Window = require(script.Parent.Window)
 local Icon = require(script.Parent.Parent.Components.Icon)
+local Sfx = require(script.Parent.Parent.Parent.Sfx)
 local FrogsTab = require(script.FrogsTab)
 local PetsTab = require(script.PetsTab)
 local TrailsMenu = require(script.Parent.TrailsMenu)
@@ -23,30 +27,75 @@ local TABS = {
 	{ id = "Titles", icon = "title", build = TitlesTab.build },
 }
 
+local IDLE = { Color3.fromRGB(96, 97, 106), Color3.fromRGB(52, 53, 60) }
+local SELECTED = { Color3.fromRGB(120, 178, 214), Color3.fromRGB(40, 92, 128) }
+local SELECTED_EDGE = Color3.fromRGB(140, 222, 255)
+local EDGE = Color3.fromRGB(12, 12, 16)
+
+local function tabButton(column: Frame, tab, order: number): (TextButton, GuiObject)
+	local button = new("TextButton", {
+		Name = tab.id,
+		Size = UDim2.new(1, 0, 0.17, 0),
+		Text = "",
+		AutoButtonColor = false,
+		LayoutOrder = order,
+		Parent = column,
+	}, { Theme.corner(12), Theme.stroke(3, EDGE) })
+	local icon = Icon.new(tab.icon, {
+		Size = UDim2.fromScale(0.62, 0.86),
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.fromScale(0.5, -0.12),
+		ZIndex = 2,
+		Parent = button,
+	})
+	Theme.label({
+		Size = UDim2.fromScale(0.92, 0.42),
+		AnchorPoint = Vector2.new(0.5, 1),
+		Position = UDim2.fromScale(0.5, 0.96),
+		Text = tab.id,
+		ZIndex = 3,
+		Parent = button,
+	})
+	local scale = new("UIScale", { Parent = button })
+	Theme.hover(button, scale)
+	return button, icon
+end
+
 function InventoryMenu.build(body: Frame, startTab: string?)
-	local tabColumn = new("Frame", {
-		Size = UDim2.new(0, 150, 1, 0),
+	local frame = body.Parent :: Frame
+	local column = new("Frame", {
+		Name = "Tabs",
+		Size = UDim2.new(0, Window.TabWidth - 14, 1, -60),
+		Position = UDim2.new(0, -Window.TabWidth + 4, 0, 40),
 		BackgroundTransparency = 1,
-		Parent = body,
-	}, { new("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder }) })
-	local content = new("Frame", {
-		Size = UDim2.new(1, -170, 1, 0),
-		Position = UDim2.fromOffset(170, 0),
-		BackgroundTransparency = 1,
-		Parent = body,
+		Parent = frame,
+	}, {
+		new("UIListLayout", {
+			Padding = UDim.new(0.035, 0),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
 	})
 
 	local current: { id: string, refresh: (any) -> () }? = nil
 	local buttons = {}
+	local icons = {}
 	local lastData = nil
 
-	local function select(id: string)
-		Window.clear(content)
+	local function select(id: string, animate: boolean)
+		Window.clear(body)
 		for _, tab in TABS do
-			if tab.id == id then
-				current = { id = id, refresh = tab.build(content) }
+			local on = tab.id == id
+			if on then
+				current = { id = id, refresh = tab.build(body) }
+				Window.setTitle(frame, `My {tab.id}`, if animate then tab.icon else nil)
 			end
-			Gradient.apply(buttons[tab.id], if tab.id == id then "Blue" else "Tile")
+			Gradient.apply(buttons[tab.id], if on then SELECTED else IDLE)
+			buttons[tab.id]:FindFirstChildOfClass("UIStroke").Color = if on then SELECTED_EDGE else EDGE
+			if on and animate then
+				local scale = icons[tab.id]:FindFirstChildOfClass("UIScale") or new("UIScale", { Parent = icons[tab.id] })
+				scale.Scale = 0.7
+				TweenService:Create(scale, TweenInfo.new(0.3, Enum.EasingStyle.Back), { Scale = 1 }):Play()
+			end
 		end
 		if current and lastData then
 			current.refresh(lastData)
@@ -54,20 +103,23 @@ function InventoryMenu.build(body: Frame, startTab: string?)
 	end
 
 	for i, tab in TABS do
-		local button = new("TextButton", {
-			Size = UDim2.new(1, 0, 0, 74),
-			Text = "",
-			LayoutOrder = i,
-			Parent = tabColumn,
-		}, { Theme.corner(12), Theme.stroke(3) })
-		Icon.new(tab.icon, { Size = UDim2.fromScale(0.62, 0.7), AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.fromScale(0.5, -0.08), Parent = button })
-		Theme.label({ Size = UDim2.fromScale(0.9, 0.36), Position = UDim2.fromScale(0.05, 0.6), Text = tab.id, Parent = button })
+		local button, icon = tabButton(column, tab, i)
 		buttons[tab.id] = button
+		icons[tab.id] = icon
 		button.Activated:Connect(function()
-			select(tab.id)
+			if not current or current.id ~= tab.id then
+				Sfx.play("Tab")
+				select(tab.id, true)
+			end
 		end)
 	end
-	select(startTab or "Frogs")
+	local first = startTab or "Frogs"
+	for _, tab in TABS do
+		if tab.id == first then
+			Window.setTitle(frame, `My {tab.id}`, tab.icon)
+		end
+	end
+	select(first, false)
 
 	return function(data)
 		lastData = data

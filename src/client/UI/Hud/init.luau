@@ -11,6 +11,7 @@
 local Players = game:GetService("Players")
 
 local Theme = require(script.Parent.Theme)
+local Visibility = require(script.Visibility)
 local Gradient = require(script.Parent.Components.Gradient)
 local Purchases = require(script.Parent.Parent.Purchases)
 local Popups = require(script.Popups)
@@ -46,7 +47,7 @@ Hud.distance = DistanceMeter
 -- sell it.
 function Hud.setHopMode(mode: string?, pond: any?, locked: boolean?)
 	AutoRebirth.setVisible(mode == "Train")
-	hopButton.Visible = mode == "Launch" or (mode == "Train" and locked == true)
+	Visibility.set(hopButton, mode == "Launch" or (mode == "Train" and locked == true))
 	if mode == "Launch" then
 		Theme.setText(hopButton, "HOP!")
 		Gradient.apply(hopButton, "Blue")
@@ -63,11 +64,25 @@ function Hud.screen(): ScreenGui
 	return gui
 end
 
--- While a menu is open, hide HUD bits that sit where window titles go.
+-- Centre-column HUD that a menu window covers (reference: only the side
+-- buttons stay visible behind a window).
+local UNDER_MENU = { "AutoHop", "QuestBar", "TipTicker", "BottomBar", "HopButton", "DistanceMeter" }
+
+-- While a menu is open, hide the centre HUD; put it back as it was after.
 function Hud.setMenuOpen(open: boolean)
-	local ticker = gui:FindFirstChild("TipTicker")
-	if ticker then
-		(ticker :: GuiObject).Visible = not open
+	for _, name in UNDER_MENU do
+		local item = gui:FindFirstChild(name)
+		if item and item:IsA("GuiObject") then
+			if open then
+				if item:GetAttribute("MenuHidden") == nil then
+					item:SetAttribute("MenuHidden", item.Visible)
+					item.Visible = false
+				end
+			elseif item:GetAttribute("MenuHidden") ~= nil then
+				item.Visible = item:GetAttribute("MenuHidden") == true
+				item:SetAttribute("MenuHidden", nil)
+			end
+		end
 	end
 end
 
@@ -128,7 +143,14 @@ function Hud.init(callbacks: {
 	EventBanner.init(gui)
 	QuestBar.init(gui)
 	TipTicker.init(gui)
-	Popups.init(gui)
+	-- Toasts and banners draw above menu windows (DisplayOrder 10).
+	Popups.init(Theme.new("ScreenGui", {
+		Name = "FrogHopPopups",
+		ResetOnSpawn = false,
+		DisplayOrder = 20,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+		Parent = Players.LocalPlayer:WaitForChild("PlayerGui"),
+	}))
 
 	Purchases.onNotForSale(function(text)
 		Popups.toast(text, Theme.Colors.Ink)

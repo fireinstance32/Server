@@ -338,6 +338,7 @@ end
 
 local InstMT = {}
 InstMT.__index = function(self, key)
+	if key == "Parent" then return rawget(self, "_parent") end
 	local method = Inst[key]
 	if method then return method end
 	if EVENTS[key] then

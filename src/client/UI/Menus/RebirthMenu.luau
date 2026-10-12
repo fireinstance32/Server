@@ -104,7 +104,7 @@ function RebirthMenu.build(body: Frame)
 		local ratio = math.clamp(data.level / data.levelCap, 0, 1)
 		TweenService:Create(fill, TweenInfo.new(0.25), { Size = UDim2.fromScale(ratio, 1) }):Play()
 		barText.Text = `Level {data.level} / Level {data.levelCap}`
-		Gradient.apply(rebirthButton, if ratio >= 1 then "Green" else "Grey")
+		Window.recolor(rebirthButton, if ratio >= 1 then "Green" else "Grey")
 	end)
 end
 

@@ -100,7 +100,7 @@ function PackSection.build(list: ScrollingFrame, order: number)
 		local bought = data.oneTime and data.oneTime.StarterPack
 		Theme.setText(buy, if bought then "OWNED" else `\u{E002} {Purchases.price("product", "StarterPack")}`)
 		buy.Active = not bought
-		Gradient.apply(buy, if bought then "Grey" else "Green")
+		Window.recolor(buy, if bought then "Grey" else "Green")
 	end
 end
 

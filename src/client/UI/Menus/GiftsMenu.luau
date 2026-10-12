@@ -9,7 +9,6 @@ local Gifts = require(Shared.Config.Gifts)
 local Net = require(Shared.Net)
 
 local Theme = require(script.Parent.Parent.Theme)
-local Gradient = require(script.Parent.Parent.Components.Gradient)
 local Window = require(script.Parent.Window)
 local RewardIcon = require(script.Parent.Parent.Components.RewardIcon)
 
@@ -59,13 +58,13 @@ function GiftsMenu.build(body: Frame)
 			local button = buttons[i]
 			if claimed[i] then
 				Theme.setText(button, "CLAIMED")
-				Gradient.apply(button, "Grey")
+				Window.recolor(button, "Grey")
 			elseif Gifts.isReady(i, elapsed) then
 				Theme.setText(button, "CLAIM")
-				Gradient.apply(button, "Green")
+				Window.recolor(button, "Green")
 			else
 				Theme.setText(button, clock(gift.minutes * 60 - elapsed))
-				Gradient.apply(button, "Grey")
+				Window.recolor(button, "Grey")
 			end
 		end
 	end

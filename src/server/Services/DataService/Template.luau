@@ -52,7 +52,7 @@ function Template.new()
 		worldsUnlocked = { Lily = true }, -- [worldId] = true once unlocked
 		nextPetUid = 1,
 		codes = {}, -- [code: string] = true
-		settings = Settings.defaults(), -- [settingId] = on/off (Config/Settings)
+		settings = Settings.defaults(), -- [settingId] = on/off or 0-100 (Config/Settings)
 		titles = {}, -- [titleId] = true once unlocked (Config/Titles)
 		equippedTitle = "", -- worn title id, "" for none
 	}
@@ -75,9 +75,8 @@ function Template.reconcile(data: any)
 		end
 	end
 	for key, value in fresh.settings do
-		if data.settings[key] == nil then
-			data.settings[key] = value
-		end
+		local clean = Settings.sanitize(Settings.ById[key], data.settings[key])
+		data.settings[key] = if clean == nil then value else clean
 	end
 	-- Convert pets from the v0.1 test build to their new ids.
 	for _, pet in data.pets do

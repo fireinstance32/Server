@@ -10,16 +10,21 @@ local Remotes = require(script.Parent.Parent.Remotes)
 local SettingsService = {}
 
 local function set(player: Player, id: unknown, value: unknown): (boolean, string)
-	if typeof(id) ~= "string" or typeof(value) ~= "boolean" or not Settings.ById[id] then
+	local setting = typeof(id) == "string" and Settings.ById[id]
+	local clean = setting and Settings.sanitize(setting, value)
+	if not setting or clean == nil then
 		return false, "Invalid setting"
 	end
 	local data = DataService.get(player)
 	if not data then
 		return false, "Still loading..."
 	end
-	data.settings[id] = value
+	data.settings[setting.id] = clean
 	DataService.changed(player)
-	return true, `{Settings.ById[id].label}: {if value then "ON" else "OFF"}`
+	if setting.kind == "slider" then
+		return true, `{setting.label}: {clean}`
+	end
+	return true, `{setting.label}: {if clean then "ON" else "OFF"}`
 end
 
 function SettingsService.start()

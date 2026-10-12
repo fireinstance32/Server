@@ -160,7 +160,8 @@ function TitlesTab.build(content: Frame)
 		Parent = content,
 	})
 	local count = Theme.label({
-		Size = UDim2.fromScale(0.45, 1),
+		Size = UDim2.new(0.45, -120, 1, 0),
+		Position = UDim2.fromOffset(120, 0),
 		Text = "",
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Parent = header,

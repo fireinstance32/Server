@@ -1,9 +1,11 @@
--- 2D celebration effects over the HUD: confetti rain and a quick colour
--- flash (new zone, new best, level up, hatch).
+-- Screen effects: confetti rain, a quick colour flash (new zone, new best,
+-- level up, hatch) and camera shake (big landings, the ultimate hop).
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local Debris = game:GetService("Debris")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
 
 local Settings = require(script.Parent.Parent.Settings)
 
@@ -32,6 +34,35 @@ local function getLayer(): ScreenGui
 	gui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
 	layer = gui
 	return gui
+end
+
+-- Shakes the camera for `duration` seconds, fading out. `strength` is the
+-- starting offset in studs (0.3 = a thump, 1 = huge). Off with the
+-- "Camera Shake" setting.
+local shakeUntil, shakeStrength, shakeLength = 0, 0, 1
+function Screen.shake(strength: number, duration: number)
+	if not Settings.get("shake") then
+		return
+	end
+	local now = os.clock()
+	if now < shakeUntil then
+		shakeStrength = math.max(shakeStrength, strength)
+		shakeUntil = math.max(shakeUntil, now + duration)
+		return
+	end
+	shakeStrength, shakeUntil, shakeLength = strength, now + duration, duration
+	RunService:BindToRenderStep("ScreenShake", Enum.RenderPriority.Camera.Value + 1, function()
+		local left = shakeUntil - os.clock()
+		local camera = Workspace.CurrentCamera
+		if left <= 0 or not camera then
+			RunService:UnbindFromRenderStep("ScreenShake")
+			return
+		end
+		local power = shakeStrength * (left / shakeLength)
+		local t = os.clock() * 40
+		camera.CFrame *= CFrame.new(math.noise(t, 0.3) * power, math.noise(0.7, t) * power, 0)
+			* CFrame.Angles(0, 0, math.noise(t, t) * power * 0.02)
+	end)
 end
 
 -- Confetti pieces falling from the top of the screen.

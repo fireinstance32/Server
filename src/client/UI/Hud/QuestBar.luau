@@ -5,6 +5,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Format = require(ReplicatedStorage:WaitForChild("Shared").Util.Format)
 local Theme = require(script.Parent.Parent.Theme)
+local Visibility = require(script.Parent.Visibility)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
 local Studs = require(script.Parent.Parent.Components.Studs)
 local State = require(script.Parent.Parent.Parent.State)
@@ -42,7 +43,7 @@ function QuestBar.init(gui: ScreenGui)
 
 	State.observe(function(data)
 		local quest = data.quest
-		bar.Visible = quest ~= nil
+		Visibility.set(bar, quest ~= nil)
 		if quest then
 			text.Text = `{quest.text} ({Format.abbreviate(quest.progress)}/{Format.abbreviate(quest.target)})`
 		end

@@ -24,7 +24,7 @@ local FUNCTIONS = {
 	"TravelWorld", -- (worldId) -> ok, message
 	"Rebirth", -- () -> ok, message
 	"RedeemCode", -- (code) -> ok, message
-	"SetSetting", -- (id, on) -> ok, message
+	"SetSetting", -- (id, on | 0-100) -> ok, message
 	"EquipTitle", -- (titleId | "") -> ok, message
 }
 

@@ -13,40 +13,42 @@ local TrailsMenu = require(script.TrailsMenu)
 local DailyMenu = require(script.DailyMenu)
 local GiftsMenu = require(script.GiftsMenu)
 local SettingsMenu = require(script.SettingsMenu)
+local WorldsMenu = require(script.WorldsMenu)
 
 local Menus = {}
 
-type Spec = { title: string, icon: string, height: number?, build: (Frame) -> (any) -> () }
+type Spec = { title: string, icon: string, height: number?, tabs: boolean?, build: (Frame) -> (any) -> () }
 
 local MENUS: { [string]: Spec } = {
 	Shop = { title = "Shop", icon = "shop", build = ShopMenu.build },
 	Rebirth = { title = "Rebirth", icon = "rebirth", height = 0.5, build = RebirthMenu.build },
-	Pets = { title = "My Pets", icon = "pets", build = function(body)
+	Pets = { title = "My Pets", icon = "pets", tabs = true, build = function(body)
 		return InventoryMenu.build(body, "Pets")
 	end },
-	Inventory = { title = "Inventory", icon = "inventory", build = function(body)
+	Inventory = { title = "Inventory", icon = "inventory", tabs = true, build = function(body)
 		return InventoryMenu.build(body, "Frogs")
 	end },
-	Frogs = { title = "Frogs", icon = "frog", build = function(body)
+	Frogs = { title = "Frogs", icon = "frog", tabs = true, build = function(body)
 		return InventoryMenu.build(body, "Frogs")
 	end },
-	Titles = { title = "My Titles", icon = "title", build = function(body)
+	Titles = { title = "My Titles", icon = "title", tabs = true, build = function(body)
 		return InventoryMenu.build(body, "Titles")
 	end },
-	Boosts = { title = "My Boosts", icon = "boost", build = function(body)
+	Boosts = { title = "My Boosts", icon = "boost", tabs = true, build = function(body)
 		return InventoryMenu.build(body, "Boosts")
 	end },
 	Trails = { title = "Trails", icon = "trails", build = TrailsMenu.build },
 	Daily = { title = "Daily Rewards", icon = "daily", height = 0.66, build = DailyMenu.build },
 	Gifts = { title = "Gifts", icon = "gifts", height = 0.56, build = GiftsMenu.build },
-	Settings = { title = "Settings", icon = "settings", height = 0.5, build = SettingsMenu.build },
+	Worlds = { title = "Worlds", icon = "globe", height = 0.7, build = WorldsMenu.build },
+	Settings = { title = "Settings", icon = "settings", height = 0.6, build = SettingsMenu.build },
 }
 
 local current: { name: string, frame: Frame, refresh: (any) -> () }? = nil
 
 function Menus.close()
 	if current then
-		current.frame:Destroy()
+		Window.dismiss(current.frame)
 		current = nil
 		Hud.setMenuOpen(false)
 	end
@@ -67,7 +69,7 @@ function Menus.show(name: string)
 	if not spec then
 		return
 	end
-	local frame, body = Window.create(spec.title, spec.icon, Menus.close, spec.height)
+	local frame, body = Window.create(spec.title, spec.icon, Menus.close, spec.height, spec.tabs)
 	Hud.setMenuOpen(true)
 	local refresh = spec.build(body)
 	current = { name = name, frame = frame, refresh = refresh }

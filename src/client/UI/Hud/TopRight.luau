@@ -1,6 +1,6 @@
--- Small top-right buttons (reference calendar icon): Daily Rewards with a
--- "!" badge when today's reward is ready (opens on join if so, unless another
--- menu is already up), and Settings.
+-- Small top-right buttons (reference calendar icon): Worlds, Daily Rewards
+-- with a "!" badge when today's reward is ready (opens on join if so, unless
+-- another menu is already up), and Settings.
 
 local Theme = require(script.Parent.Parent.Theme)
 local IconTile = require(script.Parent.Parent.Components.IconTile)
@@ -14,7 +14,7 @@ local TopRight = {}
 function TopRight.init(gui: ScreenGui, openMenu: (string) -> (), autoOpen: ((string) -> ())?)
 	local row = new("Frame", {
 		Name = "TopRight",
-		Size = UDim2.fromOffset(200, 80),
+		Size = UDim2.fromOffset(300, 80),
 		AnchorPoint = Vector2.new(1, 0),
 		Position = UDim2.new(1, -20, 0, 8),
 		BackgroundTransparency = 1,
@@ -24,8 +24,20 @@ function TopRight.init(gui: ScreenGui, openMenu: (string) -> (), autoOpen: ((str
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			Padding = UDim.new(0, 8),
+			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 	})
+	local worlds = IconTile.create({
+		icon = "globe",
+		caption = "Worlds",
+		color = "Green",
+		order = 0,
+		onClick = function()
+			openMenu("Worlds")
+		end,
+	})
+	worlds.Size = UDim2.fromOffset(76, 76)
+	worlds.Parent = row
 	local daily, badge = IconTile.create({
 		icon = "daily",
 		caption = "Daily",
