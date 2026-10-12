@@ -12,26 +12,26 @@ local new = Theme.new
 local IconGrid = {}
 
 local TILES = {
-	{ caption = "Shop", icon = "🛒", color = "Pink", menu = "Shop" },
-	{ caption = "Rebirth", icon = "🔁", color = "Purple", menu = "Rebirth" },
-	{ caption = "Pets", icon = "🐾", color = "Blue", menu = "Pets" },
-	{ caption = "Trails", icon = "✨", color = "Purple", menu = "Trails" },
-	{ caption = "Inventory", icon = "🎒", color = "Yellow", menu = "Inventory" },
-	{ caption = "Gifts", icon = "🎁", color = "Green", menu = "Gifts" },
+	{ caption = "Shop", icon = "shop", menu = "Shop" },
+	{ caption = "Rebirth", icon = "rebirth", menu = "Rebirth" },
+	{ caption = "Pets", icon = "pets", menu = "Pets" },
+	{ caption = "Trails", icon = "trails", menu = "Trails" },
+	{ caption = "Inventory", icon = "inventory", menu = "Inventory" },
+	{ caption = "Gifts", icon = "gifts", menu = "Gifts" },
 }
 
 function IconGrid.init(gui: ScreenGui, openMenu: (string) -> ())
 	local grid = new("Frame", {
 		Name = "IconGrid",
-		Size = UDim2.fromOffset(200, 300),
+		Size = UDim2.fromOffset(196, 310),
 		AnchorPoint = Vector2.new(0, 0.5),
 		Position = UDim2.new(0, 20, 0.5, -30),
 		BackgroundTransparency = 1,
 		Parent = gui,
 	}, {
 		new("UIGridLayout", {
-			CellSize = UDim2.fromOffset(94, 94),
-			CellPadding = UDim2.fromOffset(10, 8),
+			CellSize = UDim2.fromOffset(90, 90),
+			CellPadding = UDim2.fromOffset(10, 14),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 	})
@@ -41,7 +41,6 @@ function IconGrid.init(gui: ScreenGui, openMenu: (string) -> ())
 		local button, badge = IconTile.create({
 			icon = tile.icon,
 			caption = tile.caption,
-			color = tile.color,
 			order = i,
 			onClick = function()
 				openMenu(tile.menu)

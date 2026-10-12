@@ -25,7 +25,7 @@ function TopRight.init(gui: ScreenGui, openMenu: (string) -> ())
 		}),
 	})
 	local daily, badge = IconTile.create({
-		icon = "📅",
+		icon = "daily",
 		caption = "Daily",
 		color = "Blue",
 		order = 1,

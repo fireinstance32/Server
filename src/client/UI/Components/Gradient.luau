@@ -11,6 +11,8 @@ Gradient.Presets = {
 	Purple = { Color3.fromRGB(200, 130, 255), Color3.fromRGB(130, 60, 220) },
 	Pink = { Color3.fromRGB(255, 120, 200), Color3.fromRGB(220, 40, 140) },
 	Grey = { Color3.fromRGB(110, 110, 120), Color3.fromRGB(60, 60, 70) },
+	Tile = { Color3.fromRGB(78, 80, 104), Color3.fromRGB(40, 41, 58) }, -- HUD menu tiles
+	Silver = { Color3.fromRGB(250, 250, 252), Color3.fromRGB(205, 208, 216) },
 	Rainbow = {
 		Color3.fromRGB(255, 70, 70),
 		Color3.fromRGB(255, 200, 40),

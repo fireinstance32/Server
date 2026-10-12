@@ -34,5 +34,6 @@ Roblox "+1" incremental game: press **HOP**, your frog leaps across lily pads, e
 - [[Phase 8 Playtest]]
 
 ## Planning
+- [[Decisions]] — things waiting on you
 - [[Roadmap]]
 - Devlog: [[2026-10-12]]

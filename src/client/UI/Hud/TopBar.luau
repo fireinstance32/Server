@@ -2,6 +2,8 @@
 
 local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
+local Studs = require(script.Parent.Parent.Components.Studs)
+local Icon = require(script.Parent.Parent.Components.Icon)
 local Purchases = require(script.Parent.Parent.Parent.Purchases)
 local State = require(script.Parent.Parent.Parent.State)
 
@@ -17,16 +19,25 @@ function TopBar.init(gui: ScreenGui, setAutoHop: (boolean) -> ())
 		Name = "AutoHop",
 		Size = UDim2.fromOffset(250, 70),
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 36), -- under the tip ticker
+		Position = UDim2.new(0.5, 0, 0, 26),
 		Text = "",
 		AutoButtonColor = true,
 		Parent = gui,
 	}, { Theme.corner(12), Theme.stroke(4) })
 	Gradient.apply(button, "Red")
+	Studs.apply(button, 22, 0.45)
+	Icon.new("crown", {
+		Size = UDim2.fromOffset(54, 54),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0.5, 0, 0, -4),
+		ZIndex = 2,
+		Parent = button,
+	})
 	Theme.label({
 		Size = UDim2.new(0.9, 0, 0.55, 0),
-		Position = UDim2.fromScale(0.05, 0.04),
+		Position = UDim2.fromScale(0.05, 0.06),
 		Text = "AUTO HOP",
+		ZIndex = 3,
 		Parent = button,
 	})
 	local status = Theme.label({
@@ -34,7 +45,7 @@ function TopBar.init(gui: ScreenGui, setAutoHop: (boolean) -> ())
 		Position = UDim2.fromScale(0.05, 0.6),
 		Text = "",
 		TextColor3 = C.Gold,
-		Font = Enum.Font.BuilderSansBold,
+		ZIndex = 3,
 		Parent = button,
 	})
 	Theme.textStroke().Parent = status

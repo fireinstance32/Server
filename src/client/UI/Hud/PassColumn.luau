@@ -11,8 +11,8 @@ local new = Theme.new
 local PassColumn = {}
 
 local CARDS = {
-	{ pass = "DoubleHops", title = "+2x HOPS", color = "Green" },
-	{ pass = "DoubleWins", title = "2x WINS", color = "Yellow" },
+	{ pass = "DoubleHops", title = "+2x HOPS", icon = "bolt", color = "Green" },
+	{ pass = "DoubleWins", title = "2x WINS", icon = "trophy", color = "Yellow" },
 }
 
 function PassColumn.init(gui: ScreenGui, openMenu: (string) -> ())
@@ -25,14 +25,14 @@ function PassColumn.init(gui: ScreenGui, openMenu: (string) -> ())
 		Parent = gui,
 	}, {
 		new("UIListLayout", {
-			Padding = UDim.new(0, 10),
+			Padding = UDim.new(0, 22),
 			HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 	})
 
 	local starter = IconTile.create({
-		icon = "🎉",
+		icon = "starter",
 		caption = "Starter Pack",
 		color = "Rainbow",
 		order = 0,
@@ -47,6 +47,7 @@ function PassColumn.init(gui: ScreenGui, openMenu: (string) -> ())
 	for i, spec in CARDS do
 		local card = PassCard.create({
 			title = spec.title,
+			icon = spec.icon,
 			price = Purchases.price("pass", spec.pass),
 			color = spec.color,
 			order = i,

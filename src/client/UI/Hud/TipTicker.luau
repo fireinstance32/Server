@@ -20,9 +20,9 @@ local INTERVAL = 8
 function TipTicker.init(gui: ScreenGui)
 	local label = Theme.label({
 		Name = "TipTicker",
-		Size = UDim2.fromOffset(700, 30),
+		Size = UDim2.fromOffset(620, 26),
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 2),
+		Position = UDim2.new(0.5, 0, 0, 208), -- under the tutorial bar
 		Text = TIPS[1],
 		TextColor3 = Color3.new(1, 1, 1),
 		Parent = gui,

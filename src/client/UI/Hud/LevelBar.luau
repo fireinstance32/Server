@@ -6,6 +6,7 @@ local TweenService = game:GetService("TweenService")
 local Format = require(ReplicatedStorage:WaitForChild("Shared").Util.Format)
 local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
+local Studs = require(script.Parent.Parent.Components.Studs)
 local State = require(script.Parent.Parent.Parent.State)
 
 local new = Theme.new
@@ -20,7 +21,8 @@ function LevelBar.init(parent: Frame, y: number, height: number)
 		ClipsDescendants = true,
 		Parent = parent,
 	}, { Theme.corner(12), Theme.stroke(4) })
-	Gradient.apply(bar, { Color3.fromRGB(250, 250, 250), Color3.fromRGB(215, 215, 220) })
+	Gradient.apply(bar, "Silver")
+	Studs.apply(bar, 24, 0.7)
 
 	local fill = new("Frame", {
 		Name = "Fill",
@@ -28,6 +30,7 @@ function LevelBar.init(parent: Frame, y: number, height: number)
 		Parent = bar,
 	}, { Theme.corner(12) })
 	Gradient.apply(fill, "Blue")
+	Studs.apply(fill, 24, 0.6)
 
 	local level = Theme.label({
 		Size = UDim2.new(0.6, -20, 0.7, 0),
@@ -41,7 +44,7 @@ function LevelBar.init(parent: Frame, y: number, height: number)
 		Size = UDim2.new(0.4, -20, 0.6, 0),
 		Position = UDim2.new(0.6, 0, 0.2, 0),
 		Text = "0 / 10",
-		TextColor3 = Color3.fromRGB(40, 40, 40),
+		TextColor3 = Color3.new(1, 1, 1),
 		TextXAlignment = Enum.TextXAlignment.Right,
 		ZIndex = 2,
 		Parent = bar,

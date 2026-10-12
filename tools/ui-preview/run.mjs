@@ -92,21 +92,25 @@ try {
 }
 for (const l of logs) console.log(l);
 
-// Image ids -> local files, from the configs that name them.
+// Image ids -> { url, w, h } of local files, from the configs that name them.
 const assets = {};
+function asset(file) {
+  const b = fs.readFileSync(file);
+  return { url: pathToFileURL(file).href, w: b.readUInt32BE(16), h: b.readUInt32BE(20) };
+}
 function mapIds(configRel, fileFor) {
   const file = path.join(roots.shared, configRel);
   if (!fs.existsSync(file)) return;
   for (const m of fs.readFileSync(file, 'utf8').matchAll(/(\w+)\s*=\s*(\d{3,})/g)) {
     const local = fileFor(m[1]);
-    if (local && fs.existsSync(local)) assets[m[2]] = pathToFileURL(local).href;
+    if (local && fs.existsSync(local)) assets[m[2]] = asset(local);
   }
 }
 mapIds('Config/UiImages.luau', (name) => path.join(repo, 'assets/textures/ui', `${name}.png`));
 mapIds('Config/PetFaces.luau', (name) => path.join(repo, 'assets/textures/pets', `${name}.png`));
 // Preview-only: draw not-yet-uploaded UI images from their local files.
 for (const f of fs.existsSync(path.join(repo, 'assets/textures/ui')) ? fs.readdirSync(path.join(repo, 'assets/textures/ui')) : []) {
-  assets[`local:${f.replace(/\.png$/, '')}`] = pathToFileURL(path.join(repo, 'assets/textures/ui', f)).href;
+  assets[`local:${f.replace(/\.png$/, '')}`] = asset(path.join(repo, 'assets/textures/ui', f));
 }
 
 const font = pathToFileURL(path.join(here, 'node_modules/@fontsource/fredoka-one/files/fredoka-one-latin-400-normal.woff2')).href;

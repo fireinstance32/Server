@@ -58,6 +58,9 @@ UDimMT.__add = function(a, b) return UDim.new(a.Scale + b.Scale, a.Offset + b.Of
 UDim = { new = function(s, o) return typed("UDim", { Scale = s or 0, Offset = o or 0 }, UDimMT) end }
 
 local UDim2MT = {}
+UDim2MT.__eq = function(a, b)
+	return a.X.Scale == b.X.Scale and a.X.Offset == b.X.Offset and a.Y.Scale == b.Y.Scale and a.Y.Offset == b.Y.Offset
+end
 UDim2MT.__index = function(self, k)
 	if k == "Width" then return self.X elseif k == "Height" then return self.Y end
 	return nil
@@ -85,6 +88,7 @@ function UDim2MT.__index_lerp(a, b, t)
 end
 
 local V2 = {}
+V2.__eq = function(a, b) return a.X == b.X and a.Y == b.Y end
 V2.__index = function(self, k)
 	if k == "Magnitude" then return math.sqrt(self.X ^ 2 + self.Y ^ 2) end
 	return nil
@@ -151,6 +155,7 @@ CFrame.identity = CFrame.new()
 
 local ColMT = {}
 ColMT.__index = ColMT
+ColMT.__eq = function(a, b) return a.R == b.R and a.G == b.G and a.B == b.B end
 function ColMT:Lerp(o, t)
 	return Color3.new(self.R + (o.R - self.R) * t, self.G + (o.G - self.G) * t, self.B + (o.B - self.B) * t)
 end
@@ -661,3 +666,4 @@ function SEND_DATA(snapshot)
 end
 
 script = Instance.new("ModuleScript")
+_G.__UI_PREVIEW = true

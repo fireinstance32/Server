@@ -14,6 +14,7 @@ Theme.Colors = {
 	Red = Color3.fromRGB(240, 80, 80),
 	Panel = Color3.fromRGB(255, 250, 235),
 	Ink = Color3.fromRGB(35, 45, 35),
+	Outline = Color3.fromRGB(26, 24, 36), -- text/panel outlines (reference: near-black)
 	White = Color3.new(1, 1, 1),
 	Grey = Color3.fromRGB(160, 160, 160),
 }
@@ -21,6 +22,9 @@ Theme.Colors = {
 -- new("Frame", { Size = ... }, { children }) : terse instance construction.
 function Theme.new(className: string, props: { [string]: any }?, children: { Instance }?): any
 	local inst = Instance.new(className)
+	if inst:IsA("GuiObject") then
+		inst.BorderSizePixel = 0
+	end
 	local parent = nil
 	for key, value in props or {} do
 		if key == "Parent" then
@@ -43,13 +47,13 @@ end
 function Theme.stroke(thickness: number?, color: Color3?): UIStroke
 	return Theme.new("UIStroke", {
 		Thickness = thickness or 3,
-		Color = color or Theme.Colors.Ink,
+		Color = color or Theme.Colors.Outline,
 		ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 	})
 end
 
-function Theme.textStroke(): UIStroke
-	return Theme.new("UIStroke", { Thickness = 2.5, Color = Theme.Colors.Ink })
+function Theme.textStroke(thickness: number?): UIStroke
+	return Theme.new("UIStroke", { Thickness = thickness or 3, Color = Theme.Colors.Outline })
 end
 
 function Theme.label(props: { [string]: any }): TextLabel

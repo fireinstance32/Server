@@ -1,18 +1,19 @@
--- Square menu tile: big icon on top, caption at the bottom, badge slot.
--- Icons are emoji placeholders until Phase 5 (Interface) icons.
+-- Square menu tile (reference HUD): dark glassy tile, big 3D icon poking out
+-- of the top, caption across the bottom, badge slot in the corner.
 
 local TweenService = game:GetService("TweenService")
 
 local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Gradient)
 local Badge = require(script.Parent.Badge)
+local Icon = require(script.Parent.Icon)
 
 local IconTile = {}
 
 function IconTile.create(props: {
-	icon: string,
+	icon: string, -- icon name (Config/IconAtlas)
 	caption: string,
-	color: string,
+	color: string?, -- Gradient preset; defaults to the dark tile
 	order: number,
 	onClick: () -> (),
 }): (TextButton, Badge.Badge)
@@ -21,19 +22,23 @@ function IconTile.create(props: {
 		Text = "",
 		AutoButtonColor = true,
 		LayoutOrder = props.order,
-	}, { Theme.corner(12), Theme.stroke(3) })
-	Gradient.apply(tile, props.color)
+	}, { Theme.corner(14), Theme.stroke(3) })
+	Gradient.apply(tile, props.color or "Tile")
+	tile.BackgroundTransparency = if props.color then 0 else 0.15
 
-	Theme.label({
-		Size = UDim2.fromScale(0.8, 0.58),
-		Position = UDim2.fromScale(0.1, 0.06),
-		Text = props.icon,
+	Icon.new(props.icon, {
+		Size = UDim2.fromScale(0.92, 0.82),
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.fromScale(0.5, -0.1),
+		ZIndex = 2,
 		Parent = tile,
 	})
 	Theme.label({
-		Size = UDim2.fromScale(0.94, 0.3),
-		Position = UDim2.fromScale(0.03, 0.66),
+		Size = UDim2.fromScale(1.04, 0.3),
+		AnchorPoint = Vector2.new(0.5, 1),
+		Position = UDim2.fromScale(0.5, 0.97),
 		Text = props.caption,
+		ZIndex = 3,
 		Parent = tile,
 	})
 

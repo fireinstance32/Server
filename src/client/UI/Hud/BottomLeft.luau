@@ -7,9 +7,9 @@ local SocialService = game:GetService("SocialService")
 local Format = require(ReplicatedStorage:WaitForChild("Shared").Util.Format)
 local Theme = require(script.Parent.Parent.Theme)
 local State = require(script.Parent.Parent.Parent.State)
+local Icon = require(script.Parent.Parent.Components.Icon)
 
 local new = Theme.new
-local C = Theme.Colors
 
 local BottomLeft = {}
 
@@ -20,7 +20,7 @@ local function counter(parent: Frame, order: number, icon: string): TextLabel
 		LayoutOrder = order,
 		Parent = parent,
 	})
-	Theme.label({ Size = UDim2.fromOffset(56, 56), Text = icon, Parent = row })
+	Icon.new(icon, { Size = UDim2.fromOffset(60, 60), Position = UDim2.fromOffset(-2, -2), Parent = row })
 	return Theme.label({
 		Size = UDim2.new(1, -66, 0, 48),
 		Position = UDim2.fromOffset(66, 4),
@@ -40,8 +40,8 @@ function BottomLeft.init(gui: ScreenGui)
 		Parent = gui,
 	}, { new("UIListLayout", { Padding = UDim.new(0, 4), SortOrder = Enum.SortOrder.LayoutOrder }) })
 
-	local rebirths = counter(frame, 1, "🔁")
-	local wins = counter(frame, 2, "🏆")
+	local rebirths = counter(frame, 1, "rebirth")
+	local wins = counter(frame, 2, "trophy")
 
 	local friendRow = new("Frame", {
 		Size = UDim2.new(1, 0, 0, 36),
@@ -55,15 +55,18 @@ function BottomLeft.init(gui: ScreenGui)
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Parent = friendRow,
 	})
-	local invite = Theme.button({
-		Size = UDim2.fromOffset(36, 36),
-		Position = UDim2.new(1, -36, 0, 0),
-		Text = "+",
-		Color = C.Green,
-	}, function()
+	local invite = new("TextButton", {
+		Name = "Invite",
+		Size = UDim2.fromOffset(40, 40),
+		Position = UDim2.new(1, -40, 0, -2),
+		BackgroundTransparency = 1,
+		Text = "",
+		Parent = friendRow,
+	})
+	Icon.new("plus", { Size = UDim2.fromScale(1, 1), Parent = invite })
+	invite.Activated:Connect(function()
 		pcall(SocialService.PromptGameInvite, SocialService, Players.LocalPlayer)
 	end)
-	invite.Parent = friendRow
 
 	State.observe(function(data)
 		rebirths.Text = Format.abbreviate(data.rebirths)

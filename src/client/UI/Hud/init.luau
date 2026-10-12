@@ -28,6 +28,8 @@ local TopRight = require(script.TopRight)
 local QuestBar = require(script.QuestBar)
 local TipTicker = require(script.TipTicker)
 local EventBanner = require(script.EventBanner)
+local Icon = require(script.Parent.Components.Icon)
+local Studs = require(script.Parent.Components.Studs)
 
 local Hud = {}
 
@@ -46,7 +48,7 @@ function Hud.setHopMode(mode: string?, pond: any?, locked: boolean?)
 	AutoRebirth.setVisible(mode == "Train")
 	hopButton.Visible = mode == "Launch" or (mode == "Train" and locked == true)
 	if mode == "Launch" then
-		hopButton.Text = "HOP! 🐸"
+		hopButton.Text = "HOP!"
 		Gradient.apply(hopButton, "Blue")
 	elseif mode == "Train" and locked and pond then
 		hopButton.Text = if pond.pass
@@ -96,6 +98,15 @@ function Hud.init(callbacks: {
 		Visible = false,
 	}, callbacks.onHop)
 	hopButton.Parent = gui
+	Studs.apply(hopButton, 24, 0.45)
+	Icon.new("frog", {
+		Size = UDim2.fromOffset(84, 84),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(1, 4, 0.5, -10),
+		Rotation = 10,
+		ZIndex = 2,
+		Parent = hopButton,
+	})
 
 	BottomLeft.init(gui)
 	IconGrid.init(gui, callbacks.openMenu)

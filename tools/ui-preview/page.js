@@ -241,7 +241,8 @@ function drawNode(n, box, parentEl) {
     const image = String(P(n, 'Image', ''));
     const id = (image.match(/(\d{3,})/) || [])[1];
     const local = image.startsWith('local:') ? window.ASSETS[image] : null;
-    const url = local || (id && window.ASSETS[id]);
+    const info = local || (id && window.ASSETS[id]);
+    const url = info && info.url;
     if (url) {
       const img = document.createElement('div');
       img.style.position = 'absolute';
@@ -260,6 +261,21 @@ function drawNode(n, box, parentEl) {
         repeat = 'repeat';
       }
       const tinted = tint.some((v) => v < 0.999);
+      const rs = n.p.ImageRectSize ? n.p.ImageRectSize.v : [0, 0];
+      let position = 'center';
+      if (rs[0] > 0 && rs[1] > 0) {
+        // Sprite sheet: show only the ImageRect, fitted like ScaleType says.
+        const ro = n.p.ImageRectOffset ? n.p.ImageRectOffset.v : [0, 0];
+        let sx = box.w / rs[0];
+        let sy = box.h / rs[1];
+        if (type === 'Fit') sx = sy = Math.min(sx, sy);
+        if (type === 'Crop') sx = sy = Math.max(sx, sy);
+        const dx = (box.w - rs[0] * sx) / 2;
+        const dy = (box.h - rs[1] * sy) / 2;
+        size = `${info.w * sx}px ${info.h * sy}px`;
+        position = `${dx - ro[0] * sx}px ${dy - ro[1] * sy}px`;
+        img.style.clipPath = `inset(${dy}px ${dx}px ${dy}px ${dx}px)`;
+      }
       if (type === 'Slice') {
         const sc = n.p.SliceCenter ? n.p.SliceCenter.v : [0, 0, 0, 0];
         const ss = P(n, 'SliceScale', 1);
@@ -268,9 +284,9 @@ function drawNode(n, box, parentEl) {
         img.style.borderImage = `url("${url}") ${sc[1]} ${sc[0]} fill / ${sc[1] * ss}px ${sc[0] * ss}px stretch`;
       } else if (tinted) {
         img.style.background = rgb(tint);
-        img.style.webkitMask = `url("${url}") center/${size} ${repeat}`;
+        img.style.webkitMask = `url("${url}") ${position}/${size} ${repeat}`;
       } else {
-        img.style.background = `url("${url}") center/${size} ${repeat}`;
+        img.style.background = `url("${url}") ${position}/${size} ${repeat}`;
         if (type === 'Tile') img.style.backgroundPosition = '0 0';
       }
       const g = child(n, 'UIGradient');

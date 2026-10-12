@@ -9,6 +9,8 @@ local Format = require(Shared.Util.Format)
 local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
 local RobuxChip = require(script.Parent.Parent.Components.RobuxChip)
+local Studs = require(script.Parent.Parent.Components.Studs)
+local Icon = require(script.Parent.Parent.Components.Icon)
 local Purchases = require(script.Parent.Parent.Parent.Purchases)
 
 local new = Theme.new
@@ -46,10 +48,21 @@ function PackRow.init(parent: Frame, y: number, height: number)
 			Parent = row,
 		}, { Theme.corner(12), Theme.stroke(4) })
 		Gradient.apply(button, pack.color)
+		Studs.apply(button, 22, 0.5)
+		-- Big lightning bolt behind the amount (reference packs).
+		Icon.new("bolt", {
+			Size = UDim2.fromScale(0.42, 1.25),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.45),
+			Rotation = 12,
+			ZIndex = 2,
+			Parent = button,
+		})
 		Theme.label({
 			Size = UDim2.fromScale(0.8, 0.62),
-			Position = UDim2.fromScale(0.1, 0.12),
+			Position = UDim2.fromScale(0.1, 0.1),
 			Text = `+{Format.abbreviate(Monetization.HopsPacks[pack.name])}`,
+			ZIndex = 3,
 			Parent = button,
 		})
 		RobuxChip.attach(button, Purchases.price("product", pack.name))

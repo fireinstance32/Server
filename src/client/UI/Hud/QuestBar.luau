@@ -6,6 +6,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Format = require(ReplicatedStorage:WaitForChild("Shared").Util.Format)
 local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
+local Studs = require(script.Parent.Parent.Components.Studs)
 local State = require(script.Parent.Parent.Parent.State)
 
 local new = Theme.new
@@ -22,6 +23,7 @@ function QuestBar.init(gui: ScreenGui)
 		Parent = gui,
 	}, { Theme.corner(12), Theme.stroke(4) })
 	Gradient.apply(bar, "Yellow")
+	Studs.apply(bar, 24, 0.5)
 	local tag = Theme.label({
 		Size = UDim2.fromOffset(160, 26),
 		AnchorPoint = Vector2.new(0.5, 0.5),

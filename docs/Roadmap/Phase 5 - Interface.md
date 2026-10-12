@@ -6,13 +6,18 @@ tags: [planning, phase5]
 
 > **How we work (decided 2026-10-12): no Figma.** I design and build every screen in Luau from the references; you review it in Studio and send screenshots + feedback. Order: Design System → HUD → Menus → Hatch → World UI.
 
-## 5.1 Design system
-- [ ] Final fonts, colour tokens, stroke weights, corner radii
-- [ ] Image assets: studded "brick" panel texture, button art, Robux chip, icons for every menu and stat (replace emoji)
-- [ ] Component library: tile, pass card, pack button, badge, window, tabs, list rows, progress bar
+> **Preview tool:** `tools/ui-preview` runs the real UI code offline and screenshots it, so every screen is checked against the references before it reaches Studio. Current HUD: ![[HUD Preview.png]]
 
-## 5.2 HUD to reference
-- [ ] Rebuild the HUD from the references measurement by measurement: sizes, spacing, positions, text styles
+## 5.1 Design system 🟡
+- [x] Fonts/tokens: Fredoka One, near-black 3px outlines, dark glassy tiles, silver/colour gradients
+- [x] 27 glossy 3D icons rendered in Blender (`tools/blender/build_icons.py`) packed into **one sheet** (`assets/textures/ui/icons.png`, layout `Config/IconAtlas`) — emoji until uploaded
+- [x] Stud texture (`assets/textures/ui/studs.png`) on bars, packs, passes, buttons
+- [x] Components: `Icon` (sheet icon or emoji), `Studs`, restyled `IconTile`, `PassCard`
+- [ ] Upload the 2 images ([[Decisions]])
+
+## 5.2 HUD to reference 🟡
+- [x] HUD restyled to the references with the preview tool: icon tiles, bolt stat row, studded level bar + packs with bolts, icon pass cards, crowned Auto Hop, studded tutorial bar, icon counters, frog HOP button, potion timers with icons
+- [ ] Check in Studio and fine-tune
 - [ ] Tile grid, pass cards, Auto Hop, Level bar + stat row + packs, bottom-left counters, quest bar
 - [ ] Badges (! / % / NEW! / timers) driven by real systems
 
