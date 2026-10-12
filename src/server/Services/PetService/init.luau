@@ -47,7 +47,7 @@ function PetService.refreshModels(player: Player)
 		local def = Pets.ById[pet.id]
 		if pet.equipped and def then
 			slot += 1
-			local model = Models.pet(def.name, def.color)
+			local model = Models.pet(def)
 			model:SetAttribute("Slot", slot)
 			model.Parent = folder
 		end

@@ -10,7 +10,10 @@ tags: [planning, phase6]
 - [x] Cube frog, pet and egg built in Blender (`tools/blender/build_models.py`), exported to `assets/models/` — preview: ![[Models Preview.png]]
 - [x] Game uses `ReplicatedStorage.Assets.Frog/Pet/Egg` when imported, recoloured per frog/pet; placeholders otherwise
 - [ ] You import the 3 FBX files ([[Art Pipeline]] → Importing) and check them in [[Phase 6 Playtest]]
-- [ ] Extras later: crowns for the King frogs, wings/horns for Legendary pets
+- [x] **Pets in Studio without Blender:** part-built cube pets, 21 animal looks with 3D details (ears, tails, wings, collars, horns, shells…), face + pattern **decals**, sparkles on Legendary/Rainbow — preview: ![[Pets Closeup.png]]
+- [ ] You upload the 26 pet images and send the ids ([[Art Pipeline]] → Uploading); check with `/petgallery`
+- [ ] Then compare with Blender pets and pick
+- [ ] Extras later: crowns for the King frogs
 ## 6.2 VFX
 - [ ] Splash per pad, landing burst, confetti on new zone/level up
 ## 6.3 Legend Frog ultimate hop

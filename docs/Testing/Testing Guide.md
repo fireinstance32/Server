@@ -30,6 +30,7 @@ Type these in the game chat. They only work in Studio (or for user ids listed in
 | `/goto river` / `/goto pond 3` | Teleport to the Hop Zone / a training pond (1–7) |
 | `/world swamp` | Unlock + travel to a world (lily / swamp / candy / space / lava) |
 | `/event halloween 100` / `/event none` / `/event auto` | Force an event on (+ give its currency) / off / back to the calendar |
+| `/petgallery` | Show/hide every pet lined up next to spawn |
 | `/reset` | Wipe your data to a brand-new player |
 
 ## Reporting a problem

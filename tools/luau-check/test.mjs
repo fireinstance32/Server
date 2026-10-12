@@ -19,10 +19,11 @@ function loadShared(rel) {
   const source = fs.existsSync(file)
     ? fs.readFileSync(file, 'utf8')
     : fs.readFileSync(path.join(sharedRoot, rel, 'init.luau'), 'utf8');
-  return source.replace(/require\(script((?:\.Parent)*)\.(\w+)\)/g, (_, parents, name) => {
+  return source.replace(/require\(script((?:\.Parent)*)((?:\.\w+)+)\)/g, (_, parents, names) => {
     let base = rel;
     for (let i = 0; i < parents.length / '.Parent'.length; i++) base = path.posix.dirname(base);
-    return `require("@shared/${base === '.' ? '' : base + '/'}${name}")`;
+    const tail = names.slice(1).replaceAll('.', '/');
+    return `require("@shared/${base === '.' ? '' : base + '/'}${tail}")`;
   });
 }
 

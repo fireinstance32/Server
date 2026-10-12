@@ -141,7 +141,7 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 				Parent = cell,
 			})
 			Theme.textStroke().Parent = chanceRow
-			local view = viewport(cell, Models.pet(def.name, def.color, 3))
+			local view = viewport(cell, Models.pet(def, 3))
 			view.Position = UDim2.fromOffset(0, 58)
 			view.Size = UDim2.new(1, 0, 0, 190)
 			local bonus = Theme.label({

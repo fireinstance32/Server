@@ -6,7 +6,15 @@ status: in progress
 
 > Grows as Phase 6 is built. Setup: [[Testing Guide]]; import the models first ([[Art Pipeline]] → Importing).
 
-## 6.1 Models
+## 6.1 Pets (parts + decals)
+- [ ] `/petgallery` → every pet in rows next to spawn, name + animal under each; run again to remove
+- [ ] Before uploading images: pets have part-built faces (square eyes, snouts)
+- [ ] After filling ids in `Config/PetFaces.luau`: faces are decals (big glossy eyes, muzzles, whiskers), dogs have spots + eye patch, cats stripes, panda eye patches
+- [ ] Every animal is recognisable; note any that aren't (name + screenshot)
+- [ ] Legendary/Rainbow pets sparkle; equipped pets follow you and face forward
+- [ ] Hatch screen shows the new pets
+
+## 6.1 Models (Blender frog/egg)
 - [ ] `ReplicatedStorage.Assets` has `Frog`, `Pet`, `Egg`
 - [ ] Frog podiums show cube frogs in each frog's colour (belly lighter, feet darker, white eyes)
 - [ ] The frog in your hand is the cube frog and faces forward; it hides while hopping

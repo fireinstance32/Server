@@ -18,6 +18,7 @@ local MonetizationService = require(script.Parent.Parent.MonetizationService)
 local WorldService = require(script.Parent.Parent.WorldService)
 local PetService = require(script.Parent.Parent.PetService)
 local Passes = require(script.Parent.Parent.Parent.Passes)
+local PetGallery = require(script.Parent.PetGallery)
 
 local function number(arg: string?): number?
 	local n = tonumber(arg)
@@ -173,6 +174,12 @@ local COMMANDS: { [string]: Command } = {
 				end
 			end
 			return "Unknown event (see Config/Events)"
+		end,
+	},
+	petgallery = {
+		usage = "/petgallery  show/hide every pet next to spawn",
+		run = function()
+			return PetGallery.toggle()
 		end,
 	},
 	reset = {

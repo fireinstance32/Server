@@ -41,8 +41,8 @@ Rojo maps:
   - `DevService/` – `init` (chat plumbing, permissions) · `Commands` (Studio-only test commands, see [[Testing Guide]]).
 
 ## Shared (`src/shared`)
-- `Config/` – all balance numbers: `Game`, `Worlds`, `WorldContent/` (one file per world 2–5: frogs, pets, eggs, zones), `Frogs`, `Pets`, `Zones`, `Levels`, `Ponds`, `Trails`, `Potions`, `DailyRewards`, `Gifts`, `Quests`, `Codes`, `Monetization`, `Sounds`, `Dev`, `Security`, `Leaderboards`, `Events`, `Funnel`.
-- `Util/` – `Format` (number text), `Models/` (`init` picks imported meshes or `Placeholders`; `Assets` clones/recolours `ReplicatedStorage.Assets`), `Multipliers` (pure boost maths), `Hatch` (pure egg odds/picks), `RateLimit` (token bucket), `SessionLock` (save locking rules).
+- `Config/` – all balance numbers: `Game`, `Worlds`, `WorldContent/` (one file per world 2–5: frogs, pets, eggs, zones), `Frogs`, `Pets`, `Zones`, `Levels`, `Ponds`, `Trails`, `Potions`, `DailyRewards`, `Gifts`, `Quests`, `Codes`, `Monetization`, `Sounds`, `Dev`, `Security`, `Leaderboards`, `Events`, `Funnel`, `PetLooks` (animal per pet + features per animal), `PetFaces` (decal image ids + patterns).
+- `Util/` – `Format` (number text), `Models/` (`init` picks imported meshes or part-built models; `Assets` clones/recolours `ReplicatedStorage.Assets`; `Pet/` part-built cube pets: `Builder`, `Features/` (`Face`, `Head`, `Body`) + face/pattern decals; `Placeholders` frog/egg), `Multipliers` (pure boost maths), `Hatch` (pure egg odds/picks), `RateLimit` (token bucket), `SessionLock` (save locking rules).
 - `Net.luau` – every remote, declared once.
 
 ## Client (`src/client`)

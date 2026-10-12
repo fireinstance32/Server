@@ -1,11 +1,13 @@
 --!strict
 -- Frog, pet and egg models. Uses the imported cube-style meshes in
 -- ReplicatedStorage.Assets when present (Models/Assets), otherwise the
--- part-built placeholders (Models/Placeholders). Callers only rely on
+-- part-built models (Models/Pet for pets, Models/Placeholders otherwise). Callers only rely on
 -- PrimaryPart, so both look the same to the rest of the game.
 
 local Assets = require(script.Assets)
 local Placeholders = require(script.Placeholders)
+local Pet = require(script.Pet)
+local PetLooks = require(script.Parent.Parent.Config.PetLooks)
 
 local Models = {}
 
@@ -40,20 +42,21 @@ function Models.frog(color: Color3, scale: number?): Model
 	return Placeholders.frog(color, s)
 end
 
--- A cube pet `size` studs wide, facing -Z, with a name tag.
-function Models.pet(name: string, color: Color3, size: number?): Model
+export type PetDef = { id: string, name: string, color: Color3, rarity: string }
+
+-- A cube pet `size` studs wide, facing -Z, with a name tag. Part-built
+-- per animal look (Models/Pet) unless an imported Assets.Pet mesh exists.
+function Models.pet(def: PetDef, size: number?): Model
 	local s = size or 1.6
 	local template = Assets.template("Pet")
-	local model = template and Assets.build(template, "Body", color, s)
-	if model then
-		model.Name = name
-		nameTag(model.PrimaryPart :: BasePart, name, s)
-		return model
+	local model = template and Assets.build(template, "Body", def.color, s)
+	if not model then
+		model = Pet.build(def.color, s, PetLooks.ByPet[def.id], def.rarity)
 	end
-	model = Placeholders.pet(color, s)
-	nameTag(model.PrimaryPart :: BasePart, name, s)
-	model.Name = name
-	return model
+	local built = model :: Model
+	built.Name = def.name
+	nameTag(built.PrimaryPart :: BasePart, def.name, s)
+	return built
 end
 
 -- An egg `height` studs tall.
