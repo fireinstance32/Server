@@ -478,13 +478,54 @@ def _candy_corn():
     ]
 
 
-@icon("rebirth", ink="#06305a")
+def band(cx, cy, r_out, w0, w1, a0, a1, steps=48):
+    """Ring segment from angle a0 to a1 (degrees, clockwise on screen) whose
+    width grows from w0 to w1 (a tapering crescent)."""
+    outer, inner = [], []
+    for i in range(steps + 1):
+        t = i / steps
+        a = math.radians(a0 + (a1 - a0) * t)
+        r_in = r_out - (w0 + (w1 - w0) * t)
+        outer.append((cx + r_out * math.cos(a), cy + r_out * math.sin(a)))
+        inner.append((cx + r_in * math.cos(a), cy + r_in * math.sin(a)))
+    pts = outer + inner[::-1]
+    return path("M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in pts) + " Z")
+
+
+def arrow_head(cx, cy, r_out, w, a, reach=80, flare_in=8, flare_out=16, lean=30):
+    """Big triangular head at the end (angle a) of a band of width w: base
+    across the band (a little wider than it), tip `reach` along the
+    clockwise tangent, leaning `lean` outward."""
+    rad = math.radians(a)
+    ux, uy = math.cos(rad), math.sin(rad)  # outward
+    tx, ty = -uy, ux  # clockwise tangent
+    lo, hi = r_out - w - flare_in, r_out + flare_out
+    mid = r_out - w / 2 + lean
+    return poly([
+        (cx + hi * ux, cy + hi * uy),
+        (cx + mid * ux + reach * tx, cy + mid * uy + reach * ty),
+        (cx + lo * ux, cy + lo * uy),
+    ])
+
+
+@icon("rebirth", ink="#1e1530")
 def _rebirth():
+    # Reference (Stone Skipping rebirth icon): pink arrow over the top,
+    # blue arrow underneath, each a crescent that thickens toward its big
+    # head; each head covers the other arrow's thin tail.
+    cx, cy, R = 128, 132, 94
+    pink, pink_top, pink_bot = "#ff3d8c", "#ff9cc8", "#d4155f"
+    blue, blue_top, blue_bot = "#8fdcff", "#e4f9ff", "#3aa2e6"
     return [
-        stroke("M50,124 C50,74 92,40 140,44 C164,46 184,56 198,72", "#2ecbff", 30, top="#a6f0ff", bottom="#0e8fe0", cap="butt"),
-        part(poly([(218, 40), (226, 110), (160, 90)]), "#2ecbff", top="#a6f0ff", bottom="#0e8fe0", line=False),
-        stroke("M206,132 C206,182 164,216 116,212 C92,210 72,200 58,184", "#ff4fa0", 30, top="#ffa6cf", bottom="#d61c6e", cap="butt"),
-        part(poly([(38, 216), (30, 146), (96, 166)]), "#ff4fa0", top="#ffa6cf", bottom="#d61c6e", line=False),
+        part(band(cx, cy, R, 14, 52, 0, 142), blue, top=blue_top, bottom=blue_bot),
+        part(band(cx, cy, R, 14, 52, 180, 322), pink, top=pink_top, bottom=pink_bot,
+             gloss=[gloss(band(cx, cy, R - 7, 4, 10, 200, 285), 0.7)]),
+        detail(band(cx, cy, R - 36, 0, 12, 236, 322), "#a80f4c", 0.4),
+        detail(band(cx, cy, R - 36, 0, 12, 56, 142), "#1f7fc4", 0.35),
+        part(arrow_head(cx, cy, R, 52, 142), blue, top=blue_top, bottom=blue_bot),
+        part(arrow_head(cx, cy, R, 52, 322), pink, top=pink_top, bottom=pink_bot),
+        gloss(ellipse(cx + 52, cy - 74, 13, 5, -35), 0.75),
+        gloss(ellipse(cx - 50, cy + 66, 11, 5, -35), 0.6),
     ]
 
 

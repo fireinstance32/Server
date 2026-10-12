@@ -18,7 +18,8 @@ Things I need from you, or choices I made for now that you can change. Newest fi
 |---|---|---|
 | UI fonts | Fredoka One everywhere (Roblox `FredokaOne`) | Closest to the reference look; could use Gotham Black for numbers |
 | UI images | 2 icon sheets (170 px cells, 72 icons) + 1 stud texture, emoji until uploaded | Best quality you asked for; 1 extra upload |
-| Icons | Gvesster Icon Pack v8 (Outline 256 px) for every icon, scaled and packed only (licence: no edits). Frog is the only hand-drawn vector left | Pack folder never committed, only the packed sheets. Swap any icon by changing the pick in the pack script |
+| Icons | Gvesster Icon Pack v8 (Outline 256 px) for every icon, scaled and packed only (licence: no edits). Frog and Rebirth (redrawn to match the reference arrows) are hand-drawn vectors | Pack folder never committed, only the packed sheets. Swap any icon by changing the pick in the pack script |
+| UI text & colours | Menus, hatch screen and pop-ups in GothamBlack (= Montserrat Black in Roblox), HUD in Fredoka One; window titles with a thick black outline + solid black drop shadow; colours sampled from the reference screenshots | Matches the reference; say if any colour feels off in Studio |
 | HUD details | Green HOP button; Auto Hop hidden during the tutorial; square studs with a soft shadow; red square close button with a white X; bare Starter Pack icon; white pet names on the hatch screen | Copied from the Stone Skipping references |
 | Titles | 27 milestone titles (throws, distance, eggs, playtime, frogs, pets, rebirths, level, Wins), +0.5…+15 Hops or x1.05…x2 Wins, shown above the head | Names/numbers in `Config/Titles.luau` – rename or retune freely |
 | Worlds menu pictures | Painted in code from each world's colours | Send me Studio screenshots of each hub (or upload them) and the cards can show real pictures like the reference |

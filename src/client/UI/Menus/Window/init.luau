@@ -59,19 +59,22 @@ function Window.report(ok: boolean, message: string)
 	Hud.toast(message, if ok then C.DarkGreen else C.Red)
 end
 
+local TITLE_INK = Color3.fromRGB(8, 8, 10)
+
 local function titleLabel(frame: Frame, text: string)
-	-- Soft drop shadow under the title, like the reference.
-	Theme.label({
+	-- Reference title: white, thick black outline, and a solid black copy
+	-- shifted down underneath (the "extruded" look).
+	local shadow = Theme.label({
 		Name = "TitleShadow",
 		Size = UDim2.new(0.66, 0, 0, 84),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(0.5, 3, 0, 5),
+		Position = UDim2.new(0.5, 0, 0, 7),
 		Text = text,
-		TextColor3 = Color3.new(0, 0, 0),
-		TextTransparency = 0.55,
+		TextColor3 = TITLE_INK,
 		ZIndex = 5,
 		Parent = frame,
 	})
+	Theme.new("UIStroke", { Thickness = 7, Color = TITLE_INK, Parent = shadow })
 	local title = Theme.label({
 		Name = "Title",
 		Size = UDim2.new(0.66, 0, 0, 84),
@@ -81,7 +84,9 @@ local function titleLabel(frame: Frame, text: string)
 		ZIndex = 6,
 		Parent = frame,
 	})
-	title:FindFirstChildOfClass("UIStroke").Thickness = 5
+	local stroke = title:FindFirstChildOfClass("UIStroke") :: UIStroke
+	stroke.Thickness = 7
+	stroke.Color = TITLE_INK
 end
 
 local function closeButton(frame: Frame, onClose: () -> ())

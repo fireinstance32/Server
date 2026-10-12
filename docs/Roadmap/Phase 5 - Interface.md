@@ -10,10 +10,11 @@ tags: [planning, phase5]
 
 ## 5.1 Design system 🟡
 - [x] Fonts/tokens: Fredoka One, near-black 3px outlines, dark glassy tiles, silver/colour gradients
-- [x] 72 icons from the **Gvesster Icon Pack v8** packed into **two sheets** (`assets/textures/ui/icons.png` + `icons2.png`, layout `Config/IconAtlas`); frog stays a hand-drawn vector (`assets/vectors/icons/`) — emoji until uploaded ![[Icons Sheet.png]]
+- [x] 72 icons from the **Gvesster Icon Pack v8** packed into **two sheets** (`assets/textures/ui/icons.png` + `icons2.png`, layout `Config/IconAtlas`); frog and rebirth are hand-drawn vectors (`assets/vectors/icons/`) — emoji until uploaded ![[Icons Sheet.png]]
 - [x] Stud texture (`assets/textures/ui/studs.png`) on bars, packs, passes, buttons
 - [x] Components: `Icon` (sheet icon or emoji), `Studs`, restyled `IconTile`, `PassCard`
 - [x] Square studs with a soft L shadow (reference)
+- [x] Reference fonts (GothamBlack menus, Fredoka One HUD), extruded window titles, colours sampled from the screenshots
 - [x] Shared red `CloseButton` (white X) and `ClickHint` (mouse icon + text)
 - [ ] Upload the images ([[Decisions]])
 

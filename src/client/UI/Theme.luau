@@ -17,7 +17,7 @@ Theme.Colors = {
 	Red = Color3.fromRGB(240, 80, 80),
 	Panel = Color3.fromRGB(255, 250, 235),
 	Ink = Color3.fromRGB(35, 45, 35),
-	Outline = Color3.fromRGB(26, 24, 36), -- text/panel outlines (reference: near-black)
+	Outline = Color3.fromRGB(10, 10, 12), -- text/panel outlines (reference: black)
 	White = Color3.new(1, 1, 1),
 	Grey = Color3.fromRGB(160, 160, 160),
 }
