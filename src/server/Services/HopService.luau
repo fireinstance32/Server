@@ -29,7 +29,8 @@ end
 
 local function train(player: Player, data: any)
 	local bounces = Game.TrainingBounces
-	local hopsGained = math.floor(bounces * Stats.perBounce(data) * Stats.hopsMultiplier(player, data))
+	local context = { mode = "Train" }
+	local hopsGained = math.floor(bounces * Stats.perBounce(data) * Stats.hopsMultiplier(player, data, context))
 	data.hops += hopsGained
 	busyUntil[player] = os.clock() + Game.TrainingCooldown
 	DataService.changed(player)
@@ -40,8 +41,9 @@ local function launch(player: Player, data: any)
 	local distance = math.min(Game.distanceForHops(data.hops), Zones.RiverLength)
 	local bounces = math.max(1, math.floor(distance / Game.PadSpacing))
 	local zone = Zones.zoneForDistance(distance)
-	local hopsGained = math.floor(bounces * Stats.perBounce(data) * Stats.hopsMultiplier(player, data))
-	local winsGained = math.floor(zone.wins * Stats.winsMultiplier(player, data))
+	local context = { mode = "Launch", zone = zone.index }
+	local hopsGained = math.floor(bounces * Stats.perBounce(data) * Stats.hopsMultiplier(player, data, context))
+	local winsGained = math.floor(zone.wins * Stats.winsMultiplier(player, data, context))
 	local flight = Game.flightTime(bounces)
 
 	busyUntil[player] = os.clock() + flight

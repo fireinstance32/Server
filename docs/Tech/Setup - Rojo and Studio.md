@@ -11,6 +11,16 @@ tags: [tech]
 6. Game Settings → Security → **Enable Studio Access to API Services** (for DataStores).
 7. Press Play.
 
-Offline checks (no Studio needed): `cd tools/luau-check && npm install && npm run check`.
+Offline checks (no Studio needed): `cd tools/luau-check && npm install && npm run check` (compile + lint + unit tests).
+
+## Auto-pull with Obsidian Git
+The vault is the repo, so the **Obsidian Git** plugin keeps notes *and* code up to date (Rojo then syncs the code into Studio).
+1. Settings → Community plugins → Turn on → Browse → **Git** (by Vinzent) → Install → Enable.
+2. Plugin settings:
+   - **Auto pull interval (minutes):** `1`
+   - **Pull on startup:** on
+   - **Auto commit-and-sync interval:** `0` (off – only Claude pushes)
+   - **Push on commit-and-sync:** off
+3. Command palette → "Git: Pull" to pull on demand.
 
 See [[Architecture]] for where code lives.

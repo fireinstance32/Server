@@ -30,14 +30,22 @@ local function countPets(data: any): (number, number)
 	return total, equipped
 end
 
-local function roll(egg: Pets.Egg): string
+local function weightFor(entry: Pets.EggEntry, luck: number): number
+	local def = Pets.ById[entry.pet]
+	if def and Pets.RarityOrder[def.rarity] >= Pets.LuckMinRarity then
+		return entry.weight * luck
+	end
+	return entry.weight
+end
+
+local function roll(egg: Pets.Egg, luck: number): string
 	local totalWeight = 0
 	for _, entry in egg.pets do
-		totalWeight += entry.weight
+		totalWeight += weightFor(entry, luck)
 	end
 	local pick = random:NextNumber(0, totalWeight)
 	for _, entry in egg.pets do
-		pick -= entry.weight
+		pick -= weightFor(entry, luck)
 		if pick <= 0 then
 			return entry.pet
 		end
@@ -88,7 +96,7 @@ local function hatchEgg(player: Player, eggId: unknown): (boolean, string)
 	end
 
 	data.wins -= egg.price
-	local petId = roll(egg)
+	local petId = roll(egg, Stats.luck(player, data))
 	local uid = tostring(data.nextPetUid)
 	data.nextPetUid += 1
 	-- Auto-equip while there are free slots so new players feel the boost.

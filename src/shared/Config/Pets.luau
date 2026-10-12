@@ -21,6 +21,18 @@ export type Egg = {
 	pets: { EggEntry },
 }
 
+-- Rarity tiers in order. Luck multiplies the hatch weight of every pet at
+-- LuckMinRarity or rarer.
+local RarityOrder: { [Rarity]: number } = {
+	Common = 1,
+	Uncommon = 2,
+	Rare = 3,
+	Epic = 4,
+	Legendary = 5,
+	Rainbow = 6,
+}
+local LuckMinRarity = 3
+
 local RarityColors: { [Rarity]: Color3 } = {
 	Common = Color3.fromRGB(200, 200, 200),
 	Uncommon = Color3.fromRGB(90, 220, 90),
@@ -86,4 +98,6 @@ return {
 	Eggs = Eggs,
 	EggsById = eggsById,
 	RarityColors = RarityColors,
+	RarityOrder = RarityOrder,
+	LuckMinRarity = LuckMinRarity,
 }

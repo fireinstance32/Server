@@ -88,6 +88,7 @@ end
 
 -- What the client sees: raw data plus derived numbers it shouldn't compute itself.
 local function snapshot(player: Player, data: any)
+	local multipliers = Stats.snapshot(player, data)
 	return {
 		hops = data.hops,
 		wins = data.wins,
@@ -96,8 +97,9 @@ local function snapshot(player: Player, data: any)
 		frogs = data.frogs,
 		equippedFrog = data.equippedFrog,
 		pets = data.pets,
-		hopsMultiplier = Stats.hopsMultiplier(player, data),
-		winsMultiplier = Stats.winsMultiplier(player, data),
+		multipliers = multipliers, -- full breakdown per stat: { total, parts }
+		hopsMultiplier = multipliers.hops.total,
+		winsMultiplier = multipliers.wins.total,
 		rebirthCost = Rebirths.costFor(data.rebirths),
 		maxEquippedPets = Stats.maxEquippedPets(player),
 	}

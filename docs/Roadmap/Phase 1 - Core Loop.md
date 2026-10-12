@@ -4,14 +4,15 @@ tags: [planning, phase1]
 # Phase 1 – Core Loop
 *Goal: the moment-to-moment loop feels like Stone Skipping.* Back to [[Roadmap]].
 
-## 1.1 Stat & multiplier pipeline ⭐ START HERE
+## 1.1 Stat & multiplier pipeline ✅ (2026-10-12)
 Every later system (ponds, levels, potions, friend boost, passes, trails) adds a multiplier. Build the pipe once.
-- [ ] Refactor `Stats.luau` into a **modifier stack**: named sources (rebirth, level, pond, pets, potions, friends, passes, trails) → one `hopsMultiplier` / `winsMultiplier` / `luck`
-- [ ] Send the breakdown to the client (for a "why is my multiplier x12?" tooltip later)
-- [ ] Unit-style sanity checks in `tools/luau-check` for the maths
+- [x] Refactor `Stats.luau` into a **modifier stack**: named sources (rebirth, level, pond, pets, potions, friends, passes, trails) → one `hopsMultiplier` / `winsMultiplier` / `luck`
+- [x] Send the breakdown to the client (for a "why is my multiplier x12?" tooltip later)
+- [x] Unit-style sanity checks in `tools/luau-check` for the maths
+- [x] Luck stat wired into egg hatching (multiplies Rare+ weights)
 - **Done when:** adding a new boost is one line in one file.
 
-## 1.2 Level system
+## 1.2 Level system ⭐ NEXT
 - [ ] XP from Hops gained; `xpForLevel(n)` curve in `Config/Levels.luau`
 - [ ] Level adds to the multiplier (via 1.1)
 - [ ] **Level cap per rebirth** (cap 20 at rebirth 0, +N per rebirth), "MAX LEVEL" state

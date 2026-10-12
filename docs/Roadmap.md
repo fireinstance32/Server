@@ -19,6 +19,7 @@ Build order for +1 Frog Hop. Each phase has its own note split into numbered sub
 | [[Phase 7 - Live Ops]] | Launch | 7.1 Leaderboards · 7.2 Events · 7.3 Analytics · 7.4 Hardening · 7.5 Platform · 7.6 Launch kit |
 
 ## ⭐ Where to start: 1.1 → 1.2 → 1.3
+**Status:** 1.1 done ✅ · next is 1.2.
 1. **1.1 Multiplier pipeline.** Ponds, levels, potions, friend boost, passes, trails and Robux ponds all feed one multiplier. Building that pipe first means every later system plugs in with one line instead of a rewrite. It's small and invisible, and it blocks the most work.
 2. **1.2 Levels.** The Level bar is the centrepiece of the reference HUD, and its "MAX LEVEL until you rebirth" rule is what drives rebirths. It's the first real user of 1.1.
 3. **1.3 HUD rework.** With Hops, multiplier and Level real, lay out the final screen once, leaving empty slots (Friend Boost, side-menu dots, pass buttons) for later phases so the UI isn't redone repeatedly.

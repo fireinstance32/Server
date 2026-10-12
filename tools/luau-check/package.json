@@ -4,7 +4,7 @@
   "type": "module",
   "description": "Offline syntax + lint checks for the src/ Luau code.",
   "scripts": {
-    "check": "node compile.mjs ../../src && node lint.mjs ../../src"
+    "check": "node compile.mjs ../../src && node lint.mjs ../../src && node test.mjs"
   },
   "dependencies": {
     "@luau-rs/luau": "0.739.0"
