@@ -3,6 +3,7 @@
 local TweenService = game:GetService("TweenService")
 
 local Theme = require(script.Parent.Parent.Theme)
+local Gradient = require(script.Parent.Parent.Components.Gradient)
 
 local new = Theme.new
 local C = Theme.Colors
@@ -13,19 +14,29 @@ local gui: ScreenGui
 local toastHolder: Frame
 
 function Popups.toast(text: string, color: Color3?)
+	local base = color or C.Ink
 	local toast = new("TextLabel", {
-		Size = UDim2.new(1, 0, 0, 40),
-		BackgroundColor3 = color or C.Ink,
-		BackgroundTransparency = 0.1,
+		Size = UDim2.new(1, 0, 0, 44),
+		BackgroundColor3 = base,
 		Font = Theme.Font,
 		Text = text,
 		TextColor3 = C.White,
 		TextScaled = true,
 		Parent = toastHolder,
-	}, { Theme.corner(10), new("UIPadding", { PaddingTop = UDim.new(0, 6), PaddingBottom = UDim.new(0, 6) }) })
+	}, {
+		Theme.corner(22),
+		Theme.stroke(3),
+		Theme.textStroke(2.5),
+		new("UIPadding", { PaddingTop = UDim.new(0, 7), PaddingBottom = UDim.new(0, 7), PaddingLeft = UDim.new(0, 16), PaddingRight = UDim.new(0, 16) }),
+	})
+	Gradient.apply(toast, { base:Lerp(Color3.new(1, 1, 1), 0.2), base:Lerp(Color3.new(0, 0, 0), 0.15) })
 	Theme.pop(toast)
 	task.delay(2.5, function()
 		TweenService:Create(toast, TweenInfo.new(0.3), { BackgroundTransparency = 1, TextTransparency = 1 }):Play()
+		local stroke = toast:FindFirstChildOfClass("UIStroke")
+		if stroke then
+			TweenService:Create(stroke, TweenInfo.new(0.3), { Transparency = 1 }):Play()
+		end
 		task.wait(0.3)
 		toast:Destroy()
 	end)
@@ -56,7 +67,7 @@ function Popups.banner(title: string, subtitle: string?, color: Color3?)
 	local frame = new("Frame", {
 		Size = UDim2.fromScale(0.6, 0.18),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.fromScale(0.5, 0.3),
+		Position = UDim2.fromScale(0.5, 0.5),
 		BackgroundTransparency = 1,
 		Parent = gui,
 	}, {
@@ -87,7 +98,7 @@ function Popups.init(screen: ScreenGui)
 	toastHolder = new("Frame", {
 		Size = UDim2.fromOffset(420, 200),
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 330), -- below Auto Hop, quest bar, tips and distance meter
+		Position = UDim2.new(0.5, 0, 0, 366), -- below Auto Hop, quest bar, tips and distance meter
 		BackgroundTransparency = 1,
 		Parent = gui,
 	}, {

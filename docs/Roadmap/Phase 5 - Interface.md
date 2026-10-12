@@ -38,6 +38,7 @@ tags: [planning, phase5]
 
 ## 5.6 Feedback & juice 🟡
 - [x] Hover grow + press squish on every button and tile, click/hover sound hooks (`Sfx`, ids in `Config/Sounds`), Hops/Wins count up
+- [x] Toast pills, landing banner mid-screen, Auto Rebirth with icon, multiplier breakdown panel
 - [ ] Sound ids (Phase 6.4)
 
 ## 5.7 Mobile & console layouts

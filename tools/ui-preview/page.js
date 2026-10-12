@@ -50,10 +50,38 @@ function displayText(n) {
 }
 
 // ---------- layout ----------
+// Content extent of a frame whose children are stacked by a UIListLayout
+// (for AutomaticSize).
+function listContent(n, w, h) {
+  const list = child(n, 'UIListLayout');
+  if (!list) return null;
+  const vertical = P(list, 'FillDirection', 'Vertical') === 'Vertical';
+  const [pl, pt, pr, pb] = padding(n, w, h);
+  const kids = visibleGuiChildren(n);
+  const pad = list.p.Padding ? list.p.Padding.v[1] : 0;
+  let main = 0;
+  let cross = 0;
+  for (const c of kids) {
+    const [cw, ch] = sizeOf(c, w - pl - pr, h - pt - pb);
+    main += vertical ? ch : cw;
+    cross = Math.max(cross, vertical ? cw : ch);
+  }
+  main += pad * Math.max(kids.length - 1, 0);
+  return vertical ? [cross + pl + pr, main + pt + pb] : [main + pl + pr, cross + pt + pb];
+}
+
 function sizeOf(n, pw, ph) {
   const s = ud2(n, 'Size', [0, 100, 0, 100]);
   let w = pw * s[0] + s[1];
   let h = ph * s[2] + s[3];
+  const auto = P(n, 'AutomaticSize', 'None');
+  if (auto !== 'None' && n.c !== 'ScrollingFrame') {
+    const content = listContent(n, w, h);
+    if (content) {
+      if (auto === 'Y' || auto === 'XY') h = Math.max(h, content[1]);
+      if (auto === 'X' || auto === 'XY') w = Math.max(w, content[0]);
+    }
+  }
   const sc = child(n, 'UISizeConstraint');
   if (sc) {
     const mn = col(sc, 'MinSize', [0, 0]);
@@ -329,7 +357,9 @@ function drawNode(n, box, parentEl) {
     span.style.color = rgb(tc, 1 - P(n, 'TextTransparency', 0));
     let strokeCss = null;
     if (textStroke) {
-      strokeCss = { t: P(stroke, 'Thickness', 1), c: rgb(col(stroke, 'Color', [0, 0, 0]), 1 - P(stroke, 'Transparency', 0)) };
+      // Roblox fades a text's stroke along with the text.
+      const alpha = (1 - P(stroke, 'Transparency', 0)) * (1 - P(n, 'TextTransparency', 0));
+      strokeCss = { t: P(stroke, 'Thickness', 1), c: rgb(col(stroke, 'Color', [0, 0, 0]), alpha) };
     } else if (P(n, 'TextStrokeTransparency', 1) < 1) {
       strokeCss = { t: 1, c: rgb(col(n, 'TextStrokeColor3', [0, 0, 0]), 1 - P(n, 'TextStrokeTransparency', 1)) };
     }

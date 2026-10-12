@@ -6,6 +6,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Format = require(ReplicatedStorage:WaitForChild("Shared").Util.Format)
 local Theme = require(script.Parent.Parent.Theme)
 local State = require(script.Parent.Parent.Parent.State)
+local Gradient = require(script.Parent.Parent.Components.Gradient)
 
 local new = Theme.new
 local C = Theme.Colors
@@ -24,10 +25,9 @@ function MultiplierInfo.init(parent: Frame, toggle: TextButton)
 		Name = "MultiplierInfo",
 		Size = UDim2.fromOffset(260, 40),
 		AnchorPoint = Vector2.new(1, 1),
-		Position = UDim2.new(1, 0, 0, -6),
+		Position = UDim2.new(1, 0, 0, -8),
 		AutomaticSize = Enum.AutomaticSize.Y,
-		BackgroundColor3 = Color3.fromRGB(40, 40, 48),
-		BackgroundTransparency = 0.1,
+		BackgroundTransparency = 0.05,
 		Visible = false,
 		Parent = parent,
 	}, {
@@ -41,6 +41,8 @@ function MultiplierInfo.init(parent: Frame, toggle: TextButton)
 			PaddingRight = UDim.new(0, 10),
 		}),
 	})
+
+	Gradient.apply(panel, "Tile")
 
 	local function render(data)
 		for _, child in panel:GetChildren() do

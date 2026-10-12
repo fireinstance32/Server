@@ -14,7 +14,7 @@ Build order for +1 Frog Hop. Each phase has its own note split into numbered sub
 | [[Phase 2 - Collection]] | Always something to unlock | 2.1 Frog podiums ✅ · 2.2 Eggs + hatch ✅ · 2.3 Pets ✅ · 2.4 Trails ✅ · 2.5 Inventory ✅ · 2.6 🧪 ready |
 | [[Phase 3 - Retention]] | Come back tomorrow | 3.1 Tutorial ✅ · 3.2 Potions ✅ · 3.3 Daily rewards ✅ · 3.4 Offline ✅ · 3.5 Friend Boost ✅ · 3.6 Gifts ✅ · 3.7 Polish ✅ · 3.8 🧪 ready |
 | [[Phase 4 - Monetization]] | Full shop | 4.1–4.8 ✅ · 4.9 🧪 ready ([[Monetization Setup]] for real ids) |
-| [[Phase 5 - Interface]] | UI matches the references | 5.1 Design system · 5.2 HUD · 5.3 Menus · 5.4 Animations · 5.5 World UI · 5.6 Juice · 5.7 Mobile/console · 5.8 🧪 |
+| [[Phase 5 - Interface]] | UI matches the references | 5.1 Design system 🟡 · 5.2 HUD 🟡 · 5.3 Menus 🟡 · 5.4 Animations 🟡 · 5.5 World UI 🟡 · 5.6 Juice 🟡 · 5.7 Mobile/console (later) · 5.8 🧪 ready |
 | [[Phase 6 - Spectacle]] | Clip-worthy | 6.1 Models 🟡 · 6.2 VFX · 6.3 Ultimate hop · 6.4 Audio · 6.5 Art pass · 6.6 🧪 |
 | [[Phase 7 - Worlds]] | Long-term progression | 7.1 Framework ✅ · 7.2 Portals ✅ · 7.3–7.6 Worlds 2–5 ✅ · 7.7 🧪 ready |
 | [[Phase 8 - Live Ops]] | Launch | 8.1 Leaderboards ✅ · 8.2 Events ✅ · 8.3 Analytics ✅ · 8.4 Hardening ✅ · 8.5 Performance 🟡 · 8.6 Launch kit 🟡 · 8.7 🧪 ready |
