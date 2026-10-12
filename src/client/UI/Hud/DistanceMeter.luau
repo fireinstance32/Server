@@ -2,7 +2,6 @@
 -- player's best distance underneath; flashes NEW BEST when beaten.
 
 local Theme = require(script.Parent.Parent.Theme)
-local Visibility = require(script.Parent.Visibility)
 
 local new = Theme.new
 local C = Theme.Colors
@@ -35,7 +34,7 @@ function DistanceMeter.init(gui: ScreenGui)
 end
 
 function DistanceMeter.show(bestMeters: number)
-	Visibility.set(frame, true)
+	frame.Visible = true
 	value.Text = "0 m"
 	value.TextColor3 = C.White
 	best.Text = `Best: {bestMeters} m`
@@ -50,7 +49,7 @@ function DistanceMeter.set(meters: number, beatBest: boolean)
 end
 
 function DistanceMeter.hide()
-	Visibility.set(frame, false)
+	frame.Visible = false
 end
 
 return DistanceMeter

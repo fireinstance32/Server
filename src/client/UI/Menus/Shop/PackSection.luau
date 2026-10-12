@@ -23,31 +23,46 @@ function PackSection.build(list: ScrollingFrame, order: number)
 	local pack = Monetization.StarterPack
 	local card = new("Frame", {
 		Name = "StarterPack",
-		Size = UDim2.fromOffset(870, 305), -- reference starter card
+		Size = UDim2.fromOffset(878, 303), -- reference starter card
 		LayoutOrder = order + 1,
 		Parent = list,
-	}, { Theme.corner(14), Theme.stroke(4, Color3.fromRGB(255, 220, 90)) })
+	}, { Theme.corner(3), Theme.stroke(4, Color3.fromRGB(8, 8, 10)) })
 	Gradient.apply(card, "Rainbow")
-	Studs.apply(card, 24, 0.45)
-
-	Icon.new("starter", { Size = UDim2.fromOffset(250, 250), Position = UDim2.fromOffset(18, 28), Rotation = -6, Parent = card })
-	Theme.label({
-		Size = UDim2.new(1, -300, 0, 76),
-		Position = UDim2.fromOffset(285, 16),
-		Text = "Starter Pack",
-		TextColor3 = Color3.fromRGB(255, 245, 170),
+	Studs.apply(card, 24)
+	new("Frame", { -- gold inner rim inside the black edge
+		Size = UDim2.new(1, -12, 1, -12),
+		Position = UDim2.fromOffset(6, 6),
+		BackgroundTransparency = 1,
+		ZIndex = 2,
 		Parent = card,
-	}).TextXAlignment = Enum.TextXAlignment.Left
+	}, { Theme.corner(1), Theme.stroke(6, Color3.fromRGB(255, 205, 70)) })
+
+	Icon.new("starter", {
+		Size = UDim2.fromOffset(240, 240),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.fromOffset(172, 152),
+		Rotation = -6,
+		Parent = card,
+	})
+	local title = Theme.label({
+		Size = UDim2.fromOffset(520, 70),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.fromOffset(590, 55),
+		Text = "Starter Pack",
+		TextColor3 = Color3.fromRGB(255, 240, 170),
+		Parent = card,
+	})
+	Theme.textStroke(4).Parent = title
 
 	local contents = new("Frame", {
-		Size = UDim2.new(1, -300, 0, 105),
-		Position = UDim2.fromOffset(285, 100),
+		Size = UDim2.new(0, 520, 0, 105),
+		Position = UDim2.fromOffset(337, 98),
 		BackgroundTransparency = 1,
 		Parent = card,
 	}, {
 		new("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
-			Padding = UDim.new(0, 12),
+			Padding = UDim.new(0, 30),
 		}),
 	})
 	for _, item in {
@@ -68,7 +83,7 @@ function PackSection.build(list: ScrollingFrame, order: number)
 	local oldPrice = Theme.label({
 		Size = UDim2.fromOffset(120, 48),
 		AnchorPoint = Vector2.new(1, 1),
-		Position = UDim2.new(1, -222, 1, -26),
+		Position = UDim2.new(1, -240, 1, -20),
 		Text = `\u{E002} {pack.originalPrice}`,
 		TextColor3 = Color3.fromRGB(230, 50, 50),
 		Font = Enum.Font.BuilderSansBold,
@@ -85,9 +100,9 @@ function PackSection.build(list: ScrollingFrame, order: number)
 	})
 
 	local buy = Window.button({
-		Size = UDim2.fromOffset(183, 72),
+		Size = UDim2.fromOffset(183, 70),
 		AnchorPoint = Vector2.new(1, 1),
-		Position = UDim2.new(1, -22, 1, -18),
+		Position = UDim2.new(1, -33, 1, -23),
 		Text = `\u{E002} {Purchases.price("product", "StarterPack")}`,
 		Font = Enum.Font.BuilderSansBold,
 	}, "Green", function()

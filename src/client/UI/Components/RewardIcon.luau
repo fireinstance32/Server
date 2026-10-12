@@ -6,6 +6,7 @@ local PetImage = require(script.Parent.PetImage)
 
 local RewardIcon = {}
 
+local EGG_ICONS = { Common = "egg", Uncommon = "egg_uncommon", Rare = "egg_rare", Rainbow = "egg_rainbow" }
 local KIND_ICONS = { wins = "trophy", hops = "bolt", trail = "trails", rebirth = "rebirth", egg = "egg" }
 
 function RewardIcon.new(reward: { kind: string, id: string? }, props: { [string]: any }?): GuiObject
@@ -14,6 +15,9 @@ function RewardIcon.new(reward: { kind: string, id: string? }, props: { [string]
 	end
 	if reward.kind == "potion" and reward.id then
 		return Icon.new(`potion_{string.lower(reward.id)}`, props)
+	end
+	if reward.kind == "egg" and reward.id then
+		return Icon.new(EGG_ICONS[reward.id] or "egg", props)
 	end
 	return Icon.new(KIND_ICONS[reward.kind] or "gifts", props)
 end

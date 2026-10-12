@@ -18,7 +18,7 @@ Layout.Edge = Color3.fromRGB(12, 12, 16)
 -- Small section header: "~ Pack ~".
 function Layout.header(parent: Instance, text: string, order: number): TextLabel
 	return Theme.label({
-		Size = UDim2.new(1, 0, 0, 40),
+		Size = UDim2.new(1, 0, 0, 52), -- reference: 36 px capitals
 		Text = `~ {text} ~`,
 		LayoutOrder = order,
 		Parent = parent,
@@ -108,7 +108,7 @@ end
 function Layout.button(props: { [string]: any }, color: string, onClick: () -> ()): TextButton
 	local button = Theme.button(props, onClick)
 	Layout.recolor(button, color)
-	Studs.apply(button, 20, 0.35)
+	Studs.apply(button, 20)
 	new("Frame", {
 		Name = "Shine",
 		Size = UDim2.new(1, -8, 0.42, 0),

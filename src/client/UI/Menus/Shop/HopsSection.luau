@@ -85,7 +85,7 @@ function HopsSection.build(list: ScrollingFrame, order: number, giftOver: GuiObj
 			Theme.stroke(4, Color3.fromRGB(12, 12, 16)),
 		})
 		Gradient.apply(card, pack.color)
-		Studs.apply(card, 26, 0.32)
+		Studs.apply(card, 26)
 		Theme.label({ Size = UDim2.new(1, -20, 0, 34), Position = UDim2.fromOffset(10, 6), Text = pack.title, ZIndex = 3, Parent = card })
 		pile(card, pack.bolts)
 		local amount = Theme.label({

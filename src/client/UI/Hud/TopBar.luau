@@ -6,7 +6,6 @@ local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
 local Studs = require(script.Parent.Parent.Components.Studs)
 local Icon = require(script.Parent.Parent.Components.Icon)
-local Visibility = require(script.Parent.Visibility)
 local Purchases = require(script.Parent.Parent.Parent.Purchases)
 local State = require(script.Parent.Parent.Parent.State)
 
@@ -28,7 +27,7 @@ function TopBar.init(gui: ScreenGui, setAutoHop: (boolean) -> ())
 		Parent = gui,
 	}, { Theme.corner(12), Theme.stroke(4) })
 	Gradient.apply(button, "Red")
-	Studs.apply(button, 22, 0.45)
+	Studs.apply(button, 22)
 	Icon.new("crown", {
 		Size = UDim2.fromOffset(78, 78),
 		AnchorPoint = Vector2.new(0.5, 0.5),
@@ -74,7 +73,7 @@ function TopBar.init(gui: ScreenGui, setAutoHop: (boolean) -> ())
 	end)
 
 	State.observe(function(data)
-		Visibility.set(button, data.quest == nil)
+		button.Visible = data.quest == nil
 		refresh()
 	end)
 end

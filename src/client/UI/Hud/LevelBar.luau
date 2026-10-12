@@ -22,7 +22,7 @@ function LevelBar.init(parent: Frame, y: number, height: number)
 		Parent = parent,
 	}, { Theme.corner(12), Theme.stroke(4) })
 	Gradient.apply(bar, "Silver")
-	Studs.apply(bar, 24, 0.7)
+	Studs.apply(bar, 24)
 
 	local fill = new("Frame", {
 		Name = "Fill",
@@ -30,7 +30,7 @@ function LevelBar.init(parent: Frame, y: number, height: number)
 		Parent = bar,
 	}, { Theme.corner(12) })
 	Gradient.apply(fill, "Blue")
-	Studs.apply(fill, 24, 0.6)
+	Studs.apply(fill, 24)
 
 	local level = Theme.label({
 		Size = UDim2.new(0.6, -20, 0.7, 0),

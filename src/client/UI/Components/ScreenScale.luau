@@ -1,5 +1,6 @@
 -- Scales a whole ScreenGui with the screen. Every layout is drawn for
--- 1920×1080; on a smaller window or a phone the UI shrinks evenly instead of
+-- a 1920×1056 game view (a maximised Roblox window on a 1080p screen, where
+-- the reference screenshots were taken); on a smaller window or a phone the UI shrinks evenly instead of
 -- spilling off the edges (and grows a little on big monitors).
 
 local Workspace = game:GetService("Workspace")
@@ -8,7 +9,7 @@ local Theme = require(script.Parent.Parent.Theme)
 
 local ScreenScale = {}
 
-local DESIGN = Vector2.new(1920, 1080)
+local DESIGN = Vector2.new(1920, 1056)
 local MIN, MAX = 0.4, 1.25
 
 -- Pure: the scale for a viewport size (unit-test friendly).

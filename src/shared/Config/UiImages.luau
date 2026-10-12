@@ -6,8 +6,9 @@
 local UiImages = {}
 
 UiImages.Ids = {
-	icons = 0, -- icons.png + icons2.png: the icon sheets (layout in Config/IconAtlas)
+	icons = 0, -- icons.png, icons2.png, icons3.png: the icon sheets (layout in Config/IconAtlas)
 	icons2 = 0,
+	icons3 = 0,
 	studs = 0, -- studs.png: tiling brick-stud texture for panels
 	pets = 0, -- pets.png: every pet's picture (layout in Config/PetIconAtlas)
 	frogs = 0, -- frogs.png: every frog's picture (layout in Config/FrogIconAtlas)
@@ -73,6 +74,8 @@ UiImages.Fallback = {
 	rocket = "🚀",
 	egg_golden = "🥚",
 	egg_rainbow = "🥚",
+	egg_uncommon = "🥚",
+	egg_rare = "🥚",
 	egg_cracked = "🐣",
 	trophy_silver = "🥈",
 	trophy_bronze = "🥉",

@@ -10,7 +10,11 @@ local CodesSection = require(script.CodesSection)
 local ShopMenu = {}
 
 function ShopMenu.build(body: Frame)
-	local list = Window.list(body)
+	local list = Window.list(body, 18)
+	local padding = list:FindFirstChildOfClass("UIPadding")
+	if padding then
+		padding.PaddingTop = UDim.new(0, 15) -- reference "~ Pack ~" sits 101 px below the top edge
+	end
 	local refreshPack = PackSection.build(list, 0)
 	local refreshPasses = PassSection.build(list, 10, body)
 	HopsSection.build(list, 40, body)

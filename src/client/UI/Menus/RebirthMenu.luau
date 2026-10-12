@@ -30,7 +30,7 @@ local function multiplierCard(parent: Frame, x: number): TextLabel
 		Parent = parent,
 	}, { Theme.corner(8), Theme.stroke(3) })
 	Gradient.apply(card, "Yellow")
-	Studs.apply(card, 22, 0.5)
+	Studs.apply(card, 22)
 	Icon.new("bolt", {
 		Size = UDim2.fromOffset(112, 128),
 		AnchorPoint = Vector2.new(0, 0.5),
@@ -69,7 +69,7 @@ function RebirthMenu.build(body: Frame)
 	local warning = Theme.label({
 		Size = UDim2.new(1, 0, 0, 50),
 		Position = UDim2.fromOffset(0, 274),
-		Text = "Resets your LEVEL, HOPS and WINS!",
+		Text = "Resets your LEVEL and HOPS!",
 		TextColor3 = Color3.fromRGB(255, 40, 40),
 		Parent = body,
 	})
@@ -83,10 +83,10 @@ function RebirthMenu.build(body: Frame)
 		Parent = body,
 	}, { Theme.corner(8), Theme.stroke(3) })
 	Gradient.apply(bar, "Silver")
-	Studs.apply(bar, 22, 0.7)
+	Studs.apply(bar, 22)
 	local fill = new("Frame", { Size = UDim2.fromScale(0, 1), Parent = bar }, { Theme.corner(8) })
 	Gradient.apply(fill, "Blue")
-	Studs.apply(fill, 22, 0.6)
+	Studs.apply(fill, 22)
 	local barText = Theme.label({
 		Size = UDim2.new(1, -40, 0.66, 0),
 		Position = UDim2.new(0, 20, 0.17, 0),

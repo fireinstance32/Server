@@ -94,7 +94,7 @@ function TrailsMenu.build(body: Frame)
 				Theme.stroke(if equipped then 4 else 3, if equipped then Color3.fromRGB(140, 222, 255) else Color3.fromRGB(12, 12, 16)),
 			})
 			Gradient.apply(card, { base:Lerp(Color3.new(1, 1, 1), 0.12), base:Lerp(Color3.new(0, 0, 0), 0.45) })
-			Studs.apply(card, 24, 0.3)
+			Studs.apply(card, 24)
 			Theme.label({ Size = UDim2.new(1, -16, 0, 32), Position = UDim2.fromOffset(8, 8), Text = trail.name, ZIndex = 3, Parent = card })
 			streak(card, trail.colors)
 			bonusLine(card, trail.bonus)

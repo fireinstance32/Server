@@ -236,6 +236,24 @@ def _egg():
                  gloss=[gloss(ellipse(94, 84, 15, 30, 20), 0.95)])]
 
 
+# Coloured hatch eggs for rewards (the pack only has white / golden /
+# rainbow): a taller oval than the plain egg, like the reference rewards.
+EGG_OVAL = ("M128,10 C80,10 46,100 46,156 C46,212 84,246 128,246 C172,246 210,212 210,156 "
+            "C210,100 176,10 128,10 Z")
+
+
+@icon("egg_uncommon", ink="#0c3d14")
+def _egg_uncommon():
+    return [part(path(EGG_OVAL), "#46c95a", top="#b6f59a", bottom="#1d8f3a",
+                 gloss=[gloss(ellipse(96, 78, 16, 32, 22), 0.9)])]
+
+
+@icon("egg_rare", ink="#0b2c52")
+def _egg_rare():
+    return [part(path(EGG_OVAL), "#41b4f2", top="#c4ecff", bottom="#1b6fc9",
+                 gloss=[gloss(ellipse(96, 78, 16, 32, 22), 0.9)])]
+
+
 @icon("frog", ink="#0d3a0e")
 def _frog():
     g, top, bot = "#52d63c", "#9cf26b", "#24a12a"

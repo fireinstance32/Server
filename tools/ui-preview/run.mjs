@@ -124,7 +124,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face { font-family: "Fredoka One"; src: url("${font}") format("woff2"); }
 @font-face { font-family: "Montserrat"; font-weight: 700; src: url("${montserrat(700)}") format("woff2"); }
 @font-face { font-family: "Montserrat"; font-weight: 900; src: url("${montserrat(900)}") format("woff2"); }
-html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+html, body { margin: 0; width: 1920px; height: 1056px; overflow: hidden; }
 body { background: url("${background}") center/cover, linear-gradient(#8fd3ff, #c9f0ff 55%, #7ccf62 55%, #5fb94a); }
 div, span { box-sizing: border-box; }
 </style></head><body><div id="root"></div>
@@ -137,7 +137,7 @@ const htmlPath = out.replace(/\.png$/, '.html');
 fs.writeFileSync(htmlPath, html);
 fs.writeFileSync(out.replace(/\.png$/, '.json'), tree); // GUI tree, for debugging
 const browser = await chromium.launch({ args: ['--allow-file-access-from-files'] }); // masks (tinted images) need same-origin files
-const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
+const page = await browser.newPage({ viewport: { width: 1920, height: 1056 } });
 page.on('console', (msg) => console.log('[page]', msg.text()));
 page.on('pageerror', (err) => console.log('[page error]', err.message));
 await page.goto(pathToFileURL(htmlPath).href);

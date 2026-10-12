@@ -38,7 +38,7 @@ function AutoRebirth.init(parent: Frame)
 		Parent = parent,
 	}, { Theme.corner(12), Theme.stroke(3) })
 	Gradient.apply(button, "Purple")
-	Studs.apply(button, 22, 0.45)
+	Studs.apply(button, 22)
 	Icon.new("rebirth", { Size = UDim2.fromOffset(64, 64), Position = UDim2.fromOffset(-14, -10), Rotation = -10, ZIndex = 2, Parent = button })
 	Theme.label({
 		Size = UDim2.new(1, -60, 0.55, 0),

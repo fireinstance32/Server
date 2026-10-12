@@ -50,7 +50,7 @@ function Slider.new(props: { [string]: any }, onChange: (number) -> (), onCommit
 		Parent = track,
 	}, { Theme.corner(6), Theme.stroke(3, Color3.fromRGB(20, 96, 18)) })
 	Gradient.apply(knob, "Green")
-	Studs.apply(knob, 14, 0.35)
+	Studs.apply(knob, 14)
 	local value = Theme.label({
 		Size = UDim2.new(1, -4, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),

@@ -48,7 +48,7 @@ function PackRow.init(parent: Frame, y: number, height: number)
 			Parent = row,
 		}, { Theme.corner(12), Theme.stroke(4) })
 		Gradient.apply(button, pack.color)
-		Studs.apply(button, 22, 0.5)
+		Studs.apply(button, 22)
 		-- Big lightning bolt behind the amount (reference packs).
 		Icon.new("bolt", {
 			Size = UDim2.fromScale(0.42, 1.25),

@@ -23,7 +23,7 @@ function ProgressionService.addXp(player: Player, data: any, amount: number): nu
 	return gained
 end
 
--- Resets the run and adds a rebirth. `force` skips the level check (used by
+-- Resets Hops and Level (Wins are kept) and adds a rebirth. `force` skips the level check (used by
 -- the Skip Rebirth product). Does not replicate; callers call changed().
 function ProgressionService.applyRebirth(data: any, force: boolean?): (boolean, string)
 	local cap = Levels.capFor(data.rebirths)
@@ -31,7 +31,6 @@ function ProgressionService.applyRebirth(data: any, force: boolean?): (boolean, 
 		return false, `Reach Level {cap} to rebirth`
 	end
 	data.hops = 0
-	data.wins = 0
 	data.level = 1
 	data.xp = 0
 	data.rebirths += 1

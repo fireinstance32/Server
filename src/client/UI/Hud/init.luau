@@ -11,7 +11,6 @@
 local Players = game:GetService("Players")
 
 local Theme = require(script.Parent.Theme)
-local Visibility = require(script.Visibility)
 local ScreenScale = require(script.Parent.Components.ScreenScale)
 local Purchases = require(script.Parent.Parent.Purchases)
 local Popups = require(script.Popups)
@@ -48,7 +47,7 @@ Hud.distance = DistanceMeter
 -- sell it.
 function Hud.setHopMode(mode: string?, pond: any?, locked: boolean?)
 	AutoRebirth.setVisible(mode == "Train")
-	Visibility.set(hopButton, mode == "Launch" or (mode == "Train" and locked == true))
+	hopButton.Visible = mode == "Launch" or (mode == "Train" and locked == true)
 	if mode == "Launch" then
 		Theme.setText(hopButton, "HOP")
 		Layout.recolor(hopButton, "Green")
@@ -65,27 +64,11 @@ function Hud.screen(): ScreenGui
 	return gui
 end
 
--- Centre-column HUD that a menu window covers (reference: only the side
--- buttons stay visible behind a window).
-local UNDER_MENU = { "AutoHop", "QuestBar", "TipTicker", "BottomBar", "HopButton", "DistanceMeter" }
-
--- While a menu is open, hide the centre HUD; put it back as it was after.
+-- While a menu is open the whole HUD is hidden (reference: only the window
+-- over the blurred world); toasts live in their own ScreenGui and stay.
 function Hud.setMenuOpen(open: boolean)
 	Popups.setMenuOpen(open)
-	for _, name in UNDER_MENU do
-		local item = gui:FindFirstChild(name)
-		if item and item:IsA("GuiObject") then
-			if open then
-				if item:GetAttribute("MenuHidden") == nil then
-					item:SetAttribute("MenuHidden", item.Visible)
-					item.Visible = false
-				end
-			elseif item:GetAttribute("MenuHidden") ~= nil then
-				item.Visible = item:GetAttribute("MenuHidden") == true
-				item:SetAttribute("MenuHidden", nil)
-			end
-		end
-	end
+	gui.Enabled = not open
 end
 
 function Hud.init(callbacks: {

@@ -57,7 +57,7 @@ local function card(grid: Instance, order: number, name: string, giftOver: GuiOb
 		Theme.stroke(4, Color3.fromRGB(12, 12, 16)),
 	})
 	Gradient.apply(frame, look.color)
-	Studs.apply(frame, 26, 0.32)
+	Studs.apply(frame, 26)
 	Icon.new(look.icon, {
 		Size = UDim2.fromOffset(104, 104),
 		AnchorPoint = Vector2.new(0, 0.5),

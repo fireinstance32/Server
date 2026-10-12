@@ -566,7 +566,7 @@ function Inst:GetService(name)
 end
 workspace = game:GetService("Workspace")
 local camera = Instance.new("Camera")
-rawset(camera, "ViewportSize", Vector2.new(1920, 1080))
+rawset(camera, "ViewportSize", Vector2.new(1920, 1056))
 rawset(camera, "CFrame", CFrame.new())
 rawset(workspace, "CurrentCamera", camera)
 function Inst:GetServerTimeNow() return os.time() end

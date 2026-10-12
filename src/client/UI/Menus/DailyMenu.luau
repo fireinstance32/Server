@@ -80,7 +80,7 @@ function DailyMenu.build(body: Frame)
 			Parent = body,
 		}, { Theme.corner(12), Theme.stroke(3) })
 		local gradient = Gradient.apply(card, if isBig then "Rainbow" else "Yellow")
-		Studs.apply(card, 22, 0.45)
+		Studs.apply(card, 22)
 		if isBig then
 			gradient.Rotation = -90 -- reference: violet at the top → red at the bottom
 			Rays.new({

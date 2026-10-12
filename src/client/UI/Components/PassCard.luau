@@ -31,7 +31,7 @@ function PassCard.create(props: {
 		LayoutOrder = props.order,
 	}, { Theme.corner(10), Theme.stroke(3, Gradient.Edges[props.color]) })
 	Gradient.apply(button, props.color)
-	Studs.apply(button, 22, 0.5)
+	Studs.apply(button, 22)
 	if props.icon then
 		Icon.new(props.icon, {
 			Size = UDim2.fromOffset(86, 86),

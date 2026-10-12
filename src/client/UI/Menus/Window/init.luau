@@ -24,7 +24,7 @@ Window.PanelColor = Layout.PanelColor
 Window.CardColor = Layout.CardColor
 Window.InsetColor = Layout.InsetColor
 Window.TabWidth = 245 -- side tab column (Inventory) hangs off the panel's left edge
-Window.Width = 914 -- reference window size at 1920×1080 (ScreenScale handles other screens)
+Window.Width = 914 -- reference window size at the 1920×1056 view (ScreenScale handles other screens)
 Window.Height = 618
 
 Window.header = Layout.header
@@ -46,7 +46,7 @@ local function menuScreen(): ScreenGui
 		screen = new("ScreenGui", {
 			Name = "FrogHopMenus",
 			ResetOnSpawn = false,
-			IgnoreGuiInset = false,
+			IgnoreGuiInset = true, -- reference windows are centred on the whole view
 			DisplayOrder = 10,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			Parent = Players.LocalPlayer:WaitForChild("PlayerGui"),
@@ -63,63 +63,78 @@ end
 
 local TITLE_INK = Color3.fromRGB(8, 8, 10)
 
-local function titleLabel(frame: Frame, text: string)
-	-- Reference title: white, thick black outline, and a solid black copy
-	-- shifted down underneath (the "extruded" look).
-	local shadow = Theme.label({
-		Name = "TitleShadow",
-		Size = UDim2.new(0.76, 0, 0, 100),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(0.5, 0, 0, -10),
-		Text = text,
-		TextColor3 = TITLE_INK,
-		ZIndex = 5,
-		Parent = frame,
-	})
-	Theme.new("UIStroke", { Thickness = 7, Color = TITLE_INK, Parent = shadow })
-	local title = Theme.label({
-		Name = "Title",
-		Size = UDim2.new(0.76, 0, 0, 100),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(0.5, 0, 0, -16),
-		Text = text,
-		ZIndex = 6,
-		Parent = frame,
-	})
-	local stroke = title:FindFirstChildOfClass("UIStroke") :: UIStroke
-	stroke.Thickness = 7
-	stroke.Color = TITLE_INK
+-- Reference title: white with a 3 px black outline and a solid black copy
+-- 8 px lower (the "extruded" look). `size` = font size (Playtime Rewards:
+-- 61, i.e. 43 px capitals).
+local function titleLabel(frame: Frame, text: string, size: number, y: number)
+	for _, spec in { { "TitleShadow", TITLE_INK, 8, 5 }, { "Title", Color3.new(1, 1, 1), 0, 6 } } do
+		local label = Theme.label({
+			Name = spec[1],
+			Size = UDim2.new(1, 0, 0, size * 1.3),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0.5, 0, 0, y + spec[3]),
+			Text = text,
+			TextColor3 = spec[2],
+			TextScaled = false,
+			TextSize = size,
+			ZIndex = spec[4],
+			Parent = frame,
+		})
+		local stroke = label:FindFirstChildOfClass("UIStroke") or Theme.new("UIStroke", { Parent = label })
+		stroke.Thickness = 3
+		stroke.Color = TITLE_INK
+	end
 end
 
 local function closeButton(frame: Frame, onClose: () -> ())
 	CloseButton.new({ Size = UDim2.fromOffset(96, 96), Position = UDim2.new(1, -2, 0, 1), ZIndex = 7, Parent = frame }, onClose)
 end
 
--- `height` / `width` in pixels at 1920×1080 (default: the reference 914×618).
--- `tabs`: the Inventory tab column hangs off the left edge (the window stays
--- centred, like the reference).
-function Window.create(title: string, icon: string, onClose: () -> (), height: number?, _tabs: boolean?, width: number?): (Frame, Frame)
+-- Size and layout of one window, in pixels at the 1920×1056 design view (ScreenScale
+-- shrinks it on smaller screens). Every number is measured from the
+-- reference screenshots.
+export type Options = {
+	width: number?, -- panel size inside its 5 px black edge (default 914×618)
+	height: number?,
+	x: number?, -- centre offset from the screen centre (My Pets sits right of its tabs)
+	y: number?, -- centre offset from the middle of the view (reference windows: 0)
+	corner: number?, -- corner radius (default 30; Rebirth and Shop are near-square: 3)
+	edge: number?, -- black edge thickness (default 5; Rebirth and Shop: 3)
+	titleSize: number?, -- title font size (default 61 = Playtime Rewards)
+	titleY: number?, -- title cap centre above the panel top (default -18)
+	iconSize: number?, -- corner icon (default 160 at (17, -11), upright)
+	iconX: number?,
+	iconY: number?,
+	iconRotation: number?,
+	tabs: boolean?,
+}
+
+function Window.create(title: string, icon: string, onClose: () -> (), options: Options?): (Frame, Frame)
+	local o: Options = options or {}
+	local target = UDim2.new(0.5, o.x or 0, 0.5, o.y or 0)
 	local frame = new("Frame", {
 		Name = title,
-		Size = UDim2.fromOffset(width or Window.Width, height or Window.Height),
+		Size = UDim2.fromOffset(o.width or Window.Width, o.height or Window.Height),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.fromScale(0.5, 0.51),
+		Position = target,
 		BackgroundColor3 = Window.PanelColor,
 		BackgroundTransparency = 0.3, -- reference: the blurred world shows through
 		Active = true, -- clicks on the panel don't fall through to the world/HUD
 		Parent = menuScreen(),
 	}, {
-		Theme.corner(10),
-		Theme.stroke(3, Color3.fromRGB(8, 8, 10)),
+		Theme.corner(o.corner or 30),
+		Theme.stroke(o.edge or 5, Color3.fromRGB(8, 8, 10)),
 	})
 
-	titleLabel(frame, title)
+	titleLabel(frame, title, o.titleSize or 61, o.titleY or -18)
 	if icon ~= "" then -- "" = no corner icon (Worlds reference)
+		local size = o.iconSize or 160
 		Icon.new(icon, {
 			Name = "CornerIcon",
-			Size = UDim2.fromOffset(170, 170),
+			Size = UDim2.fromOffset(size, size),
 			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.fromOffset(60, 6),
+			Position = UDim2.fromOffset(o.iconX or 17, o.iconY or -11),
+			Rotation = o.iconRotation or 0,
 			ZIndex = 6,
 			Parent = frame,
 		})
@@ -148,7 +163,7 @@ function Window.create(title: string, icon: string, onClose: () -> (), height: n
 	TweenService:Create(scale, TweenInfo.new(0.32, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Scale = 1 }):Play()
 	frame.Position += UDim2.fromOffset(0, 40)
 	TweenService:Create(frame, TweenInfo.new(0.28, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-		Position = UDim2.fromScale(0.5, 0.51),
+		Position = target,
 	}):Play()
 	Sfx.play("Open")
 	return frame, body

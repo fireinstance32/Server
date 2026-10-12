@@ -3,7 +3,7 @@
 // UIScale, size constraints) and draws it with HTML/CSS (UICorner, UIStroke,
 // UIGradient, scaled text with stroke, images).
 
-const SCREEN = { w: 1920, h: 1080, inset: 58 };
+const SCREEN = { w: 1920, h: 1056, inset: 58 }; // a maximised Roblox window on a 1080p screen
 const GUI = new Set(['Frame', 'TextLabel', 'TextButton', 'TextBox', 'ImageLabel', 'ImageButton', 'ScrollingFrame', 'ViewportFrame', 'CanvasGroup']);
 const TEXT = new Set(['TextLabel', 'TextButton', 'TextBox']);
 const IMAGE = new Set(['ImageLabel', 'ImageButton']);
