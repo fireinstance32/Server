@@ -12,6 +12,7 @@ local Net = require(Shared.Net)
 
 local Stats = require(script.Parent.Parent.Stats)
 local DataService = require(script.Parent.DataService)
+local ProgressionService = require(script.Parent.ProgressionService)
 
 local HopService = {}
 
@@ -32,6 +33,7 @@ local function train(player: Player, data: any)
 	local context = { mode = "Train" }
 	local hopsGained = math.floor(bounces * Stats.perBounce(data) * Stats.hopsMultiplier(player, data, context))
 	data.hops += hopsGained
+	ProgressionService.addXp(player, data, bounces)
 	busyUntil[player] = os.clock() + Game.TrainingCooldown
 	DataService.changed(player)
 	return { ok = true, mode = "Train", bounces = bounces, hopsGained = hopsGained }
@@ -56,6 +58,7 @@ local function launch(player: Player, data: any)
 		end
 		data.hops += hopsGained
 		data.wins += winsGained
+		ProgressionService.addXp(player, data, bounces)
 		if distance > data.bestDistance then
 			data.bestDistance = distance
 		end

@@ -8,6 +8,7 @@ local Menus = require(UI.Menus)
 local HopController = require(Controllers.HopController)
 local PetFollowController = require(Controllers.PetFollowController)
 local PromptController = require(Controllers.PromptController)
+local NotifyController = require(Controllers.NotifyController)
 
 Hud.init({
 	onHop = function()
@@ -19,4 +20,5 @@ Hud.init({
 Menus.init()
 HopController.init()
 PromptController.init()
+NotifyController.init()
 task.spawn(PetFollowController.init)

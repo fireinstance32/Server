@@ -29,3 +29,9 @@ tags: [planning, phase3]
 ## 3.7 Polish layer
 - [ ] Notification dots on the side menu (rebirth ready, gift ready, daily ready)
 - [ ] Tip ticker marquee
+
+## 3.8 Playtest 🧪
+- [ ] I write the test plan: "Phase 3 Playtest" (written when the phase is built), plus any new test commands
+- [ ] You run it in Studio (see [[Testing Guide]]) and report issues
+- [ ] Fix everything found, re-test, then the phase is closed
+- **Done when:** every check in the playtest note passes.

@@ -15,6 +15,7 @@ local ORDER = {
 	"ShopService",
 	"PetService",
 	"ProgressionService",
+	"DevService",
 }
 
 local loaded = {}

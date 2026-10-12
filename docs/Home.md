@@ -20,6 +20,10 @@ Roblox "+1" incremental game: press **HOP**, your frog leaps across lily pads, e
 - [[Setup - Rojo and Studio]]
 - [[Architecture]]
 
+## Testing
+- [[Testing Guide]]
+- [[Phase 1 Playtest]]
+
 ## Planning
 - [[Roadmap]]
 - Devlog: [[2026-10-12]]

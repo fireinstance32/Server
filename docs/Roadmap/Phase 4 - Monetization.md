@@ -20,3 +20,9 @@ tags: [planning, phase4]
 - [ ] x1 / x3 / x8 hatch, Skip Rebirth, Offline x2, Starter Pack
 ## 4.8 Gifting
 - [ ] [GIFT] version of every product (pick a player in the server)
+
+## 4.9 Playtest 🧪
+- [ ] I write the test plan: "Phase 4 Playtest" (written when the phase is built), plus any new test commands
+- [ ] You run it in Studio (see [[Testing Guide]]) and report issues
+- [ ] Fix everything found, re-test, then the phase is closed
+- **Done when:** every check in the playtest note passes.

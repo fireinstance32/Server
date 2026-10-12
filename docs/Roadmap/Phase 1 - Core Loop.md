@@ -12,14 +12,14 @@ Every later system (ponds, levels, potions, friend boost, passes, trails) adds a
 - [x] Luck stat wired into egg hatching (multiplies Rare+ weights)
 - **Done when:** adding a new boost is one line in one file.
 
-## 1.2 Level system ⭐ NEXT
-- [ ] XP from Hops gained; `xpForLevel(n)` curve in `Config/Levels.luau`
-- [ ] Level adds to the multiplier (via 1.1)
-- [ ] **Level cap per rebirth** (cap 20 at rebirth 0, +N per rebirth), "MAX LEVEL" state
-- [ ] Level-up pop + sound hook
+## 1.2 Level system ✅ (2026-10-12)
+- [x] XP from pads hopped (not Hops, so multipliers don't trivialise it); `xpForLevel(n)` curve in `Config/Levels.luau`
+- [x] Level adds to the multiplier (via 1.1)
+- [x] **Level cap per rebirth** (cap 20 at rebirth 0, +20 per rebirth); rebirth now requires MAX LEVEL, "MAX LEVEL" state
+- [x] Level-up pop + sound hook
 - **Done when:** the Level bar fills, caps, and rebirth raises the cap.
 
-## 1.3 HUD rework (reference layout)
+## 1.3 HUD rework (reference layout) ⭐ NEXT
 - [ ] Bottom centre: Hops (left) + xMultiplier (right) above the **Level bar**
 - [ ] Bottom-left: Rebirths, Wins, Friend Boost (placeholder 0%)
 - [ ] Left side menu column (Shop, Rebirth, Pets, Trails, Inventory, Gifts), icons + notification-dot slot
@@ -49,3 +49,9 @@ Every later system (ponds, levels, potions, friend boost, passes, trails) adds a
 - [ ] Zones become biome sections with floating names and bank colours
 - [ ] Zone-cross toast and banner (already partly built)
 - **Done when:** you can tell which zone you're in at a glance.
+
+## 1.8 Playtest 🧪
+- [ ] I write the test plan: [[Phase 1 Playtest]], plus any new test commands
+- [ ] You run it in Studio (see [[Testing Guide]]) and report issues
+- [ ] Fix everything found, re-test, then the phase is closed
+- **Done when:** every check in the playtest note passes.

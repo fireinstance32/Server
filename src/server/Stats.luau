@@ -8,6 +8,7 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Frogs = require(Shared.Config.Frogs)
 local Pets = require(Shared.Config.Pets)
+local Levels = require(Shared.Config.Levels)
 local Multipliers = require(Shared.Util.Multipliers)
 
 local Passes = require(script.Parent.Passes)
@@ -65,6 +66,15 @@ local MODIFIERS: { Modifier } = {
 		kind = "mult",
 		value = function(_, data)
 			return Stats.petMultiplier(data)
+		end,
+	},
+	{
+		id = "level",
+		label = "Level",
+		stat = "hops",
+		kind = "add",
+		value = function(_, data)
+			return Levels.hopsBonus(data.level)
 		end,
 	},
 	{ id = "doubleHops", label = "2x Hops", stat = "hops", kind = "mult", value = passFactor("DoubleHops", 2) },

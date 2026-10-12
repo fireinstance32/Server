@@ -16,3 +16,9 @@ tags: [planning, phase7]
 - [ ] Mobile/console UI, performance on low-end phones
 ## 7.6 Launch kit
 - [ ] Icon, thumbnails, trailer, description, publish
+
+## 7.7 Playtest 🧪
+- [ ] I write the test plan: "Phase 7 Playtest" (written when the phase is built), plus any new test commands
+- [ ] You run it in Studio (see [[Testing Guide]]) and report issues
+- [ ] Fix everything found, re-test, then the phase is closed
+- **Done when:** every check in the playtest note passes.

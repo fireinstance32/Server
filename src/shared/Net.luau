@@ -17,7 +17,7 @@ local FUNCTIONS = {
 
 local EVENTS = {
 	"DataChanged", -- server -> client: full profile snapshot
-	"Notify", -- server -> client: (text)
+	"Notify", -- server -> client: { kind: string, ... } (e.g. { kind = "LevelUp", level, maxed })
 }
 
 local Net = {}

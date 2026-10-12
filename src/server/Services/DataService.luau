@@ -9,10 +9,11 @@ local RunService = game:GetService("RunService")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Frogs = require(Shared.Config.Frogs)
-local Rebirths = require(Shared.Config.Rebirths)
+local Levels = require(Shared.Config.Levels)
 local Net = require(Shared.Net)
 
 local Stats = require(script.Parent.Parent.Stats)
+local Leaderstats = require(script.Parent.Parent.Leaderstats)
 
 local DataService = {}
 
@@ -26,6 +27,8 @@ local function template()
 		hops = 0,
 		wins = 0,
 		rebirths = 0,
+		level = 1,
+		xp = 0, -- progress toward the next level
 		bestDistance = 0,
 		frogs = { [Frogs.Default] = true },
 		equippedFrog = Frogs.Default,
@@ -65,27 +68,6 @@ local function keyFor(player: Player): string
 	return "player_" .. player.UserId
 end
 
-local function setupLeaderstats(player: Player)
-	local folder = Instance.new("Folder")
-	folder.Name = "leaderstats"
-	for _, name in { "Hops", "Wins", "Rebirths" } do
-		local value = Instance.new("NumberValue")
-		value.Name = name
-		value.Parent = folder
-	end
-	folder.Parent = player
-end
-
-local function updateLeaderstats(player: Player, data: any)
-	local folder = player:FindFirstChild("leaderstats")
-	if not folder then
-		return
-	end
-	(folder :: any).Hops.Value = data.hops;
-	(folder :: any).Wins.Value = data.wins;
-	(folder :: any).Rebirths.Value = data.rebirths
-end
-
 -- What the client sees: raw data plus derived numbers it shouldn't compute itself.
 local function snapshot(player: Player, data: any)
 	local multipliers = Stats.snapshot(player, data)
@@ -100,7 +82,10 @@ local function snapshot(player: Player, data: any)
 		multipliers = multipliers, -- full breakdown per stat: { total, parts }
 		hopsMultiplier = multipliers.hops.total,
 		winsMultiplier = multipliers.wins.total,
-		rebirthCost = Rebirths.costFor(data.rebirths),
+		level = data.level,
+		xp = data.xp,
+		xpToNext = Levels.xpForLevel(data.level),
+		levelCap = Levels.capFor(data.rebirths),
 		maxEquippedPets = Stats.maxEquippedPets(player),
 	}
 end
@@ -109,12 +94,20 @@ function DataService.get(player: Player): any?
 	return profiles[player]
 end
 
+-- Replace a player's profile with a fresh one (dev/testing only).
+function DataService.reset(player: Player)
+	if profiles[player] then
+		profiles[player] = template()
+		DataService.changed(player)
+	end
+end
+
 function DataService.changed(player: Player)
 	local data = profiles[player]
 	if not data then
 		return
 	end
-	updateLeaderstats(player, data)
+	Leaderstats.update(player, data)
 	Net.event("DataChanged"):FireClient(player, snapshot(player, data))
 end
 
@@ -134,7 +127,7 @@ local function save(player: Player)
 end
 
 local function onPlayerAdded(player: Player)
-	setupLeaderstats(player)
+	Leaderstats.setup(player)
 
 	local data = template()
 	if store then

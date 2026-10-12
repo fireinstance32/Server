@@ -1,31 +1,43 @@
--- Rebirths and redeemable codes.
+-- Levels (XP), rebirths and redeemable codes.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
-local Rebirths = require(Shared.Config.Rebirths)
+local Levels = require(Shared.Config.Levels)
 local Codes = require(Shared.Config.Codes)
-local Format = require(Shared.Util.Format)
 local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
 
 local ProgressionService = {}
 
+-- Called by gameplay with the number of pads hopped. Does not replicate;
+-- the caller calls DataService.changed once after all its changes.
+function ProgressionService.addXp(player: Player, data: any, amount: number): number
+	local level, xp, gained = Levels.addXp(data.level, data.xp, amount, Levels.capFor(data.rebirths))
+	data.level, data.xp = level, xp
+	if gained > 0 then
+		Net.event("Notify"):FireClient(player, { kind = "LevelUp", level = level, maxed = level >= Levels.capFor(data.rebirths) })
+	end
+	return gained
+end
+
 local function rebirth(player: Player): (boolean, string)
 	local data = DataService.get(player)
 	if not data then
 		return false, "Still loading..."
 	end
-	local cost = Rebirths.costFor(data.rebirths)
-	if data.hops < cost then
-		return false, `You need {Format.abbreviate(cost)} Hops`
+	local cap = Levels.capFor(data.rebirths)
+	if data.level < cap then
+		return false, `Reach Level {cap} to rebirth`
 	end
 	data.hops = 0
 	data.wins = 0
+	data.level = 1
+	data.xp = 0
 	data.rebirths += 1
 	DataService.changed(player)
-	return true, `Rebirth {data.rebirths}! Your Hops are boosted forever.`
+	return true, `Rebirth {data.rebirths}! Max level is now {Levels.capFor(data.rebirths)}.`
 end
 
 local function redeemCode(player: Player, input: unknown): (boolean, string)

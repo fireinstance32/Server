@@ -19,12 +19,13 @@ Train (pond) ──► Hops ──► Launch (river) ──► Wins ──► Fr
 - `distance = 20 + 6 × Hops^0.5` studs, capped at river length (3200)
 - `pads = floor(distance / 12)`
 - `Hops gained = pads × frog.perBounce × hopsMultiplier`
-- `hopsMultiplier = (1 + 0.5 × rebirths) × petMultiplier × (2 if DoubleHops)`
+- `hopsMultiplier = (1 + 0.02 × (level − 1)) × (1 + 0.5 × rebirths) × petMultiplier × (2 if DoubleHops)`
 - `petMultiplier = 1 + Σ(pet.multiplier − 1)` over equipped pets
 - `Wins gained = zone.wins × winsMultiplier`
 
 ## Progression systems
 - **Frogs** – the "stones". Buy with Wins, equip one. See [[Balancing#Frogs]].
 - **Eggs → Pets** – weighted random; up to 3 equipped (5 with pass).
-- **Rebirth** – needs `5000 × 4^rebirths` Hops; resets Hops & Wins, keeps frogs & pets, +50% Hops forever.
+- **Levels** – XP = pads hopped. XP for the next level = `10 × 1.15^(level−1)`. Max level = `20 + 20 × rebirths`. Each level gives +2% Hops.
+- **Rebirth** – needs MAX LEVEL; resets Hops, Wins and Level, keeps frogs & pets, +50% Hops forever and +20 max level.
 - **Codes** – WELCOME, RIBBIT, FROGHOP.
