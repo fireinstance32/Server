@@ -16,3 +16,6 @@ Thumbs.db
 
 # Tooling
 node_modules/
+
+# UI preview screenshots
+tools/ui-preview/out/

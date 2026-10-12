@@ -1,0 +1,14 @@
+{
+  "name": "froghop-ui-preview",
+  "private": true,
+  "type": "module",
+  "description": "Runs the game's UI code offline and screenshots it (no Studio needed).",
+  "scripts": {
+    "preview": "node run.mjs"
+  },
+  "dependencies": {
+    "@fontsource/fredoka-one": "5.2.5",
+    "@luau-rs/luau": "0.739.0",
+    "playwright": "1.56.1"
+  }
+}
