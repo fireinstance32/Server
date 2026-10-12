@@ -13,6 +13,7 @@ local Net = require(Shared.Net)
 local Stats = require(script.Parent.Parent.Stats)
 local DataService = require(script.Parent.DataService)
 local Hatching = require(script.Hatching)
+local Management = require(script.Management)
 
 local PetService = {}
 
@@ -119,6 +120,15 @@ function PetService.start()
 	Net.func("EquipPet").OnServerInvoke = equipPet
 	Net.func("UnequipPet").OnServerInvoke = unequipPet
 	Net.func("EquipBestPets").OnServerInvoke = equipBest
+	Net.func("DeletePets").OnServerInvoke = function(player, uids)
+		local ok, message = Management.delete(player, uids)
+		if ok then
+			PetService.refreshModels(player)
+		end
+		return ok, message
+	end
+	Net.func("LockPet").OnServerInvoke = Management.lock
+	Net.func("SetAutoDelete").OnServerInvoke = Management.setAutoDelete
 
 	local function onPlayer(player: Player)
 		-- Wait for the profile to load, then spawn saved pets.

@@ -11,12 +11,13 @@ local Hatch = require(Shared.Util.Hatch)
 local Stats = require(script.Parent.Parent.Parent.Stats)
 local Passes = require(script.Parent.Parent.Parent.Passes)
 local DataService = require(script.Parent.Parent.DataService)
+local Management = require(script.Parent.Management)
 
 local Hatching = {}
 
 local random = Random.new()
 
-export type Result = { pet: string, isNew: boolean, chance: number }
+export type Result = { pet: string, isNew: boolean, chance: number, deleted: boolean? }
 
 local function isLucky(petId: string): boolean
 	local def = Pets.ById[petId]
@@ -57,6 +58,11 @@ function Hatching.grant(player: Player, data: any, egg: Pets.Egg, count: number)
 		local petId = Hatch.pick(egg.pets, weights, random:NextNumber())
 		local isNew = not data.discovered[petId]
 		data.discovered[petId] = true
+		-- Auto delete (never on a first discovery, so the index still fills).
+		if not isNew and Management.shouldAutoDelete(data, petId) then
+			table.insert(results, { pet = petId, isNew = false, chance = chances[petId], deleted = true })
+			continue
+		end
 		local uid = tostring(data.nextPetUid)
 		data.nextPetUid += 1
 		-- Auto-equip while there are free slots so new players feel the boost.

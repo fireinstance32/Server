@@ -36,6 +36,7 @@ local function template()
 		equippedFrog = Frogs.Default,
 		pets = {}, -- [uid: string] = { id: string, equipped: boolean, locked: boolean? }
 		discovered = {}, -- [petId] = true once hatched (for NEW! and the index)
+		autoDelete = {}, -- [rarity] = true: delete those pets right after hatching
 		nextPetUid = 1,
 		codes = {}, -- [code: string] = true
 	}
@@ -100,6 +101,7 @@ local function snapshot(player: Player, data: any)
 		maxEquippedPets = Stats.maxEquippedPets(player),
 		maxPetInventory = Stats.maxPetInventory(player),
 		discovered = data.discovered,
+		autoDelete = data.autoDelete,
 		passes = Passes.ownedList(player),
 		friendBoost = 0, -- filled in by Phase 3.5
 	}

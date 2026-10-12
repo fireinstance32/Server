@@ -17,12 +17,13 @@ tags: [planning, phase2]
 - [x] Pets now ADD to the multiplier (+N), like the reference; rebirths too (+1 each); old test pets converted
 - **Done when:** hatching feels like a reward, not a toast.
 
-## 2.3 Pets UI v2 ⭐ NEXT
-- [ ] Inventory grid, Equip Best, delete/multi-delete, locking favourites
-- [ ] Multiplier totals via 1.1
-- **Done when:** a full inventory is manageable in under 10 seconds.
+## 2.3 Pets ✅ (2026-10-12)
+- [x] Inventory grid, Equip Best, delete one / Delete Unequipped (tap twice), 🔒 lock favourites (protected from deletion)
+- [x] Auto Delete by rarity (Common–Epic; never on a first discovery), index count, +100 storage pass
+- [x] Bonus totals via 1.1
+- **Done when:** a full inventory is manageable in under 10 seconds. (Final look in Phase 5.3.)
 
-## 2.4 Trails
+## 2.4 Trails ⭐ NEXT
 - [ ] `Config/Trails.luau`, trail attachment on the frog's hop
 - [ ] Trails menu (equip, small boost through 1.1)
 

@@ -12,6 +12,9 @@ local FUNCTIONS = {
 	"EquipPet", -- (uid) -> ok, message
 	"UnequipPet", -- (uid) -> ok, message
 	"EquipBestPets", -- () -> ok, message
+	"DeletePets", -- ({ uid }) -> ok, message
+	"LockPet", -- (uid, locked) -> ok, message
+	"SetAutoDelete", -- (rarity, enabled) -> ok, message
 	"Rebirth", -- () -> ok, message
 	"RedeemCode", -- (code) -> ok, message
 }

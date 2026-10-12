@@ -135,7 +135,8 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 			local chanceRow = Theme.label({
 				Size = UDim2.new(1, 0, 0, 22),
 				Position = UDim2.fromOffset(0, 34),
-				Text = Hatch.percentText(result.chance or 0) .. (if result.isNew then "   NEW!" else ""),
+				Text = Hatch.percentText(result.chance or 0)
+					.. (if result.isNew then "   NEW!" elseif result.deleted then "   AUTO DELETED" else ""),
 				TextColor3 = if result.isNew then Color3.fromRGB(120, 255, 120) else C.White,
 				Parent = cell,
 			})

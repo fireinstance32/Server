@@ -23,7 +23,7 @@ Rojo maps:
   - `HeldFrogService` – equipped frog in every character's right hand; hidden while it hops.
   - `ProgressionService` – XP/levels, rebirths, codes.
   - `ShopService` – buy/equip frogs.
-  - `PetService/` – `init` (equip, Equip Best, pet models in `Workspace.Pets.<UserId>`) · `Hatching` (1/3/8 hatch, luck, discovered, Robux eggs)
+  - `PetService/` – `init` (equip, Equip Best, pet models in `Workspace.Pets.<UserId>`) · `Hatching` (1/3/8 hatch, luck, discovered, Robux eggs) · `Management` (delete, lock, auto delete)
   - `MonetizationService` – receipts, pass purchases.
   - `DevService` – Studio-only test commands (see [[Testing Guide]]).
 
@@ -40,7 +40,7 @@ Rojo maps:
 - `UI/Components/` – reusable pieces: `Gradient` (presets), `RobuxChip`, `Badge`, `IconTile`, `PassCard`.
 - `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `DistanceMeter` · `AutoRebirth` · `AutoTrain` · `Popups`
 - `UI/HatchScreen` – full-screen hatch sequence (blur, eggs, wobble, reveal cards).
-- `UI/Menus/` – `init` (open/close by name) · `Window` (panel, list, grid, card, button) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `CodesSection`) · `RebirthMenu` · `Inventory/` (`FrogsTab`, `PetsTab`) · `ComingSoonMenu`
+- `UI/Menus/` – `init` (open/close by name) · `Window` (panel, list, grid, card, button) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `CodesSection`) · `RebirthMenu` · `Inventory/` (`FrogsTab`, `PetsTab/` (`PetCard`, `Toolbar`)) · `ComingSoonMenu`
 - `Controllers/`
   - `HopController` – spot detection (pond pad / Hop Zone), server call, auto-train and Auto Hop
   - `HopAnimation` – frog hop visuals, splashes, camera, landing banner

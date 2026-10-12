@@ -22,3 +22,10 @@ status: draft
 - [ ] R without the pass → "+3 Eggs: not on sale yet"; T → auto-hatches until you walk away or run out of Wins (screens advance by themselves)
 - [ ] Rainbow Egg E → "Rainbow Egg: not on sale yet"
 - [ ] `/rebirths 1` → multiplier shows x2 (rebirths add +1 each)
+
+## 2.3 Pets
+- [ ] Pets tab header: "🎒 n / 50 · Equipped n / 3 (+bonus) · Index n / 15"
+- [ ] 🔓 → 🔒 locks a pet; locked pets have no 🗑 and survive Delete Unequipped
+- [ ] 🗑 deletes one pet; "Delete Unequipped" asks "Tap again!" then deletes every unequipped, unlocked pet
+- [ ] Auto Delete: turn on Common, hatch Common Eggs → already-discovered Commons show "AUTO DELETED" on the reveal and don't enter the inventory
+- [ ] Equip Best equips your 3 highest bonuses
