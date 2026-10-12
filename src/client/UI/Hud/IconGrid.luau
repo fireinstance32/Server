@@ -1,5 +1,8 @@
 -- Left-side 2×3 grid of menu tiles with badges (reference layout).
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Gifts = require(ReplicatedStorage:WaitForChild("Shared").Config.Gifts)
 local Theme = require(script.Parent.Parent.Theme)
 local IconTile = require(script.Parent.Parent.Components.IconTile)
 local State = require(script.Parent.Parent.Parent.State)
@@ -47,6 +50,18 @@ function IconGrid.init(gui: ScreenGui, openMenu: (string) -> ())
 		button.Parent = grid
 		badges[tile.caption] = badge
 	end
+
+	-- Gifts tile: countdown to the next playtime gift, "!" when one is ready.
+	task.spawn(function()
+		local player = game:GetService("Players").LocalPlayer
+		while grid.Parent do
+			local start = player:GetAttribute("SessionStart")
+			local elapsed = if typeof(start) == "number" then workspace:GetServerTimeNow() - start else 0
+			local left = Gifts.nextIn(math.floor(elapsed), Gifts.parseClaimed(player:GetAttribute("GiftsClaimed")))
+			badges.Gifts.set(if left == nil then "" elseif left <= 0 then "!" else string.format("%02d:%02d", left // 60, left % 60))
+			task.wait(1)
+		end
+	end)
 
 	-- Rebirth tile shows progress toward MAX LEVEL, or "!" when ready.
 	State.observe(function(data)

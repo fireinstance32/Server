@@ -28,3 +28,8 @@ status: draft
 ## 3.5 Friend Boost
 - [ ] Alone: "Friend Boost +0%"
 - [ ] With a Roblox friend in the same server: "+10%" each (max +50%), and "Friend Boost" appears in the multiplier breakdown (needs a live server with a real friend; Studio test players aren't friends)
+
+## 3.6 Playtime gifts
+- [ ] Gifts tile shows a countdown ("00:59") to the first gift, then "!" when it's ready
+- [ ] Gifts window: 10 cards with countdowns; ready ones say CLAIM; claiming gives the reward and shows ✅
+- [ ] Rejoining starts the timers again (gifts reset each session)

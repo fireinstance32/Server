@@ -23,8 +23,8 @@ tags: [planning, phase3]
 ## 3.5 Friend Boost ✅ (2026-10-12)
 - [x] +10% per friend in the server, max +50% (via 1.1); invite button on the HUD
 
-## 3.6 Playtime gifts
-- [ ] Claimable gifts every N minutes, Gifts menu
+## 3.6 Playtime gifts ✅ (2026-10-12)
+- [x] 10 gifts at 1/3/5/8/12/15/20/30/45/60 min of play (reset each session), Gifts window, countdown/"!" on the Gifts tile
 
 ## 3.7 Polish layer
 - [ ] Notification dots on the side menu (rebirth ready, gift ready, daily ready)

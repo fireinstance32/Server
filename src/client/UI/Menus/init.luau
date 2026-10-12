@@ -7,9 +7,9 @@ local Window = require(script.Window)
 local ShopMenu = require(script.Shop)
 local RebirthMenu = require(script.RebirthMenu)
 local InventoryMenu = require(script.Inventory)
-local ComingSoonMenu = require(script.ComingSoonMenu)
 local TrailsMenu = require(script.TrailsMenu)
 local DailyMenu = require(script.DailyMenu)
+local GiftsMenu = require(script.GiftsMenu)
 
 local Menus = {}
 
@@ -29,9 +29,7 @@ local MENUS: { [string]: Spec } = {
 	end },
 	Trails = { title = "Trails", icon = "✨", build = TrailsMenu.build },
 	Daily = { title = "Daily Rewards", icon = "📅", build = DailyMenu.build },
-	Gifts = { title = "Gifts", icon = "🎁", build = function(body)
-		return ComingSoonMenu.build(body, "Playtime gifts arrive in Phase 3.6")
-	end },
+	Gifts = { title = "Gifts", icon = "🎁", build = GiftsMenu.build },
 }
 
 local current: { name: string, frame: Frame, refresh: (any) -> () }? = nil

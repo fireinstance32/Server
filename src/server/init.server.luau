@@ -19,6 +19,7 @@ local ORDER = {
 	"DailyService",
 	"OfflineService",
 	"FriendService",
+	"GiftService",
 	"PetService",
 	"ProgressionService",
 	"DevService",
