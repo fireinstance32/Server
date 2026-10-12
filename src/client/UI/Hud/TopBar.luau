@@ -1,5 +1,4 @@
 -- Top-centre AUTO HOP button: "ONLY ◎ 23" until owned, then an ON/OFF toggle.
--- Also reserves the quest bar slot under it (filled by Phase 3.1).
 
 local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
@@ -18,7 +17,7 @@ function TopBar.init(gui: ScreenGui, setAutoHop: (boolean) -> ())
 		Name = "AutoHop",
 		Size = UDim2.fromOffset(250, 70),
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 8),
+		Position = UDim2.new(0.5, 0, 0, 36), -- under the tip ticker
 		Text = "",
 		AutoButtonColor = true,
 		Parent = gui,
@@ -59,16 +58,6 @@ function TopBar.init(gui: ScreenGui, setAutoHop: (boolean) -> ())
 		setAutoHop(enabled)
 		refresh()
 	end)
-
-	-- Reserved for the tutorial quest bar (Phase 3.1).
-	new("Frame", {
-		Name = "QuestSlot",
-		Size = UDim2.fromOffset(600, 70),
-		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 86),
-		BackgroundTransparency = 1,
-		Parent = gui,
-	})
 
 	State.observe(refresh)
 end

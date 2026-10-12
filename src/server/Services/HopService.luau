@@ -60,6 +60,8 @@ local function launch(player: Player, data: any)
 		end
 		data.hops += hopsGained
 		data.wins += winsGained
+		data.stats.winsEarned += winsGained
+		data.stats.launches += 1
 		ProgressionService.addXp(player, data, bounces)
 		if distance > data.bestDistance then
 			data.bestDistance = distance

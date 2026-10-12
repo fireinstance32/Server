@@ -13,6 +13,7 @@ local PondSigns = require(Controllers.PondSigns)
 local FrogPodiums = require(Controllers.FrogPodiums)
 local EggController = require(Controllers.EggController)
 local EggSigns = require(Controllers.EggSigns)
+local QuestGuide = require(Controllers.QuestGuide)
 
 Hud.init({
 	onHop = function()
@@ -29,4 +30,5 @@ task.spawn(PondSigns.init)
 task.spawn(FrogPodiums.init)
 EggController.init()
 task.spawn(EggSigns.init)
+QuestGuide.init()
 task.spawn(PetFollowController.init)

@@ -17,7 +17,7 @@ function DistanceMeter.init(gui: ScreenGui)
 		Name = "DistanceMeter",
 		Size = UDim2.fromOffset(300, 90),
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 86),
+		Position = UDim2.new(0.5, 0, 0, 190), -- under the quest bar
 		BackgroundTransparency = 1,
 		Visible = false,
 		Parent = gui,

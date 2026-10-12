@@ -87,7 +87,7 @@ function Popups.init(screen: ScreenGui)
 	toastHolder = new("Frame", {
 		Size = UDim2.fromOffset(420, 200),
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 160), -- below Auto Hop + quest slot
+		Position = UDim2.new(0.5, 0, 0, 285), -- below Auto Hop, quest bar and distance meter
 		BackgroundTransparency = 1,
 		Parent = gui,
 	}, {

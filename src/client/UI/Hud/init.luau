@@ -25,6 +25,8 @@ local AutoRebirth = require(script.AutoRebirth)
 local DistanceMeter = require(script.DistanceMeter)
 local PotionTimers = require(script.PotionTimers)
 local TopRight = require(script.TopRight)
+local QuestBar = require(script.QuestBar)
+local TipTicker = require(script.TipTicker)
 
 local Hud = {}
 
@@ -101,6 +103,8 @@ function Hud.init(callbacks: {
 	DistanceMeter.init(gui)
 	PotionTimers.init(gui)
 	TopRight.init(gui, callbacks.openMenu)
+	QuestBar.init(gui)
+	TipTicker.init(gui)
 	Popups.init(gui)
 
 	Purchases.onNotForSale(function(text)

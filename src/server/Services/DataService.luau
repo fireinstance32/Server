@@ -11,6 +11,7 @@ local Game = require(Shared.Config.Game)
 local Frogs = require(Shared.Config.Frogs)
 local Pets = require(Shared.Config.Pets)
 local DailyRewards = require(Shared.Config.DailyRewards)
+local Quests = require(Shared.Config.Quests)
 local Levels = require(Shared.Config.Levels)
 local Net = require(Shared.Net)
 
@@ -43,6 +44,8 @@ local function template()
 		activePotions = {}, -- [potionId] = expiry (os.time)
 		daily = { lastDay = 0, streak = 0 }, -- UTC day number of the last claim
 		lastSeen = 0, -- os.time() of the last save (offline training)
+		questStep = 1, -- current tutorial quest (past the end = done)
+		stats = { winsEarned = 0, launches = 0, hatched = 0 }, -- lifetime counters
 		nextPetUid = 1,
 		codes = {}, -- [code: string] = true
 	}
@@ -57,6 +60,11 @@ local function reconcile(data: any)
 	end
 	if not data.frogs[data.equippedFrog] then
 		data.equippedFrog = Frogs.Default
+	end
+	for key, value in template().stats do
+		if data.stats[key] == nil then
+			data.stats[key] = value
+		end
 	end
 	-- Convert pets from the v0.1 test build to their new ids.
 	for _, pet in data.pets do
@@ -91,6 +99,20 @@ local function dailyStatus(data: any)
 	local today = DailyRewards.dayNumber(os.time())
 	local canClaim, day = DailyRewards.status(data.daily.lastDay, data.daily.streak, today)
 	return { canClaim = canClaim, day = day, streak = data.daily.streak }
+end
+
+-- Current tutorial quest for the quest bar, or nil when finished.
+local function questStatus(data: any)
+	local quest = Quests.List[data.questStep]
+	if not quest then
+		return nil
+	end
+	return {
+		step = data.questStep,
+		text = quest.text,
+		progress = math.min(quest.progress(data), quest.target),
+		target = quest.target,
+	}
 end
 
 -- Seconds left on each active potion.
@@ -128,6 +150,7 @@ local function snapshot(player: Player, data: any)
 		potions = data.potions,
 		potionTimers = potionTimers(data),
 		daily = dailyStatus(data),
+		quest = questStatus(data),
 		equippedTrail = data.equippedTrail,
 		passes = Passes.ownedList(player),
 		friendBoost = player:GetAttribute("FriendBoost") or 0,

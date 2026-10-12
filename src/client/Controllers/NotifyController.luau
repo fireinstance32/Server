@@ -38,6 +38,9 @@ function NotifyController.init()
 			for _, line in string.split(payload.text, "\n") do
 				Hud.toast(line, Theme.Colors.Ink)
 			end
+		elseif payload.kind == "Quest" then
+			NotifyController.playSound("Purchase")
+			Hud.toast(`✅ Quest complete: {payload.text}  (+{payload.reward})`, Theme.Colors.DarkGreen)
 		elseif payload.kind == "Offline" then
 			local hours = payload.seconds // 3600
 			local minutes = (payload.seconds % 3600) // 60

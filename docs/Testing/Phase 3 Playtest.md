@@ -1,10 +1,10 @@
 ---
 tags: [testing, phase3]
-status: draft
+status: ready
 ---
 # Phase 3 Playtest
 
-> Draft – filled in as Phase 3 steps land. Setup: [[Testing Guide]].
+> Ready to run. Setup: [[Testing Guide]].
 
 ## 3.2 Potions
 - [ ] `/potion hops 2` → Inventory › Boosts shows "Hops Boost x2"
@@ -33,3 +33,13 @@ status: draft
 - [ ] Gifts tile shows a countdown ("00:59") to the first gift, then "!" when it's ready
 - [ ] Gifts window: 10 cards with countdowns; ready ones say CLAIM; claiming gives the reward and shows ✅
 - [ ] Rejoining starts the timers again (gifts reset each session)
+
+## 3.1 Tutorial quests
+- [ ] New player (`/reset`, rejoin): yellow "TUTORIAL" bar: "Train at the Starter Pond (0/50)" and a gold beam to the Starter Pond pad
+- [ ] Completing each step shows "✅ Quest complete: … (+reward)" and the bar moves on: Get Wins (x/2) → Buy a new frog → Hatch an egg → Reach Level 20 → Rebirth!
+- [ ] The beam points at the Hop Zone, the 2nd frog podium, the Common Egg, the pond in turn; it hides when you're close
+- [ ] After the Rebirth quest the bar disappears for good
+
+## 3.7 Polish
+- [ ] A rainbow tip line at the very top cycles every ~8 s
+- [ ] Badges: Rebirth tile % → "!" at max level; Gifts tile countdown → "!"; 📅 "!" when the daily is ready

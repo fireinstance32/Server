@@ -30,12 +30,13 @@ Rojo maps:
   - `OfflineService` – welcome-back offline training grant (on `DataService.Loaded`).
   - `FriendService` – "FriendBoost" attribute from friends in the server.
   - `GiftService` – playtime gifts ("SessionStart" / "GiftsClaimed" attributes).
+  - `QuestService` – tutorial quest chain: pays rewards and advances on data changes.
   - `PetService/` – `init` (equip, Equip Best, pet models in `Workspace.Pets.<UserId>`) · `Hatching` (1/3/8 hatch, luck, discovered, Robux eggs) · `Management` (delete, lock, auto delete)
   - `MonetizationService` – receipts, pass purchases.
   - `DevService` – Studio-only test commands (see [[Testing Guide]]).
 
 ## Shared (`src/shared`)
-- `Config/` – all balance numbers: `Game`, `Frogs`, `Pets`, `Zones`, `Levels`, `Ponds`, `Trails`, `Potions`, `DailyRewards`, `Gifts`, `Codes`, `Monetization`, `Sounds`, `Dev`.
+- `Config/` – all balance numbers: `Game`, `Frogs`, `Pets`, `Zones`, `Levels`, `Ponds`, `Trails`, `Potions`, `DailyRewards`, `Gifts`, `Quests`, `Codes`, `Monetization`, `Sounds`, `Dev`.
 - `Util/` – `Format` (number text), `Models` (placeholder models), `Multipliers` (pure boost maths), `Hatch` (pure egg odds/picks).
 - `Net.luau` – every remote, declared once.
 
@@ -45,7 +46,7 @@ Rojo maps:
 - `Purchases` – prompts passes/products by config name; `owns(pass)` from the snapshot.
 - `PondAccess` – which ponds this player can use (signs, HOP button, auto-train).
 - `UI/Components/` – reusable pieces: `Gradient` (presets), `RobuxChip`, `Badge`, `IconTile`, `PassCard`.
-- `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `DistanceMeter` · `PotionTimers` · `TopRight` (Daily button) · `AutoRebirth` · `AutoTrain` · `Popups`
+- `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `DistanceMeter` · `PotionTimers` · `TopRight` (Daily button) · `QuestBar` · `TipTicker` · `AutoRebirth` · `AutoTrain` · `Popups`
 - `UI/HatchScreen` – full-screen hatch sequence (blur, eggs, wobble, reveal cards).
 - `UI/Menus/` – `init` (open/close by name) · `Window` (panel, list, grid, card, button) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `CodesSection`) · `RebirthMenu` · `TrailsMenu` · `DailyMenu` · `GiftsMenu` · `Inventory/` (`FrogsTab`, `PetsTab/` (`PetCard`, `Toolbar`), `BoostsTab`) · `ComingSoonMenu`
 - `Controllers/`
@@ -59,6 +60,7 @@ Rojo maps:
   - `EggController` – E/R/T hatching, auto-hatch, Robux egg reveals
   - `EggSigns` – per-player egg odds signs
   - `FrogPodiums` – per-player podium signs + Buy/Equip prompt text
+  - `QuestGuide` – gold beam to the current quest target
   - `PondSigns` – per-player pond signs (requirement, LOCKED/UNLOCKED, multiplier)
 
 ## Rules

@@ -56,6 +56,7 @@ function Hatching.grant(player: Player, data: any, egg: Pets.Egg, count: number)
 	local results = {}
 	for _ = 1, count do
 		local petId = Hatch.pick(egg.pets, weights, random:NextNumber())
+		data.stats.hatched += 1
 		local isNew = not data.discovered[petId]
 		data.discovered[petId] = true
 		-- Auto delete (never on a first discovery, so the index still fills).
