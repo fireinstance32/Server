@@ -31,13 +31,14 @@ type Modifier = {
 
 local Stats = {}
 
-function Stats.petMultiplier(data: any): number
-	local total = 1
+-- Sum of equipped pets' bonuses (added to the multiplier, e.g. +2).
+function Stats.petBonus(data: any): number
+	local total = 0
 	for _, pet in data.pets do
 		if pet.equipped then
 			local def = Pets.ById[pet.id]
 			if def then
-				total += def.multiplier - 1
+				total += def.bonus
 			end
 		end
 	end
@@ -51,22 +52,24 @@ local function passFactor(passName: string, factor: number)
 end
 
 local MODIFIERS: { Modifier } = {
+	-- Rebirths and pets ADD to the multiplier (reference: x2 at 1 rebirth,
+	-- a "+2" pet takes x7 to x9).
 	{
 		id = "rebirth",
 		label = "Rebirths",
 		stat = "hops",
-		kind = "mult",
+		kind = "add",
 		value = function(_, data)
-			return 1 + data.rebirths * Game.RebirthHopsBonus
+			return data.rebirths * Game.RebirthHopsBonus
 		end,
 	},
 	{
 		id = "pets",
 		label = "Pets",
 		stat = "hops",
-		kind = "mult",
+		kind = "add",
 		value = function(_, data)
-			return Stats.petMultiplier(data)
+			return Stats.petBonus(data)
 		end,
 	},
 	{
@@ -139,6 +142,10 @@ end
 function Stats.perBounce(data: any): number
 	local frog = Frogs.ById[data.equippedFrog] or Frogs.ById[Frogs.Default]
 	return frog.perBounce
+end
+
+function Stats.maxPetInventory(player: Player): number
+	return Game.MaxPetInventory + (if Passes.owns(player, "PetStorage") then 100 else 0)
 end
 
 function Stats.maxEquippedPets(player: Player): number

@@ -86,23 +86,53 @@ function Models.frog(color: Color3, scale: number?): Model
 	return model
 end
 
--- Simple floating pet: a coloured ball with a name tag.
-function Models.pet(name: string, color: Color3): Model
+-- Cube animal pet (reference style): rounded cube body, eyes, little ears,
+-- and a name tag. Placeholder until the Blender models.
+function Models.pet(name: string, color: Color3, size: number?): Model
+	local s = size or 1.6
 	local model = Instance.new("Model")
 	model.Name = name
 	local body = part({
 		Name = "Body",
-		Shape = Enum.PartType.Ball,
-		Size = Vector3.one * 1.4,
+		Size = Vector3.one * s,
 		Color = color,
 		Material = Enum.Material.SmoothPlastic,
 	})
 	body.Parent = model
 	model.PrimaryPart = body
 
+	for _, side in { -1, 1 } do
+		local eye = part({
+			Name = "Eye",
+			Shape = Enum.PartType.Ball,
+			Size = Vector3.one * s * 0.28,
+			Color = Color3.new(0.05, 0.05, 0.05),
+			CFrame = body.CFrame * CFrame.new(side * s * 0.22, s * 0.08, -s * 0.48),
+		})
+		eye.Parent = model
+		weldTo(body, eye)
+		local shine = part({
+			Name = "Shine",
+			Shape = Enum.PartType.Ball,
+			Size = Vector3.one * s * 0.1,
+			Color = Color3.new(1, 1, 1),
+			CFrame = eye.CFrame * CFrame.new(s * 0.04, s * 0.05, -s * 0.11),
+		})
+		shine.Parent = model
+		weldTo(body, shine)
+		local ear = part({
+			Name = "Ear",
+			Size = Vector3.new(s * 0.22, s * 0.3, s * 0.12),
+			Color = color:Lerp(Color3.new(0, 0, 0), 0.2),
+			CFrame = body.CFrame * CFrame.new(side * s * 0.3, s * 0.62, 0),
+		})
+		ear.Parent = model
+		weldTo(body, ear)
+	end
+
 	local tag = Instance.new("BillboardGui")
 	tag.Size = UDim2.fromOffset(120, 24)
-	tag.StudsOffset = Vector3.new(0, 1.4, 0)
+	tag.StudsOffset = Vector3.new(0, s, 0)
 	tag.AlwaysOnTop = true
 	tag.MaxDistance = 60
 	local label = Instance.new("TextLabel")
@@ -116,6 +146,26 @@ function Models.pet(name: string, color: Color3): Model
 	label.Parent = tag
 	tag.Parent = body
 
+	return model
+end
+
+-- Egg shape for stands and the hatch screen. Ball parts are always round,
+-- so a sphere mesh stretches it into an egg.
+function Models.egg(color: Color3, height: number?): Model
+	local h = height or 4
+	local model = Instance.new("Model")
+	model.Name = "Egg"
+	local shell = part({
+		Name = "Shell",
+		Size = Vector3.new(h * 0.78, h, h * 0.78),
+		Color = color,
+		Material = Enum.Material.SmoothPlastic,
+	})
+	local mesh = Instance.new("SpecialMesh")
+	mesh.MeshType = Enum.MeshType.Sphere
+	mesh.Parent = shell
+	shell.Parent = model
+	model.PrimaryPart = shell
 	return model
 end
 

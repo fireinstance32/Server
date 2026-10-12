@@ -1,25 +1,24 @@
--- Egg hatching, pet equipping, and the physical pet models that follow players.
--- Models live in Workspace.Pets.<UserId>; each client moves them locally
--- (see client PetFollowController), so the server only creates/destroys them.
+-- Pets: equipping, Equip Best, and the pet models that follow players.
+-- Hatching lives in Hatching.luau. Models live in Workspace.Pets.<UserId>;
+-- each client moves them locally (client PetFollowController).
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
-local Game = require(Shared.Config.Game)
 local Pets = require(Shared.Config.Pets)
 local Models = require(Shared.Util.Models)
 local Net = require(Shared.Net)
 
 local Stats = require(script.Parent.Parent.Stats)
 local DataService = require(script.Parent.DataService)
+local Hatching = require(script.Hatching)
 
 local PetService = {}
 
-local random = Random.new()
 local petsFolder: Folder
 
-local function countPets(data: any): (number, number)
+function PetService.countPets(data: any): (number, number)
 	local total, equipped = 0, 0
 	for _, pet in data.pets do
 		total += 1
@@ -28,29 +27,6 @@ local function countPets(data: any): (number, number)
 		end
 	end
 	return total, equipped
-end
-
-local function weightFor(entry: Pets.EggEntry, luck: number): number
-	local def = Pets.ById[entry.pet]
-	if def and Pets.RarityOrder[def.rarity] >= Pets.LuckMinRarity then
-		return entry.weight * luck
-	end
-	return entry.weight
-end
-
-local function roll(egg: Pets.Egg, luck: number): string
-	local totalWeight = 0
-	for _, entry in egg.pets do
-		totalWeight += weightFor(entry, luck)
-	end
-	local pick = random:NextNumber(0, totalWeight)
-	for _, entry in egg.pets do
-		pick -= weightFor(entry, luck)
-		if pick <= 0 then
-			return entry.pet
-		end
-	end
-	return egg.pets[#egg.pets].pet
 end
 
 function PetService.refreshModels(player: Player)
@@ -78,41 +54,12 @@ function PetService.refreshModels(player: Player)
 	folder.Parent = petsFolder
 end
 
-local function hatchEgg(player: Player, eggId: unknown): (boolean, string)
-	if typeof(eggId) ~= "string" then
-		return false, "Invalid egg"
-	end
-	local egg = Pets.EggsById[eggId]
-	local data = DataService.get(player)
-	if not egg or not data then
-		return false, "Invalid egg"
-	end
-	if data.wins < egg.price then
-		return false, "Not enough Wins"
-	end
-	local total, equipped = countPets(data)
-	if total >= Game.MaxPetInventory then
-		return false, "Your pet inventory is full"
-	end
-
-	data.wins -= egg.price
-	local petId = roll(egg, Stats.luck(player, data))
-	local uid = tostring(data.nextPetUid)
-	data.nextPetUid += 1
-	-- Auto-equip while there are free slots so new players feel the boost.
-	data.pets[uid] = { id = petId, equipped = equipped < Stats.maxEquippedPets(player) }
-
-	DataService.changed(player)
-	PetService.refreshModels(player)
-	return true, petId
-end
-
 local function equipPet(player: Player, uid: unknown): (boolean, string)
 	local data = DataService.get(player)
 	if typeof(uid) ~= "string" or not data or not data.pets[uid] then
 		return false, "Invalid pet"
 	end
-	local _, equipped = countPets(data)
+	local _, equipped = PetService.countPets(data)
 	if equipped >= Stats.maxEquippedPets(player) then
 		return false, "All pet slots are full"
 	end
@@ -143,11 +90,11 @@ local function equipBest(player: Player): (boolean, string)
 	for uid, pet in data.pets do
 		local def = Pets.ById[pet.id]
 		if def then
-			table.insert(ranked, { uid = uid, multiplier = def.multiplier })
+			table.insert(ranked, { uid = uid, bonus = def.bonus })
 		end
 	end
 	table.sort(ranked, function(a, b)
-		return a.multiplier > b.multiplier
+		return a.bonus > b.bonus
 	end)
 	local slots = Stats.maxEquippedPets(player)
 	for i, entry in ranked do
@@ -165,7 +112,10 @@ function PetService.init()
 end
 
 function PetService.start()
-	Net.func("HatchEgg").OnServerInvoke = hatchEgg
+	Hatching.onHatched = PetService.refreshModels
+	Net.func("HatchEgg").OnServerInvoke = function(player, eggId, count)
+		return Hatching.hatch(player, eggId, count)
+	end
 	Net.func("EquipPet").OnServerInvoke = equipPet
 	Net.func("UnequipPet").OnServerInvoke = unequipPet
 	Net.func("EquipBestPets").OnServerInvoke = equipBest
@@ -193,5 +143,8 @@ function PetService.start()
 		end
 	end)
 end
+
+-- Used by MonetizationService for Robux eggs.
+PetService.grantHatch = Hatching.grant
 
 return PetService

@@ -49,10 +49,16 @@ Training = 5 pads × frog Hops/pad × multiplier, every 0.6 s.
 Hops needed to reach a zone: `((distance − 20) / 6)^2` → Zone 2 ≈ 178, Zone 5 ≈ 12.8K, Zone 9 ≈ 171K.
 
 ## Eggs
-| Egg | Price | Pets (weight) |
+Pets **add** their bonus to the Hops multiplier (reference "+2"). Luck multiplies the weight of Rare+ pets.
+
+| Egg | Price | Pets (bonus, weight) |
 |---|---|---|
-| Pond | 50 | Fly x1.1 (50), Snail x1.25 (30), Dragonfly x1.5 (15), Turtle x2 (5) |
-| Swamp | 2.5K | Duck x1.4 (50), Koi x1.8 (32), Crab x2.5 (15), Axolotl x4 (2.9), Rainbow Toad x8 (0.1) |
+| Common | 50 Wins | Pebble Pup +1 (40), Clover Bun +1.5 (30), Brook Otter +2 (20), Moss Turtle +3 (10) |
+| Uncommon | 500 Wins | Lily Frogling +3 (40), Reed Fox +4 (30), Pond Panda +6 (20), Dragonfly Kitty +9 (10) |
+| Rare | 4K Wins | Firefly Bear +8 (45), Willow Owl +12 (35), Crystal Axolotl +18 (17), Golden Toad +30 (3) |
+| Rainbow | Robux 41 | Rainbow Frog +40 (60), Galaxy Cat +60 (35), Prism Dragon +120 (5) |
+
+Hatch 1 by default; 3 / 8 at once with the HatchTriple / HatchOcto passes. Inventory 50 (+100 with PetStorage), 3 equipped (+2 with ExtraPetSlots).
 
 ## Open questions
 - [ ] Playtest time-to-Zone-9 for a new player (target: ~25 min)

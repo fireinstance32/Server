@@ -12,6 +12,9 @@ local Passes: { [string]: Item } = {
 	DoubleHops = { id = 0, price = 5, label = "+2x Hops" },
 	DoubleWins = { id = 0, price = 54, label = "2x Wins" },
 	ExtraPetSlots = { id = 0, price = 149, label = "+2 Pet Slots" },
+	HatchTriple = { id = 0, price = 149, label = "+3 Eggs (hatch 3 at once)" },
+	HatchOcto = { id = 0, price = 399, label = "+8 Eggs (hatch 8 at once)" },
+	PetStorage = { id = 0, price = 99, label = "+100 Pet Storage" },
 	-- Robux training ponds (Config/Ponds), valid in all worlds.
 	PondGolden = { id = 0, price = 90, label = "Golden Pond (3x)" },
 	PondRainbow = { id = 0, price = 225, label = "Rainbow Pond (15x)" },
@@ -25,6 +28,7 @@ local Products: { [string]: Item } = {
 	HopsPack3 = { id = 0, price = 86, label = "+1M Hops" },
 	SkipRebirth = { id = 0, price = 25, label = "Skip Rebirth" },
 	PhoenixFrog = { id = 0, price = 199, label = "Phoenix Frog" },
+	RainbowEgg = { id = 0, price = 41, label = "Rainbow Egg" },
 }
 
 -- What each Hops pack gives (shown on the buttons too).

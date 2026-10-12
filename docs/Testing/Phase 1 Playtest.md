@@ -8,8 +8,8 @@ status: ready
 
 ## 1.1 Multipliers
 - [ ] New player (`/reset`): stats panel shows **Hops x1 • Wins x1**
-- [ ] `/rebirths 2` → Hops multiplier rises (x3 from rebirths, plus level bonus)
-- [ ] Hatch a pet → Hops multiplier rises by the pet's bonus
+- [ ] `/rebirths 2` → Hops multiplier rises (+2 from rebirths → x3, plus level bonus)
+- [ ] Hatch a pet → Hops multiplier rises by the pet's +bonus
 
 ## 1.2 Levels
 - [ ] Training fills the **Level bar**; a "LEVEL N!" toast appears on level up

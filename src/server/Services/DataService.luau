@@ -9,6 +9,7 @@ local RunService = game:GetService("RunService")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Frogs = require(Shared.Config.Frogs)
+local Pets = require(Shared.Config.Pets)
 local Levels = require(Shared.Config.Levels)
 local Net = require(Shared.Net)
 
@@ -33,7 +34,8 @@ local function template()
 		bestDistance = 0,
 		frogs = { [Frogs.Default] = true },
 		equippedFrog = Frogs.Default,
-		pets = {}, -- [uid: string] = { id: string, equipped: boolean }
+		pets = {}, -- [uid: string] = { id: string, equipped: boolean, locked: boolean? }
+		discovered = {}, -- [petId] = true once hatched (for NEW! and the index)
 		nextPetUid = 1,
 		codes = {}, -- [code: string] = true
 	}
@@ -48,6 +50,14 @@ local function reconcile(data: any)
 	end
 	if not data.frogs[data.equippedFrog] then
 		data.equippedFrog = Frogs.Default
+	end
+	-- Convert pets from the v0.1 test build to their new ids.
+	for _, pet in data.pets do
+		local newId = Pets.Legacy[pet.id]
+		if newId then
+			pet.id = newId
+		end
+		data.discovered[pet.id] = true
 	end
 	return data
 end
@@ -88,7 +98,8 @@ local function snapshot(player: Player, data: any)
 		xpToNext = Levels.xpForLevel(data.level),
 		levelCap = Levels.capFor(data.rebirths),
 		maxEquippedPets = Stats.maxEquippedPets(player),
-		maxPetInventory = Game.MaxPetInventory,
+		maxPetInventory = Stats.maxPetInventory(player),
+		discovered = data.discovered,
 		passes = Passes.ownedList(player),
 		friendBoost = 0, -- filled in by Phase 3.5
 	}

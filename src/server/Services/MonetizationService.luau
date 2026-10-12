@@ -11,6 +11,9 @@ local Monetization = require(Shared.Config.Monetization)
 local Passes = require(script.Parent.Parent.Passes)
 local DataService = require(script.Parent.DataService)
 local ProgressionService = require(script.Parent.ProgressionService)
+local PetService = require(script.Parent.PetService)
+local Net = require(Shared.Net)
+local Pets = require(Shared.Config.Pets)
 
 local MonetizationService = {}
 
@@ -59,6 +62,21 @@ function MonetizationService.start()
 	register(products.SkipRebirth.id, function(_, data)
 		return (ProgressionService.applyRebirth(data, true))
 	end)
+
+	-- Robux eggs: hatch one and show the reveal on the buyer's screen.
+	for _, egg in Pets.Eggs do
+		local product = egg.product and products[egg.product]
+		if product then
+			register(product.id, function(player, data)
+				local results = PetService.grantHatch(player, data, egg, 1)
+				task.defer(function()
+					PetService.refreshModels(player)
+					Net.event("Notify"):FireClient(player, { kind = "Hatch", egg = egg.id, results = results })
+				end)
+				return true
+			end)
+		end
+	end
 
 	register(products.PhoenixFrog.id, function(_, data)
 		data.frogs.Phoenix = true

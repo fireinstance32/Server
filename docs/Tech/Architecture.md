@@ -23,13 +23,13 @@ Rojo maps:
   - `HeldFrogService` – equipped frog in every character's right hand; hidden while it hops.
   - `ProgressionService` – XP/levels, rebirths, codes.
   - `ShopService` – buy/equip frogs.
-  - `PetService` – hatch (uses luck), equip, pet models in `Workspace.Pets.<UserId>`.
+  - `PetService/` – `init` (equip, Equip Best, pet models in `Workspace.Pets.<UserId>`) · `Hatching` (1/3/8 hatch, luck, discovered, Robux eggs)
   - `MonetizationService` – receipts, pass purchases.
   - `DevService` – Studio-only test commands (see [[Testing Guide]]).
 
 ## Shared (`src/shared`)
 - `Config/` – all balance numbers: `Game`, `Frogs`, `Pets`, `Zones`, `Levels`, `Ponds`, `Codes`, `Monetization`, `Sounds`, `Dev`.
-- `Util/` – `Format` (number text), `Models` (placeholder models), `Multipliers` (pure boost maths).
+- `Util/` – `Format` (number text), `Models` (placeholder models), `Multipliers` (pure boost maths), `Hatch` (pure egg odds/picks).
 - `Net.luau` – every remote, declared once.
 
 ## Client (`src/client`)
@@ -39,6 +39,7 @@ Rojo maps:
 - `PondAccess` – which ponds this player can use (signs, HOP button, auto-train).
 - `UI/Components/` – reusable pieces: `Gradient` (presets), `RobuxChip`, `Badge`, `IconTile`, `PassCard`.
 - `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `DistanceMeter` · `AutoRebirth` · `AutoTrain` · `Popups`
+- `UI/HatchScreen` – full-screen hatch sequence (blur, eggs, wobble, reveal cards).
 - `UI/Menus/` – `init` (open/close by name) · `Window` (panel, list, grid, card, button) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `CodesSection`) · `RebirthMenu` · `Inventory/` (`FrogsTab`, `PetsTab`) · `ComingSoonMenu`
 - `Controllers/`
   - `HopController` – spot detection (pond pad / Hop Zone), server call, auto-train and Auto Hop
@@ -47,7 +48,9 @@ Rojo maps:
   - `FollowCamera` – smooth chase camera during a hop
   - `NotifyController` – level-up banners, dev messages, sound hook
   - `PetFollowController` – moves pets behind owners locally
-  - `PromptController` – egg stands and shop prompts
+  - `PromptController` – world prompts (egg stands, frog podiums)
+  - `EggController` – E/R/T hatching, auto-hatch, Robux egg reveals
+  - `EggSigns` – per-player egg odds signs
   - `FrogPodiums` – per-player podium signs + Buy/Equip prompt text
   - `PondSigns` – per-player pond signs (requirement, LOCKED/UNLOCKED, multiplier)
 
@@ -70,8 +73,8 @@ end },
 
 | Source | Stat | Kind |
 |---|---|---|
-| Rebirths | hops | mult `1 + rebirths` |
-| Pets | hops | mult `1 + Σ(pet − 1)` |
+| Rebirths | hops | add `rebirths` |
+| Pets | hops | add `Σ pet bonus` |
 | 2x Hops pass | hops | mult 2 |
 | Level | hops | add `0.02 × (level − 1)` |
 | Pond (training only) | hops | mult = pond multiplier |

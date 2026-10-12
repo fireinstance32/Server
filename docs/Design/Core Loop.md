@@ -19,8 +19,7 @@ Train (pond) ──► Hops ──► Launch (river) ──► Wins ──► Fr
 - `distance = 20 + 6 × Hops^0.5` studs, capped at river length (3200)
 - `pads = floor(distance / 12)`
 - `Hops gained = pads × frog.perBounce × hopsMultiplier`
-- `hopsMultiplier = (1 + 0.02 × (level − 1)) × (1 + rebirths) × petMultiplier × (2 if DoubleHops)`
-- `petMultiplier = 1 + Σ(pet.multiplier − 1)` over equipped pets
+- `hopsMultiplier = (1 + rebirths + Σ pet bonuses + 0.02 × (level − 1)) × pond × (2 if DoubleHops)` (training: pond multiplier applies)
 - `Wins gained = zone.wins × winsMultiplier`
 
 ## Progression systems

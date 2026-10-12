@@ -1,10 +1,11 @@
--- Egg stands, each with a ProximityPrompt the client handles.
+-- Egg stands, each with a ProximityPrompt (E) the client handles.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Pets = require(Shared.Config.Pets)
 local Format = require(Shared.Util.Format)
+local Models = require(Shared.Util.Models)
 
 local Parts = require(script.Parent.Parts)
 
@@ -36,20 +37,16 @@ local function buildStands(world: Model)
 			egg.position,
 			Color3.fromRGB(240, 230, 210),
 			"Hatch",
-			`{egg.name} ({Format.abbreviate(egg.price)} Wins)`
+			if egg.product then `{egg.name} (Robux)` else `{egg.name} ({Format.abbreviate(egg.price)} Wins)`
 		)
 		local prompt = stand:FindFirstChildOfClass("ProximityPrompt") :: ProximityPrompt
 		prompt:SetAttribute("EggId", egg.id)
 
-		local eggPart = Parts.block(
-			"Egg",
-			Vector3.new(5, 6.5, 5),
-			stand.CFrame * CFrame.new(0, 4.75, 0),
-			Pets.RarityColors[Pets.ById[egg.pets[#egg.pets].pet].rarity],
-			stand
-		)
-		eggPart.Shape = Enum.PartType.Ball
-		Parts.sign(eggPart, egg.name, `{Format.abbreviate(egg.price)} Wins`)
+		local display = Models.egg(egg.color, 6.5)
+		display:PivotTo(stand.CFrame * CFrame.new(0, 4.75, 0))
+		display.Parent = stand
+		-- Name, price and odds are drawn by the client (EggSigns), since luck
+		-- changes the odds per player.
 	end
 end
 

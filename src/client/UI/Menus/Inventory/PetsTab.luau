@@ -26,7 +26,7 @@ local function sortedPets(data)
 		if a.pet.equipped ~= b.pet.equipped then
 			return a.pet.equipped
 		end
-		return a.def.multiplier > b.def.multiplier
+		return a.def.bonus > b.def.bonus
 	end)
 	return entries
 end
@@ -75,18 +75,18 @@ function PetsTab.build(content: Frame)
 	return function(data)
 		Window.clear(grid)
 		local entries = sortedPets(data)
-		local equipped, bonus = 0, 1
+		local equipped, bonus = 0, 0
 		for _, entry in entries do
 			if entry.pet.equipped then
 				equipped += 1
-				bonus += entry.def.multiplier - 1
+				bonus += entry.def.bonus
 			end
 		end
 		storage.Text = `🎒 {#entries} / {data.maxPetInventory or 50}`
 		equippedLabel.Text = `Equipped: {equipped} / {data.maxEquippedPets}`
 		hint.Text = if #entries == 0
 			then "Hatch an egg to collect your first pet!"
-			else `Pet bonus {Format.multiplier(bonus)}`
+			else `Pet bonus +{Format.abbreviate(bonus)}`
 
 		for i, entry in entries do
 			local rarityColor = Pets.RarityColors[entry.def.rarity]
@@ -102,7 +102,7 @@ function PetsTab.build(content: Frame)
 			Theme.label({
 				Size = UDim2.new(1, -10, 0, 22),
 				Position = UDim2.fromOffset(5, 58),
-				Text = `{Format.multiplier(entry.def.multiplier)} Hops`,
+				Text = `+{entry.def.bonus} Multiplier`,
 				TextColor3 = Color3.fromRGB(140, 235, 80),
 				Parent = card,
 			})

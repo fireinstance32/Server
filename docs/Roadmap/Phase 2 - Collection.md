@@ -9,13 +9,15 @@ tags: [planning, phase2]
 - [x] Proximity prompt to buy/equip (Robux frog prompts the product); the Frog Shop stand is gone (Inventory › Frogs still equips)
 - **Done when:** buying frogs happens in the world.
 
-## 2.2 Egg row + hatch flow ⭐ NEXT
-- [ ] Common / Uncommon / Rare (Wins) + 1 Robux egg (placeholder until Phase 4)
-- [ ] Price signs, hatch odds pop-up on approach
-- [ ] Hatch animation: shake → crack → reveal card
+## 2.2 Egg row + hatch flow ✅ (2026-10-12)
+- [x] Common 50 / Uncommon 500 / Rare 4K (Wins) + Rainbow Egg (Robux), 15 cube-animal pets
+- [x] Sign over each egg: price + every pet with this player's odds (luck-adjusted) + key hints
+- [x] Hatch screen: blur + hide HUD → egg(s) → click → wobble → reveal cards (name, chance, NEW!, +bonus) → continue
+- [x] E hatch · R multi (3 / 8 with passes) · T auto-hatch (free); discovered pets tracked for NEW!
+- [x] Pets now ADD to the multiplier (+N), like the reference; rebirths too (+1 each); old test pets converted
 - **Done when:** hatching feels like a reward, not a toast.
 
-## 2.3 Pets UI v2
+## 2.3 Pets UI v2 ⭐ NEXT
 - [ ] Inventory grid, Equip Best, delete/multi-delete, locking favourites
 - [ ] Multiplier totals via 1.1
 - **Done when:** a full inventory is manageable in under 10 seconds.

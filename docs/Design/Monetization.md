@@ -15,6 +15,8 @@ All items live in `src/shared/Config/Monetization.luau` as `{ id, price, label }
 | DoubleHops | x2 Hops | 5 | wired |
 | DoubleWins | x2 Wins | 54 | wired |
 | ExtraPetSlots | +2 equipped pets | 149 | wired |
+| HatchTriple / HatchOcto | Hatch 3 / 8 eggs at once | 149 / 399 | wired |
+| PetStorage | +100 pet inventory | 99 | wired |
 | PondGolden / PondRainbow / PondCosmic | Unlock the 3x / 15x / 50x training ponds (all worlds) | 90 / 225 / 540 | wired |
 
 ## Developer products
@@ -24,6 +26,7 @@ All items live in `src/shared/Config/Monetization.luau` as `{ id, price, label }
 | StarterPack | +10K Hops, +500 Wins, +1 Rebirth (was 199) | 36 | wired |
 | SkipRebirth | Rebirth without reaching max level | 25 | wired |
 | PhoenixFrog | Unlock + equip Phoenix Frog | 199 | wired |
+| RainbowEgg | Hatch one Rainbow Egg | 41 | wired |
 
 ## Copy from the reference shop (see [[Stone Skipping Reference]])
 Robux eggs (x1/x3/x8), permanent 2x/10x Wins, tiered Hops packs, Skip Rebirth, Auto Rebirth, offline rewards x2, paid training zones, starter pack, `[GIFT]` version of every product, +pet inventory slots, trails.
