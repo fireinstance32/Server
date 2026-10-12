@@ -12,7 +12,7 @@ local Parts = require(script.Parent.Parts)
 
 local River = {}
 
-local function buildPads(world: Model)
+local function buildPads(world: Model, config: Worlds.World)
 	local folder = Instance.new("Folder")
 	folder.Name = "LilyPads"
 	folder.Parent = world
@@ -23,7 +23,7 @@ local function buildPads(world: Model)
 			"Pad",
 			Vector3.new(0.4, 7, 7),
 			CFrame.new(pos) * CFrame.Angles(0, 0, math.rad(90)),
-			Parts.Colors.Pad,
+			Worlds.theme(config).pad,
 			folder
 		)
 		pad.Shape = Enum.PartType.Cylinder
@@ -64,7 +64,7 @@ local function buildZoneArches(world: Model, config: Worlds.World)
 end
 
 function River.build(world: Model, config: Worlds.World)
-	buildPads(world)
+	buildPads(world, config)
 	buildZoneArches(world, config)
 end
 

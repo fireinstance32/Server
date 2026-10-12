@@ -14,6 +14,7 @@ local FrogPodiums = require(Controllers.FrogPodiums)
 local EggController = require(Controllers.EggController)
 local EggSigns = require(Controllers.EggSigns)
 local QuestGuide = require(Controllers.QuestGuide)
+local WorldLighting = require(Controllers.WorldLighting)
 
 Hud.init({
 	onHop = function()
@@ -31,4 +32,5 @@ task.spawn(FrogPodiums.init)
 EggController.init()
 task.spawn(EggSigns.init)
 QuestGuide.init()
+WorldLighting.init()
 task.spawn(PetFollowController.init)

@@ -18,6 +18,10 @@ status: in progress
 - [ ] `/frogs`, equip Phoenix Frog (or a King), river hop: cut-in (speed lines + black frog silhouette + "ULTIMATE HOP!") for ~1 s, fire aura on you, beam + explosion where you throw
 - [ ] Normal frogs don't play it; hop rewards arrive at the same time as before
 
+## 6.5 World look
+- [ ] Each hub's plaza has its own colours with a checker pattern; river pads match the world
+- [ ] `/world swamp` → lighting fades to purple dusk; candy → bright pink; space → night; lava → red haze; back to lily → normal day
+
 ## 6.1 Pets (parts + decals)
 - [ ] `/petgallery` → every pet in rows next to spawn, name + animal under each; run again to remove
 - [ ] Before uploading images: pets have part-built faces (square eyes, snouts)

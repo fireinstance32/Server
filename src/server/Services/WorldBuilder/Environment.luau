@@ -7,6 +7,7 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Zones = require(Shared.Config.Zones)
 local Worlds = require(Shared.Config.Worlds)
+local UiImages = require(Shared.Config.UiImages)
 
 local Parts = require(script.Parent.Parts)
 local Props = require(script.Parent.Props)
@@ -73,8 +74,35 @@ local function buildGround(world: Model, config: Worlds.World)
 		end
 	end
 
-	-- Start plaza west of the river.
-	Parts.block("Plaza", Vector3.new(260, 6, 380), CFrame.new(-130, Parts.GroundTop - 3, 0), Parts.Colors.Grass, world, Enum.Material.Grass)
+	-- Start plaza west of the river, in the world's colours: a checker of
+	-- 40-stud squares (reference floors) and the stud texture once uploaded.
+	local theme = Worlds.theme(config)
+	local plaza = Parts.block("Plaza", Vector3.new(260, 6, 380), CFrame.new(-130, Parts.GroundTop - 3, 0), theme.plaza, world, Enum.Material.SmoothPlastic)
+	local checker = Instance.new("Folder")
+	checker.Name = "Checker"
+	checker.Parent = world
+	local tile = 40
+	for ix = 0, 5 do
+		for iz = 0, 8 do
+			if (ix + iz) % 2 == 0 then
+				local x = -260 + tile / 2 + ix * tile + 10
+				local z = -190 + tile / 2 + iz * tile + 10
+				local square = Parts.block("Square", Vector3.new(tile, 0.1, tile), CFrame.new(x, Parts.GroundTop + 0.02, z), theme.plazaAlt, checker, Enum.Material.SmoothPlastic)
+				square.CanCollide = false
+				square.CastShadow = false
+			end
+		end
+	end
+	local studs = UiImages.content("studs")
+	if studs then
+		local texture = Instance.new("Texture")
+		texture.Texture = studs
+		texture.Face = Enum.NormalId.Top
+		texture.StudsPerTileU = 4
+		texture.StudsPerTileV = 4
+		texture.Transparency = 0.4
+		texture.Parent = plaza
+	end
 
 	-- River water (terrain, which can't be moved later, so it's placed at the
 	-- world's offset now) and a riverbed so swimmers have a floor.

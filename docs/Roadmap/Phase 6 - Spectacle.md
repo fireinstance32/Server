@@ -23,8 +23,10 @@ tags: [planning, phase6]
 - [ ] Tune timing/size in Studio
 ## 6.4 Audio
 - [ ] Hop, splash, buy, hatch, level up, music per world
-## 6.5 World art pass
-- [ ] Hub layout, props, banks, lighting
+## 6.5 World art pass 🟡
+- [x] Per-world themes (`Config/Worlds` Themes): plaza colours with a 40-stud checker, lily pad colour, stud texture on the plaza once uploaded
+- [x] `WorldLighting`: lighting fades to each world's mood (Swamp dusk, Candy bright pink, Space night, Lava red haze)
+- [ ] Props/decor per world beyond the river banks; skyboxes
 
 ## 6.6 Playtest 🧪
 - [ ] I write the test plan: [[Phase 6 Playtest]] (started: models)

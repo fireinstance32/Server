@@ -42,6 +42,7 @@ Rojo maps:
 
 ## Shared (`src/shared`)
 - `Config/` – all balance numbers: `Game`, `Worlds`, `WorldContent/` (one file per world 2–5: frogs, pets, eggs, zones), `Frogs`, `Pets`, `Zones`, `Levels`, `Ponds`, `Trails`, `Potions`, `DailyRewards`, `Gifts`, `Quests`, `Codes`, `Monetization`, `Sounds`, `Dev`, `Security`, `Leaderboards`, `Events`, `Funnel`, `PetLooks` (animal per pet + features per animal), `PetFaces` (decal image ids + patterns).
+- `Config/` also: `UiImages` (UI image ids + emoji fallbacks), `IconAtlas` / `PetIconAtlas` / `FrogIconAtlas` (generated sheet layouts), `Worlds.Themes` (plaza/pad colours, lighting per world).
 - `Util/` – `Format` (number text), `Models/` (`init` picks imported meshes or part-built models; `Assets` clones/recolours `ReplicatedStorage.Assets`; `Pet/` part-built cube pets: `Builder`, `Features/` (`Face`, `Head`, `Body`) + face/pattern decals; `Placeholders` frog/egg), `Multipliers` (pure boost maths), `Hatch` (pure egg odds/picks), `RateLimit` (token bucket), `SessionLock` (save locking rules).
 - `Net.luau` – every remote, declared once.
 
@@ -49,8 +50,10 @@ Rojo maps:
 - `State` – latest snapshot + `observe()`.
 - `UI/Theme` – colours, fonts, `new()` helper, chunky buttons.
 - `Purchases` – prompts passes/products/gifts by config name; `owns(pass)`, `stock(product)`.
+- `Sfx` – plays named sounds from `Config/Sounds` (silent until ids are filled in).
+- `Effects/` – `World` (splashes, landing burst, sparkles), `Screen` (confetti, flashes), `Ultimate/` (`init` aura + beam, `CutIn`).
 - `PondAccess` – which ponds this player can use (signs, HOP button, auto-train).
-- `UI/Components/` – reusable pieces: `Gradient` (presets), `RobuxChip`, `Badge`, `IconTile`, `PassCard`.
+- `UI/Components/` – reusable pieces: `Gradient` (presets), `RobuxChip`, `Badge`, `IconTile`, `PassCard`, `Icon` (icon sheet or emoji), `Studs` (panel texture), `CountUp` (rolling numbers), `ModelView` (ViewportFrame), `PetImage` (pet/frog picture or 3D), `RewardIcon`.
 - `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `DistanceMeter` · `PotionTimers` · `TopRight` (Daily button) · `QuestBar` · `TipTicker` · `EventBanner` · `AutoRebirth` · `AutoTrain` · `Popups`
 - `UI/HatchScreen` – full-screen hatch sequence (blur, eggs, wobble, reveal cards).
 - `UI/Menus/` – `init` (open/close by name) · `Window` (panel, list, grid, card, button) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `GiftSection`, `CodesSection`) · `RebirthMenu` · `TrailsMenu` · `DailyMenu` · `GiftsMenu` · `Inventory/` (`FrogsTab`, `PetsTab/` (`PetCard`, `Toolbar`), `BoostsTab`) · `ComingSoonMenu`
@@ -63,13 +66,18 @@ Rojo maps:
   - `PetFollowController` – moves pets behind owners locally
   - `PromptController` – world prompts (egg stands, frog podiums)
   - `EggController` – E/R/T hatching, auto-hatch, Robux egg reveals
-  - `EggSigns` – per-player egg odds signs
+  - `EggSigns/` – `init` (shows the odds panel near an egg) · `Sign` (name + price, odds panel with pet pictures and E/R/T keys)
+  - `WorldLighting` – fades lighting to the current world's theme
   - `FrogPodiums` – per-player podium signs + Buy/Equip prompt text
   - `QuestGuide` – gold beam to the current quest target
   - `PondSigns` – per-player pond signs (requirement, LOCKED/UNLOCKED, multiplier)
 
 ## Worlds
 World positions are converted with `Worlds.toLocal(position) → (world, localPos)`; all layout helpers (`Game.padPosition`, `Ponds.at`, `Frogs.podiumPosition`, egg positions) stay in World 1 coordinates. Hop results carry `world`, and the client adds `Worlds.offset(world)` when animating. Adding a world = a `Worlds.List` entry + `Config/WorldContent/<World>.luau` + a line in `WorldContent/init.luau`.
+
+## Previewing without Studio
+- `tools/ui-preview` runs the real UI code under a Roblox stub and screenshots it (`node run.mjs hud`, `menu:Shop`, `hatch`, `signs`, `overlays`, `ultimate`).
+- `tools/luau-check/dump-pets.mjs` + `tools/blender/preview/render_pets.py` render the part-built pets/frogs (grid or one picture each, for the UI sheets).
 
 ## Rules
 - Server decides every reward; the client only animates.
