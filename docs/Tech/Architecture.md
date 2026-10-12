@@ -24,12 +24,13 @@ Rojo maps:
   - `ProgressionService` – XP/levels, rebirths, codes.
   - `ShopService` – buy/equip frogs.
   - `TrailService` – buy/equip trails; Robux trail grants.
+  - `PotionService` – potion inventory, use (stacking time), expiry loop.
   - `PetService/` – `init` (equip, Equip Best, pet models in `Workspace.Pets.<UserId>`) · `Hatching` (1/3/8 hatch, luck, discovered, Robux eggs) · `Management` (delete, lock, auto delete)
   - `MonetizationService` – receipts, pass purchases.
   - `DevService` – Studio-only test commands (see [[Testing Guide]]).
 
 ## Shared (`src/shared`)
-- `Config/` – all balance numbers: `Game`, `Frogs`, `Pets`, `Zones`, `Levels`, `Ponds`, `Trails`, `Codes`, `Monetization`, `Sounds`, `Dev`.
+- `Config/` – all balance numbers: `Game`, `Frogs`, `Pets`, `Zones`, `Levels`, `Ponds`, `Trails`, `Potions`, `Codes`, `Monetization`, `Sounds`, `Dev`.
 - `Util/` – `Format` (number text), `Models` (placeholder models), `Multipliers` (pure boost maths), `Hatch` (pure egg odds/picks).
 - `Net.luau` – every remote, declared once.
 
@@ -39,9 +40,9 @@ Rojo maps:
 - `Purchases` – prompts passes/products by config name; `owns(pass)` from the snapshot.
 - `PondAccess` – which ponds this player can use (signs, HOP button, auto-train).
 - `UI/Components/` – reusable pieces: `Gradient` (presets), `RobuxChip`, `Badge`, `IconTile`, `PassCard`.
-- `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `DistanceMeter` · `AutoRebirth` · `AutoTrain` · `Popups`
+- `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `DistanceMeter` · `PotionTimers` · `AutoRebirth` · `AutoTrain` · `Popups`
 - `UI/HatchScreen` – full-screen hatch sequence (blur, eggs, wobble, reveal cards).
-- `UI/Menus/` – `init` (open/close by name) · `Window` (panel, list, grid, card, button) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `CodesSection`) · `RebirthMenu` · `TrailsMenu` · `Inventory/` (`FrogsTab`, `PetsTab/` (`PetCard`, `Toolbar`)) · `ComingSoonMenu`
+- `UI/Menus/` – `init` (open/close by name) · `Window` (panel, list, grid, card, button) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `CodesSection`) · `RebirthMenu` · `TrailsMenu` · `Inventory/` (`FrogsTab`, `PetsTab/` (`PetCard`, `Toolbar`), `BoostsTab`) · `ComingSoonMenu`
 - `Controllers/`
   - `HopController` – spot detection (pond pad / Hop Zone), server call, auto-train and Auto Hop
   - `HopAnimation` – frog hop visuals, splashes, camera, landing banner
@@ -80,4 +81,5 @@ end },
 | Level | hops | add `0.02 × (level − 1)` |
 | Pond (training only) | hops | mult = pond multiplier |
 | Trail | hops | add trail bonus |
+| Potions | hops / wins / luck | mult x2 while active |
 | 2x Wins pass | wins | mult 2 |

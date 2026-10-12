@@ -23,6 +23,7 @@ local PassColumn = require(script.PassColumn)
 local TopBar = require(script.TopBar)
 local AutoRebirth = require(script.AutoRebirth)
 local DistanceMeter = require(script.DistanceMeter)
+local PotionTimers = require(script.PotionTimers)
 
 local Hud = {}
 
@@ -97,6 +98,7 @@ function Hud.init(callbacks: {
 	PassColumn.init(gui, callbacks.openMenu)
 	TopBar.init(gui, callbacks.setAutoHop)
 	DistanceMeter.init(gui)
+	PotionTimers.init(gui)
 	Popups.init(gui)
 
 	Purchases.onNotForSale(function(text)

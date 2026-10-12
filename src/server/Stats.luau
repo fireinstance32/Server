@@ -11,6 +11,7 @@ local Pets = require(Shared.Config.Pets)
 local Levels = require(Shared.Config.Levels)
 local Ponds = require(Shared.Config.Ponds)
 local Trails = require(Shared.Config.Trails)
+local Potions = require(Shared.Config.Potions)
 local Multipliers = require(Shared.Util.Multipliers)
 
 local Passes = require(script.Parent.Passes)
@@ -105,6 +106,20 @@ local MODIFIERS: { Modifier } = {
 	{ id = "doubleHops", label = "2x Hops", stat = "hops", kind = "mult", value = passFactor("DoubleHops", 2) },
 	{ id = "doubleWins", label = "2x Wins", stat = "wins", kind = "mult", value = passFactor("DoubleWins", 2) },
 }
+
+-- One modifier per potion (x2 while its timer is running).
+for _, potion in Potions.List do
+	table.insert(MODIFIERS, {
+		id = "potion" .. potion.id,
+		label = potion.name,
+		stat = potion.stat,
+		kind = "mult",
+		value = function(_, data)
+			local expiry = data.activePotions and data.activePotions[potion.id]
+			return if expiry and expiry > os.time() then potion.factor else nil
+		end,
+	})
+end
 
 function Stats.breakdown(player: Player, data: any, stat: StatName, context: Context?): Multipliers.Breakdown
 	local ctx = context or {}

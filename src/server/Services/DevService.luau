@@ -12,6 +12,7 @@ local Levels = require(Shared.Config.Levels)
 local Frogs = require(Shared.Config.Frogs)
 local Game = require(Shared.Config.Game)
 local Ponds = require(Shared.Config.Ponds)
+local Potions = require(Shared.Config.Potions)
 local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
@@ -103,6 +104,17 @@ local COMMANDS: { [string]: Command } = {
 			local pond = Ponds.List[tonumber(args[2]) or 1] or Ponds.List[1]
 			root.CFrame = CFrame.new(Ponds.standPosition(pond) + Vector3.new(0, 5, 0))
 			return `Teleported to {pond.name}`
+		end,
+	},
+	potion = {
+		usage = "/potion hops|wins|luck <n>  add potions",
+		run = function(_, data, args)
+			local id = args[1] and (string.upper(string.sub(args[1], 1, 1)) .. string.sub(args[1], 2))
+			if not id or not Potions.ById[id] then
+				return "Unknown potion"
+			end
+			data.potions[id] = (data.potions[id] or 0) + (number(args[2]) or 1)
+			return `{id} potions: {data.potions[id]}`
 		end,
 	},
 	reset = {

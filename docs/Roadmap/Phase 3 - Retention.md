@@ -2,15 +2,15 @@
 tags: [planning, phase3]
 ---
 # Phase 3 – Retention
-*Goal: reasons to come back tomorrow.* Back to [[Roadmap]]. Needs: 1.1, 1.3.
+*Goal: reasons to come back tomorrow.* Build order: 3.2 potions first (other rewards hand them out), then 3.3–3.6, then 3.1 tutorial and 3.7 polish. Back to [[Roadmap]]. Needs: 1.1, 1.3.
 
 ## 3.1 Tutorial quests
 - [ ] Quest bar (top centre): Get 2 Wins → Buy a frog → Hatch an egg → Rebirth
 - [ ] Arrow/beam pointing to the next objective
 
-## 3.2 Potions
-- [ ] Hops / Wins / Luck potions; timed, stackable (via 1.1)
-- [ ] Active-potion timers on the HUD; use from Inventory
+## 3.2 Potions ✅ (2026-10-12)
+- [x] Hops / Wins / Luck potions: x2 for 10 min; using another adds time (via 1.1)
+- [x] Active-potion timers on the HUD; use from Inventory › Boosts; `/potion hops 3` for testing
 
 ## 3.3 Daily rewards
 - [ ] 7-day calendar, streak saved; day 7 = limited Legend Frog
@@ -31,7 +31,7 @@ tags: [planning, phase3]
 - [ ] Tip ticker marquee
 
 ## 3.8 Playtest 🧪
-- [ ] I write the test plan: "Phase 3 Playtest" (written when the phase is built), plus any new test commands
+- [ ] I write the test plan: [[Phase 3 Playtest]], plus any new test commands
 - [ ] You run it in Studio (see [[Testing Guide]]) and report issues
 - [ ] Fix everything found, re-test, then the phase is closed
 - **Done when:** every check in the playtest note passes.

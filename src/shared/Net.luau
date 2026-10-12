@@ -17,6 +17,7 @@ local FUNCTIONS = {
 	"SetAutoDelete", -- (rarity, enabled) -> ok, message
 	"BuyTrail", -- (trailId) -> ok, message
 	"EquipTrail", -- (trailId | "") -> ok, message
+	"UsePotion", -- (potionId) -> ok, message
 	"Rebirth", -- () -> ok, message
 	"RedeemCode", -- (code) -> ok, message
 }

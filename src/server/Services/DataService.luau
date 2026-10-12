@@ -38,6 +38,8 @@ local function template()
 		discovered = {}, -- [petId] = true once hatched (for NEW! and the index)
 		autoDelete = {}, -- [rarity] = true: delete those pets right after hatching
 		trails = {}, -- [trailId] = true (equippedTrail: string? is set when one is worn)
+		potions = {}, -- [potionId] = count
+		activePotions = {}, -- [potionId] = expiry (os.time)
 		nextPetUid = 1,
 		codes = {}, -- [code: string] = true
 	}
@@ -81,6 +83,15 @@ local function keyFor(player: Player): string
 	return "player_" .. player.UserId
 end
 
+-- Seconds left on each active potion.
+local function potionTimers(data: any): { [string]: number }
+	local timers = {}
+	for id, expiry in data.activePotions do
+		timers[id] = math.max(expiry - os.time(), 0)
+	end
+	return timers
+end
+
 -- What the client sees: raw data plus derived numbers it shouldn't compute itself.
 local function snapshot(player: Player, data: any)
 	local multipliers = Stats.snapshot(player, data)
@@ -104,6 +115,8 @@ local function snapshot(player: Player, data: any)
 		discovered = data.discovered,
 		autoDelete = data.autoDelete,
 		trails = data.trails,
+		potions = data.potions,
+		potionTimers = potionTimers(data),
 		equippedTrail = data.equippedTrail,
 		passes = Passes.ownedList(player),
 		friendBoost = 0, -- filled in by Phase 3.5

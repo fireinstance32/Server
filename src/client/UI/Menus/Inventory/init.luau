@@ -8,6 +8,7 @@ local ComingSoonMenu = require(script.Parent.ComingSoonMenu)
 local FrogsTab = require(script.FrogsTab)
 local PetsTab = require(script.PetsTab)
 local TrailsMenu = require(script.Parent.TrailsMenu)
+local BoostsTab = require(script.BoostsTab)
 
 local new = Theme.new
 
@@ -17,9 +18,7 @@ local TABS = {
 	{ id = "Frogs", icon = "🐸", build = FrogsTab.build },
 	{ id = "Pets", icon = "🐾", build = PetsTab.build },
 	{ id = "Trails", icon = "✨", build = TrailsMenu.build },
-	{ id = "Boosts", icon = "🧪", build = function(content)
-		return ComingSoonMenu.build(content, "Potions arrive in Phase 3.2")
-	end },
+	{ id = "Boosts", icon = "🧪", build = BoostsTab.build },
 	{ id = "Titles", icon = "🏅", build = function(content)
 		return ComingSoonMenu.build(content, "Titles arrive in a later phase")
 	end },
