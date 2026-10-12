@@ -4,7 +4,7 @@
 import { Analysis } from '@luau-rs/luau/analysis';
 import fs from 'node:fs'; import path from 'node:path';
 const root = process.argv[2];
-const G = ['game','workspace','script','Enum','Instance','Vector3','Vector2','CFrame','Color3','UDim','UDim2','TweenInfo','Random','Ray','RaycastParams','NumberSequence','ColorSequence','NumberRange','task','warn','tick','time','typeof','plugin','shared','DateTime','Rect','BrickColor','PhysicalProperties','Region3','Font'];
+const G = ['game','workspace','script','Enum','Instance','Vector3','Vector2','CFrame','Color3','UDim','UDim2','TweenInfo','Random','Ray','RaycastParams','NumberSequence','ColorSequence','ColorSequenceKeypoint','NumberSequenceKeypoint','Faces','Axes','PathWaypoint','CatalogSearchParams','OverlapParams','SharedTable','buffer','utf8','NumberRange','task','warn','tick','time','typeof','plugin','shared','DateTime','Rect','BrickColor','PhysicalProperties','Region3','Font'];
 const a = await Analysis.create({ mode: 'nonstrict', lint: true, globals: G });
 const files = [];
 (function walk(d){ for (const e of fs.readdirSync(d,{withFileTypes:true})) { const p=path.join(d,e.name); if (e.isDirectory()) walk(p); else if (/\.luau$/.test(e.name)) files.push(p);} })(root);

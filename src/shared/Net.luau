@@ -11,6 +11,7 @@ local FUNCTIONS = {
 	"HatchEgg", -- (eggId) -> ok, petId | message
 	"EquipPet", -- (uid) -> ok, message
 	"UnequipPet", -- (uid) -> ok, message
+	"EquipBestPets", -- () -> ok, message
 	"Rebirth", -- () -> ok, message
 	"RedeemCode", -- (code) -> ok, message
 }

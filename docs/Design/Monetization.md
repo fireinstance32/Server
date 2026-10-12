@@ -5,20 +5,24 @@ tags: [design, monetization]
 
 IDs live in `src/shared/Config/Monetization.luau`. `0` = not created yet (ignored by the game).
 
-## Game passes (planned)
-| Pass | Effect | Status |
-|---|---|---|
-| DoubleWins | ×2 Wins | wired |
-| DoubleHops | ×2 Hops | wired |
-| ExtraPetSlots | +2 equipped pets | wired |
-| AutoHop | auto-press HOP | TODO |
+All items live in `src/shared/Config/Monetization.luau` as `{ id, price, label }`. Create each one on the Creator Dashboard and paste the id; until then the button shows "not on sale yet".
+
+## Game passes
+| Pass | Effect | Shown price | Status |
+|---|---|---|---|
+| AutoHop | Auto-press HOP at a hop spot (top-centre button) | 23 | wired |
+| AutoRebirth | Auto rebirth at MAX LEVEL (button shows while training) | 99 | wired |
+| DoubleHops | x2 Hops | 5 | wired |
+| DoubleWins | x2 Wins | 54 | wired |
+| ExtraPetSlots | +2 equipped pets | 149 | wired |
 
 ## Developer products
-| Product | Effect | Status |
-|---|---|---|
-| PhoenixFrog | unlock + equip Phoenix Frog | wired |
-| WinsSmall | +1,000 Wins | wired |
-| HopsSmall | +5,000 Hops | wired |
+| Product | Effect | Shown price | Status |
+|---|---|---|---|
+| HopsPack1/2/3 | +10K / +100K / +1M Hops | 10 / 41 / 86 | wired |
+| StarterPack | +10K Hops, +500 Wins, +1 Rebirth (was 199) | 36 | wired |
+| SkipRebirth | Rebirth without reaching max level | 25 | wired |
+| PhoenixFrog | Unlock + equip Phoenix Frog | 199 | wired |
 
 ## Copy from the reference shop (see [[Stone Skipping Reference]])
 Robux eggs (x1/x3/x8), permanent 2x/10x Wins, tiered Hops packs, Skip Rebirth, Auto Rebirth, offline rewards x2, paid training zones, starter pack, `[GIFT]` version of every product, +pet inventory slots, trails.

@@ -19,15 +19,17 @@ Every later system (ponds, levels, potions, friend boost, passes, trails) adds a
 - [x] Level-up pop + sound hook
 - **Done when:** the Level bar fills, caps, and rebirth raises the cap.
 
-## 1.3 HUD rework (reference layout) ⭐ NEXT
+## 1.3 HUD rework (reference layout) ✅ (2026-10-12)
 Spec: [[HUD References#Frog Hop HUD layout (spec for 1.3)]].
-- [ ] Bottom centre: Hops (left) + xMultiplier (right) above the **Level bar**
-- [ ] Bottom-left: Rebirths, Wins, Friend Boost (placeholder 0%)
-- [ ] Left side menu column (Shop, Rebirth, Pets, Trails, Inventory, Gifts), icons + notification-dot slot
-- [ ] Right side pass-button column (placeholders)
+- [x] Bottom centre: Hops (left) + xMultiplier (right, click for breakdown) above the **Level bar**, 3 Hops packs under it
+- [x] Bottom-left: Rebirths, Wins, Friend Boost (placeholder 0%) + invite button
+- [x] Left 2×3 tile grid (Shop, Rebirth, Pets, Trails, Inventory, Gifts) with badges (Rebirth % / "!")
+- [x] Right column: Starter Pack, +2x Hops, 2x Wins cards; top-centre AUTO HOP; AUTO REBIRTH while training
+- [x] Menus restyled (dark panel, big title, corner icon, red ✕): Shop (Pack / Passes / Hops / Codes), Rebirth (Before → After, Skip Rebirth), Inventory with tabs (Frogs, Pets + Equip Best, Boosts, Titles), Trails/Gifts "coming soon"
+- [x] Purchases wired to `Config/Monetization` (ids 0 = "not on sale yet")
 - **Done when:** the screen matches the reference layout, with empty slots for later systems.
 
-## 1.4 Training ponds row
+## 1.4 Training ponds row ⭐ NEXT
 - [ ] `Config/Ponds.luau`: ponds gated by rebirths (0→1x, 2→4x, 4→10x, 6→20x)
 - [ ] World: ponds in a row with LOCKED/UNLOCKED + requirement signs
 - [ ] Each pond has a **training pad**; standing on it trains, with "+N Hops" pops per bounce

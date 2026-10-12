@@ -1,5 +1,5 @@
 -- Drives the HOP button: picks Train/Launch from where the player stands,
--- asks the server for a result, then hands it to HopAnimation. Also teleports.
+-- asks the server for a result, then hands it to HopAnimation. Runs Auto Hop.
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -69,33 +69,23 @@ function HopController.hop()
 	busy = false
 end
 
-function HopController.teleport(destination: string)
-	local root = rootPart()
-	if not root or busy then
-		return
-	end
-	local target = if destination == "Train"
-		then Game.TrainingPond + Vector3.new(0, 4, -Game.TrainingPondRadius + 6)
-		else Game.LaunchDock + Vector3.new(0, 4, 0)
-	local lookAt = if destination == "Train" then Game.TrainingPond else Game.padPosition(3)
-	root.CFrame = CFrame.lookAt(target, Vector3.new(lookAt.X, target.Y, lookAt.Z))
+-- Auto Hop pass: keep hopping while standing at a hop spot.
+local autoHop = false
+function HopController.setAutoHop(enabled: boolean)
+	autoHop = enabled
 end
 
 function HopController.init()
-	-- Keep the HOP button label in sync with where the player is standing.
+	-- Show/hide the HOP button as the player walks between hop spots.
 	local lastMode: string? = "unset"
 	RunService.Heartbeat:Connect(function()
 		local mode = currentMode()
-		if mode == lastMode then
-			return
+		if mode ~= lastMode then
+			lastMode = mode
+			Hud.setHopMode(mode)
 		end
-		lastMode = mode
-		if mode == "Launch" then
-			Hud.setHopButton("LAUNCH! 🐸", Theme.Colors.Blue)
-		elseif mode == "Train" then
-			Hud.setHopButton("TRAIN 💪", Theme.Colors.Green)
-		else
-			Hud.setHopButton("HOP!", Theme.Colors.Grey)
+		if autoHop and mode and not busy then
+			task.spawn(HopController.hop)
 		end
 	end)
 end

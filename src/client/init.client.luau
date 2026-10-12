@@ -15,7 +15,7 @@ Hud.init({
 		task.spawn(HopController.hop)
 	end,
 	openMenu = Menus.open,
-	teleport = HopController.teleport,
+	setAutoHop = HopController.setAutoHop,
 })
 Menus.init()
 HopController.init()

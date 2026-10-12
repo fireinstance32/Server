@@ -10,6 +10,7 @@ local Monetization = require(Shared.Config.Monetization)
 
 local Passes = require(script.Parent.Parent.Passes)
 local DataService = require(script.Parent.DataService)
+local ProgressionService = require(script.Parent.ProgressionService)
 
 local MonetizationService = {}
 
@@ -39,17 +40,29 @@ end
 
 function MonetizationService.start()
 	local products = Monetization.Products
-	register(products.PhoenixFrog, function(_, data)
+
+	for name, amount in Monetization.HopsPacks do
+		register(products[name].id, function(_, data)
+			data.hops += amount
+			return true
+		end)
+	end
+
+	register(products.StarterPack.id, function(_, data)
+		local pack = Monetization.StarterPack
+		data.hops += pack.hops
+		data.wins += pack.wins
+		data.rebirths += pack.rebirths
+		return true
+	end)
+
+	register(products.SkipRebirth.id, function(_, data)
+		return (ProgressionService.applyRebirth(data, true))
+	end)
+
+	register(products.PhoenixFrog.id, function(_, data)
 		data.frogs.Phoenix = true
 		data.equippedFrog = "Phoenix"
-		return true
-	end)
-	register(products.WinsSmall, function(_, data)
-		data.wins += 1000
-		return true
-	end)
-	register(products.HopsSmall, function(_, data)
-		data.hops += 5000
 		return true
 	end)
 

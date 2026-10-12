@@ -10,6 +10,7 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Dev = require(Shared.Config.Dev)
 local Levels = require(Shared.Config.Levels)
 local Frogs = require(Shared.Config.Frogs)
+local Game = require(Shared.Config.Game)
 local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
@@ -85,6 +86,18 @@ local COMMANDS: { [string]: Command } = {
 				data.frogs[frog.id] = true
 			end
 			return "All frogs unlocked"
+		end,
+	},
+	goto = {
+		usage = "/goto train|river  teleport to a hop spot",
+		run = function(player, _, args)
+			local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart") :: BasePart?
+			if not root then
+				return "No character"
+			end
+			local target = if args[1] == "river" then Game.LaunchDock else Game.TrainingPond
+			root.CFrame = CFrame.new(target + Vector3.new(0, 5, 0))
+			return `Teleported to {if args[1] == "river" then "the river dock" else "the training pond"}`
 		end,
 	},
 	reset = {

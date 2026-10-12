@@ -8,7 +8,7 @@ status: draft
 
 ## 1.1 Multipliers
 - [ ] New player (`/reset`): stats panel shows **Hops x1 • Wins x1**
-- [ ] `/rebirths 2` → Hops multiplier rises (x2 from rebirths, plus level bonus)
+- [ ] `/rebirths 2` → Hops multiplier rises (x3 from rebirths, plus level bonus)
 - [ ] Hatch a pet → Hops multiplier rises by the pet's bonus
 
 ## 1.2 Levels
@@ -20,5 +20,18 @@ status: draft
 - [ ] Rebirth below max level shows "Reach Level N to rebirth"
 - [ ] Leave and rejoin → level and XP are saved
 
-## 1.3 – 1.7
+## 1.3 HUD & menus
+- [ ] Layout matches [[HUD References#Frog Hop HUD layout (spec for 1.3)]]: tile grid left, pass cards right, AUTO HOP top, Hops / multiplier / Level bar / packs bottom-centre, Rebirths / Wins / Friend Boost bottom-left
+- [ ] HOP button only appears at the Training Pond ("TRAIN 💪") or River Dock ("HOP! 🐸"); `/goto train`, `/goto river`
+- [ ] AUTO REBIRTH button only shows at the Training Pond
+- [ ] Click "xN Multiplier" → breakdown panel lists Rebirths / Pets / Level
+- [ ] Rebirth tile badge shows % to max level, "!" at max
+- [ ] Every Robux button (packs, passes, Starter Pack, Skip Rebirth, Auto Hop) shows "…: not on sale yet" (ids are still 0)
+- [ ] Shop: scrolls through Pack, Passes, Hops, Codes; code WELCOME works once
+- [ ] Rebirth window: Before/After shows x1 → x2 (then x2 → x3 after a rebirth); bar shows Level N / Level cap
+- [ ] Pets tile opens Inventory on the Pets tab; Equip Best equips your 3 strongest; Inventory tile opens the Frogs tab
+- [ ] Trails / Gifts open "Coming soon"
+- [ ] Clicking the same tile again closes the window; red ✕ closes it
+
+## 1.4 – 1.7
 *(added as each step is built)*

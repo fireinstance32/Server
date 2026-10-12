@@ -133,6 +133,31 @@ local function unequipPet(player: Player, uid: unknown): (boolean, string)
 	return true, "Unequipped"
 end
 
+-- Equips the strongest pets up to the slot limit.
+local function equipBest(player: Player): (boolean, string)
+	local data = DataService.get(player)
+	if not data then
+		return false, "Still loading..."
+	end
+	local ranked = {}
+	for uid, pet in data.pets do
+		local def = Pets.ById[pet.id]
+		if def then
+			table.insert(ranked, { uid = uid, multiplier = def.multiplier })
+		end
+	end
+	table.sort(ranked, function(a, b)
+		return a.multiplier > b.multiplier
+	end)
+	local slots = Stats.maxEquippedPets(player)
+	for i, entry in ranked do
+		data.pets[entry.uid].equipped = i <= slots
+	end
+	DataService.changed(player)
+	PetService.refreshModels(player)
+	return true, "Equipped your best pets!"
+end
+
 function PetService.init()
 	petsFolder = Instance.new("Folder")
 	petsFolder.Name = "Pets"
@@ -143,6 +168,7 @@ function PetService.start()
 	Net.func("HatchEgg").OnServerInvoke = hatchEgg
 	Net.func("EquipPet").OnServerInvoke = equipPet
 	Net.func("UnequipPet").OnServerInvoke = unequipPet
+	Net.func("EquipBestPets").OnServerInvoke = equipBest
 
 	local function onPlayer(player: Player)
 		-- Wait for the profile to load, then spawn saved pets.

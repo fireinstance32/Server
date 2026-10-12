@@ -13,6 +13,7 @@ local Levels = require(Shared.Config.Levels)
 local Net = require(Shared.Net)
 
 local Stats = require(script.Parent.Parent.Stats)
+local Passes = require(script.Parent.Parent.Passes)
 local Leaderstats = require(script.Parent.Parent.Leaderstats)
 
 local DataService = {}
@@ -87,6 +88,9 @@ local function snapshot(player: Player, data: any)
 		xpToNext = Levels.xpForLevel(data.level),
 		levelCap = Levels.capFor(data.rebirths),
 		maxEquippedPets = Stats.maxEquippedPets(player),
+		maxPetInventory = Game.MaxPetInventory,
+		passes = Passes.ownedList(player),
+		friendBoost = 0, -- filled in by Phase 3.5
 	}
 end
 

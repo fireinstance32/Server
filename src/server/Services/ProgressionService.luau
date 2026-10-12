@@ -22,13 +22,11 @@ function ProgressionService.addXp(player: Player, data: any, amount: number): nu
 	return gained
 end
 
-local function rebirth(player: Player): (boolean, string)
-	local data = DataService.get(player)
-	if not data then
-		return false, "Still loading..."
-	end
+-- Resets the run and adds a rebirth. `force` skips the level check (used by
+-- the Skip Rebirth product). Does not replicate; callers call changed().
+function ProgressionService.applyRebirth(data: any, force: boolean?): (boolean, string)
 	local cap = Levels.capFor(data.rebirths)
-	if data.level < cap then
+	if not force and data.level < cap then
 		return false, `Reach Level {cap} to rebirth`
 	end
 	data.hops = 0
@@ -36,8 +34,19 @@ local function rebirth(player: Player): (boolean, string)
 	data.level = 1
 	data.xp = 0
 	data.rebirths += 1
-	DataService.changed(player)
 	return true, `Rebirth {data.rebirths}! Max level is now {Levels.capFor(data.rebirths)}.`
+end
+
+local function rebirth(player: Player): (boolean, string)
+	local data = DataService.get(player)
+	if not data then
+		return false, "Still loading..."
+	end
+	local ok, message = ProgressionService.applyRebirth(data)
+	if ok then
+		DataService.changed(player)
+	end
+	return ok, message
 end
 
 local function redeemCode(player: Player, input: unknown): (boolean, string)

@@ -21,7 +21,8 @@ function Passes.owns(player: Player, passName: string): boolean
 		return cache[passName]
 	end
 
-	local id = Monetization.Passes[passName]
+	local item = Monetization.Passes[passName]
+	local id = item and item.id
 	if not id or id == 0 then
 		cache[passName] = false
 		return false
@@ -43,12 +44,23 @@ function Passes.grant(player: Player, passName: string)
 end
 
 function Passes.nameForId(id: number): string?
-	for name, passId in Monetization.Passes do
-		if passId == id and passId ~= 0 then
+	for name, item in Monetization.Passes do
+		if item.id == id and item.id ~= 0 then
 			return name
 		end
 	end
 	return nil
+end
+
+-- Every pass the player owns, by name (sent to the client for the UI).
+function Passes.ownedList(player: Player): { [string]: boolean }
+	local result = {}
+	for name in Monetization.Passes do
+		if Passes.owns(player, name) then
+			result[name] = true
+		end
+	end
+	return result
 end
 
 Players.PlayerRemoving:Connect(function(player)

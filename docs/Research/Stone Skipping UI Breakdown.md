@@ -46,3 +46,30 @@ Trailer frames (1 per second): ![[stoneskip-trailer-1.jpg]] ![[stoneskip-trailer
 
 ## Monetization seen
 Auto Throw, 2x Skill, 2x Wins, Starter Pack, +10K/+100K/+1M packs, Robux pools, relics with limited stock, limited premium pet, Rainbow/Hacked Admin eggs, gifts. See [[Monetization]].
+
+## Menus (screenshots 2026-10-12)
+| | |
+|---|---|
+| ![[stoneskip-hud-full.webp]] | ![[stoneskip-shop-menu.webp]] |
+| ![[stoneskip-pets-menu.webp]] | ![[stoneskip-rebirth-menu.webp]] |
+
+- **Window style:** dark translucent panel, thick black border, big white title across the top edge, large icon overlapping the top-left corner, red ✕ overlapping the top-right corner.
+- **Shop:** scrolling sections with "~ Pack ~" headers. The Starter Pack card is rainbow, with content tiles (x30 pet, x10K skill, x1 potion, +1 rebirth), the old price struck out (199) and a green Robux buy button (36).
+- **My Pets:** tabs down the left (Stones, Pets, Eggs, Boosts, Titles), "🎒 0 / 200 +" storage, "Equipped: 0 / 3 +", a list panel plus a details panel, and Auto Delete, Delete, **Equip Best** and Sort buttons. INDEX button. Hint: "Hatch an egg to collect your first pet!"
+- **Rebirth:** **Before → After** cards (x2 SKILL → x3 SKILL, so +1x per rebirth), red "Resets your LEVEL and SKILL!", a "Level 1 / Level 40" bar, **Rebirth** (green) and **Skip Rebirth** (purple, Robux).
+- **HUD extras:**
+  - AUTO THROW "ONLY ◎ 23" at the top centre
+  - Starter Pack icon and "+2x SKILL ONLY ◎5" / "2x WINS ONLY ◎54" cards on the right
+  - Rebirth tile shows a "2%" progress badge; Gifts tile shows a "!" badge
+  - a world "CLAIM" chest ("Join Group/Like To Claim!")
+- **Auto Rebirth** button appears only while training.
+
+## Egg hatch flow (screen recording)
+![[stoneskip-egg-hatch-1.jpg]] ![[stoneskip-egg-hatch-2.jpg]]
+1. Walk up to an egg and a **billboard panel** appears over it: the egg name ("Common"), a pet grid with % chances, multi-hatch passes on the left (+3 / +8 / +16 Eggs), and keybind buttons **E Hatch**, **R Multi**, **T Auto**.
+2. Hatching **blurs the world and hides the HUD**. One big egg sits in the centre: "Click to hatch" (clicking wobbles and cracks it).
+3. The **reveal card** shows the pet's name, its % chance, a **NEW!** tag, the pet icon, its bonus ("⚡ +2"), and "Click to continue".
+4. **Multi hatch** shows 2+ eggs side by side ("Click to hatch 2"), then reveals the pets side by side.
+5. Pets are cute **cube animals** (Pebble Pup, Brook Otter, Clover Bun). Their bonus is shown as **+N** and adds to the multiplier (x7 → x9 → x10 in the video).
+
+→ Built in [[Phase 2 - Collection|2.2 Egg row + hatch flow]].

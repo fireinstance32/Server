@@ -34,8 +34,10 @@ Rojo maps:
 ## Client (`src/client`)
 - `State` – latest snapshot + `observe()`.
 - `UI/Theme` – colours, fonts, `new()` helper, chunky buttons.
-- `UI/Hud/` – `init` (screen + HOP button) · `StatsPanel` · `LevelBar` · `SideMenu` · `Popups` (toasts, floating numbers, banners)
-- `UI/Menus/` – `init` (open/close manager) · `Window` (frame, grid, card helpers) · `FrogsMenu` · `PetsMenu` · `RebirthMenu` · `CodesMenu`
+- `Purchases` – prompts passes/products by config name; `owns(pass)` from the snapshot.
+- `UI/Components/` – reusable pieces: `Gradient` (presets), `RobuxChip`, `Badge`, `IconTile`, `PassCard`.
+- `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `AutoRebirth` · `Popups`
+- `UI/Menus/` – `init` (open/close by name) · `Window` (panel, list, grid, card, button) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `CodesSection`) · `RebirthMenu` · `Inventory/` (`FrogsTab`, `PetsTab`) · `ComingSoonMenu`
 - `Controllers/`
   - `HopController` – mode detection, server call, teleports
   - `HopAnimation` – frog hop visuals, splashes, camera, landing banner
@@ -62,7 +64,7 @@ end },
 
 | Source | Stat | Kind |
 |---|---|---|
-| Rebirths | hops | mult `1 + 0.5 × rebirths` |
+| Rebirths | hops | mult `1 + rebirths` |
 | Pets | hops | mult `1 + Σ(pet − 1)` |
 | 2x Hops pass | hops | mult 2 |
 | Level | hops | add `0.02 × (level − 1)` |

@@ -34,8 +34,9 @@ Game.LandingPause = 0.6
 Game.MaxEquippedPets = 3
 Game.MaxPetInventory = 50
 
--- Each rebirth adds this much to the Hops multiplier (0.5 = +50%).
-Game.RebirthHopsBonus = 0.5
+-- Each rebirth adds this much to the Hops multiplier (1 = +1x, so 1 rebirth
+-- = x2, 2 rebirths = x3), matching the reference game.
+Game.RebirthHopsBonus = 1
 
 function Game.distanceForHops(hops: number): number
 	return Game.DistanceBase + Game.DistanceScale * math.max(hops, 0) ^ Game.DistanceExponent

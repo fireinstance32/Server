@@ -1,5 +1,8 @@
--- Rebirth: level progress toward the cap and the rebirth button.
+-- Rebirth window: Before → After multiplier, warning, level progress,
+-- Rebirth and Skip Rebirth (Robux) buttons.
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
@@ -7,64 +10,92 @@ local Format = require(Shared.Util.Format)
 local Net = require(Shared.Net)
 
 local Theme = require(script.Parent.Parent.Theme)
+local Gradient = require(script.Parent.Parent.Components.Gradient)
+local Purchases = require(script.Parent.Parent.Parent.Purchases)
 local Window = require(script.Parent.Window)
 
 local new = Theme.new
-local C = Theme.Colors
 
 local RebirthMenu = {}
 
+local function multiplierCard(parent: Frame, x: number): TextLabel
+	local card = new("Frame", {
+		Size = UDim2.new(0.42, 0, 0, 100),
+		Position = UDim2.new(x, 0, 0, 50),
+		Parent = parent,
+	}, { Theme.corner(12), Theme.stroke(3) })
+	Gradient.apply(card, "Yellow")
+	Theme.label({ Size = UDim2.fromOffset(90, 90), Position = UDim2.fromOffset(8, 5), Text = "🐸", Parent = card })
+	return Theme.label({
+		Size = UDim2.new(1, -110, 0.8, 0),
+		Position = UDim2.new(0, 100, 0.1, 0),
+		Text = "x1\nHOPS",
+		Parent = card,
+	})
+end
+
 function RebirthMenu.build(body: Frame)
-	Theme.label({
-		Size = UDim2.new(1, 0, 0, 60),
-		Text = "Reach MAX LEVEL to rebirth. Resets Hops, Wins and Level.\nYou keep your frogs and pets!",
-		TextColor3 = C.Ink,
-		Parent = body,
-	})
-	local reward = Theme.label({
+	Theme.label({ Size = UDim2.new(0.42, 0, 0, 44), Text = "Before", Parent = body })
+	Theme.label({ Size = UDim2.new(0.42, 0, 0, 44), Position = UDim2.fromScale(0.58, 0), Text = "After", Parent = body })
+	local before = multiplierCard(body, 0)
+	local after = multiplierCard(body, 0.58)
+	Theme.label({ Size = UDim2.new(0.1, 0, 0, 60), Position = UDim2.new(0.45, 0, 0, 70), Text = "➜", Parent = body })
+
+	local warning = Theme.label({
 		Size = UDim2.new(1, 0, 0, 40),
-		Position = UDim2.fromOffset(0, 70),
-		Text = "",
-		TextColor3 = C.Purple,
+		Position = UDim2.fromOffset(0, 165),
+		Text = "Resets your LEVEL, HOPS and WINS!",
+		TextColor3 = Color3.fromRGB(255, 60, 60),
 		Parent = body,
 	})
-	local barBack = new("Frame", {
-		Size = UDim2.new(0.9, 0, 0, 36),
+	Theme.textStroke().Parent = warning
+
+	local bar = new("Frame", {
+		Size = UDim2.new(0.9, 0, 0, 56),
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 124),
-		BackgroundColor3 = C.Grey,
+		Position = UDim2.new(0.5, 0, 0, 215),
+		ClipsDescendants = true,
 		Parent = body,
-	}, { Theme.corner(18), Theme.stroke(3) })
-	local barFill = new("Frame", {
-		Size = UDim2.fromScale(0, 1),
-		BackgroundColor3 = C.Purple,
-		Parent = barBack,
-	}, { Theme.corner(18) })
+	}, { Theme.corner(12), Theme.stroke(4) })
+	Gradient.apply(bar, { Color3.fromRGB(250, 250, 250), Color3.fromRGB(215, 215, 220) })
+	local fill = new("Frame", { Size = UDim2.fromScale(0, 1), Parent = bar }, { Theme.corner(12) })
+	Gradient.apply(fill, "Blue")
 	local barText = Theme.label({
-		Size = UDim2.new(1, 0, 1, -8),
-		Position = UDim2.fromOffset(0, 4),
-		Text = "",
+		Size = UDim2.new(1, 0, 0.7, 0),
+		Position = UDim2.fromScale(0, 0.15),
+		Text = "Level 1 / Level 20",
 		ZIndex = 2,
-		Parent = barBack,
+		Parent = bar,
 	})
-	local button = Theme.button({
-		Size = UDim2.fromOffset(240, 70),
-		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 180),
-		Text = "REBIRTH",
-		Color = C.Purple,
-	}, function()
+
+	local rebirthButton = Window.button({
+		Size = UDim2.fromOffset(220, 70),
+		AnchorPoint = Vector2.new(1, 0),
+		Position = UDim2.new(0.5, -15, 0, 290),
+		Text = "Rebirth",
+	}, "Green", function()
 		Window.report(Net.func("Rebirth"):InvokeServer())
 	end)
-	button.Parent = body
+	rebirthButton.Parent = body
+
+	local skip = Window.button({
+		Size = UDim2.fromOffset(220, 70),
+		Position = UDim2.new(0.5, 15, 0, 290),
+		Text = `Skip Rebirth \u{E002}{Purchases.price("product", "SkipRebirth")}`,
+	}, "Purple", function()
+		Purchases.product("SkipRebirth")
+	end)
+	skip.Parent = body
 
 	return function(data)
-		local nextBonus = 1 + (data.rebirths + 1) * Game.RebirthHopsBonus
-		reward.Text = `Next rebirth: Hops {Format.multiplier(nextBonus)} forever`
-		local progress = math.clamp(data.level / data.levelCap, 0, 1)
-		barFill.Size = UDim2.fromScale(progress, 1)
-		barText.Text = `Level {data.level} / {data.levelCap}`
-		button.BackgroundColor3 = if progress >= 1 then C.Purple else C.Grey
+		local now = 1 + data.rebirths * Game.RebirthHopsBonus
+		local nextValue = 1 + (data.rebirths + 1) * Game.RebirthHopsBonus
+		before.Text = `{Format.multiplier(now)}\nHOPS`
+		after.Text = `{Format.multiplier(nextValue)}\nHOPS`
+		local ratio = math.clamp(data.level / data.levelCap, 0, 1)
+		TweenService:Create(fill, TweenInfo.new(0.25), { Size = UDim2.fromScale(ratio, 1) }):Play()
+		barText.Text = `Level {data.level} / Level {data.levelCap}`
+		Gradient.apply(rebirthButton, if ratio >= 1 then "Green" else "Grey")
 	end
 end
 
