@@ -14,6 +14,7 @@ Roblox "+1" incremental game: press **HOP**, your frog leaps across lily pads, e
 ## Research
 - [[Stone Skipping Reference]]
 - [[Stone Skipping UI Breakdown]]
+- [[HUD References]]
 - [[Competitor Scan]]
 
 ## Tech

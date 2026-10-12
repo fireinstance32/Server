@@ -20,6 +20,7 @@ Every later system (ponds, levels, potions, friend boost, passes, trails) adds a
 - **Done when:** the Level bar fills, caps, and rebirth raises the cap.
 
 ## 1.3 HUD rework (reference layout) ⭐ NEXT
+Spec: [[HUD References#Frog Hop HUD layout (spec for 1.3)]].
 - [ ] Bottom centre: Hops (left) + xMultiplier (right) above the **Level bar**
 - [ ] Bottom-left: Rebirths, Wins, Friend Boost (placeholder 0%)
 - [ ] Left side menu column (Shop, Rebirth, Pets, Trails, Inventory, Gifts), icons + notification-dot slot

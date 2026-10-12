@@ -3,7 +3,18 @@ tags: [research, ui]
 ---
 # Stone Skipping – Systems & UI Breakdown
 
-Taken from the user's screenshots and the 32 s trailer (2026-10-12). Each item maps to a Frog Hop system in [[Roadmap]].
+Taken from the user's screenshots and the 32 s trailer (2026-10-12). Each item maps to a Frog Hop system in [[Roadmap]]. HUD comparison with other games: [[HUD References]].
+
+## Screenshots
+| | |
+|---|---|
+| ![[stoneskip-hud-river.webp]] | ![[stoneskip-throw-zone.webp]] |
+| ![[stoneskip-training-pools.webp]] | ![[stoneskip-training-pad.webp]] |
+| ![[stoneskip-stone-podiums.webp]] | ![[stoneskip-egg-row.webp]] |
+| ![[stoneskip-daily-rewards.webp]] | ![[stoneskip-holding-stone.png]] |
+| ![[stoneskip-shop-page1.png]] | ![[stoneskip-shop-page2.png]] |
+
+Trailer frames (1 per second): ![[stoneskip-trailer-1.jpg]] ![[stoneskip-trailer-2.jpg]] ![[stoneskip-trailer-3.jpg]] ![[stoneskip-trailer-4.jpg]]
 
 ## HUD
 | Where | What | Frog Hop equivalent |
