@@ -596,6 +596,11 @@ function Inst:IsRunning() return true end
 function Inst:BindToRenderStep() end
 function Inst:UnbindFromRenderStep() end
 
+local GuiService = game:GetService("GuiService")
+rawset(GuiService, "MenuIsOpen", false) -- Roblox escape menu
+rawset(GuiService, "MenuOpened", newSignal())
+rawset(GuiService, "MenuClosed", newSignal())
+
 local UIS = game:GetService("UserInputService")
 rawset(UIS, "TouchEnabled", false)
 rawset(UIS, "KeyboardEnabled", true)
