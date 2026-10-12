@@ -10,6 +10,7 @@ local PetFollowController = require(Controllers.PetFollowController)
 local PromptController = require(Controllers.PromptController)
 local NotifyController = require(Controllers.NotifyController)
 local PondSigns = require(Controllers.PondSigns)
+local FrogPodiums = require(Controllers.FrogPodiums)
 
 Hud.init({
 	onHop = function()
@@ -23,4 +24,5 @@ HopController.init()
 PromptController.init()
 NotifyController.init()
 task.spawn(PondSigns.init)
+task.spawn(FrogPodiums.init)
 task.spawn(PetFollowController.init)

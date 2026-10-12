@@ -5,12 +5,15 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Pets = require(Shared.Config.Pets)
+local Frogs = require(Shared.Config.Frogs)
 local Format = require(Shared.Util.Format)
 local Net = require(Shared.Net)
 
 local Hud = require(script.Parent.Parent.UI.Hud)
 local Menus = require(script.Parent.Parent.UI.Menus)
 local Theme = require(script.Parent.Parent.UI.Theme)
+local Purchases = require(script.Parent.Parent.Purchases)
+local State = require(script.Parent.Parent.State)
 
 local PromptController = {}
 
@@ -39,12 +42,35 @@ local function hatch(eggId: string)
 	hatching = false
 end
 
+-- Frog podium: equip if owned, otherwise buy (Wins, or Robux for robuxOnly).
+local function frogPodium(frogId: string)
+	local frog = Frogs.ById[frogId]
+	local data = State.data
+	if not frog or not data then
+		return
+	end
+	local remote
+	if data.frogs[frogId] then
+		remote = "EquipFrog"
+	elseif frog.robuxOnly then
+		Purchases.product("PhoenixFrog")
+		return
+	else
+		remote = "BuyFrog"
+	end
+	local ok, message = Net.func(remote):InvokeServer(frogId)
+	Hud.toast(message, if ok then Theme.Colors.DarkGreen else Theme.Colors.Red)
+end
+
 function PromptController.init()
 	ProximityPromptService.PromptTriggered:Connect(function(prompt)
 		local eggId = prompt:GetAttribute("EggId")
+		local frogId = prompt:GetAttribute("FrogId")
 		local menu = prompt:GetAttribute("OpenMenu")
 		if typeof(eggId) == "string" then
 			hatch(eggId)
+		elseif typeof(frogId) == "string" then
+			frogPodium(frogId)
 		elseif typeof(menu) == "string" then
 			Menus.open(menu)
 		end

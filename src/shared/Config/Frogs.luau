@@ -37,8 +37,19 @@ for _, frog in Frogs do
 	byId[frog.id] = frog
 end
 
+-- Podium row in the plaza (reference: stones on pedestals). Computed in a
+-- function so this module still loads in offline tests.
+local PodiumRowZ = -120
+local PodiumStartX = -235
+local PodiumSpacing = 20
+
+local function podiumPosition(index: number): Vector3
+	return Vector3.new(PodiumStartX + (index - 1) * PodiumSpacing, 0.5, PodiumRowZ)
+end
+
 return {
 	List = Frogs,
 	ById = byId,
 	Default = "Baby",
+	podiumPosition = podiumPosition,
 }

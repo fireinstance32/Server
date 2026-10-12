@@ -1,4 +1,4 @@
--- Egg stands and the frog shop, each with a ProximityPrompt the client handles.
+-- Egg stands, each with a ProximityPrompt the client handles.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -51,18 +51,6 @@ local function buildStands(world: Model)
 		eggPart.Shape = Enum.PartType.Ball
 		Parts.sign(eggPart, egg.name, `{Format.abbreviate(egg.price)} Wins`)
 	end
-
-	local shop = standWithPrompt(
-		world,
-		"FrogShop",
-		Vector3.new(-70, 0, -50),
-		Color3.fromRGB(120, 210, 120),
-		"Open",
-		"Frog Shop"
-	)
-	local prompt = shop:FindFirstChildOfClass("ProximityPrompt") :: ProximityPrompt
-	prompt:SetAttribute("OpenMenu", "Frogs")
-	Parts.sign(shop, "FROG SHOP", "Better frogs = more Hops!")
 end
 
 function Stands.build(world: Model)
