@@ -44,6 +44,24 @@ PetLooks.FaceFeatures = {
 	darkFace = true,
 }
 
+-- Frogs are built like pets with the "frog" look, plus these extras.
+PetLooks.FrogExtras = {
+	Golden = { "shiny" },
+	Ninja = { "headband" },
+	Royal = { "crown" },
+	ShootingStar = { "shiny" },
+	Phoenix = { "wings" },
+	Mushroom = { "mushroomCap" },
+	ToadKing = { "crown" },
+	Lollipop = { "shiny" },
+	CandyKing = { "crown" },
+	Astro = { "helmet" },
+	Nebula = { "shiny" },
+	GalaxyKing = { "crown" },
+	Obsidian = { "shiny" },
+	VolcanoKing = { "crown" },
+} :: { [string]: { string } }
+
 -- Feature names that are switches for the base parts, not built parts.
 PetLooks.Flags = { noEyes = true, noFeet = true, tinyEyes = true }
 

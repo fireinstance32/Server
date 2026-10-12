@@ -21,8 +21,11 @@ tags: [planning, phase5]
 - [ ] Tile grid, pass cards, Auto Hop, Level bar + stat row + packs, bottom-left counters, quest bar
 - [ ] Badges (! / % / NEW! / timers) driven by real systems
 
-## 5.3 Menus pass
-- [ ] Shop (sections, pack cards with contents tiles), Rebirth (Before → After), My Pets (tabs, list + details panel, Auto Delete, Sort, Index), Inventory, Daily Rewards, Gifts, Trails, Settings
+## 5.3 Menus pass 🟡
+- [x] Window: translucent panel, blurred world, 3D corner icon, icon close button, per-menu height, studded buttons
+- [x] Shop (starter icon, content tiles, pass icons), Rebirth (studded bolt cards, studded bar), Daily (DAY tabs, reward pictures, CLAIMED overlay, rainbow Day 7), Gifts (reward pictures), Inventory tabs with icons, pet and frog pictures on cards — ![[Daily Preview.png]]
+- [x] Frogs rebuilt as cube frogs (pet builder) with per-frog extras; pet/frog picture sheets (`pets.png`, `frogs.png`)
+- [ ] My Pets details panel, Sort, Index; Settings menu
 
 ## 5.4 Reward & hatch animations
 - [ ] Egg hatch: blur, click to crack, reveal card (NEW!, chance %), multi-hatch layout

@@ -42,7 +42,7 @@ local function attach(player: Player, frogId: string)
 	end
 
 	local def = Frogs.ById[frogId] or Frogs.ById[Frogs.Default]
-	local model = Models.frog(def.color, HELD_SCALE)
+	local model = Models.frog(def.color, HELD_SCALE, def.id)
 	model.Name = MODEL_NAME
 	for _, part in model:GetDescendants() do
 		if part:IsA("BasePart") then

@@ -62,7 +62,7 @@ end
 local function spawnFrog(): Model
 	local frogId = State.data and State.data.equippedFrog or Frogs.Default
 	local def = Frogs.ById[frogId] or Frogs.ById[Frogs.Default]
-	local frog = Models.frog(def.color, 2.4)
+	local frog = Models.frog(def.color, 2.4, def.id)
 	frog.Parent = Workspace
 	attachTrail(frog)
 	return frog

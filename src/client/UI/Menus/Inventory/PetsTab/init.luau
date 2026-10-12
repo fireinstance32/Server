@@ -46,7 +46,7 @@ function PetsTab.build(content: Frame)
 		BackgroundColor3 = Color3.fromRGB(30, 30, 36),
 		Parent = content,
 	}, { Theme.corner(12), Theme.stroke(3) })
-	local grid = Window.grid(holder, 150, 150)
+	local grid = Window.grid(holder, 150, 200)
 	local empty = Theme.label({
 		Size = UDim2.new(1, -20, 0, 40),
 		Position = UDim2.fromOffset(10, 20),

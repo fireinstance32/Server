@@ -4,6 +4,7 @@
 local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
 local Window = require(script.Parent.Window)
+local Icon = require(script.Parent.Parent.Components.Icon)
 local ComingSoonMenu = require(script.Parent.ComingSoonMenu)
 local FrogsTab = require(script.FrogsTab)
 local PetsTab = require(script.PetsTab)
@@ -15,11 +16,11 @@ local new = Theme.new
 local InventoryMenu = {}
 
 local TABS = {
-	{ id = "Frogs", icon = "🐸", build = FrogsTab.build },
-	{ id = "Pets", icon = "🐾", build = PetsTab.build },
-	{ id = "Trails", icon = "✨", build = TrailsMenu.build },
-	{ id = "Boosts", icon = "🧪", build = BoostsTab.build },
-	{ id = "Titles", icon = "🏅", build = function(content)
+	{ id = "Frogs", icon = "frog", build = FrogsTab.build },
+	{ id = "Pets", icon = "pets", build = PetsTab.build },
+	{ id = "Trails", icon = "trails", build = TrailsMenu.build },
+	{ id = "Boosts", icon = "potion_hops", build = BoostsTab.build },
+	{ id = "Titles", icon = "crown", build = function(content)
 		return ComingSoonMenu.build(content, "Titles arrive in a later phase")
 	end },
 }
@@ -47,7 +48,7 @@ function InventoryMenu.build(body: Frame, startTab: string?)
 			if tab.id == id then
 				current = { id = id, refresh = tab.build(content) }
 			end
-			Gradient.apply(buttons[tab.id], if tab.id == id then "Blue" else "Grey")
+			Gradient.apply(buttons[tab.id], if tab.id == id then "Blue" else "Tile")
 		end
 		if current and lastData then
 			current.refresh(lastData)
@@ -61,7 +62,7 @@ function InventoryMenu.build(body: Frame, startTab: string?)
 			LayoutOrder = i,
 			Parent = tabColumn,
 		}, { Theme.corner(12), Theme.stroke(3) })
-		Theme.label({ Size = UDim2.fromScale(1, 0.55), Position = UDim2.fromScale(0, 0.04), Text = tab.icon, Parent = button })
+		Icon.new(tab.icon, { Size = UDim2.fromScale(0.62, 0.7), AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.fromScale(0.5, -0.08), Parent = button })
 		Theme.label({ Size = UDim2.fromScale(0.9, 0.36), Position = UDim2.fromScale(0.05, 0.6), Text = tab.id, Parent = button })
 		buttons[tab.id] = button
 		button.Activated:Connect(function()

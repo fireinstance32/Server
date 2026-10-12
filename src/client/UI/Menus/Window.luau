@@ -3,7 +3,11 @@
 
 local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
+local Lighting = game:GetService("Lighting")
+
 local Hud = require(script.Parent.Parent.Hud)
+local Studs = require(script.Parent.Parent.Components.Studs)
+local Icon = require(script.Parent.Parent.Components.Icon)
 
 local new = Theme.new
 local C = Theme.Colors
@@ -17,14 +21,15 @@ function Window.report(ok: boolean, message: string)
 	Hud.toast(message, if ok then C.DarkGreen else C.Red)
 end
 
-function Window.create(title: string, icon: string, onClose: () -> ()): (Frame, Frame)
+-- `height` = fraction of the screen (menus differ: Rebirth is short).
+function Window.create(title: string, icon: string, onClose: () -> (), height: number?): (Frame, Frame)
 	local frame = new("Frame", {
 		Name = title,
-		Size = UDim2.fromScale(0.58, 0.68),
+		Size = UDim2.fromScale(0.58, height or 0.62),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.fromScale(0.5, 0.52),
+		Position = UDim2.fromScale(0.5, 0.54),
 		BackgroundColor3 = Window.PanelColor,
-		BackgroundTransparency = 0.08,
+		BackgroundTransparency = 0.18,
 		Parent = Hud.screen(),
 	}, {
 		Theme.corner(16),
@@ -43,12 +48,10 @@ function Window.create(title: string, icon: string, onClose: () -> ()): (Frame, 
 		Parent = frame,
 	})
 	-- Big icon overlapping the top-left corner.
-	Theme.label({
-		Name = "Icon",
-		Size = UDim2.fromOffset(110, 110),
+	Icon.new(icon, {
+		Size = UDim2.fromOffset(130, 130),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.fromOffset(20, 0),
-		Text = icon,
+		Position = UDim2.fromOffset(24, 4),
 		Rotation = -10,
 		ZIndex = 3,
 		Parent = frame,
@@ -56,17 +59,17 @@ function Window.create(title: string, icon: string, onClose: () -> ()): (Frame, 
 	-- Red X overlapping the top-right corner.
 	local close = new("TextButton", {
 		Name = "Close",
-		Size = UDim2.fromOffset(70, 70),
+		Size = UDim2.fromOffset(78, 78),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(1, 0, 0, 0),
-		Font = Theme.Font,
-		Text = "✕",
-		TextScaled = true,
-		TextColor3 = C.White,
+		Position = UDim2.new(1, -4, 0, 4),
+		BackgroundTransparency = 1,
+		Text = "",
 		ZIndex = 4,
 		Parent = frame,
-	}, { Theme.corner(14), Theme.stroke(4), Theme.textStroke() })
-	Gradient.apply(close, "Red")
+	})
+	if Icon.has("close") then
+		Icon.new("close", { Size = UDim2.fromScale(1, 1), ZIndex = 4, Parent = close })
+	end
 	close.Activated:Connect(onClose)
 
 	local body = new("Frame", {
@@ -76,6 +79,11 @@ function Window.create(title: string, icon: string, onClose: () -> ()): (Frame, 
 		BackgroundTransparency = 1,
 		Parent = frame,
 	})
+	-- Blur the world behind the window (reference look) while it's open.
+	local blur = new("BlurEffect", { Name = "MenuBlur", Size = 14, Parent = Lighting })
+	frame.Destroying:Connect(function()
+		blur:Destroy()
+	end)
 	Theme.pop(frame)
 	return frame, body
 end
@@ -146,6 +154,7 @@ end
 function Window.button(props: { [string]: any }, color: string, onClick: () -> ()): TextButton
 	local button = Theme.button(props, onClick)
 	Gradient.apply(button, color)
+	Studs.apply(button, 20, 0.4)
 	return button
 end
 

@@ -13,6 +13,8 @@ local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
 local Purchases = require(script.Parent.Parent.Parent.Purchases)
 local Window = require(script.Parent.Window)
+local Studs = require(script.Parent.Parent.Components.Studs)
+local Icon = require(script.Parent.Parent.Components.Icon)
 
 local new = Theme.new
 
@@ -25,7 +27,8 @@ local function multiplierCard(parent: Frame, x: number): TextLabel
 		Parent = parent,
 	}, { Theme.corner(12), Theme.stroke(3) })
 	Gradient.apply(card, "Yellow")
-	Theme.label({ Size = UDim2.fromOffset(90, 90), Position = UDim2.fromOffset(8, 5), Text = "🐸", Parent = card })
+	Studs.apply(card, 22, 0.5)
+	Icon.new("bolt", { Size = UDim2.fromOffset(100, 100), Position = UDim2.fromOffset(6, 0), Rotation = -8, Parent = card })
 	return Theme.label({
 		Size = UDim2.new(1, -110, 0.8, 0),
 		Position = UDim2.new(0, 100, 0.1, 0),
@@ -57,9 +60,11 @@ function RebirthMenu.build(body: Frame)
 		ClipsDescendants = true,
 		Parent = body,
 	}, { Theme.corner(12), Theme.stroke(4) })
-	Gradient.apply(bar, { Color3.fromRGB(250, 250, 250), Color3.fromRGB(215, 215, 220) })
+	Gradient.apply(bar, "Silver")
+	Studs.apply(bar, 22, 0.7)
 	local fill = new("Frame", { Size = UDim2.fromScale(0, 1), Parent = bar }, { Theme.corner(12) })
 	Gradient.apply(fill, "Blue")
+	Studs.apply(fill, 22, 0.6)
 	local barText = Theme.label({
 		Size = UDim2.new(1, 0, 0.7, 0),
 		Position = UDim2.fromScale(0, 0.15),

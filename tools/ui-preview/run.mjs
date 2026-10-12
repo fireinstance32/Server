@@ -16,8 +16,9 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '../..');
 const roots = { shared: path.join(repo, 'src/shared'), client: path.join(repo, 'src/client') };
 
-const scene = process.argv[2] || 'hud';
-const out = path.resolve(process.argv[3] || path.join(here, 'out', `${scene}.png`));
+// "menu:Shop" runs scenes/menu.luau with SCENE_ARG = "Shop".
+const [scene, sceneArg = ''] = (process.argv[2] || 'hud').split(':');
+const out = path.resolve(process.argv[3] || path.join(here, 'out', `${scene}${sceneArg ? '-' + sceneArg : ''}.png`));
 
 function readModule(root, rel) {
   const file = path.join(roots[root], rel + '.luau');
@@ -77,6 +78,7 @@ end
 }
 const lua = await Lua.create({ sandbox: false });
 const logs = [];
+lua.globals.set('SCENE_ARG', sceneArg);
 lua.globals.set('print', lua.createFunction((...a) => { logs.push(a.join('\t')); }));
 let tree = null;
 lua.globals.set('emit', lua.createFunction((s) => { tree = s; }));

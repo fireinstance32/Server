@@ -1,6 +1,6 @@
 --!strict
--- Part-built stand-ins used until the Blender models are imported into
--- ReplicatedStorage.Assets (see Models/init). Callers only rely on PrimaryPart.
+-- Part-built egg used until the Blender egg is imported into
+-- ReplicatedStorage.Assets (see Models/init). Frogs and pets: Models/Pet.
 
 local Placeholders = {}
 
@@ -19,72 +19,6 @@ local function part(props: { [string]: any }): Part
 	return p
 end
 
-local function weldTo(root: BasePart, child: BasePart)
-	local weld = Instance.new("WeldConstraint")
-	weld.Part0 = root
-	weld.Part1 = child
-	weld.Parent = child
-end
-
--- A chubby cartoon frog roughly `scale` studs wide, facing +X.
-function Placeholders.frog(color: Color3, scale: number?): Model
-	local s = scale or 2
-	local model = Instance.new("Model")
-	model.Name = "Frog"
-
-	local body = part({
-		Name = "Body",
-		Shape = Enum.PartType.Ball,
-		Size = Vector3.new(s, s * 0.8, s),
-		Color = color,
-		Material = Enum.Material.SmoothPlastic,
-	})
-	body.Parent = model
-	model.PrimaryPart = body
-
-	local belly = part({
-		Name = "Belly",
-		Shape = Enum.PartType.Ball,
-		Size = Vector3.new(s * 0.7, s * 0.55, s * 0.8),
-		Color = color:Lerp(Color3.new(1, 1, 0.85), 0.6),
-		CFrame = body.CFrame * CFrame.new(s * 0.18, -s * 0.12, 0),
-	})
-	belly.Parent = model
-	weldTo(body, belly)
-
-	for _, side in { -1, 1 } do
-		local eye = part({
-			Name = "Eye",
-			Shape = Enum.PartType.Ball,
-			Size = Vector3.one * s * 0.38,
-			Color = Color3.new(1, 1, 1),
-			CFrame = body.CFrame * CFrame.new(s * 0.2, s * 0.38, side * s * 0.25),
-		})
-		eye.Parent = model
-		weldTo(body, eye)
-
-		local pupil = part({
-			Name = "Pupil",
-			Shape = Enum.PartType.Ball,
-			Size = Vector3.one * s * 0.18,
-			Color = Color3.new(0.05, 0.05, 0.05),
-			CFrame = eye.CFrame * CFrame.new(s * 0.13, 0, 0),
-		})
-		pupil.Parent = model
-		weldTo(body, pupil)
-
-		local foot = part({
-			Name = "Foot",
-			Size = Vector3.new(s * 0.45, s * 0.12, s * 0.3),
-			Color = color:Lerp(Color3.new(0, 0, 0), 0.15),
-			CFrame = body.CFrame * CFrame.new(-s * 0.15, -s * 0.38, side * s * 0.38),
-		})
-		foot.Parent = model
-		weldTo(body, foot)
-	end
-
-	return model
-end
 
 -- Egg shape for stands and the hatch screen. Ball parts are always round,
 -- so a sphere mesh stretches it into an egg.

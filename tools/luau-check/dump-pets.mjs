@@ -1,7 +1,7 @@
 // Builds every pet with the game's own code (src/shared/Util/Models/Pet)
 // under ../blender/preview/roblox_stub.luau and prints the parts as JSON for render_pets.py.
 // Lives here because @luau-rs/luau is installed here.
-//   node dump-pets.mjs > pets.json
+//   node dump-pets.mjs [--frogs] > pets.json
 import { Lua } from '@luau-rs/luau';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -29,6 +29,7 @@ const lua = await Lua.create({
   resolveModule: (spec) => spec.startsWith('@shared/') ? { name: spec, source: loadShared(spec.slice(8)) } : null,
 });
 const out = [];
+lua.globals.set('DUMP_FROGS', process.argv.includes('--frogs'));
 lua.globals.set('emit', lua.createFunction((s) => { out.push(s); }));
 const driver = fs.readFileSync(stub, 'utf8') + `
 local Pets = require("@shared/Config/Pets")
@@ -39,9 +40,9 @@ local PetFaces = require("@shared/Config/PetFaces")
 for name in PetFaces.Images do
 	PetFaces.Images[name] = 1
 end
-for _, def in Pets.List do
-	PARTS = {}
-	Pet.build(def.color, 1, PetLooks.ByPet[def.id], def.rarity)
+local Frogs = require("@shared/Config/Frogs")
+
+local function dumpParts()
 	local rows = {}
 	for _, p in PARTS do
 		local c = p.CFrame
@@ -56,7 +57,20 @@ for _, def in Pets.List do
 			p.Name or "", tostring(p.Shape), p.Size.X, p.Size.Y, p.Size.Z, c.p[1], c.p[2], c.p[3],
 			table.concat(c.r, ","), p.Color.R, p.Color.G, p.Color.B, p.Transparency, table.concat(decals, ",")))
 	end
-	emit(string.format('{"id":"%s","name":"%s","look":"%s","parts":[%s]}', def.id, def.name, PetLooks.ByPet[def.id] or "bear", table.concat(rows, ",")))
+	return table.concat(rows, ",")
+end
+
+for _, def in Pets.List do
+	PARTS = {}
+	Pet.build(def.color, 1, PetLooks.ByPet[def.id], def.rarity)
+	emit(string.format('{"kind":"pet","id":"%s","name":"%s","look":"%s","parts":[%s]}', def.id, def.name, PetLooks.ByPet[def.id] or "bear", dumpParts()))
+end
+if DUMP_FROGS then
+	for _, def in Frogs.List do
+		PARTS = {}
+		Pet.build(def.color, 1, "frog", nil, PetLooks.FrogExtras[def.id])
+		emit(string.format('{"kind":"frog","id":"%s","name":"%s","look":"frog","parts":[%s]}', def.id, def.name, dumpParts()))
+	end
 end
 `;
 lua.execute(driver, { name: 'dump' });

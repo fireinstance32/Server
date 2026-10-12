@@ -8,6 +8,7 @@ local Net = require(Shared.Net)
 
 local Theme = require(script.Parent.Parent.Parent.Parent.Theme)
 local Window = require(script.Parent.Parent.Parent.Window)
+local PetImage = require(script.Parent.Parent.Parent.Parent.Components.PetImage)
 
 local PetCard = {}
 
@@ -27,9 +28,15 @@ function PetCard.build(grid: ScrollingFrame, order: number, uid: string, pet: an
 	local card = Window.card(grid, order, if pet.equipped then Color3.fromRGB(120, 255, 120) else rarityColor)
 
 	Theme.label({ Size = UDim2.new(1, -74, 0, 24), Position = UDim2.fromOffset(6, 8), Text = def.name, Parent = card })
+	PetImage.new("pet", pet.id, {
+		Size = UDim2.fromOffset(64, 64),
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.new(0.5, 0, 0, 34),
+		Parent = card,
+	})
 	local rarity = Theme.label({
 		Size = UDim2.new(1, -10, 0, 20),
-		Position = UDim2.fromOffset(5, 38),
+		Position = UDim2.fromOffset(5, 100),
 		Text = def.rarity,
 		TextColor3 = rarityColor,
 		Parent = card,
@@ -37,8 +44,8 @@ function PetCard.build(grid: ScrollingFrame, order: number, uid: string, pet: an
 	Theme.textStroke().Parent = rarity
 	local bonus = Theme.label({
 		Size = UDim2.new(1, -10, 0, 24),
-		Position = UDim2.fromOffset(5, 60),
-		Text = `⚡ +{def.bonus}`,
+		Position = UDim2.fromOffset(5, 120),
+		Text = `+{def.bonus}`,
 		TextColor3 = Color3.fromRGB(140, 235, 80),
 		Parent = card,
 	})

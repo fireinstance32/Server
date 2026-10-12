@@ -62,6 +62,14 @@ function Hud.screen(): ScreenGui
 	return gui
 end
 
+-- While a menu is open, hide HUD bits that sit where window titles go.
+function Hud.setMenuOpen(open: boolean)
+	local ticker = gui:FindFirstChild("TipTicker")
+	if ticker then
+		(ticker :: GuiObject).Visible = not open
+	end
+end
+
 function Hud.init(callbacks: {
 	onHop: () -> (),
 	openMenu: (string) -> (),

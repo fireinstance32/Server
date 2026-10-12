@@ -45,7 +45,7 @@ function HopsSection.build(list: ScrollingFrame, order: number)
 			Position = UDim2.fromScale(0.1, 0.12),
 			Text = if Monetization.HopsPacks[name]
 				then `+{Format.abbreviate(Monetization.HopsPacks[name])} Hops`
-				else `🧪 x{Monetization.PotionPackEach} each`,
+				else `x{Monetization.PotionPackEach} each`,
 			Parent = button,
 		})
 		RobuxChip.attach(button, Purchases.price("product", name))

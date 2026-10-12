@@ -11,6 +11,7 @@ local Net = require(Shared.Net)
 local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
 local Window = require(script.Parent.Window)
+local RewardIcon = require(script.Parent.Parent.Components.RewardIcon)
 
 local GiftsMenu = {}
 
@@ -25,12 +26,17 @@ function GiftsMenu.elapsed(): number
 end
 
 function GiftsMenu.build(body: Frame)
-	local grid = Window.grid(body, 150, 170)
+	local grid = Window.grid(body, 150, 180)
 	local buttons = {}
 	for i, gift in Gifts.List do
 		local card = Window.card(grid, i)
-		Theme.label({ Size = UDim2.new(1, 0, 0, 56), Position = UDim2.fromOffset(0, 6), Text = gift.icon, Parent = card })
-		Theme.label({ Size = UDim2.new(1, -10, 0, 28), Position = UDim2.fromOffset(5, 64), Text = gift.label, Parent = card })
+		RewardIcon.new(gift.reward, {
+			Size = UDim2.fromOffset(78, 70),
+			AnchorPoint = Vector2.new(0.5, 0),
+			Position = UDim2.new(0.5, 0, 0, 4),
+			Parent = card,
+		})
+		Theme.label({ Size = UDim2.new(1, -10, 0, 28), Position = UDim2.fromOffset(5, 76), Text = gift.label, Parent = card })
 		local button = Window.button({
 			Size = UDim2.new(1, -20, 0, 44),
 			Position = UDim2.new(0, 10, 1, -54),
@@ -52,7 +58,7 @@ function GiftsMenu.build(body: Frame)
 		for i, gift in Gifts.List do
 			local button = buttons[i]
 			if claimed[i] then
-				button.Text = "✅"
+				button.Text = "CLAIMED"
 				Gradient.apply(button, "Grey")
 			elseif Gifts.isReady(i, elapsed) then
 				button.Text = "CLAIM"

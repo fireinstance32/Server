@@ -10,6 +10,8 @@ local Theme = require(script.Parent.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Parent.Components.Gradient)
 local Purchases = require(script.Parent.Parent.Parent.Parent.Purchases)
 local Window = require(script.Parent.Parent.Window)
+local Studs = require(script.Parent.Parent.Parent.Components.Studs)
+local Icon = require(script.Parent.Parent.Parent.Components.Icon)
 
 local new = Theme.new
 
@@ -26,8 +28,9 @@ function PackSection.build(list: ScrollingFrame, order: number)
 		Parent = list,
 	}, { Theme.corner(14), Theme.stroke(4, Color3.fromRGB(255, 220, 90)) })
 	Gradient.apply(card, "Rainbow")
+	Studs.apply(card, 24, 0.45)
 
-	Theme.label({ Size = UDim2.fromOffset(150, 150), Position = UDim2.fromOffset(20, 30), Text = "🐸🎉", Parent = card })
+	Icon.new("starter", { Size = UDim2.fromOffset(170, 170), Position = UDim2.fromOffset(16, 20), Rotation = -6, Parent = card })
 	Theme.label({
 		Size = UDim2.new(1, -220, 0, 60),
 		Position = UDim2.fromOffset(200, 10),
@@ -48,9 +51,9 @@ function PackSection.build(list: ScrollingFrame, order: number)
 		}),
 	})
 	for _, item in {
-		{ "🐸", `x{Format.abbreviate(pack.hops)}` },
-		{ "🏆", `x{Format.abbreviate(pack.wins)}` },
-		{ "🔁", `+{pack.rebirths}` },
+		{ "bolt", `x{Format.abbreviate(pack.hops)}` },
+		{ "trophy", `x{Format.abbreviate(pack.wins)}` },
+		{ "rebirth", `+{pack.rebirths}` },
 	} do
 		local tile = new("Frame", {
 			Size = UDim2.fromOffset(80, 70),
@@ -58,7 +61,7 @@ function PackSection.build(list: ScrollingFrame, order: number)
 			BackgroundTransparency = 0.6,
 			Parent = contents,
 		}, { Theme.corner(10), Theme.stroke(2, Color3.new(1, 1, 1)) })
-		Theme.label({ Size = UDim2.fromScale(1, 0.55), Text = item[1], Parent = tile })
+		Icon.new(item[1], { Size = UDim2.fromScale(0.8, 0.6), Position = UDim2.fromScale(0.1, 0.02), Parent = tile })
 		Theme.label({ Size = UDim2.fromScale(1, 0.4), Position = UDim2.fromScale(0, 0.58), Text = item[2], Parent = tile })
 	end
 

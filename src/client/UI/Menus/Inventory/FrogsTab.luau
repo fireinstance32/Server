@@ -11,8 +11,7 @@ local Net = require(Shared.Net)
 local Theme = require(script.Parent.Parent.Parent.Theme)
 local Purchases = require(script.Parent.Parent.Parent.Parent.Purchases)
 local Window = require(script.Parent.Parent.Window)
-
-local new = Theme.new
+local PetImage = require(script.Parent.Parent.Parent.Components.PetImage)
 
 local FrogsTab = {}
 
@@ -22,13 +21,12 @@ function FrogsTab.build(content: Frame)
 		Window.clear(grid)
 		for i, frog in Frogs.List do
 			local card = Window.card(grid, i, frog.color)
-			new("Frame", {
-				Size = UDim2.fromOffset(56, 56),
+			PetImage.new("frog", frog.id, {
+				Size = UDim2.fromOffset(70, 70),
 				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.new(0.5, 0, 0, 10),
-				BackgroundColor3 = frog.color,
+				Position = UDim2.new(0.5, 0, 0, 2),
 				Parent = card,
-			}, { Theme.corner(28), Theme.stroke(3) })
+			})
 			Theme.label({ Size = UDim2.new(1, -10, 0, 26), Position = UDim2.fromOffset(5, 70), Text = frog.name, Parent = card })
 			Theme.label({
 				Size = UDim2.new(1, -10, 0, 22),
@@ -47,7 +45,7 @@ function FrogsTab.build(content: Frame)
 					Window.report(Net.func("EquipFrog"):InvokeServer(frog.id))
 				end
 			elseif frog.rewardOnly then
-				text, color = `🎁 {frog.rewardOnly}`, "Grey"
+				text, color = frog.rewardOnly, "Grey"
 			elseif frog.robuxOnly then
 				text, color = `\u{E002} {Purchases.price("product", "PhoenixFrog")}`, "Purple"
 				action = function()

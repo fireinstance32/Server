@@ -36,10 +36,13 @@ local function addPatterns(b: Builder.Builder, look: string)
 	end
 end
 
-function Pet.build(color: Color3, size: number, look: string?, rarity: string?): Model
+function Pet.build(color: Color3, size: number, look: string?, rarity: string?, extras: { string }?): Model
 	local b = Builder.new(color, size)
 	local lookName = if look and PetLooks.Looks[look] then look else "bear"
-	local features = PetLooks.Looks[lookName]
+	local features = table.clone(PetLooks.Looks[lookName])
+	for _, extra in extras or {} do
+		table.insert(features, extra)
+	end
 	local flags: { [string]: boolean } = {}
 	for _, name in features do
 		flags[name] = true

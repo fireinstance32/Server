@@ -97,6 +97,43 @@ function Head.antennae(b: Builder.Builder)
 	end
 end
 
+function Head.crown(b: Builder.Builder)
+	local gold = Color3.fromRGB(255, 200, 40)
+	-- Sits behind frog top-eyes, so it shows above them.
+	b:add("Crown", Vector3.new(0.7, 0.18, 0.6), CFrame.new(0, 0.62, 0.18), gold, { Material = Enum.Material.Metal })
+	for i, x in { -0.25, 0, 0.25 } do
+		b:add("CrownSpike", Vector3.new(0.18, 0.18, 0.05), CFrame.new(x, 0.78 + (if i == 2 then 0.05 else 0), -0.1) * DIAMOND, gold, { Material = Enum.Material.Metal })
+	end
+	b:add("Gem", Vector3.new(0.1, 0.1, 0.04), CFrame.new(0, 0.64, -0.13) * DIAMOND, Color3.fromRGB(240, 50, 80))
+end
+
+function Head.headband(b: Builder.Builder)
+	local cloth = Color3.fromRGB(40, 40, 50)
+	b:add("Headband", Vector3.new(1.04, 0.14, 1.04), CFrame.new(0, 0.28, 0), cloth)
+	for i, tilt in { -20, 15 } do
+		b:add("Tail", Vector3.new(0.08, 0.06, 0.4), CFrame.new(0.15 + i * 0.08, 0.26, 0.68) * CFrame.Angles(rad(tilt), rad(20 * i), 0), cloth)
+	end
+end
+
+function Head.shiny(b: Builder.Builder)
+	b.body.Material = Enum.Material.Metal
+	b.body.Reflectance = 0.15
+end
+
+function Head.mushroomCap(b: Builder.Builder)
+	-- A stepped (cube-style) toadstool hat resting on top.
+	local red = Color3.fromRGB(230, 60, 60)
+	b:add("Cap", Vector3.new(1.3, 0.2, 1.3), CFrame.new(0, 0.84, 0.05), red)
+	b:add("CapTop", Vector3.new(0.85, 0.2, 0.85), CFrame.new(0, 1.02, 0.05), red)
+	for _, at in { Vector3.new(-0.42, 0.95, -0.4), Vector3.new(0.4, 0.95, 0.3), Vector3.new(0.12, 1.13, -0.15) } do
+		b:add("Spot", Vector3.new(0.18, 0.04, 0.18), CFrame.new(at), Color3.fromRGB(255, 250, 240))
+	end
+end
+
+function Head.helmet(b: Builder.Builder)
+	b:add("Helmet", Vector3.new(1.5, 1.5, 1.5), CFrame.new(0, 0.12, 0), Color3.fromRGB(200, 235, 255), { Shape = Enum.PartType.Ball, Transparency = 0.7 })
+end
+
 function Head.gills(b: Builder.Builder)
 	for _, side in { -1, 1 } do
 		for i, tilt in { 35, 0, -35 } do

@@ -8,6 +8,8 @@ local UiImages = {}
 UiImages.Ids = {
 	icons = 0, -- icons.png: every icon on one sheet (layout in Config/IconAtlas)
 	studs = 0, -- studs.png: tiling brick-stud texture for panels
+	pets = 0, -- pets.png: every pet's picture (layout in Config/PetIconAtlas)
+	frogs = 0, -- frogs.png: every frog's picture (layout in Config/FrogIconAtlas)
 } :: { [string]: number }
 
 -- Emoji shown until the icon sheet is uploaded.

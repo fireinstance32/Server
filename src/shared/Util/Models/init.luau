@@ -1,7 +1,7 @@
 --!strict
 -- Frog, pet and egg models. Uses the imported cube-style meshes in
 -- ReplicatedStorage.Assets when present (Models/Assets), otherwise the
--- part-built models (Models/Pet for pets, Models/Placeholders otherwise). Callers only rely on
+-- part-built models (Models/Pet for frogs and pets, Models/Placeholders for the egg). Callers only rely on
 -- PrimaryPart, so both look the same to the rest of the game.
 
 local Assets = require(script.Assets)
@@ -30,8 +30,9 @@ local function nameTag(body: BasePart, name: string, height: number)
 	tag.Parent = body
 end
 
--- A cube frog `scale` studs wide, facing +X.
-function Models.frog(color: Color3, scale: number?): Model
+-- A cube frog `scale` studs wide, facing +X. Built like the pets ("frog"
+-- look + per-frog extras such as crowns) unless an Assets.Frog mesh exists.
+function Models.frog(color: Color3, scale: number?, frogId: string?): Model
 	local s = scale or 2
 	local template = Assets.template("Frog")
 	local model = template and Assets.build(template, "Body", color, s)
@@ -39,7 +40,14 @@ function Models.frog(color: Color3, scale: number?): Model
 		model.Name = "Frog"
 		return model
 	end
-	return Placeholders.frog(color, s)
+	local frog = Pet.build(color, s * 0.8, "frog", nil, PetLooks.FrogExtras[frogId or ""])
+	frog.Name = "Frog"
+	-- Pets face -Z; turn the frog to face +X and keep its pivot unrotated, so
+	-- callers' PivotTo(CFrame.new(pos)) keeps it facing +X.
+	local body = frog.PrimaryPart :: BasePart
+	frog:PivotTo(CFrame.Angles(0, -math.pi / 2, 0))
+	body.PivotOffset = CFrame.Angles(0, math.pi / 2, 0)
+	return frog
 end
 
 export type PetDef = { id: string, name: string, color: Color3, rarity: string }

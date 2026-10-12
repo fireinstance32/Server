@@ -3,6 +3,7 @@
 -- world prompts pass to Menus.open.
 
 local State = require(script.Parent.Parent.State)
+local Hud = require(script.Parent.Hud)
 local Window = require(script.Window)
 local ShopMenu = require(script.Shop)
 local RebirthMenu = require(script.RebirthMenu)
@@ -13,23 +14,23 @@ local GiftsMenu = require(script.GiftsMenu)
 
 local Menus = {}
 
-type Spec = { title: string, icon: string, build: (Frame) -> (any) -> () }
+type Spec = { title: string, icon: string, height: number?, build: (Frame) -> (any) -> () }
 
 local MENUS: { [string]: Spec } = {
-	Shop = { title = "Shop", icon = "🛒", build = ShopMenu.build },
-	Rebirth = { title = "Rebirth", icon = "🔁", build = RebirthMenu.build },
-	Pets = { title = "My Pets", icon = "🐾", build = function(body)
+	Shop = { title = "Shop", icon = "shop", build = ShopMenu.build },
+	Rebirth = { title = "Rebirth", icon = "rebirth", height = 0.5, build = RebirthMenu.build },
+	Pets = { title = "My Pets", icon = "pets", build = function(body)
 		return InventoryMenu.build(body, "Pets")
 	end },
-	Inventory = { title = "Inventory", icon = "🎒", build = function(body)
+	Inventory = { title = "Inventory", icon = "inventory", build = function(body)
 		return InventoryMenu.build(body, "Frogs")
 	end },
-	Frogs = { title = "Frogs", icon = "🐸", build = function(body)
+	Frogs = { title = "Frogs", icon = "frog", build = function(body)
 		return InventoryMenu.build(body, "Frogs")
 	end },
-	Trails = { title = "Trails", icon = "✨", build = TrailsMenu.build },
-	Daily = { title = "Daily Rewards", icon = "📅", build = DailyMenu.build },
-	Gifts = { title = "Gifts", icon = "🎁", build = GiftsMenu.build },
+	Trails = { title = "Trails", icon = "trails", build = TrailsMenu.build },
+	Daily = { title = "Daily Rewards", icon = "daily", height = 0.66, build = DailyMenu.build },
+	Gifts = { title = "Gifts", icon = "gifts", height = 0.56, build = GiftsMenu.build },
 }
 
 local current: { name: string, frame: Frame, refresh: (any) -> () }? = nil
@@ -38,6 +39,7 @@ function Menus.close()
 	if current then
 		current.frame:Destroy()
 		current = nil
+		Hud.setMenuOpen(false)
 	end
 end
 
@@ -51,7 +53,8 @@ function Menus.open(name: string)
 	if not spec then
 		return
 	end
-	local frame, body = Window.create(spec.title, spec.icon, Menus.close)
+	local frame, body = Window.create(spec.title, spec.icon, Menus.close, spec.height)
+	Hud.setMenuOpen(true)
 	local refresh = spec.build(body)
 	current = { name = name, frame = frame, refresh = refresh }
 	if State.data then

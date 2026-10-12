@@ -2,6 +2,7 @@
 grid, so Roblox part models can be reviewed without Studio.
 
     python tools/blender/preview/render_pets.py pets.json out.png [cols] [id,id,...]
+    python tools/blender/preview/render_pets.py pets.json --icons <dir>   (one PNG per model)
 """
 
 import json
@@ -16,9 +17,10 @@ import os
 args = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else sys.argv[1:]
 TEXTURES = os.path.join(os.path.dirname(__file__), "../../../assets/textures/pets")
 data = json.load(open(args[0]))
+ICON_DIR = args[2] if args[1] == "--icons" else None
 out = args[1]
-cols = int(args[2]) if len(args) > 2 else 11
-if len(args) > 3:  # optional comma-separated pet ids for a close-up
+cols = int(args[2]) if len(args) > 2 and not ICON_DIR else 11
+if len(args) > 3 and not ICON_DIR:  # optional comma-separated pet ids for a close-up
     wanted = args[3].split(",")
     data = [p for p in data if p["id"] in wanted]
 
@@ -99,18 +101,20 @@ def add_decal(obj, size, decal):
     plane.parent = obj  # same Roblox-local axes as the part
 
 
-for index, pet in enumerate(data):
-    col, row = index % cols, index // cols
-    # Roblox coords; the camera looks along +Z, so columns run toward -X to read left to right.
-    origin = (-col * SPACING, 0, -row * SPACING * 1.25)
+# Frogs face Roblox +X; turn them to face -Z like pets (rotate about Y).
+TURN = Matrix(((0, 0, 1), (0, 1, 0), (-1, 0, 0)))
+
+
+def build_model(pet, origin, labelled):
+    turn = Matrix.Identity(3)  # frogs and pets are both built facing -Z
     for part in pet["parts"]:
         sx, sy, sz = part["size"]
         shape = part["shape"]
         if shape == "Ball":
             d = min(sx, sy, sz)
-            bpy.ops.mesh.primitive_uv_sphere_add(segments=16, ring_count=10, radius=d / 2)
+            bpy.ops.mesh.primitive_uv_sphere_add(segments=24, ring_count=14, radius=d / 2)
         elif shape == "Cylinder":
-            bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=min(sy, sz) / 2, depth=sx)
+            bpy.ops.mesh.primitive_cylinder_add(vertices=24, radius=min(sy, sz) / 2, depth=sx)
             obj = bpy.context.active_object
             obj.rotation_euler = (0, math.pi / 2, 0)  # Roblox cylinders run along X
             bpy.ops.object.transform_apply(location=False, rotation=True, scale=False)
@@ -121,9 +125,9 @@ for index, pet in enumerate(data):
             bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
         obj = bpy.context.active_object
         r = part["rot"]
-        R = Matrix(((r[0], r[1], r[2]), (r[3], r[4], r[5]), (r[6], r[7], r[8])))
+        R = turn @ Matrix(((r[0], r[1], r[2]), (r[3], r[4], r[5]), (r[6], r[7], r[8])))
         rot = M @ R
-        p = part["pos"]
+        p = turn @ Vector(part["pos"])
         pos = M @ Vector((p[0] + origin[0], p[1] + origin[2], p[2] + origin[1]))
         # Vertices are in the part's own Roblox axes: world = M · (R·v + p).
         mw = rot.to_4x4()
@@ -134,15 +138,60 @@ for index, pet in enumerate(data):
             add_decal(obj, (sx, sy, sz), decal)
         if shape != "Block":
             bpy.ops.object.shade_smooth()
-    label = bpy.data.curves.new(f"Label{index}", "FONT")
-    label.body = f"{pet['name']}\n({pet['look']})"
-    label.align_x = "CENTER"
-    label.size = 0.2
-    text = bpy.data.objects.new(f"Label{index}", label)
-    text.location = M @ Vector((origin[0], origin[2] - 0.85, -0.6))
-    text.rotation_euler = (math.radians(90), 0, math.radians(180))
-    text.data.materials.append(material((0.1, 0.12, 0.1), 0))
-    scene.collection.objects.link(text)
+    if labelled:
+        label = bpy.data.curves.new(f"Label{pet['id']}", "FONT")
+        label.body = f"{pet['name']}\n({pet['look']})"
+        label.align_x = "CENTER"
+        label.size = 0.2
+        text = bpy.data.objects.new(f"Label{pet['id']}", label)
+        text.location = M @ Vector((origin[0], origin[2] - 0.85, -0.6))
+        text.rotation_euler = (math.radians(90), 0, math.radians(180))
+        text.data.materials.append(material((0.1, 0.12, 0.1), 0))
+        scene.collection.objects.link(text)
+
+
+def lights():
+    sun = bpy.data.objects.new("Sun", bpy.data.lights.new("Sun", "SUN"))
+    sun.data.energy = 3
+    sun.rotation_euler = (math.radians(-50), math.radians(20), math.radians(160))
+    scene.collection.objects.link(sun)
+    world = bpy.data.worlds.new("Sky")
+    world.node_tree.nodes["Background"].inputs["Color"].default_value = (0.55, 0.75, 0.9, 1)
+    world.node_tree.nodes["Background"].inputs["Strength"].default_value = 1.0
+    scene.world = world
+    scene.render.engine = "CYCLES"
+    scene.cycles.device = "CPU"
+
+
+if ICON_DIR:
+    # One transparent 3/4-view render per model, for the UI image sheets.
+    os.makedirs(ICON_DIR, exist_ok=True)
+    lights()
+    cam = bpy.data.objects.new("Cam", bpy.data.cameras.new("Cam"))
+    scene.collection.objects.link(cam)
+    cam.data.type = "ORTHO"
+    cam.data.ortho_scale = 2.3
+    yaw, pitch = math.radians(28), math.radians(16)
+    cam.location = (20 * math.sin(yaw), 20 * math.cos(yaw), 20 * math.sin(pitch) + 0.05)
+    cam.rotation_euler = (math.radians(90) - pitch, 0, math.radians(180) - yaw)
+    scene.camera = cam
+    scene.cycles.samples = 24
+    scene.render.film_transparent = True
+    scene.view_settings.view_transform = "Standard"
+    scene.render.resolution_x = scene.render.resolution_y = 256
+    for pet in data:
+        for obj in [o for o in scene.objects if o.type == "MESH"]:
+            bpy.data.objects.remove(obj, do_unlink=True)
+        build_model(pet, (0, 0, 0), False)
+        scene.render.filepath = os.path.join(ICON_DIR, f"{pet.get('kind', 'pet')}_{pet['id']}.png")
+        bpy.ops.render.render(write_still=True)
+        print("icon", pet["id"])
+    sys.exit(0)
+
+for index, pet in enumerate(data):
+    col, row = index % cols, index // cols
+    # Roblox coords; the camera looks along +Z, so columns run toward -X to read left to right.
+    build_model(pet, (-col * SPACING, 0, -row * SPACING * 1.25), True)
 
 rows = math.ceil(len(data) / cols)
 width = (cols - 1) * SPACING
@@ -157,16 +206,7 @@ yaw = math.radians(20)
 cam.location = (cx + 30 * math.sin(yaw), 30 * math.cos(yaw), cz + 8)
 cam.rotation_euler = (math.radians(76), 0, math.radians(180) - yaw)
 scene.camera = cam
-sun = bpy.data.objects.new("Sun", bpy.data.lights.new("Sun", "SUN"))
-sun.data.energy = 3
-sun.rotation_euler = (math.radians(-50), math.radians(20), math.radians(160))
-scene.collection.objects.link(sun)
-world = bpy.data.worlds.new("Sky")
-world.node_tree.nodes["Background"].inputs["Color"].default_value = (0.55, 0.75, 0.9, 1)
-world.node_tree.nodes["Background"].inputs["Strength"].default_value = 1.0
-scene.world = world
-scene.render.engine = "CYCLES"
-scene.cycles.device = "CPU"
+lights()
 scene.cycles.samples = 32
 scene.render.resolution_x, scene.render.resolution_y = 1600, 1100
 scene.render.filepath = out

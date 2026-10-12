@@ -8,22 +8,23 @@ local Theme = require(script.Parent.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Parent.Components.Gradient)
 local Purchases = require(script.Parent.Parent.Parent.Parent.Purchases)
 local Window = require(script.Parent.Parent.Window)
+local Icon = require(script.Parent.Parent.Parent.Components.Icon)
 
 local PassSection = {}
 
 local ICONS = {
-	AutoHop = "🤖",
-	DoubleHops = "🐸",
-	DoubleWins = "🏆",
-	AutoRebirth = "🔁",
-	ExtraPetSlots = "🐾",
-	PetStorage = "🎒",
-	HatchTriple = "🥚",
-	HatchOcto = "🥚",
-	OfflineDouble = "💤",
-	PondGolden = "🌊",
-	PondRainbow = "🌈",
-	PondCosmic = "🌌",
+	AutoHop = "crown",
+	DoubleHops = "bolt",
+	DoubleWins = "trophy",
+	AutoRebirth = "rebirth",
+	ExtraPetSlots = "pets",
+	PetStorage = "inventory",
+	HatchTriple = "egg",
+	HatchOcto = "egg",
+	OfflineDouble = "daily",
+	PondGolden = "star",
+	PondRainbow = "portal",
+	PondCosmic = "globe",
 }
 
 -- Every pass in Config/Monetization, cheapest first.
@@ -46,7 +47,7 @@ function PassSection.build(list: ScrollingFrame, order: number)
 		local item = Monetization.Passes[name]
 		local row = Window.card(list, order + i)
 		row.Size = UDim2.new(1, -10, 0, 70)
-		Theme.label({ Size = UDim2.fromOffset(60, 60), Position = UDim2.fromOffset(10, 5), Text = ICONS[name] or "⭐", Parent = row })
+		Icon.new(ICONS[name] or "star", { Size = UDim2.fromOffset(62, 62), Position = UDim2.fromOffset(8, 4), Parent = row })
 		Theme.label({
 			Size = UDim2.new(1, -280, 0, 44),
 			Position = UDim2.fromOffset(80, 13),

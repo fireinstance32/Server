@@ -29,7 +29,7 @@ function FrogPodiums.build(world: Model, config: Worlds.World)
 			model,
 			Enum.Material.SmoothPlastic
 		)
-		local display = Models.frog(frog.color, 3)
+		local display = Models.frog(frog.color, 3, frog.id)
 		display:PivotTo(CFrame.new(base + Vector3.new(0, 4.6, 0)) * CFrame.Angles(0, math.rad(-90), 0))
 		display.Name = "Display"
 		display.Parent = model
