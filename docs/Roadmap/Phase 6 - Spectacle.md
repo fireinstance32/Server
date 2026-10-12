@@ -14,8 +14,10 @@ tags: [planning, phase6]
 - [ ] You upload the 26 pet images and send the ids ([[Art Pipeline]] → Uploading); check with `/petgallery`
 - [ ] Then compare with Blender pets and pick
 - [ ] Extras later: crowns for the King frogs
-## 6.2 VFX
-- [ ] Splash per pad, landing burst, confetti on new zone/level up
+## 6.2 VFX 🟡
+- [x] `Effects/World`: droplet splash on every pad, landing burst (ripples, golden sparkle fountain, mist), sparkles around you on level up
+- [x] `Effects/Screen`: confetti on NEW BEST / MAX LEVEL / Epic+ hatch, colour flash on new zone and rare hatch
+- [ ] Tune in Studio (amounts, sizes) after the playtest
 ## 6.3 Legend Frog ultimate hop
 - [ ] Anime cut-in (silhouette + speed lines), beam, explosion, aura
 ## 6.4 Audio

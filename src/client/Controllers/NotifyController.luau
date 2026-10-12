@@ -9,6 +9,8 @@ local Net = require(Shared.Net)
 local Hud = require(script.Parent.Parent.UI.Hud)
 local Theme = require(script.Parent.Parent.UI.Theme)
 local Sfx = require(script.Parent.Parent.Sfx)
+local WorldFx = require(script.Parent.Parent.Effects.World)
+local ScreenFx = require(script.Parent.Parent.Effects.Screen)
 
 local NotifyController = {}
 
@@ -39,8 +41,10 @@ function NotifyController.init()
 			end)
 		elseif payload.kind == "LevelUp" then
 			NotifyController.playSound("LevelUp")
+			WorldFx.sparkleAround(game:GetService("Players").LocalPlayer.Character)
 			if payload.maxed then
 				Hud.banner(`LEVEL {payload.level}!`, "MAX LEVEL – time to Rebirth!", Theme.Colors.Gold)
+				ScreenFx.confetti(50)
 			else
 				-- A toast, not a banner: level ups often land with the zone banner.
 				Hud.toast(`LEVEL {payload.level}!  +Hops boost`, Theme.Colors.Blue)

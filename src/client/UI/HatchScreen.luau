@@ -17,6 +17,8 @@ local Theme = require(script.Parent.Theme)
 local Hud = require(script.Parent.Hud)
 local Icon = require(script.Parent.Components.Icon)
 local PetImage = require(script.Parent.Components.PetImage)
+local ScreenFx = require(script.Parent.Parent.Effects.Screen)
+local Sfx = require(script.Parent.Parent.Sfx)
 
 local new = Theme.new
 local C = Theme.Colors
@@ -173,6 +175,19 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 			Theme.textStroke().Parent = bonus
 			Theme.pop(cell)
 		end
+	end
+	-- Celebrate rare pulls.
+	local best = 0
+	for _, result in results do
+		local def = Pets.ById[result.pet]
+		if def then
+			best = math.max(best, Pets.RarityOrder[def.rarity])
+		end
+	end
+	Sfx.play("Hatch")
+	if best >= Pets.RarityOrder.Epic then
+		ScreenFx.flash(Color3.fromRGB(255, 230, 120), 0.35)
+		ScreenFx.confetti(if best >= Pets.RarityOrder.Legendary then 90 else 45)
 	end
 	hint.Text = "🖱 Click to continue"
 	waitForClick(clickCatcher, isAuto, 1.2)

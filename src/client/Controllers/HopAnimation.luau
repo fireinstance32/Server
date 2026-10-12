@@ -5,8 +5,6 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
-local TweenService = game:GetService("TweenService")
-local Debris = game:GetService("Debris")
 local Workspace = game:GetService("Workspace")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
@@ -25,6 +23,8 @@ local Theme = require(script.Parent.Parent.UI.Theme)
 local State = require(script.Parent.Parent.State)
 local TossAnimation = require(script.Parent.TossAnimation)
 local FollowCamera = require(script.Parent.FollowCamera)
+local WorldFx = require(script.Parent.Parent.Effects.World)
+local ScreenFx = require(script.Parent.Parent.Effects.Screen)
 
 local HopAnimation = {}
 
@@ -83,23 +83,6 @@ local function hopArc(frog: Model, a: Vector3, b: Vector3, height: number, durat
 	end
 end
 
-local function splash(position: Vector3)
-	local ring = Instance.new("Part")
-	ring.Anchored = true
-	ring.CanCollide = false
-	ring.CanQuery = false
-	ring.Shape = Enum.PartType.Cylinder
-	ring.Material = Enum.Material.Neon
-	ring.Color = Color3.fromRGB(200, 240, 255)
-	ring.Transparency = 0.3
-	ring.Size = Vector3.new(0.2, 2, 2)
-	ring.CFrame = CFrame.new(position + Vector3.new(0, 0.3, 0)) * CFrame.Angles(0, 0, math.rad(90))
-	ring.Parent = Workspace
-	TweenService:Create(ring, TweenInfo.new(0.4), { Size = Vector3.new(0.2, 9, 9), Transparency = 1 })
-		:Play()
-	Debris:AddItem(ring, 0.5)
-end
-
 local function worldOffset(worldId: string?): Vector3
 	local world = Worlds.ById[worldId or Worlds.Default] or Worlds.List[1]
 	return Worlds.offset(world)
@@ -118,7 +101,7 @@ function HopAnimation.playTraining(result)
 	for i = 1, result.bounces do
 		local to = Ponds.padPosition(pond, (start + i - 1) % Ponds.PadsPerPond + 1) + lift + offset
 		hopArc(frog, from, to, 3, hopTime)
-		splash(to)
+		WorldFx.splash(to, 0.7)
 		Hud.floatText(`+{Format.abbreviate(perHop)}`, Theme.Colors.Green)
 		from = to
 	end
@@ -152,7 +135,7 @@ function HopAnimation.playLaunch(result)
 		local to = Game.padPosition(pad) + FROG_LIFT + offset
 		local span = (to - from).Magnitude
 		hopArc(frog, from, to, 2 + span * 0.25, Game.SecondsPerVisualHop)
-		splash(to)
+		WorldFx.splash(to)
 		Hud.floatText(`+{Format.abbreviate(perPad * (pad - lastPad))}`, Theme.Colors.Green)
 
 		local meters = math.min(Game.metersFor(to.X - Game.RiverOrigin.X), result.meters)
@@ -162,6 +145,7 @@ function HopAnimation.playLaunch(result)
 		if zone.index > lastZone then
 			lastZone = zone.index
 			Hud.toast(`Zone {zone.index}: {zone.name}!`, zone.color)
+			ScreenFx.flash(zone.color, 0.2)
 		end
 		from = to
 		lastPad = pad
@@ -177,6 +161,10 @@ function HopAnimation.playLaunch(result)
 		subtitle ..= "  •  NEW BEST!"
 	end
 	Hud.banner(`ZONE {result.zone}: {result.zoneName}`, subtitle, zones[result.zone].color)
+	WorldFx.landingBurst(from, zones[result.zone].color)
+	if result.newBest then
+		ScreenFx.confetti(70)
+	end
 	task.wait(Game.LandingPause)
 	frog:Destroy()
 	Hud.distance.hide()
