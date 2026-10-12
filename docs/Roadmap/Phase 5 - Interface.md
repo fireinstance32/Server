@@ -41,7 +41,8 @@ tags: [planning, phase5]
 ## 5.5 World UI 🟡
 - [x] Egg signs: name + price from afar, odds panel with pet pictures and E / R / T keys up close — ![[Egg Signs Preview.png]]
 - [x] Pond signs (rebirth-icon pill, UNLOCKED/LOCKED, bolt + multiplier) and frog podium signs (status, name, bolt Hops, trophy price, Phoenix stock)
-- [ ] Zone names, portal gates, leaderboards styling
+- [x] Portal signs per player (WORLD N, name, OPEN / UNLOCK! / padlock + Hops needed) and leaderboard boards in the UI style (title banner, striped rows, gold/silver/bronze)
+- [ ] Zone names
 
 ## 5.6 Feedback & juice 🟡
 - [x] Hover grow + press squish on every button and tile, click/hover sound hooks (`Sfx`, ids in `Config/Sounds`), Hops/Wins count up

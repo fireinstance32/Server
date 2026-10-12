@@ -42,5 +42,7 @@ status: ready
 ## Hatch & world
 - [ ] Hatch reveal: pet picture, name, chance, tilted NEW!, ⚡ +bonus, "Click to continue" (compare [[Hatch Preview.png]])
 - [ ] Egg signs: name + price from afar; walking up shows the odds panel with pet pictures and E / R / T keys (compare [[Egg Signs Preview.png]])
+- [ ] Portal signs: OPEN (portal icon) for unlocked worlds, UNLOCK! when you have the Hops, padlock + "1M HOPS" otherwise
+- [ ] Leaderboard boards: coloured title banner, striped rows, top 3 in gold/silver/bronze
 - [ ] Pond signs show the rebirth icon pill; frog podium signs show name, ⚡ Hops, 🏆 price
 - [ ] Frogs everywhere (podiums, in hand, hopping) are cube frogs; Kings wear crowns, Ninja a headband, Astro a helmet

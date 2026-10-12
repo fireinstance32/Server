@@ -1,12 +1,12 @@
--- One portal per other world in each hub, near spawn ("WORLD 2 – 1M HOPS").
--- Each has a ProximityPrompt with a "TravelTo" attribute; the client asks
--- the server to travel (WorldService checks and unlocks the gate).
+-- One portal per other world in each hub, near spawn. Each has a
+-- ProximityPrompt with a "TravelTo" attribute; the client asks the server to
+-- travel (WorldService checks and unlocks the gate). Its sign is drawn per
+-- player by Controllers/PortalSigns.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Worlds = require(Shared.Config.Worlds)
-local Format = require(Shared.Util.Format)
 
 local Parts = require(script.Parent.Parts)
 
@@ -60,12 +60,6 @@ function Portals.build(world: Model, config: Worlds.World)
 			prompt.RequiresLineOfSight = false
 			prompt:SetAttribute("TravelTo", target.id)
 			prompt.Parent = gate
-			Parts.sign(
-				gate,
-				`WORLD {target.index}: {target.name}`,
-				if target.gateHops > 0 then `Unlock with {Format.abbreviate(target.gateHops)} Hops` else "Always open",
-				target.color
-			)
 			frame.Parent = folder
 		end
 	end

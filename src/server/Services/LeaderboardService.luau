@@ -92,7 +92,7 @@ local function readTop()
 				end
 				for _, gui in boardRows(def.id) do
 					for i = 1, Leaderboards.Rows do
-						local row = gui:FindFirstChild(`Row{i}`) :: TextLabel?
+						local row = gui:FindFirstChild(`Row{i}`, true) :: TextLabel?
 						if row then
 							row.Text = lines[i] or (if i == 1 then "Be the first!" else "")
 						end

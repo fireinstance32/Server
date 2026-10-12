@@ -23,4 +23,11 @@ end
 for _, id in { "Tree", "Dart", "Phoenix", "ShootingStar" } do
 	FrogPodiums.buildSign(Instance.new("Part"), Frogs.ById[id], Instance.new("ProximityPrompt"), folder2)(State.data)
 end
+-- Portal signs: open, ready to unlock, locked.
+local Worlds = require("@shared/Config/Worlds")
+local PortalSigns = require("@client/Controllers/PortalSigns")
+local portalData = sample({ hops = 2e6, worldsUnlocked = { Lily = true, Swamp = true } })
+for _, id in { "Swamp", "Candy", "Space" } do
+	PortalSigns.buildSign(Instance.new("Part"), Worlds.ById[id], folder2)(portalData)
+end
 FLATTEN_BILLBOARDS()
