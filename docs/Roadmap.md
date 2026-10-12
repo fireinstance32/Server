@@ -1,92 +1,30 @@
 ---
-tags: [planning]
+tags: [planning, moc]
 ---
 # Roadmap
 
-Build order for +1 Frog Hop. Each phase builds on the one before it, so finish a phase before starting the next. Reference for every item: [[Stone Skipping UI Breakdown]].
+Build order for +1 Frog Hop. Each phase has its own note split into numbered sub-phases. Work top to bottom; a sub-phase is done when its **Done when** line is true.
 
-**Naming:** Skill → **Hops**, Stone → **Frog**, Throw → **Hop**, Throw Zone → **Hop Zone**, Relic → **Legend Frog**.
+**Naming:** Skill → **Hops**, Stone → **Frog**, Throw → **Hop**, Throw Zone → **Hop Zone**, Relic → **Legend Frog**. Reference: [[Stone Skipping UI Breakdown]].
 
----
+| Phase | Goal | Sub-phases |
+|---|---|---|
+| 0 – Foundation ✅ | Rojo, saving, greybox loop, vault | done 2026-10-12 |
+| [[Phase 1 - Core Loop]] | Loop feels like Stone Skipping | 1.1 Multiplier pipeline · 1.2 Levels · 1.3 HUD · 1.4 Training ponds · 1.5 Hop Zone + toss · 1.6 Distance meter · 1.7 River biomes |
+| [[Phase 2 - Collection]] | Always something to unlock | 2.1 Frog podiums · 2.2 Eggs + hatch · 2.3 Pets UI · 2.4 Trails · 2.5 Inventory |
+| [[Phase 3 - Retention]] | Come back tomorrow | 3.1 Tutorial · 3.2 Potions · 3.3 Daily rewards · 3.4 Offline · 3.5 Friend Boost · 3.6 Gifts · 3.7 Polish |
+| [[Phase 4 - Monetization]] | Full shop | 4.1 Framework · 4.2 Shop UI · 4.3 Passes · 4.4 Packs · 4.5 Robux ponds · 4.6 Limited items · 4.7 Eggs & extras · 4.8 Gifting |
+| [[Phase 5 - Spectacle]] | Clip-worthy | 5.1 Models · 5.2 VFX · 5.3 Ultimate hop · 5.4 Audio · 5.5 Art pass |
+| [[Phase 6 - Worlds]] | Long-term progression | 6.1 Framework · 6.2 Portals · 6.3–6.6 Worlds 2–5 |
+| [[Phase 7 - Live Ops]] | Launch | 7.1 Leaderboards · 7.2 Events · 7.3 Analytics · 7.4 Hardening · 7.5 Platform · 7.6 Launch kit |
 
-## Phase 0 – Foundation ✅ (2026-10-12)
-- [x] Rojo project (port 34873), toolchain, offline Luau checks
-- [x] Data saving, leaderstats, server-authoritative remotes
-- [x] Greybox loop: train → launch → zones → Wins
-- [x] First pass at frog shop, eggs/pets, rebirth, codes
-- [x] Obsidian vault
+## ⭐ Where to start: 1.1 → 1.2 → 1.3
+1. **1.1 Multiplier pipeline.** Ponds, levels, potions, friend boost, passes, trails and Robux ponds all feed one multiplier. Building that pipe first means every later system plugs in with one line instead of a rewrite. It's small and invisible, and it blocks the most work.
+2. **1.2 Levels.** The Level bar is the centrepiece of the reference HUD, and its "MAX LEVEL until you rebirth" rule is what drives rebirths. It's the first real user of 1.1.
+3. **1.3 HUD rework.** With Hops, multiplier and Level real, lay out the final screen once, leaving empty slots (Friend Boost, side-menu dots, pass buttons) for later phases so the UI isn't redone repeatedly.
 
----
+After that, 1.4 → 1.7 are the visible "feel" work (ponds, Hop Zone + toss, distance meter, biomes).
 
-## Phase 1 – Core loop parity
-*Goal: the moment-to-moment loop feels like Stone Skipping.*
-- [ ] **Hop Zone** strip at the river start; the HOP button appears only while you stand on it
-- [ ] **Hold-and-toss**: the character holds the equipped frog (tool) and plays a wind-up/throw animation, then the frog hops down the river
-- [ ] **Distance meter** ("123 m") counting up during the hop, with the camera following the frog
-- [ ] **Training ponds row**: ponds gated by rebirths (0→1x, 2→4x, 4→10x, 6→20x), with LOCKED/UNLOCKED signs
-- [ ] **Training pad + AUTO toggle**: stand on a pad, "+1 Hops" pops per bounce, auto-repeat (free for training)
-- [ ] **Level system**: Hops → XP → Level; Level adds to the multiplier; the **level cap rises with each rebirth** ("MAX LEVEL")
-- [ ] **HUD rework to the reference layout**: Hops + xMultiplier above the Level bar (bottom centre); Rebirths/Wins/Friend Boost (bottom-left)
-- [ ] River **biome sections** with floating names (Lily Shallows → Reed Bend → …)
-
-## Phase 2 – Collection
-*Goal: always something to unlock.*
-- [ ] **Frog podiums** in the world: each frog on a pedestal with LOCKED/UNLOCKED, "+N Hops" and price; walk up to buy/equip
-- [ ] **Egg row**: Common / Uncommon / Rare (Wins) + one Robux egg; price signs floating above
-- [ ] **Hatch animation**: egg shake → crack → reveal card with rarity colour
-- [ ] **Pets UI** rework: inventory grid, equip best, delete, multiplier totals
-- [ ] **Trails**: cosmetic + small boost; Trails menu
-- [ ] **Inventory** menu (frogs, pets, trails, potions)
-
-## Phase 3 – Retention
-*Goal: reasons to come back tomorrow.*
-- [ ] **Tutorial quest bar** ("GET 2 WINS (1/2)" → buy a frog → hatch an egg → rebirth)
-- [ ] **Potions**: Hops, Wins, Luck (timed, stackable) + active-potion timers on the HUD
-- [ ] **Daily Rewards**: 7-day calendar (potions on days 1–6, a pet on day 2, limited Legend Frog on day 7)
-- [ ] **Offline training**: earn Hops while logged out (capped hours) + "welcome back" pop-up
-- [ ] **Friend Boost**: +X% per friend in the server, with an invite button
-- [ ] **Gifts**: playtime gifts (claim every N minutes)
-- [ ] **Notification dots** on side-menu buttons (rebirth ready, gift ready…)
-- [ ] **Tip ticker** marquee at the top
-
-## Phase 4 – Monetization
-*Goal: the full shop, wired and tested in Studio.*
-- [ ] **Shop UI** with tabs: Passes / Products / Gift
-- [ ] Passes: **Auto Hop**, **2x Hops**, **2x Wins**, Extra Pet Slots, +Pet Inventory
-- [ ] Right-side pass buttons (Starter Pack, 2x Hops, 2x Wins)
-- [ ] **+10K / +100K / +1M Hops** packs under the Level bar
-- [ ] **Robux ponds** valid in all worlds (3x / 15x / 50x)
-- [ ] **Legend Frog** + **limited premium pet** with a **global stock counter** ("STOCK 157/1000")
-- [ ] Robux eggs (x1 / x3 / x8 hatch), Skip Rebirth, Offline x2
-- [ ] **[GIFT]** version of every product (buy for another player)
-- [ ] Starter Pack (one-time bundle)
-
-## Phase 5 – Spectacle
-*Goal: moments worth clipping for TikTok and YouTube Shorts.*
-- [ ] Real frog / pet / egg meshes (replacing the part-built placeholders)
-- [ ] Splash particles per pad, confetti on new zone, landing burst
-- [ ] **Legend Frog ultimate hop**: anime cut-in, beam, explosion, aura
-- [ ] Sounds: hop, splash, purchase, hatch, level up; music
-- [ ] World art pass: hub layout, props, river banks, lighting
-
-## Phase 6 – Worlds
-*Goal: long-term progression.*
-- [ ] World framework: per-world config (frogs, eggs, ponds, zones, river biomes)
-- [ ] **Portals** gated by distance ("WORLD 2 – HOP 100M") + teleport between unlocked worlds
-- [ ] World 2 (Swamp), World 3 (Candy), World 4 (Space), World 5 (Lava)
-
-## Phase 7 – Live ops & launch
-*Goal: ship it and keep it fresh.*
-- [ ] Leaderboards: Best Distance, Top Time Played, Top Robux Spent
-- [ ] **Seasonal event framework**: countdown banner, event props, event egg (first one: Halloween)
-- [ ] Analytics events (funnel: join → first hop → first frog → first rebirth)
-- [ ] Anti-exploit pass (remote rate limits, sanity checks)
-- [ ] Mobile/console UI pass
-- [ ] Icon, thumbnails, trailer, publish
-
----
-
-## Next up
-Phase 1, starting with the **Hop Zone + hold-and-toss + distance meter**: the core feel everything else hangs on.
+**Why not start with the flashy parts (models, VFX, worlds)?** Their look depends on the final loop and HUD; doing them first means redoing them later.
 
 See also: [[Balancing]], [[Monetization]], [[Core Loop]].
