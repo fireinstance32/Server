@@ -24,8 +24,10 @@ Back to [[Phase 8 - Live Ops]]. Everything needed to publish +1 Frog Hop.
 **Genre:** Simulator · **Max players:** 12 (more players = more Friend Boost and busier boards)
 
 ## Assets (to do, after the [[Art Pipeline]] models)
-- [ ] Icon 512×512: big smiling frog mid-hop, "+1" in yellow, bright green/blue background (no small text)
+- [x] Icon 512×512 (draft): crowned cube frog on a splashing pad, huge yellow "+1", bolt — `docs/Art/Launch/game_icon.png` ![[game_icon.png]]
 - [ ] 3–5 thumbnails 1920×1080: river hop with zone banner, egg hatch, 5 worlds, giant frog, leaderboard
+  - [x] Drafts: "HOP FARTHER!" river hop ![[thumbnail_1.png]] and "HATCH CUTE PETS!" pet line-up ![[thumbnail_2.png]]
+  - Made by `tools/blender/launch_art.py` (Blender scene from the real pet/frog builders) + `tools/textures/launch_compose.py` (titles + vector icons). Real Studio screenshots of the finished hubs will make stronger worlds/leaderboard thumbnails later.
 - [ ] Trailer 15–30 s: press HOP → numbers fly → long river hop → new world portal
 - Render frog shots in Blender (Cycles) from the Phase 6 models; final layout in Figma
 
