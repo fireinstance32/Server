@@ -6,6 +6,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Pets = require(Shared.Config.Pets)
+local Worlds = require(Shared.Config.Worlds)
 local Hatch = require(Shared.Util.Hatch)
 
 local Stats = require(script.Parent.Parent.Parent.Stats)
@@ -89,6 +90,10 @@ function Hatching.hatch(player: Player, eggId: unknown, count: unknown): (boolea
 	end
 	if egg.product then
 		return false, "This egg is bought with Robux"
+	end
+	local world = Worlds.ById[egg.world or Worlds.Default]
+	if world and not Worlds.isUnlocked(world, data.worldsUnlocked) then
+		return false, `Unlock {world.name} first`
 	end
 	local n = if typeof(count) == "number" then math.floor(count) else 1
 	if n ~= 1 and n ~= 3 and n ~= 8 then

@@ -4,6 +4,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Frogs = require(Shared.Config.Frogs)
+local Worlds = require(Shared.Config.Worlds)
 local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
@@ -27,6 +28,10 @@ local function buyFrog(player: Player, frogId: unknown): (boolean, string)
 	end
 	if frog.rewardOnly then
 		return false, `Get it from: {frog.rewardOnly}`
+	end
+	local world = Worlds.ById[frog.world or Worlds.Default]
+	if world and not Worlds.isUnlocked(world, data.worldsUnlocked) then
+		return false, `Unlock {world.name} first`
 	end
 	if data.wins < frog.price then
 		return false, "Not enough Wins"

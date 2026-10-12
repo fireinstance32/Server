@@ -28,6 +28,7 @@ Type these in the game chat. They only work in Studio (or for user ids listed in
 | `/grant DoubleHops` | Pretend you own a pass (this session) |
 | `/buy HopsPack3` | Run a product's effect without paying |
 | `/goto river` / `/goto pond 3` | Teleport to the Hop Zone / a training pond (1–7) |
+| `/world swamp` | Unlock + travel to a world (lily / swamp / candy / space / lava) |
 | `/reset` | Wipe your data to a brand-new player |
 
 ## Reporting a problem
@@ -35,3 +36,7 @@ For each issue, note: **what you did → what you expected → what happened**, 
 
 ## Playtests
 - [[Phase 1 Playtest]]
+- [[Phase 2 Playtest]]
+- [[Phase 3 Playtest]]
+- [[Phase 4 Playtest]]
+- [[Phase 7 Playtest]]

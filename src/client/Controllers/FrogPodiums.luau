@@ -8,6 +8,7 @@ local Workspace = game:GetService("Workspace")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Frogs = require(Shared.Config.Frogs)
+local Worlds = require(Shared.Config.Worlds)
 local Format = require(Shared.Util.Format)
 
 local Theme = require(script.Parent.Parent.UI.Theme)
@@ -74,14 +75,17 @@ local function buildSign(anchor: BasePart, frog, prompt: ProximityPrompt, contai
 end
 
 function FrogPodiums.init()
-	local folder = Workspace:WaitForChild("World"):WaitForChild("FrogPodiums")
+	local root = Workspace:WaitForChild("World")
 	local container = new("Folder", { Name = "FrogPodiumSigns", Parent = Players.LocalPlayer:WaitForChild("PlayerGui") })
 	local refreshers = {}
-	for _, frog in Frogs.List do
-		local model = folder:WaitForChild(frog.id)
-		local anchor = model:WaitForChild("SignAnchor") :: BasePart
-		local prompt = model:WaitForChild("Pedestal"):WaitForChild("ProximityPrompt") :: ProximityPrompt
-		table.insert(refreshers, buildSign(anchor, frog, prompt, container))
+	for _, world in Worlds.List do
+		local folder = root:WaitForChild(world.id):WaitForChild("FrogPodiums")
+		for _, frog in Frogs.forWorld(world.id) do
+			local model = folder:WaitForChild(frog.id)
+			local anchor = model:WaitForChild("SignAnchor") :: BasePart
+			local prompt = model:WaitForChild("Pedestal"):WaitForChild("ProximityPrompt") :: ProximityPrompt
+			table.insert(refreshers, buildSign(anchor, frog, prompt, container))
+		end
 	end
 	State.observe(function(data)
 		for _, refresh in refreshers do

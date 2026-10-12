@@ -17,8 +17,9 @@ Rojo maps:
 - `Leaderstats.luau` – the Roblox player-list stats.
 - `Rewards.luau` – grants `{ kind, id, amount }` rewards (potion, pet, frog, wins, hops); shared by daily, gifts, quests.
 - `Services/`
-  - `WorldBuilder/` – generates the greybox map from config (skipped if `Workspace.World` exists)
-    - `init` (entry) · `Parts` (block/sign helpers, palette) · `Environment` (lighting, per-zone biome banks, river water) · `Props` (trees, palms, rocks, reeds, flowers, mushrooms) · `River` (pads, zone arches, portal) · `Plaza` (Hop Zone strip, spawn) · `PondRow` (training ponds) · `FrogPodiums` (frog pedestals) · `Stands` (egg stands, frog shop)
+  - `WorldBuilder/` – generates the greybox map from config (skipped if `Workspace.World` exists). Each world is built at local coordinates into `Workspace.World.<WorldId>`, then moved by `Worlds.offset(world)`.
+    - `init` (entry) · `Parts` (block/sign helpers, palette) · `Environment` (lighting, per-zone biome banks, river water) · `Props` (trees, palms, rocks, reeds, flowers, mushrooms) · `River` (pads, zone arches) · `Plaza` (Hop Zone strip, spawn / landing pad) · `PondRow` (training ponds) · `FrogPodiums` (frog pedestals) · `Stands` (egg stands) · `Portals` (one portal per other world)
+  - `WorldService` – `TravelWorld`: unlocks a world once you hold its Hops gate, teleports to its hub.
   - `DataService` – DataStore load/save, leaderstats, `DataChanged` snapshots.
   - `HopService` – Train/Launch; server-authoritative; validates position + cooldown.
   - `HeldFrogService` – equipped frog in every character's right hand; hidden while it hops.
@@ -36,7 +37,7 @@ Rojo maps:
   - `DevService` – Studio-only test commands (see [[Testing Guide]]).
 
 ## Shared (`src/shared`)
-- `Config/` – all balance numbers: `Game`, `Frogs`, `Pets`, `Zones`, `Levels`, `Ponds`, `Trails`, `Potions`, `DailyRewards`, `Gifts`, `Quests`, `Codes`, `Monetization`, `Sounds`, `Dev`.
+- `Config/` – all balance numbers: `Game`, `Worlds`, `WorldContent/` (one file per world 2–5: frogs, pets, eggs, zones), `Frogs`, `Pets`, `Zones`, `Levels`, `Ponds`, `Trails`, `Potions`, `DailyRewards`, `Gifts`, `Quests`, `Codes`, `Monetization`, `Sounds`, `Dev`.
 - `Util/` – `Format` (number text), `Models` (placeholder models), `Multipliers` (pure boost maths), `Hatch` (pure egg odds/picks).
 - `Net.luau` – every remote, declared once.
 
@@ -62,6 +63,9 @@ Rojo maps:
   - `FrogPodiums` – per-player podium signs + Buy/Equip prompt text
   - `QuestGuide` – gold beam to the current quest target
   - `PondSigns` – per-player pond signs (requirement, LOCKED/UNLOCKED, multiplier)
+
+## Worlds
+World positions are converted with `Worlds.toLocal(position) → (world, localPos)`; all layout helpers (`Game.padPosition`, `Ponds.at`, `Frogs.podiumPosition`, egg positions) stay in World 1 coordinates. Hop results carry `world`, and the client adds `Worlds.offset(world)` when animating. Adding a world = a `Worlds.List` entry + `Config/WorldContent/<World>.luau` + a line in `WorldContent/init.luau`.
 
 ## Rules
 - Server decides every reward; the client only animates.

@@ -2,6 +2,8 @@
 -- Frogs are the "stones" of Frog Hop: the equipped frog sets Hops gained per pad.
 -- Prices step up ~3x, mirroring the pacing of +1 Stone Skipping's World 1.
 
+local WorldContent = require(script.Parent.WorldContent) :: { any }
+
 export type Frog = {
 	id: string,
 	name: string,
@@ -10,6 +12,7 @@ export type Frog = {
 	color: Color3,
 	robuxOnly: boolean?,
 	rewardOnly: string?, -- can't be bought; how to get it (shown on the podium)
+	world: string?, -- world whose podiums sell it (nil = Lily Valley)
 }
 
 local Frogs: { Frog } = {
@@ -41,6 +44,15 @@ local Frogs: { Frog } = {
 	},
 }
 
+-- Frogs for Worlds 2–5 live in WorldContent/<World>.luau.
+for _, content in WorldContent do
+	for _, frog in content.frogs do
+		local entry: Frog = table.clone(frog)
+		entry.world = content.world
+		table.insert(Frogs, entry)
+	end
+end
+
 local byId: { [string]: Frog } = {}
 for _, frog in Frogs do
 	byId[frog.id] = frog
@@ -52,6 +64,18 @@ local PodiumRowZ = -120
 local PodiumStartX = -235
 local PodiumSpacing = 20
 
+-- Frogs sold in a world, in podium order.
+local function forWorld(worldId: string): { Frog }
+	local list = {}
+	for _, frog in Frogs do
+		if (frog.world or "Lily") == worldId then
+			table.insert(list, frog)
+		end
+	end
+	return list
+end
+
+-- Local position (within a world's layout) of the index-th podium.
 local function podiumPosition(index: number): Vector3
 	return Vector3.new(PodiumStartX + (index - 1) * PodiumSpacing, 0.5, PodiumRowZ)
 end
@@ -61,4 +85,5 @@ return {
 	ById = byId,
 	Default = "Baby",
 	podiumPosition = podiumPosition,
+	forWorld = forWorld,
 }

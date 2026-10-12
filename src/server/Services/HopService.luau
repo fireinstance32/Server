@@ -9,6 +9,7 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Zones = require(Shared.Config.Zones)
 local Ponds = require(Shared.Config.Ponds)
+local Worlds = require(Shared.Config.Worlds)
 local Net = require(Shared.Net)
 
 local Stats = require(script.Parent.Parent.Stats)
@@ -27,7 +28,7 @@ local function rootPosition(player: Player): Vector3?
 	return if root then (root :: BasePart).Position else nil
 end
 
-local function train(player: Player, data: any, pond: Ponds.Pond)
+local function train(player: Player, data: any, pond: Ponds.Pond, world: Worlds.World)
 	local bounces = Game.TrainingBounces
 	local context = { mode = "Train", pond = pond.id }
 	local hopsGained = math.floor(bounces * Stats.perBounce(data) * Stats.hopsMultiplier(player, data, context))
@@ -35,13 +36,13 @@ local function train(player: Player, data: any, pond: Ponds.Pond)
 	ProgressionService.addXp(player, data, bounces)
 	busyUntil[player] = os.clock() + Game.TrainingCooldown
 	DataService.changed(player)
-	return { ok = true, mode = "Train", pond = pond.id, bounces = bounces, hopsGained = hopsGained }
+	return { ok = true, mode = "Train", pond = pond.id, world = world.id, bounces = bounces, hopsGained = hopsGained }
 end
 
-local function launch(player: Player, data: any)
+local function launch(player: Player, data: any, world: Worlds.World)
 	local distance = math.min(Game.distanceForHops(data.hops), Zones.RiverLength)
 	local bounces = math.max(1, math.floor(distance / Game.PadSpacing))
-	local zone = Zones.zoneForDistance(distance)
+	local zone = Zones.zoneForDistance(distance, world.id)
 	local context = { mode = "Launch", zone = zone.index }
 	local hopsGained = math.floor(bounces * Stats.perBounce(data) * Stats.hopsMultiplier(player, data, context))
 	local winsGained = math.floor(zone.wins * Stats.winsMultiplier(player, data, context))
@@ -78,6 +79,7 @@ local function launch(player: Player, data: any)
 		bestMeters = Game.metersFor(math.max(previousBest, distance)),
 		newBest = distance > previousBest,
 		zone = zone.index,
+		world = world.id,
 		zoneName = zone.name,
 		hopsGained = hopsGained,
 		winsGained = winsGained,
@@ -101,9 +103,13 @@ local function onHop(player: Player, mode: unknown)
 	if not position then
 		return { ok = false, message = "No character" }
 	end
+	local world, localPosition = Worlds.toLocal(position)
+	if not world then
+		return { ok = false, message = "You're outside every world" }
+	end
 
 	if mode == "Train" then
-		local pond = Ponds.at(position)
+		local pond = Ponds.at(localPosition)
 		if not pond then
 			return { ok = false, message = "Stand on a training pond's pad!" }
 		end
@@ -113,12 +119,12 @@ local function onHop(player: Player, mode: unknown)
 		if locked then
 			return { ok = false, message = `{pond.name}: {locked}` }
 		end
-		return train(player, data, pond)
+		return train(player, data, pond, world)
 	else
-		if not Game.inHopZone(position.X, position.Z) then
+		if not Game.inHopZone(localPosition.X, localPosition.Z) then
 			return { ok = false, message = "Stand in the Hop Zone!" }
 		end
-		return launch(player, data)
+		return launch(player, data, world)
 	end
 end
 

@@ -50,6 +50,7 @@ local function template()
 		receiptOrder = {}, -- oldest → newest PurchaseIds, trimmed to the last 50
 		oneTime = {}, -- [productName] = true for one-time offers already bought
 		giftedPasses = {}, -- [passName] = true for passes received as gifts
+		worldsUnlocked = { Lily = true }, -- [worldId] = true once unlocked
 		nextPetUid = 1,
 		codes = {}, -- [code: string] = true
 	}
@@ -156,6 +157,7 @@ local function snapshot(player: Player, data: any)
 		daily = dailyStatus(data),
 		quest = questStatus(data),
 		oneTime = data.oneTime,
+		worldsUnlocked = data.worldsUnlocked,
 		equippedTrail = data.equippedTrail,
 		passes = Passes.ownedList(player),
 		friendBoost = player:GetAttribute("FriendBoost") or 0,

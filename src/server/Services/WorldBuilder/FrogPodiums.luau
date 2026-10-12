@@ -6,16 +6,17 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Frogs = require(Shared.Config.Frogs)
+local Worlds = require(Shared.Config.Worlds)
 local Models = require(Shared.Util.Models)
 
 local Parts = require(script.Parent.Parts)
 
 local FrogPodiums = {}
 
-function FrogPodiums.build(world: Model)
+function FrogPodiums.build(world: Model, config: Worlds.World)
 	local folder = Instance.new("Folder")
 	folder.Name = "FrogPodiums"
-	for i, frog in Frogs.List do
+	for i, frog in Frogs.forWorld(config.id) do
 		local base = Frogs.podiumPosition(i)
 		local model = Instance.new("Model")
 		model.Name = frog.id

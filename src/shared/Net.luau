@@ -21,6 +21,7 @@ local FUNCTIONS = {
 	"ClaimDaily", -- () -> ok, message
 	"ClaimGift", -- (index) -> ok, message
 	"RequestGift", -- (targetUserId, item) -> ok, message
+	"TravelWorld", -- (worldId) -> ok, message
 	"Rebirth", -- () -> ok, message
 	"RedeemCode", -- (code) -> ok, message
 }

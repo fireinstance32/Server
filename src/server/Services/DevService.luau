@@ -12,11 +12,13 @@ local Levels = require(Shared.Config.Levels)
 local Frogs = require(Shared.Config.Frogs)
 local Game = require(Shared.Config.Game)
 local Ponds = require(Shared.Config.Ponds)
+local Worlds = require(Shared.Config.Worlds)
 local Potions = require(Shared.Config.Potions)
 local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
 local MonetizationService = require(script.Parent.MonetizationService)
+local WorldService = require(script.Parent.WorldService)
 local Passes = require(script.Parent.Parent.Passes)
 local Monetization = require(Shared.Config.Monetization)
 local PetService = require(script.Parent.PetService)
@@ -141,6 +143,19 @@ local COMMANDS: { [string]: Command } = {
 				end
 			end
 			return "Unknown product (see Config/Monetization)"
+		end,
+	},
+	world = {
+		usage = "/world <lily|swamp|candy|space|lava>  unlock and travel to a world",
+		run = function(player, data, args)
+			for _, world in Worlds.List do
+				if string.lower(world.id) == args[1] then
+					data.worldsUnlocked[world.id] = true
+					local ok, message = WorldService.travel(player, world.id)
+					return if ok then message else `Unlocked {world.name}: {message}`
+				end
+			end
+			return "Unknown world"
 		end,
 	},
 	daily = {

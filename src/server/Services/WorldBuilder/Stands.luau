@@ -4,6 +4,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Pets = require(Shared.Config.Pets)
+local Worlds = require(Shared.Config.Worlds)
 local Format = require(Shared.Util.Format)
 local Models = require(Shared.Util.Models)
 
@@ -29,8 +30,8 @@ local function standWithPrompt(world: Model, name: string, position: Vector3, co
 	return base
 end
 
-local function buildStands(world: Model)
-	for _, egg in Pets.Eggs do
+local function buildStands(world: Model, config: Worlds.World)
+	for _, egg in Pets.eggsForWorld(config.id) do
 		local stand = standWithPrompt(
 			world,
 			"EggStand_" .. egg.id,
@@ -50,8 +51,8 @@ local function buildStands(world: Model)
 	end
 end
 
-function Stands.build(world: Model)
-	buildStands(world)
+function Stands.build(world: Model, config: Worlds.World)
+	buildStands(world, config)
 end
 
 return Stands

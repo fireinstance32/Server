@@ -6,13 +6,14 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Zones = require(Shared.Config.Zones)
+local Worlds = require(Shared.Config.Worlds)
 
 local Parts = require(script.Parent.Parts)
 local Props = require(script.Parent.Props)
 
 local Environment = {}
 
-local function buildLighting(world: Model)
+local function buildLighting()
 	Lighting.ClockTime = 14
 	Lighting.Brightness = 2.5
 	Lighting.OutdoorAmbient = Color3.fromRGB(150, 150, 150)
@@ -26,7 +27,7 @@ local function buildLighting(world: Model)
 	end
 end
 
-local function buildGround(world: Model)
+local function buildGround(world: Model, config: Worlds.World)
 	-- Parts are capped at 2048 studs per axis, so lay the banks in segments.
 	-- One bank stretch per zone, coloured and dressed for its biome.
 	local halfRiver = Game.RiverWidth / 2
@@ -39,9 +40,10 @@ local function buildGround(world: Model)
 	props.Parent = world
 	local rng = Random.new(1234) -- fixed seed: same layout every server
 
-	for i, zone in Zones.List do
+	local zones = Zones.ByWorld[config.id] or Zones.List
+	for i, zone in zones do
 		local startX = zone.distance
-		local endX = if Zones.List[i + 1] then Zones.List[i + 1].distance else Zones.RiverLength + 200
+		local endX = if zones[i + 1] then zones[i + 1].distance else Zones.RiverLength + 200
 		local len = endX - startX
 		for _, side in { -1, 1 } do
 			Parts.block(
@@ -66,10 +68,11 @@ local function buildGround(world: Model)
 	-- Start plaza west of the river.
 	Parts.block("Plaza", Vector3.new(260, 6, 380), CFrame.new(-130, Parts.GroundTop - 3, 0), Parts.Colors.Grass, world, Enum.Material.Grass)
 
-	-- River water (terrain) and a riverbed so swimmers have a floor.
+	-- River water (terrain, which can't be moved later, so it's placed at the
+	-- world's offset now) and a riverbed so swimmers have a floor.
 	local riverCenter = Game.RiverOrigin + Vector3.new(Zones.RiverLength / 2 + 50, -4, 0)
 	workspace.Terrain:FillBlock(
-		CFrame.new(riverCenter),
+		CFrame.new(riverCenter + Worlds.offset(config)),
 		Vector3.new(Zones.RiverLength + 100, 8, Game.RiverWidth),
 		Enum.Material.Water
 	)
@@ -83,9 +86,12 @@ local function buildGround(world: Model)
 	)
 end
 
-function Environment.build(world: Model)
-	buildLighting(world)
-	buildGround(world)
+function Environment.buildLighting()
+	buildLighting()
+end
+
+function Environment.build(world: Model, config: Worlds.World)
+	buildGround(world, config)
 end
 
 return Environment

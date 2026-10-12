@@ -1,6 +1,8 @@
 // Runs tests/*.spec.luau against pure modules in src/shared (no Roblox APIs).
 // In specs: require("@shared/Util/Format") loads src/shared/Util/Format.luau,
-// and require("@test") gives test/equal/near helpers.
+// and require("@test") gives test/equal/near helpers. Inside shared modules,
+// require(script.Parent.X) / require(script.X) are rewritten to @shared paths,
+// and a folder module loads its init.luau.
 import { Lua } from '@luau-rs/luau';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -9,6 +11,20 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const sharedRoot = path.resolve(here, '../../src/shared');
 const testsDir = path.join(here, 'tests');
+
+// Reads a shared module by its path under src/shared ("Config/Pets"), plus
+// the path `script` stands for inside it.
+function loadShared(rel) {
+  const file = path.join(sharedRoot, rel + '.luau');
+  const source = fs.existsSync(file)
+    ? fs.readFileSync(file, 'utf8')
+    : fs.readFileSync(path.join(sharedRoot, rel, 'init.luau'), 'utf8');
+  return source.replace(/require\(script((?:\.Parent)*)\.(\w+)\)/g, (_, parents, name) => {
+    let base = rel;
+    for (let i = 0; i < parents.length / '.Parent'.length; i++) base = path.posix.dirname(base);
+    return `require("@shared/${base === '.' ? '' : base + '/'}${name}")`;
+  });
+}
 
 const HARNESS = `
 local t = { passed = 0, failed = 0 }
@@ -43,8 +59,7 @@ for (const file of fs.readdirSync(testsDir).filter((f) => f.endsWith('.spec.luau
       if (specifier === '@test') return { name: '@test', source: HARNESS };
       if (specifier.startsWith('@shared/')) {
         const rel = specifier.slice('@shared/'.length);
-        const source = fs.readFileSync(path.join(sharedRoot, rel + '.luau'), 'utf8');
-        return { name: specifier, source };
+        return { name: specifier, source: loadShared(rel) };
       }
       return null;
     },

@@ -2,6 +2,8 @@
 -- Clover Bun). Each pet ADDS its bonus to the Hops multiplier ("+2" means
 -- x7 → x9), like the reference game.
 
+local WorldContent = require(script.Parent.WorldContent) :: { any }
+
 export type Rarity = "Common" | "Uncommon" | "Rare" | "Epic" | "Legendary" | "Rainbow"
 
 export type Pet = {
@@ -20,7 +22,8 @@ export type Egg = {
 	price: number, -- Wins (ignored for Robux eggs)
 	product: string?, -- Robux developer product name (Config/Monetization)
 	color: Color3,
-	position: Vector3,
+	position: Vector3, -- local position within its world's layout
+	world: string?, -- nil = Lily Valley
 	pets: { EggEntry },
 }
 
@@ -128,6 +131,18 @@ local Eggs: { Egg } = {
 	},
 }
 
+-- Pets and eggs for Worlds 2–5 live in WorldContent/<World>.luau.
+for _, content in WorldContent do
+	for _, p in content.pets do
+		table.insert(Pets, p :: Pet)
+	end
+	for _, egg in content.eggs do
+		local entry: Egg = table.clone(egg)
+		entry.world = content.world
+		table.insert(Eggs, entry)
+	end
+end
+
 -- Old pet ids from the v0.1 test build, converted on load so nobody loses pets.
 local Legacy: { [string]: string } = {
 	Fly = "PebblePup",
@@ -157,7 +172,19 @@ for _, egg in Eggs do
 	eggsById[egg.id] = egg
 end
 
+-- Eggs placed in a world's hub.
+local function eggsForWorld(worldId: string): { Egg }
+	local list = {}
+	for _, egg in Eggs do
+		if (egg.world or "Lily") == worldId then
+			table.insert(list, egg)
+		end
+	end
+	return list
+end
+
 return {
+	eggsForWorld = eggsForWorld,
 	List = Pets,
 	ById = petsById,
 	Eggs = Eggs,

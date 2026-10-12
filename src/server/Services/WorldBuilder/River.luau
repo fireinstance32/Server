@@ -5,6 +5,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Zones = require(Shared.Config.Zones)
+local Worlds = require(Shared.Config.Worlds)
 local Format = require(Shared.Util.Format)
 
 local Parts = require(script.Parent.Parts)
@@ -30,12 +31,13 @@ local function buildPads(world: Model)
 	end
 end
 
-local function buildZoneArches(world: Model)
+local function buildZoneArches(world: Model, config: Worlds.World)
+	-- (also builds the end-of-river marker below)
 	local folder = Instance.new("Folder")
 	folder.Name = "Zones"
 	folder.Parent = world
 	local half = Game.RiverWidth / 2 + 2
-	for _, zone in Zones.List do
+	for _, zone in Zones.ByWorld[config.id] or Zones.List do
 		local x = Game.RiverOrigin.X + math.max(zone.distance, 6)
 		local arch = Instance.new("Model")
 		arch.Name = "Zone" .. zone.index
@@ -58,12 +60,12 @@ local function buildZoneArches(world: Model)
 	)
 	portal.Transparency = 0.3
 	portal.CanCollide = false
-	Parts.sign(portal, "World 2", "Coming soon!", Color3.fromRGB(220, 180, 255))
+	Parts.sign(portal, `End of {config.name}`, "Travel worlds at the portals by spawn", Color3.fromRGB(220, 180, 255))
 end
 
-function River.build(world: Model)
+function River.build(world: Model, config: Worlds.World)
 	buildPads(world)
-	buildZoneArches(world)
+	buildZoneArches(world, config)
 end
 
 return River

@@ -7,6 +7,7 @@ local Workspace = game:GetService("Workspace")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Pets = require(Shared.Config.Pets)
+local Worlds = require(Shared.Config.Worlds)
 local Format = require(Shared.Util.Format)
 local Hatch = require(Shared.Util.Hatch)
 
@@ -75,12 +76,15 @@ local function buildSign(egg: Pets.Egg, anchor: BasePart, container: Instance)
 end
 
 function EggSigns.init()
-	local world = Workspace:WaitForChild("World")
+	local root = Workspace:WaitForChild("World")
 	local container = new("Folder", { Name = "EggSigns", Parent = Players.LocalPlayer:WaitForChild("PlayerGui") })
 	local refreshers = {}
-	for _, egg in Pets.Eggs do
-		local stand = world:WaitForChild("EggStand_" .. egg.id) :: BasePart
-		table.insert(refreshers, buildSign(egg, stand, container))
+	for _, world in Worlds.List do
+		local hub = root:WaitForChild(world.id)
+		for _, egg in Pets.eggsForWorld(world.id) do
+			local stand = hub:WaitForChild("EggStand_" .. egg.id) :: BasePart
+			table.insert(refreshers, buildSign(egg, stand, container))
+		end
 	end
 	State.observe(function(data)
 		for _, refresh in refreshers do

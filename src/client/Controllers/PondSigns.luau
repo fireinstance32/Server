@@ -8,6 +8,7 @@ local Workspace = game:GetService("Workspace")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Ponds = require(Shared.Config.Ponds)
+local Worlds = require(Shared.Config.Worlds)
 
 local Theme = require(script.Parent.Parent.UI.Theme)
 local Purchases = require(script.Parent.Parent.Purchases)
@@ -68,18 +69,20 @@ local function buildSign(anchor: BasePart, pond: Ponds.Pond, container: Instance
 end
 
 function PondSigns.init()
-	local world = Workspace:WaitForChild("World")
-	local pondsFolder = world:WaitForChild("Ponds")
+	local root = Workspace:WaitForChild("World")
 	local container = new("Folder", {
 		Name = "PondSigns",
 		Parent = Players.LocalPlayer:WaitForChild("PlayerGui"),
 	})
 
 	local refreshers = {}
-	for _, pond in Ponds.List do
-		local model = pondsFolder:WaitForChild(pond.id)
-		local anchor = model:WaitForChild("SignAnchor") :: BasePart
-		table.insert(refreshers, buildSign(anchor, pond, container))
+	for _, world in Worlds.List do
+		local pondsFolder = root:WaitForChild(world.id):WaitForChild("Ponds")
+		for _, pond in Ponds.List do
+			local model = pondsFolder:WaitForChild(pond.id)
+			local anchor = model:WaitForChild("SignAnchor") :: BasePart
+			table.insert(refreshers, buildSign(anchor, pond, container))
+		end
 	end
 	State.observe(function()
 		for _, refresh in refreshers do

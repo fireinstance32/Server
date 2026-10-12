@@ -10,6 +10,7 @@ local RunService = game:GetService("RunService")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Ponds = require(Shared.Config.Ponds)
+local Worlds = require(Shared.Config.Worlds)
 local Net = require(Shared.Net)
 
 local Hud = require(script.Parent.Parent.UI.Hud)
@@ -35,11 +36,15 @@ local function currentSpot(): (string?, Ponds.Pond?)
 	if not root then
 		return nil, nil
 	end
-	local pond = Ponds.at(root.Position)
+	local world, localPosition = Worlds.toLocal(root.Position)
+	if not world then
+		return nil, nil
+	end
+	local pond = Ponds.at(localPosition)
 	if pond then
 		return "Train", pond
 	end
-	if Game.inHopZone(root.Position.X, root.Position.Z) then
+	if Game.inHopZone(localPosition.X, localPosition.Z) then
 		return "Launch", nil
 	end
 	return nil, nil

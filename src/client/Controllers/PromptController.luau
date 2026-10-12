@@ -41,10 +41,14 @@ function PromptController.init()
 		local eggId = prompt:GetAttribute("EggId")
 		local frogId = prompt:GetAttribute("FrogId")
 		local menu = prompt:GetAttribute("OpenMenu")
+		local travelTo = prompt:GetAttribute("TravelTo")
 		if typeof(eggId) == "string" then
 			task.spawn(EggController.hatch, eggId, 1)
 		elseif typeof(frogId) == "string" then
 			frogPodium(frogId)
+		elseif typeof(travelTo) == "string" then
+			local ok, message = Net.func("TravelWorld"):InvokeServer(travelTo)
+			Hud.toast(message, if ok then Theme.Colors.DarkGreen else Theme.Colors.Red)
 		elseif typeof(menu) == "string" then
 			Menus.open(menu)
 		end

@@ -4,6 +4,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
+local Worlds = require(Shared.Config.Worlds)
 
 local Parts = require(script.Parent.Parts)
 
@@ -53,21 +54,25 @@ local function buildHopZone(world: Model)
 	end
 end
 
-local function buildSpawn(world: Model)
-	local spawn = Instance.new("SpawnLocation")
-	spawn.Name = "Spawn"
+local function buildSpawn(world: Model, config: Worlds.World)
+	-- Only the first world has the real SpawnLocation; others get a plain
+	-- landing pad that world travel teleports to.
+	local spawn = if config.index == 1 then Instance.new("SpawnLocation") else Instance.new("Part")
+	spawn.Name = if config.index == 1 then "Spawn" else "Landing"
 	spawn.Anchored = true
 	spawn.Size = Vector3.new(12, 1, 12)
 	spawn.CFrame = CFrame.new(-100, Parts.GroundTop + 0.5, 0)
 	spawn.Color = Color3.fromRGB(255, 220, 90)
 	spawn.Material = Enum.Material.SmoothPlastic
-	spawn.Duration = 0
+	if spawn:IsA("SpawnLocation") then
+		spawn.Duration = 0
+	end
 	spawn.Parent = world
 end
 
-function Plaza.build(world: Model)
+function Plaza.build(world: Model, config: Worlds.World)
 	buildHopZone(world)
-	buildSpawn(world)
+	buildSpawn(world, config)
 end
 
 return Plaza

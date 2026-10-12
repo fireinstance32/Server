@@ -16,13 +16,13 @@ Build order for +1 Frog Hop. Each phase has its own note split into numbered sub
 | [[Phase 4 - Monetization]] | Full shop | 4.1–4.8 ✅ · 4.9 🧪 ready ([[Monetization Setup]] for real ids) |
 | [[Phase 5 - Interface]] | UI matches the references | 5.1 Design system · 5.2 HUD · 5.3 Menus · 5.4 Animations · 5.5 World UI · 5.6 Juice · 5.7 Mobile/console · 5.8 🧪 |
 | [[Phase 6 - Spectacle]] | Clip-worthy | 6.1 Models · 6.2 VFX · 6.3 Ultimate hop · 6.4 Audio · 6.5 Art pass · 6.6 🧪 |
-| [[Phase 7 - Worlds]] | Long-term progression | 7.1 Framework · 7.2 Portals · 7.3–7.6 Worlds 2–5 · 7.7 🧪 |
+| [[Phase 7 - Worlds]] | Long-term progression | 7.1 Framework ✅ · 7.2 Portals ✅ · 7.3–7.6 Worlds 2–5 ✅ · 7.7 🧪 ready |
 | [[Phase 8 - Live Ops]] | Launch | 8.1 Leaderboards · 8.2 Events · 8.3 Analytics · 8.4 Hardening · 8.5 Performance · 8.6 Launch kit · 8.7 🧪 |
 
 **Systems first, interface second.** Phases 1–4 build every system with just enough UI to test it. Phase 5 then builds the real interface once, against final data, so screens aren't redone each time a system changes.
 
 ## ⭐ Where to start: 1.1 → 1.2 → 1.3
-**Status:** 1.1 ✅ · 1.2 ✅ · HUD first pass ✅ · 1.3 Training ponds ✅ · 1.4 Hop Zone + toss ✅ · 1.5 Distance + camera ✅ · 1.6 River biomes ✅ · **1.7 playtest ready** ([[Phase 1 Playtest]]) · Phase 2 ✅ (**2.6 playtest ready**, [[Phase 2 Playtest]]) · Phase 3 ✅ (**3.8 playtest ready**, [[Phase 3 Playtest]]) · Phase 4 ✅ (**4.9 playtest ready**, [[Phase 4 Playtest]]) · next: Phase 5 Interface (needs your Figma designs) / Phase 7–8 systems. Every phase ends with a 🧪 playtest step ([[Testing Guide]]).
+**Status:** 1.1 ✅ · 1.2 ✅ · HUD first pass ✅ · 1.3 Training ponds ✅ · 1.4 Hop Zone + toss ✅ · 1.5 Distance + camera ✅ · 1.6 River biomes ✅ · **1.7 playtest ready** ([[Phase 1 Playtest]]) · Phase 2 ✅ (**2.6 playtest ready**, [[Phase 2 Playtest]]) · Phase 3 ✅ (**3.8 playtest ready**, [[Phase 3 Playtest]]) · Phase 4 ✅ (**4.9 playtest ready**, [[Phase 4 Playtest]]) · Phase 7 ✅ (**7.7 playtest ready**, [[Phase 7 Playtest]]) · next: Phase 8 Live Ops systems, then Phase 5 Interface (needs your Figma designs). Every phase ends with a 🧪 playtest step ([[Testing Guide]]).
 1. **1.1 Multiplier pipeline.** Ponds, levels, potions, friend boost, passes, trails and Robux ponds all feed one multiplier. Building that pipe first means every later system plugs in with one line instead of a rewrite. It's small and invisible, and it blocks the most work.
 2. **1.2 Levels.** The Level bar is the centrepiece of the reference HUD, and its "MAX LEVEL until you rebirth" rule is what drives rebirths. It's the first real user of 1.1.
 3. **1.3 Training ponds.** The main way players earn Hops, and the first system that uses rebirths as a gate.

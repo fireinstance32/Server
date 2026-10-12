@@ -1,6 +1,9 @@
 --!strict
--- River zones for World 1. A hop that lands at or past a zone's distance earns
+-- River zones for World 1 (other worlds are built from these below). A hop that lands at or past a zone's distance earns
 -- that zone's Wins. Distances are studs from the river origin.
+
+local Worlds = require(script.Parent.Worlds) :: any
+local WorldContent = require(script.Parent.WorldContent) :: { any }
 
 export type PropKind = "tree" | "palm" | "willow" | "rock" | "reed" | "flower" | "mushroom"
 
@@ -84,9 +87,35 @@ local Zones: { Zone } = {
 
 local RiverLength = 3200
 
-local function zoneForDistance(distance: number): Zone
-	local reached = Zones[1]
-	for _, zone in Zones do
+-- Worlds 2–5 reuse World 1's distances with their own names and biomes
+-- (WorldContent/<World>.luau); Wins are scaled by the world's rewardScale.
+local function scaled(base: { Zone }, overrides: { any }, scale: number): { Zone }
+	local result = {}
+	for i, zone in base do
+		local o: any = overrides[i]
+		result[i] = {
+			index = zone.index,
+			name = o[1],
+			distance = zone.distance,
+			wins = zone.wins * scale,
+			color = o[2]:Lerp(Color3.new(1, 1, 1), 0.35),
+			bank = o[2],
+			material = o[3],
+			props = o[4],
+		}
+	end
+	return result
+end
+
+local ByWorld: { [string]: { Zone } } = { Lily = Zones }
+for _, content in WorldContent do
+	ByWorld[content.world] = scaled(Zones, content.zones, Worlds.ById[content.world].rewardScale)
+end
+
+local function zoneForDistance(distance: number, worldId: string?): Zone
+	local list = ByWorld[worldId or "Lily"] or Zones
+	local reached = list[1]
+	for _, zone in list do
 		if distance >= zone.distance then
 			reached = zone
 		end
@@ -96,6 +125,7 @@ end
 
 return {
 	List = Zones,
+	ByWorld = ByWorld,
 	RiverLength = RiverLength,
 	zoneForDistance = zoneForDistance,
 }

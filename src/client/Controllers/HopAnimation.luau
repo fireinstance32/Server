@@ -14,6 +14,7 @@ local Game = require(Shared.Config.Game)
 local Frogs = require(Shared.Config.Frogs)
 local Zones = require(Shared.Config.Zones)
 local Ponds = require(Shared.Config.Ponds)
+local Worlds = require(Shared.Config.Worlds)
 local Trails = require(Shared.Config.Trails)
 local Format = require(Shared.Util.Format)
 local Models = require(Shared.Util.Models)
@@ -98,17 +99,23 @@ local function splash(position: Vector3)
 	Debris:AddItem(ring, 0.5)
 end
 
+local function worldOffset(worldId: string?): Vector3
+	local world = Worlds.ById[worldId or Worlds.Default] or Worlds.List[1]
+	return Worlds.offset(world)
+end
+
 function HopAnimation.playTraining(result)
 	local pond = Ponds.ById[result.pond] or Ponds.List[1]
+	local offset = worldOffset(result.world)
 	local frog = spawnFrog()
 	local perHop = result.hopsGained / result.bounces
 	local start = math.random(1, Ponds.PadsPerPond)
 	local lift = FROG_LIFT + Vector3.new(0, Ponds.SurfaceY, 0)
-	local from = Ponds.padPosition(pond, start) + lift
+	local from = Ponds.padPosition(pond, start) + lift + offset
 	frog:PivotTo(CFrame.new(from))
 	local hopTime = (Game.TrainingCooldown * 0.9) / result.bounces
 	for i = 1, result.bounces do
-		local to = Ponds.padPosition(pond, (start + i - 1) % Ponds.PadsPerPond + 1) + lift
+		local to = Ponds.padPosition(pond, (start + i - 1) % Ponds.PadsPerPond + 1) + lift + offset
 		hopArc(frog, from, to, 3, hopTime)
 		splash(to)
 		Hud.floatText(`+{Format.abbreviate(perHop)}`, Theme.Colors.Green)
@@ -134,12 +141,14 @@ function HopAnimation.playLaunch(result)
 
 	local visualHops = math.min(result.bounces, Game.MaxVisualHops)
 	local perPad = result.hopsGained / result.bounces
+	local offset = worldOffset(result.world)
+	local zones = Zones.ByWorld[result.world or Worlds.Default] or Zones.List
 	local lastPad = 0
 	local lastZone = 1
 
 	for k = 1, visualHops do
 		local pad = math.max(lastPad + 1, math.floor(k * result.bounces / visualHops + 0.5))
-		local to = Game.padPosition(pad) + FROG_LIFT
+		local to = Game.padPosition(pad) + FROG_LIFT + offset
 		local span = (to - from).Magnitude
 		hopArc(frog, from, to, 2 + span * 0.25, Game.SecondsPerVisualHop)
 		splash(to)
@@ -148,7 +157,7 @@ function HopAnimation.playLaunch(result)
 		local meters = math.min(Game.metersFor(to.X - Game.RiverOrigin.X), result.meters)
 		Hud.distance.set(meters, meters > previousBest)
 
-		local zone = Zones.zoneForDistance(pad * Game.PadSpacing)
+		local zone = Zones.zoneForDistance(pad * Game.PadSpacing, result.world)
 		if zone.index > lastZone then
 			lastZone = zone.index
 			Hud.toast(`Zone {zone.index}: {zone.name}!`, zone.color)
@@ -162,7 +171,7 @@ function HopAnimation.playLaunch(result)
 	if result.newBest then
 		subtitle ..= "  •  NEW BEST!"
 	end
-	Hud.banner(`ZONE {result.zone}: {result.zoneName}`, subtitle, Zones.List[result.zone].color)
+	Hud.banner(`ZONE {result.zone}: {result.zoneName}`, subtitle, zones[result.zone].color)
 	task.wait(Game.LandingPause)
 	frog:Destroy()
 	Hud.distance.hide()

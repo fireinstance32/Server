@@ -10,6 +10,7 @@ local UserInputService = game:GetService("UserInputService")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Pets = require(Shared.Config.Pets)
+local Worlds = require(Shared.Config.Worlds)
 local Net = require(Shared.Net)
 
 local Hud = require(script.Parent.Parent.UI.Hud)
@@ -31,7 +32,9 @@ local function nearestEgg(): Pets.Egg?
 		return nil
 	end
 	for _, egg in Pets.Eggs do
-		local flat = Vector3.new(root.Position.X - egg.position.X, 0, root.Position.Z - egg.position.Z)
+		local world = Worlds.ById[egg.world or Worlds.Default]
+		local position = egg.position + Worlds.offset(world)
+		local flat = Vector3.new(root.Position.X - position.X, 0, root.Position.Z - position.Z)
 		if flat.Magnitude <= NEAR_DISTANCE then
 			return egg
 		end

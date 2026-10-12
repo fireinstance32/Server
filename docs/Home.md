@@ -29,6 +29,7 @@ Roblox "+1" incremental game: press **HOP**, your frog leaps across lily pads, e
 - [[Phase 2 Playtest]]
 - [[Phase 3 Playtest]]
 - [[Phase 4 Playtest]]
+- [[Phase 7 Playtest]]
 
 ## Planning
 - [[Roadmap]]
