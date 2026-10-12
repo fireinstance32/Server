@@ -1,18 +1,20 @@
 -- Vertical gradient fills used on buttons and cards (the reference games'
--- glossy look). Presets keep colours consistent everywhere.
+-- glossy look). Presets keep colours consistent everywhere. Colours are
+-- sampled from the Stone Skipping screenshots (docs/Research/References).
 
 local Gradient = {}
 
 Gradient.Presets = {
-	Yellow = { Color3.fromRGB(255, 230, 90), Color3.fromRGB(245, 180, 30) },
-	Red = { Color3.fromRGB(255, 110, 100), Color3.fromRGB(215, 50, 60) },
-	Green = { Color3.fromRGB(140, 235, 80), Color3.fromRGB(60, 175, 40) },
-	Blue = { Color3.fromRGB(110, 200, 255), Color3.fromRGB(40, 130, 230) },
-	Purple = { Color3.fromRGB(200, 130, 255), Color3.fromRGB(130, 60, 220) },
+	Yellow = { Color3.fromRGB(254, 235, 34), Color3.fromRGB(255, 184, 8) },
+	Red = { Color3.fromRGB(255, 40, 75), Color3.fromRGB(232, 14, 42) },
+	Green = { Color3.fromRGB(104, 214, 18), Color3.fromRGB(32, 149, 5) },
+	Blue = { Color3.fromRGB(72, 168, 255), Color3.fromRGB(20, 118, 236) },
+	Purple = { Color3.fromRGB(207, 162, 255), Color3.fromRGB(160, 96, 225) },
+	Orange = { Color3.fromRGB(255, 180, 40), Color3.fromRGB(232, 140, 0) }, -- Daily DAY tabs
 	Pink = { Color3.fromRGB(255, 120, 200), Color3.fromRGB(220, 40, 140) },
 	Grey = { Color3.fromRGB(110, 110, 120), Color3.fromRGB(60, 60, 70) },
-	Tile = { Color3.fromRGB(78, 80, 104), Color3.fromRGB(40, 41, 58) }, -- HUD menu tiles
-	Silver = { Color3.fromRGB(250, 250, 252), Color3.fromRGB(205, 208, 216) },
+	Tile = { Color3.fromRGB(70, 69, 76), Color3.fromRGB(40, 42, 48) }, -- HUD menu tiles (reference: neutral grey)
+	Silver = { Color3.fromRGB(226, 228, 232), Color3.fromRGB(182, 190, 199) },
 	Rainbow = {
 		Color3.fromRGB(255, 70, 70),
 		Color3.fromRGB(255, 200, 40),
@@ -30,6 +32,7 @@ Gradient.Edges = {
 	Green = Color3.fromRGB(22, 100, 20),
 	Blue = Color3.fromRGB(14, 66, 150),
 	Purple = Color3.fromRGB(76, 24, 140),
+	Orange = Color3.fromRGB(130, 64, 0),
 	Pink = Color3.fromRGB(130, 14, 80),
 	Grey = Color3.fromRGB(26, 26, 32),
 	Tile = Color3.fromRGB(16, 16, 22),

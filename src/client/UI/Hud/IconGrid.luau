@@ -14,7 +14,7 @@ local IconGrid = {}
 local TILES = {
 	{ caption = "Shop", icon = "shop", menu = "Shop" },
 	{ caption = "Rebirth", icon = "rebirth", menu = "Rebirth" },
-	{ caption = "Pets", icon = "pets", menu = "Pets" },
+	{ caption = "Pets", icon = "pet", menu = "Pets" },
 	{ caption = "Trails", icon = "trails", menu = "Trails" },
 	{ caption = "Inventory", icon = "inventory", menu = "Inventory" },
 	{ caption = "Gifts", icon = "gifts", menu = "Gifts" },
@@ -25,13 +25,13 @@ function IconGrid.init(gui: ScreenGui, openMenu: (string) -> ())
 		Name = "IconGrid",
 		Size = UDim2.fromOffset(196, 310),
 		AnchorPoint = Vector2.new(0, 0.5),
-		Position = UDim2.new(0, 20, 0.5, -30),
+		Position = UDim2.new(0, 110, 0.54, 0),
 		BackgroundTransparency = 1,
 		Parent = gui,
 	}, {
 		new("UIGridLayout", {
 			CellSize = UDim2.fromOffset(90, 90),
-			CellPadding = UDim2.fromOffset(10, 14),
+			CellPadding = UDim2.fromOffset(8, 10),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 	})

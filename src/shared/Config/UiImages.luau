@@ -6,7 +6,8 @@
 local UiImages = {}
 
 UiImages.Ids = {
-	icons = 0, -- icons.png: every icon on one sheet (layout in Config/IconAtlas)
+	icons = 0, -- icons.png + icons2.png: the icon sheets (layout in Config/IconAtlas)
+	icons2 = 0,
 	studs = 0, -- studs.png: tiling brick-stud texture for panels
 	pets = 0, -- pets.png: every pet's picture (layout in Config/PetIconAtlas)
 	frogs = 0, -- frogs.png: every frog's picture (layout in Config/FrogIconAtlas)
@@ -49,6 +50,43 @@ UiImages.Fallback = {
 	sort = "↕",
 	title = "🎖",
 	trash = "🗑",
+	robux = "\u{E002}",
+	coin = "🪙",
+	gem = "💎",
+	hourglass = "⏳",
+	clock = "⏰",
+	shield = "🛡",
+	sparkle = "✨",
+	auto = "🔄",
+	friends = "👥",
+	add_friend = "➕",
+	gamepass = "🎫",
+	arrow_right = "➡",
+	upgrade = "⬆",
+	codes = "🎟",
+	luck = "🍀",
+	heart = "❤",
+	exclamation = "❗",
+	warning = "⚠",
+	mouse = "🖱",
+	fire = "🔥",
+	rocket = "🚀",
+	egg_golden = "🥚",
+	egg_rainbow = "🥚",
+	egg_cracked = "🐣",
+	trophy_silver = "🥈",
+	trophy_bronze = "🥉",
+	music_off = "🔇",
+	speaker_off = "🔈",
+	minus = "➖",
+	search = "🔍",
+	star3 = "🌟",
+	house = "🏠",
+	teleport = "🌀",
+	pet = "🐶",
+	ghost = "👻",
+	candy = "🍬",
+	lucky_block = "❓",
 } :: { [string]: string }
 
 -- "rbxassetid://..." for an uploaded image, or nil.

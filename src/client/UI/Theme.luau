@@ -6,11 +6,12 @@ local Sfx = require(script.Parent.Parent.Sfx)
 
 local Theme = {}
 
-Theme.Font = Enum.Font.FredokaOne
+Theme.Font = Enum.Font.FredokaOne -- HUD (reference: round, chunky)
+Theme.MenuFont = Enum.Font.GothamBlack -- menus + hatch screen (reference; Roblox draws it as Montserrat Black)
 Theme.Colors = {
 	Green = Color3.fromRGB(90, 200, 70),
 	DarkGreen = Color3.fromRGB(40, 120, 40),
-	Gold = Color3.fromRGB(255, 200, 40),
+	Gold = Color3.fromRGB(254, 223, 6), -- reference multiplier / title yellow
 	Blue = Color3.fromRGB(70, 160, 255),
 	Purple = Color3.fromRGB(170, 90, 255),
 	Red = Color3.fromRGB(240, 80, 80),
@@ -56,6 +57,20 @@ end
 
 function Theme.textStroke(thickness: number?): UIStroke
 	return Theme.new("UIStroke", { Thickness = thickness or 3, Color = Theme.Colors.Outline })
+end
+
+-- Every text under `root` (now and later) uses `font`.
+function Theme.useFont(root: Instance, font: Enum.Font)
+	local function apply(inst: Instance)
+		if inst:IsA("TextLabel") or inst:IsA("TextButton") or inst:IsA("TextBox") then
+			(inst :: any).Font = font
+		end
+	end
+	apply(root)
+	for _, inst in root:GetDescendants() do
+		apply(inst)
+	end
+	root.DescendantAdded:Connect(apply)
 end
 
 function Theme.label(props: { [string]: any }): TextLabel

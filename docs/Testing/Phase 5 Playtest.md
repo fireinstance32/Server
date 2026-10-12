@@ -11,7 +11,7 @@ status: ready
 - [ ] No errors in Output when opening every menu
 
 ## After uploading icons / studs / pets / frogs sheets (ids in `Config/UiImages.luau`)
-- [ ] Left tiles show 3D icons poking out of dark tiles; studs on level bar, packs, passes, tutorial bar, buttons
+- [ ] Left tiles show the pack icons poking out of grey tiles; studs on level bar, packs, passes, tutorial bar, buttons
 - [ ] Pass cards have bolt / trophy icons over their top edge; Auto Hop has a crown
 - [ ] Pet and frog pictures in Inventory, Daily (Day 2 Fortune Neko, Day 7 Shooting Star Frog), Gifts, egg signs, hatch screen
 
@@ -26,7 +26,7 @@ status: ready
 - [ ] Resize the Studio window / use the Device Emulator (phone, tablet): the whole UI shrinks evenly, the right-side buttons stay at the right edge, nothing spills off-screen (`Components/ScreenScale`; tell me if anything sits in the wrong place)
 
 ## Menus
-- [ ] Every menu pops in (and shrinks away on close), world blurred behind it, big icon top-left, red X top-right; Auto Hop, quest bar, tips and the bottom bar hide while it's open and come back after
+- [ ] Every menu pops in (and shrinks away on close), world blurred behind it, big icon top-left, red square X button top-right; Auto Hop, quest bar, tips and the bottom bar hide while it's open and come back after
 - [ ] Rebirth window is short (no empty space); bolt cards, studded progress bar
 - [ ] Daily Rewards: orange DAY tabs, reward pictures, CLAIMED overlays on past days, today outlined green, rainbow Day 7 "Limited!"
 - [ ] Shop: Starter Pack; gamepasses as coloured cards in 2 columns with a gift button (giftable ones) and price/OWNED; Hops packs 2×2; the gift button opens a player list (test with 2 players)

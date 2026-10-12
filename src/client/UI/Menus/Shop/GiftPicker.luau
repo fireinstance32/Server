@@ -8,6 +8,7 @@ local Monetization = require(ReplicatedStorage:WaitForChild("Shared").Config.Mon
 
 local Theme = require(script.Parent.Parent.Parent.Theme)
 local Icon = require(script.Parent.Parent.Parent.Components.Icon)
+local CloseButton = require(script.Parent.Parent.Parent.Components.CloseButton)
 local Purchases = require(script.Parent.Parent.Parent.Parent.Purchases)
 local Window = require(script.Parent.Parent.Window)
 
@@ -47,16 +48,7 @@ function GiftPicker.open(over: GuiObject, item: string)
 		ZIndex = 22,
 		Parent = panel,
 	})
-	local close = new("ImageButton", {
-		Size = UDim2.fromOffset(52, 52),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(1, 0, 0, 0),
-		BackgroundTransparency = 1,
-		ZIndex = 23,
-		Parent = panel,
-	})
-	Icon.new("close", { Size = UDim2.fromScale(1, 1), ZIndex = 23, Parent = close })
-	close.Activated:Connect(function()
+	CloseButton.new({ Size = UDim2.fromOffset(50, 50), Position = UDim2.new(1, 0, 0, 0), ZIndex = 23, Parent = panel }, function()
 		backdrop:Destroy()
 	end)
 	backdrop.Activated:Connect(function()

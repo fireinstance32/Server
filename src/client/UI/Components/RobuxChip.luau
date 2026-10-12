@@ -4,7 +4,7 @@ local Theme = require(script.Parent.Parent.Theme)
 
 local RobuxChip = {}
 
-local ROBUX_GREEN = Color3.fromRGB(90, 230, 90)
+local ROBUX_GREEN = Color3.fromRGB(138, 255, 40) -- reference price green
 
 function RobuxChip.attach(parent: GuiObject, price: number, prefix: string?): TextLabel
 	local label = Theme.label({
@@ -16,7 +16,6 @@ function RobuxChip.attach(parent: GuiObject, price: number, prefix: string?): Te
 		TextColor3 = ROBUX_GREEN,
 		TextXAlignment = Enum.TextXAlignment.Right,
 		ZIndex = (parent.ZIndex or 1) + 2,
-		Font = Enum.Font.BuilderSansBold,
 		Parent = parent,
 	})
 	Theme.textStroke().Parent = label

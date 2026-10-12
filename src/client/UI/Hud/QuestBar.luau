@@ -17,16 +17,16 @@ local QuestBar = {}
 function QuestBar.init(gui: ScreenGui)
 	local bar = new("Frame", {
 		Name = "QuestBar",
-		Size = UDim2.fromOffset(640, 64),
+		Size = UDim2.fromOffset(710, 74),
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 118),
+		Position = UDim2.new(0.5, 0, 0, 96),
 		Visible = false,
 		Parent = gui,
-	}, { Theme.corner(12), Theme.stroke(4) })
+	}, { Theme.corner(10), Theme.stroke(4) })
 	Gradient.apply(bar, "Yellow")
 	Studs.apply(bar, 24, 0.5)
 	local tag = Theme.label({
-		Size = UDim2.fromOffset(160, 26),
+		Size = UDim2.fromOffset(150, 24),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.5, 0),
 		Text = "TUTORIAL",
@@ -35,8 +35,8 @@ function QuestBar.init(gui: ScreenGui)
 	})
 	Theme.textStroke().Parent = tag
 	local text = Theme.label({
-		Size = UDim2.new(1, -24, 0.7, 0),
-		Position = UDim2.new(0, 12, 0.2, 0),
+		Size = UDim2.new(1, -24, 0.6, 0),
+		Position = UDim2.new(0, 12, 0.24, 0),
 		Text = "",
 		Parent = bar,
 	})
@@ -45,7 +45,7 @@ function QuestBar.init(gui: ScreenGui)
 		local quest = data.quest
 		Visibility.set(bar, quest ~= nil)
 		if quest then
-			text.Text = `{quest.text} ({Format.abbreviate(quest.progress)}/{Format.abbreviate(quest.target)})`
+			text.Text = string.upper(`{quest.text} ({Format.abbreviate(quest.progress)}/{Format.abbreviate(quest.target)})`)
 		end
 	end)
 end

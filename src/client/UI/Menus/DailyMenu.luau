@@ -29,7 +29,7 @@ local function dayTab(card: Frame, day: number, rainbow: boolean)
 		ZIndex = 3,
 		Parent = card,
 	}, { Theme.corner(10), Theme.stroke(3) })
-	Gradient.apply(tab, if rainbow then "Rainbow" else { Color3.fromRGB(255, 180, 60), Color3.fromRGB(240, 130, 20) })
+	Gradient.apply(tab, if rainbow then "Rainbow" else "Orange")
 	Theme.label({ Size = UDim2.fromScale(0.9, 0.86), Position = UDim2.fromScale(0.05, 0.07), Text = `DAY {day}`, ZIndex = 4, Parent = tab })
 end
 

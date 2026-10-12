@@ -27,9 +27,9 @@ local TABS = {
 	{ id = "Titles", icon = "title", build = TitlesTab.build },
 }
 
-local IDLE = { Color3.fromRGB(96, 97, 106), Color3.fromRGB(52, 53, 60) }
-local SELECTED = { Color3.fromRGB(120, 178, 214), Color3.fromRGB(40, 92, 128) }
-local SELECTED_EDGE = Color3.fromRGB(140, 222, 255)
+local IDLE = { Color3.fromRGB(82, 81, 88), Color3.fromRGB(58, 57, 64) }
+local SELECTED = { Color3.fromRGB(78, 128, 148), Color3.fromRGB(50, 90, 108) }
+local SELECTED_EDGE = Color3.fromRGB(120, 205, 235)
 local EDGE = Color3.fromRGB(12, 12, 16)
 
 local function tabButton(column: Frame, tab, order: number): (TextButton, GuiObject)

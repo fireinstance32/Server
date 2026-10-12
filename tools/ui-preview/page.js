@@ -17,11 +17,12 @@ const col = (n, k, d) => (n.p[k] ? n.p[k].v : d);
 function fontFamily(name) {
   if (!name) return '"Fredoka One"';
   if (/Fredoka/.test(name)) return '"Fredoka One", "Noto Color Emoji"';
-  if (/Gotham|Montserrat/.test(name)) return '"DejaVu Sans", "Noto Color Emoji"';
+  if (/Gotham|Montserrat/.test(name)) return '"Montserrat", "Noto Color Emoji"'; // Roblox draws Gotham as Montserrat
   return '"Liberation Sans", "DejaVu Sans", "Noto Color Emoji"';
 }
 function fontWeight(name) {
-  return /Bold|Black|Heavy|Fredoka/.test(name || '') ? 700 : 400;
+  if (/Black|Heavy/.test(name || '')) return 900;
+  return /Bold|Fredoka/.test(name || '') ? 700 : 400;
 }
 
 function escapeHtml(s) {

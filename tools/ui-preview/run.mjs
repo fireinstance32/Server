@@ -118,9 +118,12 @@ for (const f of fs.existsSync(path.join(repo, 'assets/textures/ui')) ? fs.readdi
 }
 
 const font = pathToFileURL(path.join(here, 'node_modules/@fontsource/fredoka-one/files/fredoka-one-latin-400-normal.woff2')).href;
+const montserrat = (w) => pathToFileURL(path.join(here, `node_modules/@fontsource/montserrat/files/montserrat-latin-${w}-normal.woff2`)).href;
 const background = pathToFileURL(path.join(here, 'background.png')).href;
 const html = `<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face { font-family: "Fredoka One"; src: url("${font}") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-weight: 700; src: url("${montserrat(700)}") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-weight: 900; src: url("${montserrat(900)}") format("woff2"); }
 html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
 body { background: url("${background}") center/cover, linear-gradient(#8fd3ff, #c9f0ff 55%, #7ccf62 55%, #5fb94a); }
 div, span { box-sizing: border-box; }
@@ -138,7 +141,7 @@ const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
 page.on('console', (msg) => console.log('[page]', msg.text()));
 page.on('pageerror', (err) => console.log('[page error]', err.message));
 await page.goto(pathToFileURL(htmlPath).href);
-await page.evaluate(async (t) => { await document.fonts.load('40px "Fredoka One"'); window.renderTree(JSON.parse(t)); }, tree);
+await page.evaluate(async (t) => { await document.fonts.load('40px "Fredoka One"'); await document.fonts.load('900 40px "Montserrat"'); await document.fonts.load('700 40px "Montserrat"'); window.renderTree(JSON.parse(t)); }, tree);
 await page.waitForTimeout(150);
 await page.screenshot({ path: out });
 await browser.close();

@@ -16,15 +16,15 @@ local BottomLeft = {}
 
 local function counter(parent: Frame, order: number, icon: string): TextLabel
 	local row = new("Frame", {
-		Size = UDim2.new(1, 0, 0, 56),
+		Size = UDim2.new(1, 0, 0, 74),
 		BackgroundTransparency = 1,
 		LayoutOrder = order,
 		Parent = parent,
 	})
-	Icon.new(icon, { Size = UDim2.fromOffset(60, 60), Position = UDim2.fromOffset(-2, -2), Parent = row })
+	Icon.new(icon, { Size = UDim2.fromOffset(72, 72), Position = UDim2.fromOffset(0, 0), Parent = row })
 	return Theme.label({
-		Size = UDim2.new(1, -66, 0, 48),
-		Position = UDim2.fromOffset(66, 4),
+		Size = UDim2.new(1, -90, 0, 54),
+		Position = UDim2.fromOffset(88, 10),
 		Text = "0",
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Parent = row,
@@ -34,9 +34,9 @@ end
 function BottomLeft.init(gui: ScreenGui)
 	local frame = new("Frame", {
 		Name = "BottomLeft",
-		Size = UDim2.fromOffset(280, 170),
+		Size = UDim2.fromOffset(300, 196),
 		AnchorPoint = Vector2.new(0, 1),
-		Position = UDim2.new(0, 20, 1, -16),
+		Position = UDim2.new(0, 110, 1, -40),
 		BackgroundTransparency = 1,
 		Parent = gui,
 	}, { new("UIListLayout", { Padding = UDim.new(0, 4), SortOrder = Enum.SortOrder.LayoutOrder }) })
@@ -45,21 +45,21 @@ function BottomLeft.init(gui: ScreenGui)
 	local wins = counter(frame, 2, "trophy")
 
 	local friendRow = new("Frame", {
-		Size = UDim2.new(1, 0, 0, 36),
+		Size = UDim2.new(1, 0, 0, 40),
 		BackgroundTransparency = 1,
 		LayoutOrder = 3,
 		Parent = frame,
 	})
 	local friend = Theme.label({
-		Size = UDim2.new(1, -44, 1, 0),
+		Size = UDim2.new(1, -54, 1, 0),
 		Text = "Friend Boost +0%",
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Parent = friendRow,
 	})
 	local invite = new("TextButton", {
 		Name = "Invite",
-		Size = UDim2.fromOffset(40, 40),
-		Position = UDim2.new(1, -40, 0, -2),
+		Size = UDim2.fromOffset(44, 44),
+		Position = UDim2.new(1, -46, 0, -2),
 		BackgroundTransparency = 1,
 		Text = "",
 		Parent = friendRow,

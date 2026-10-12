@@ -23,6 +23,11 @@ export type Selection = { uid: string, pet: any }?
 -- Returns the panel and show(selection) to fill it (nil = nothing to show).
 function Details.build(parent: Instance, props: { [string]: any }): (Frame, (Selection) -> ())
 	local panel = Window.inset(parent, props)
+	panel.BackgroundColor3 = Color3.fromRGB(75, 120, 137) -- reference: teal details panel
+	local edge = panel:FindFirstChildOfClass("UIStroke")
+	if edge then
+		edge.Color = Color3.fromRGB(120, 205, 235)
+	end
 	local name = Theme.label({
 		Size = UDim2.new(1, 0, 0, 36),
 		Text = "",

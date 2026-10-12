@@ -1,9 +1,12 @@
 -- Top-centre AUTO HOP button: "ONLY ◎ 23" until owned, then an ON/OFF toggle.
+-- It shares its slot with the tutorial bar, so it shows once the tutorial
+-- is done (reference: AUTO THROW and the tutorial never show together).
 
 local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
 local Studs = require(script.Parent.Parent.Components.Studs)
 local Icon = require(script.Parent.Parent.Components.Icon)
+local Visibility = require(script.Parent.Visibility)
 local Purchases = require(script.Parent.Parent.Parent.Purchases)
 local State = require(script.Parent.Parent.Parent.State)
 
@@ -17,9 +20,9 @@ function TopBar.init(gui: ScreenGui, setAutoHop: (boolean) -> ())
 
 	local button = new("TextButton", {
 		Name = "AutoHop",
-		Size = UDim2.fromOffset(250, 70),
+		Size = UDim2.fromOffset(250, 72),
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 26),
+		Position = UDim2.new(0.5, 0, 0, 100),
 		Text = "",
 		AutoButtonColor = true,
 		Parent = gui,
@@ -27,9 +30,9 @@ function TopBar.init(gui: ScreenGui, setAutoHop: (boolean) -> ())
 	Gradient.apply(button, "Red")
 	Studs.apply(button, 22, 0.45)
 	Icon.new("crown", {
-		Size = UDim2.fromOffset(54, 54),
+		Size = UDim2.fromOffset(78, 78),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(0.5, 0, 0, -4),
+		Position = UDim2.new(0.5, 0, 0, 2),
 		ZIndex = 2,
 		Parent = button,
 	})
@@ -70,7 +73,10 @@ function TopBar.init(gui: ScreenGui, setAutoHop: (boolean) -> ())
 		refresh()
 	end)
 
-	State.observe(refresh)
+	State.observe(function(data)
+		Visibility.set(button, data.quest == nil)
+		refresh()
+	end)
 end
 
 return TopBar

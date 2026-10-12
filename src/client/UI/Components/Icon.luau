@@ -1,5 +1,5 @@
--- An icon from the UI icon sheet (Config/UiImages + Config/IconAtlas), or its
--- emoji until the sheet is uploaded. Returns an ImageLabel or a TextLabel;
+-- An icon from the UI icon sheets (Config/UiImages + Config/IconAtlas), or its
+-- emoji until its sheet is uploaded. Returns an ImageLabel or a TextLabel;
 -- size/position it like any GuiObject.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -17,11 +17,12 @@ function Icon.has(name: string): boolean
 end
 
 function Icon.new(name: string, props: { [string]: any }?): GuiObject
-	local sheet = UiImages.content("icons")
 	local index = IconAtlas.Icons[name]
+	local sheet = index and UiImages.content(IconAtlas.Sheets[index // IconAtlas.PerSheet + 1])
 	local icon: GuiObject
 	if sheet and index then
 		local cell = IconAtlas.Cell
+		index %= IconAtlas.PerSheet
 		icon = Theme.new("ImageLabel", {
 			Name = "Icon",
 			BackgroundTransparency = 1,

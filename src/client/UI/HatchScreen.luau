@@ -18,6 +18,7 @@ local Hud = require(script.Parent.Hud)
 local Icon = require(script.Parent.Components.Icon)
 local PetImage = require(script.Parent.Components.PetImage)
 local Rays = require(script.Parent.Components.Rays)
+local ClickHint = require(script.Parent.Components.ClickHint)
 local ScreenScale = require(script.Parent.Components.ScreenScale)
 local ScreenFx = require(script.Parent.Parent.Effects.Screen)
 local Sfx = require(script.Parent.Parent.Sfx)
@@ -72,6 +73,7 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 		Parent = Players.LocalPlayer:WaitForChild("PlayerGui"),
 	})
 	ScreenScale.attach(gui)
+	Theme.useFont(gui, Theme.MenuFont)
 	local clickCatcher = new("TextButton", {
 		Size = UDim2.fromScale(1, 1),
 		BackgroundColor3 = Color3.new(0, 0, 0),
@@ -94,13 +96,8 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 		}),
 	})
-	local hint = Theme.label({
-		Size = UDim2.new(0.6, 0, 0, 44),
-		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.fromScale(0.5, 0.82),
-		Text = if #results > 1 then `🖱 Click to hatch {#results}` else "🖱 Click to hatch",
-		Parent = gui,
-	})
+	local setHint = ClickHint.new(gui)
+	setHint(if #results > 1 then `Click to hatch {#results}` else "Click to hatch")
 
 	-- Stage 1: eggs.
 	local cells, eggModels = {}, {}
@@ -113,7 +110,7 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 	waitForClick(clickCatcher, isAuto, 0.4)
 
 	-- Wobble, faster and faster, then crack open.
-	hint.Text = ""
+	setHint("")
 	local start = os.clock()
 	local wobble = RunService.RenderStepped:Connect(function()
 		local t = os.clock() - start
@@ -136,7 +133,7 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 			local nameLabel = Theme.label({
 				Size = UDim2.new(1, 0, 0, 40),
 				Text = def.name,
-				TextColor3 = if def.rarity == "Common" then C.White else Pets.RarityColors[def.rarity],
+				TextColor3 = C.White, -- reference: white names, rarity shows in the rays
 				Parent = cell,
 			})
 			if not nameLabel:FindFirstChildOfClass("UIStroke") then
@@ -203,7 +200,7 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 		ScreenFx.flash(Color3.fromRGB(255, 230, 120), 0.35)
 		ScreenFx.confetti(if best >= Pets.RarityOrder.Legendary then 90 else 45)
 	end
-	hint.Text = "🖱 Click to continue"
+	setHint("Click to continue")
 	waitForClick(clickCatcher, isAuto, 1.2)
 
 	gui:Destroy()

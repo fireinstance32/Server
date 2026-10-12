@@ -17,7 +17,7 @@ function PotionTimers.init(gui: ScreenGui)
 		Name = "PotionTimers",
 		Size = UDim2.fromOffset(220, 120),
 		AnchorPoint = Vector2.new(0, 1),
-		Position = UDim2.new(0, 20, 0.5, -210),
+		Position = UDim2.new(0, 110, 0.54, -180),
 		BackgroundTransparency = 1,
 		Parent = gui,
 	}, {

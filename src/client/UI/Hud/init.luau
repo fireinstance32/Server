@@ -13,7 +13,6 @@ local Players = game:GetService("Players")
 local Theme = require(script.Parent.Theme)
 local Visibility = require(script.Visibility)
 local ScreenScale = require(script.Parent.Components.ScreenScale)
-local Gradient = require(script.Parent.Components.Gradient)
 local Purchases = require(script.Parent.Parent.Purchases)
 local Popups = require(script.Popups)
 local RewardPopup = require(script.RewardPopup)
@@ -31,8 +30,7 @@ local TopRight = require(script.TopRight)
 local QuestBar = require(script.QuestBar)
 local TipTicker = require(script.TipTicker)
 local EventBanner = require(script.EventBanner)
-local Icon = require(script.Parent.Components.Icon)
-local Studs = require(script.Parent.Components.Studs)
+local Layout = require(script.Parent.Menus.Window.Layout)
 
 local Hud = {}
 
@@ -52,14 +50,14 @@ function Hud.setHopMode(mode: string?, pond: any?, locked: boolean?)
 	AutoRebirth.setVisible(mode == "Train")
 	Visibility.set(hopButton, mode == "Launch" or (mode == "Train" and locked == true))
 	if mode == "Launch" then
-		Theme.setText(hopButton, "HOP!")
-		Gradient.apply(hopButton, "Blue")
+		Theme.setText(hopButton, "HOP")
+		Layout.recolor(hopButton, "Green")
 	elseif mode == "Train" and locked and pond then
 		Theme.setText(
 			hopButton,
 			if pond.pass then `UNLOCK \u{E002}{Purchases.price("pass", pond.pass)}` else `🔒 {pond.rebirths} REBIRTHS`
 		)
-		Gradient.apply(hopButton, if pond.pass then "Green" else "Grey")
+		Layout.recolor(hopButton, if pond.pass then "Green" else "Grey")
 	end
 end
 
@@ -105,38 +103,31 @@ function Hud.init(callbacks: {
 	})
 	ScreenScale.attach(gui)
 
-	-- Bottom-centre stack: stat row (40) · level bar (60) · packs (72).
+	-- Bottom-centre stack, reference proportions at 1080p: stat row (44) ·
+	-- level bar (88) · packs (80), ~90 px off the bottom edge.
 	local bottom = Theme.new("Frame", {
 		Name = "BottomBar",
-		Size = UDim2.fromOffset(760, 184),
+		Size = UDim2.fromOffset(870, 236),
 		AnchorPoint = Vector2.new(0.5, 1),
-		Position = UDim2.new(0.5, 0, 1, -16),
+		Position = UDim2.new(0.5, 0, 1, -72),
 		BackgroundTransparency = 1,
 		Parent = gui,
 	})
 	StatRow.init(bottom)
-	LevelBar.init(bottom, 44, 60)
-	PackRow.init(bottom, 112, 72)
+	LevelBar.init(bottom, 56, 88)
+	PackRow.init(bottom, 156, 80)
 	AutoRebirth.init(bottom)
 
-	hopButton = Theme.button({
+	-- Green "THROW"-style button on the Hop Zone (reference).
+	hopButton = Layout.button({
 		Name = "HopButton",
-		Size = UDim2.fromOffset(260, 84),
+		Size = UDim2.fromOffset(250, 92),
 		AnchorPoint = Vector2.new(0.5, 1),
-		Position = UDim2.new(0.5, 0, 1, -216),
-		Text = "HOP!",
+		Position = UDim2.new(0.5, 0, 1, -340),
+		Text = "HOP",
 		Visible = false,
-	}, callbacks.onHop)
+	}, "Green", callbacks.onHop)
 	hopButton.Parent = gui
-	Studs.apply(hopButton, 24, 0.45)
-	Icon.new("frog", {
-		Size = UDim2.fromOffset(84, 84),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(1, -12, 0.5, -10),
-		Rotation = 10,
-		ZIndex = 2,
-		Parent = hopButton,
-	})
 
 	BottomLeft.init(gui)
 	IconGrid.init(gui, callbacks.openMenu)
@@ -157,6 +148,7 @@ function Hud.init(callbacks: {
 		Parent = Players.LocalPlayer:WaitForChild("PlayerGui"),
 	})
 	ScreenScale.attach(popups)
+	Theme.useFont(popups, Theme.MenuFont) -- toasts + reward pop-ups (reference)
 	Popups.init(popups)
 	RewardPopup.init(popups)
 

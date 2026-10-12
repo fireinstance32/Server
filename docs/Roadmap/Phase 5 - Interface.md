@@ -10,13 +10,16 @@ tags: [planning, phase5]
 
 ## 5.1 Design system 🟡
 - [x] Fonts/tokens: Fredoka One, near-black 3px outlines, dark glassy tiles, silver/colour gradients
-- [x] 35 custom **vector** icons in the reference style (`tools/textures/vector_icons.py`, SVGs in `assets/vectors/icons/`) packed into **one sheet** (`assets/textures/ui/icons.png`, layout `Config/IconAtlas`) — emoji until uploaded ![[Icons Sheet.png]]
+- [x] 72 icons from the **Gvesster Icon Pack v8** packed into **two sheets** (`assets/textures/ui/icons.png` + `icons2.png`, layout `Config/IconAtlas`); frog stays a hand-drawn vector (`assets/vectors/icons/`) — emoji until uploaded ![[Icons Sheet.png]]
 - [x] Stud texture (`assets/textures/ui/studs.png`) on bars, packs, passes, buttons
 - [x] Components: `Icon` (sheet icon or emoji), `Studs`, restyled `IconTile`, `PassCard`
-- [ ] Upload the 2 images ([[Decisions]])
+- [x] Square studs with a soft L shadow (reference)
+- [x] Shared red `CloseButton` (white X) and `ClickHint` (mouse icon + text)
+- [ ] Upload the images ([[Decisions]])
 
 ## 5.2 HUD to reference 🟡
 - [x] HUD restyled to the references with the preview tool: icon tiles, bolt stat row, studded level bar + packs with bolts, icon pass cards, crowned Auto Hop, studded tutorial bar, icon counters, frog HOP button, potion timers with icons
+- [x] Second pass against the Stone Skipping HUD: reference sizes and ~110 px margins, 870 px bottom stack, green HOP, grey tiles, dark tip box, bare Starter Pack, pass cards with icon behind the title and orange ONLY / green price, Auto Hop hidden during the tutorial
 - [ ] Check in Studio and fine-tune
 - [ ] Tile grid, pass cards, Auto Hop, Level bar + stat row + packs, bottom-left counters, quest bar
 - [ ] Badges (! / % / NEW! / timers) driven by real systems

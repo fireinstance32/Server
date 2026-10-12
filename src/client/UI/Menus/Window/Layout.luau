@@ -10,9 +10,9 @@ local new = Theme.new
 
 local Layout = {}
 
-Layout.PanelColor = Color3.fromRGB(50, 51, 60)
+Layout.PanelColor = Color3.fromRGB(52, 53, 58)
 Layout.CardColor = Color3.fromRGB(64, 65, 76)
-Layout.InsetColor = Color3.fromRGB(30, 31, 38) -- the darker panel inside a window
+Layout.InsetColor = Color3.fromRGB(40, 42, 48) -- the darker panel inside a window
 Layout.Edge = Color3.fromRGB(12, 12, 16)
 
 -- Small section header: "~ Pack ~".

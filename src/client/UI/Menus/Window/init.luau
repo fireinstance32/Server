@@ -10,6 +10,7 @@ local TweenService = game:GetService("TweenService")
 local Theme = require(script.Parent.Parent.Theme)
 local Hud = require(script.Parent.Parent.Hud)
 local Icon = require(script.Parent.Parent.Components.Icon)
+local CloseButton = require(script.Parent.Parent.Components.CloseButton)
 local Layout = require(script.Layout)
 local ScreenScale = require(script.Parent.Parent.Components.ScreenScale)
 local Sfx = require(script.Parent.Parent.Parent.Sfx)
@@ -49,6 +50,7 @@ local function menuScreen(): ScreenGui
 			Parent = Players.LocalPlayer:WaitForChild("PlayerGui"),
 		})
 		ScreenScale.attach(screen :: ScreenGui)
+		Theme.useFont(screen :: ScreenGui, Theme.MenuFont)
 	end
 	return screen :: ScreenGui
 end
@@ -83,22 +85,7 @@ local function titleLabel(frame: Frame, text: string)
 end
 
 local function closeButton(frame: Frame, onClose: () -> ())
-	local close = new("ImageButton", {
-		Name = "Close",
-		Size = UDim2.fromOffset(84, 84),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(1, -6, 0, 2),
-		BackgroundTransparency = 1,
-		ZIndex = 7,
-		Parent = frame,
-	})
-	Icon.new("close", { Size = UDim2.fromScale(1, 1), ZIndex = 7, Parent = close })
-	local scale = new("UIScale", { Parent = close })
-	Theme.hover(close, scale)
-	close.Activated:Connect(function()
-		Sfx.play("Click")
-		onClose()
-	end)
+	CloseButton.new({ Size = UDim2.fromOffset(76, 76), Position = UDim2.new(1, -6, 0, 6), ZIndex = 7, Parent = frame }, onClose)
 end
 
 -- `height` = fraction of the screen. `tabs` leaves room on the left for a

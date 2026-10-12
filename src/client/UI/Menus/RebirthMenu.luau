@@ -43,7 +43,12 @@ function RebirthMenu.build(body: Frame)
 	Theme.label({ Size = UDim2.new(0.42, 0, 0, 44), Position = UDim2.fromScale(0.58, 0), Text = "After", Parent = body })
 	local before = multiplierCard(body, 0)
 	local after = multiplierCard(body, 0.58)
-	Theme.label({ Size = UDim2.new(0.1, 0, 0, 60), Position = UDim2.new(0.45, 0, 0, 70), Text = "➜", Parent = body })
+	Icon.new("arrow_right", {
+		Size = UDim2.fromOffset(72, 72),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0.5, 0, 0, 100),
+		Parent = body,
+	})
 
 	local warning = Theme.label({
 		Size = UDim2.new(1, 0, 0, 40),

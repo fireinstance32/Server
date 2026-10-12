@@ -366,6 +366,18 @@ InstMT.__newindex = function(self, key, value)
 			table.insert(rawget(value, "_children"), self)
 			rawget(value, "_byName")[rawget(self, "Name")] = self
 			value.ChildAdded:Fire(self)
+			-- DescendantAdded on every ancestor, for self and its subtree.
+			local ancestor = value
+			while ancestor do
+				local signal = rawget(ancestor, "DescendantAdded")
+				if signal then
+					signal:Fire(self)
+					for _, d in self:GetDescendants() do
+						signal:Fire(d)
+					end
+				end
+				ancestor = rawget(ancestor, "_parent")
+			end
 		end
 		return
 	end
