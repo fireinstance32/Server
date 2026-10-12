@@ -1,0 +1,12 @@
+{
+  "name": "froghop-luau-check",
+  "private": true,
+  "type": "module",
+  "description": "Offline syntax + lint checks for the src/ Luau code.",
+  "scripts": {
+    "check": "node compile.mjs ../../src && node lint.mjs ../../src"
+  },
+  "dependencies": {
+    "@luau-rs/luau": "0.739.0"
+  }
+}

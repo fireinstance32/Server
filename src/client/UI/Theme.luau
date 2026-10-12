@@ -1,0 +1,117 @@
+-- Visual language for every screen: bright, chunky, readable at phone size.
+
+local TweenService = game:GetService("TweenService")
+
+local Theme = {}
+
+Theme.Font = Enum.Font.FredokaOne
+Theme.Colors = {
+	Green = Color3.fromRGB(90, 200, 70),
+	DarkGreen = Color3.fromRGB(40, 120, 40),
+	Gold = Color3.fromRGB(255, 200, 40),
+	Blue = Color3.fromRGB(70, 160, 255),
+	Purple = Color3.fromRGB(170, 90, 255),
+	Red = Color3.fromRGB(240, 80, 80),
+	Panel = Color3.fromRGB(255, 250, 235),
+	Ink = Color3.fromRGB(35, 45, 35),
+	White = Color3.new(1, 1, 1),
+	Grey = Color3.fromRGB(160, 160, 160),
+}
+
+-- new("Frame", { Size = ... }, { children }) : terse instance construction.
+function Theme.new(className: string, props: { [string]: any }?, children: { Instance }?): any
+	local inst = Instance.new(className)
+	local parent = nil
+	for key, value in props or {} do
+		if key == "Parent" then
+			parent = value
+		else
+			(inst :: any)[key] = value
+		end
+	end
+	for _, child in children or {} do
+		child.Parent = inst
+	end
+	inst.Parent = parent
+	return inst
+end
+
+function Theme.corner(radius: number?): UICorner
+	return Theme.new("UICorner", { CornerRadius = UDim.new(0, radius or 14) })
+end
+
+function Theme.stroke(thickness: number?, color: Color3?): UIStroke
+	return Theme.new("UIStroke", {
+		Thickness = thickness or 3,
+		Color = color or Theme.Colors.Ink,
+		ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+	})
+end
+
+function Theme.textStroke(): UIStroke
+	return Theme.new("UIStroke", { Thickness = 2.5, Color = Theme.Colors.Ink })
+end
+
+function Theme.label(props: { [string]: any }): TextLabel
+	local defaults = {
+		BackgroundTransparency = 1,
+		Font = Theme.Font,
+		TextColor3 = Theme.Colors.White,
+		TextScaled = true,
+	}
+	for k, v in props do
+		defaults[k] = v
+	end
+	local label = Theme.new("TextLabel", defaults)
+	if props.TextColor3 == nil or props.TextColor3 == Theme.Colors.White then
+		Theme.textStroke().Parent = label
+	end
+	return label
+end
+
+-- Chunky button with a squish animation on press.
+function Theme.button(props: { [string]: any }, onClick: () -> ()): TextButton
+	local color = props.Color or Theme.Colors.Green
+	props.Color = nil
+	local defaults = {
+		BackgroundColor3 = color,
+		Font = Theme.Font,
+		TextColor3 = Theme.Colors.White,
+		TextScaled = true,
+		AutoButtonColor = true,
+	}
+	for k, v in props do
+		defaults[k] = v
+	end
+	local button = Theme.new("TextButton", defaults, {
+		Theme.corner(),
+		Theme.stroke(3),
+		Theme.new("UIPadding", {
+			PaddingTop = UDim.new(0.12, 0),
+			PaddingBottom = UDim.new(0.12, 0),
+			PaddingLeft = UDim.new(0.06, 0),
+			PaddingRight = UDim.new(0.06, 0),
+		}),
+	})
+	local scale = Theme.new("UIScale", { Parent = button })
+	Theme.textStroke().Parent = button
+
+	button.Activated:Connect(function()
+		scale.Scale = 0.9
+		TweenService:Create(scale, TweenInfo.new(0.25, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+			Scale = 1,
+		}):Play()
+		onClick()
+	end)
+	return button
+end
+
+function Theme.pop(guiObject: GuiObject)
+	local scale = guiObject:FindFirstChildOfClass("UIScale") or Theme.new("UIScale", { Parent = guiObject })
+	scale.Scale = 0.6
+	TweenService:Create(scale, TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+		Scale = 1,
+	}):Play()
+end
+
+return Theme
