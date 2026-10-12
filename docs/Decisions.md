@@ -6,7 +6,7 @@ tags: [planning, decisions]
 Things I need from you, or choices I made for now that you can change. Newest first. Back to [[Home]].
 
 ## Things only you can do
-- [ ] **Upload images to Roblox** (Asset Manager → Bulk Import) and send me the ids:
+- [ ] **Upload images to Roblox** — UI sheets done 2026-10-12 (icons, icons2, icons3, studs, pets, frogs uploaded from Studio; ids in `Config/UiImages.luau`; re-upload + new ids whenever a sheet changes). Still to do:
   - Pet faces/patterns: 26 PNGs in `assets/textures/pets` → `Config/PetFaces.luau` ([[Art Pipeline]])
   - UI: 4 sheets in `assets/textures/ui` → `Config/UiImages.luau`: `icons.png` + `icons2.png` + `icons3.png` (every icon), `studs.png` (panel texture), `pets.png` + `frogs.png` (every pet/frog picture for menus)
   - Shortcut: create a Roblox **Open Cloud API key** (Assets: write) and add it as a secret for these sessions; then I can upload and fill in the ids myself.

@@ -6,12 +6,12 @@
 local UiImages = {}
 
 UiImages.Ids = {
-	icons = 0, -- icons.png, icons2.png, icons3.png: the icon sheets (layout in Config/IconAtlas)
-	icons2 = 0,
-	icons3 = 0,
-	studs = 0, -- studs.png: tiling brick-stud texture for panels
-	pets = 0, -- pets.png: every pet's picture (layout in Config/PetIconAtlas)
-	frogs = 0, -- frogs.png: every frog's picture (layout in Config/FrogIconAtlas)
+	icons = 78132047664692, -- icons.png, icons2.png, icons3.png: the icon sheets (layout in Config/IconAtlas)
+	icons2 = 93345046140419,
+	icons3 = 137541970315843,
+	studs = 111592566563956, -- studs.png: tiling brick-stud texture for panels
+	pets = 93645169916307, -- pets.png: every pet's picture (layout in Config/PetIconAtlas)
+	frogs = 128928020041908, -- frogs.png: every frog's picture (layout in Config/FrogIconAtlas)
 } :: { [string]: number }
 
 -- Emoji shown until the icon sheet is uploaded.
