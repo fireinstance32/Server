@@ -10,8 +10,14 @@ local new = Theme.new
 
 local Rays = {}
 
--- `color` tints the rays; `count` bars make 2×count rays. Returns the holder.
-function Rays.new(props: { [string]: any }, color: Color3?, count: number?, spin: boolean?): Frame
+-- `color` tints the rays; `count` bars make 2×count rays; `opacity` (0–1,
+-- default 1) fades the whole sunburst (reference cards: faint rays of the
+-- card's own hue). Returns the holder.
+function Rays.new(props: { [string]: any }, color: Color3?, count: number?, spin: boolean?, opacity: number?): Frame
+	local o = opacity or 1
+	local function fade(t: number): number
+		return 1 - (1 - t) * o
+	end
 	local holder = new("Frame", {
 		Name = "Rays",
 		BackgroundTransparency = 1,
@@ -41,9 +47,9 @@ function Rays.new(props: { [string]: any }, color: Color3?, count: number?, spin
 		new("UIGradient", {
 			Transparency = NumberSequence.new({
 				NumberSequenceKeypoint.new(0, 1),
-				NumberSequenceKeypoint.new(0.22, 0.6),
-				NumberSequenceKeypoint.new(0.5, 0.1),
-				NumberSequenceKeypoint.new(0.78, 0.6),
+				NumberSequenceKeypoint.new(0.22, fade(0.6)),
+				NumberSequenceKeypoint.new(0.5, fade(0.1)),
+				NumberSequenceKeypoint.new(0.78, fade(0.6)),
 				NumberSequenceKeypoint.new(1, 1),
 			}),
 			Parent = bar,
@@ -55,7 +61,7 @@ function Rays.new(props: { [string]: any }, color: Color3?, count: number?, spin
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.5, 0.5),
 		BackgroundColor3 = color or Color3.fromRGB(255, 236, 150),
-		BackgroundTransparency = 0.45,
+		BackgroundTransparency = fade(0.45),
 		ZIndex = holder.ZIndex,
 		Parent = holder,
 	}, { new("UICorner", { CornerRadius = UDim.new(0.5, 0) }) })

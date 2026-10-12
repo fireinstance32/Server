@@ -21,22 +21,27 @@ Card.Size = Vector2.new(201, 189)
 
 local INK = Color3.fromRGB(8, 8, 10)
 
--- Card colours sampled from the reference (top → bottom), by row.
+-- Card colours sampled down the reference cards (top → bottom), by row.
+-- Saturated: the reference only lightens near the top.
 local TIERS = {
-	Blue = { Color3.fromRGB(86, 181, 244), Color3.fromRGB(49, 128, 233) },
-	Purple = { Color3.fromRGB(205, 138, 255), Color3.fromRGB(160, 93, 236) },
-	Orange = { Color3.fromRGB(255, 214, 70), Color3.fromRGB(252, 160, 35) },
-	Rainbow = {
-		Color3.fromRGB(165, 20, 255),
-		Color3.fromRGB(60, 60, 247),
-		Color3.fromRGB(14, 175, 200),
-		Color3.fromRGB(190, 235, 30),
-		Color3.fromRGB(250, 145, 9),
-		Color3.fromRGB(235, 40, 30),
-	},
+	Blue = { Color3.fromRGB(56, 178, 252), Color3.fromRGB(36, 118, 234) },
+	Purple = { Color3.fromRGB(202, 132, 255), Color3.fromRGB(136, 70, 226) },
+	Orange = { Color3.fromRGB(255, 205, 40), Color3.fromRGB(245, 142, 12) },
 }
-local GREEN = { Color3.fromRGB(165, 250, 42), Color3.fromRGB(98, 214, 18) }
-local RED = { Color3.fromRGB(243, 41, 37), Color3.fromRGB(172, 6, 5) }
+
+-- Rainbow card: bands at the reference's heights (violet top → red bottom).
+local RAINBOW = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(180, 6, 245)),
+	ColorSequenceKeypoint.new(0.07, Color3.fromRGB(176, 8, 245)),
+	ColorSequenceKeypoint.new(0.24, Color3.fromRGB(86, 30, 255)),
+	ColorSequenceKeypoint.new(0.4, Color3.fromRGB(38, 136, 230)),
+	ColorSequenceKeypoint.new(0.58, Color3.fromRGB(86, 230, 88)),
+	ColorSequenceKeypoint.new(0.72, Color3.fromRGB(244, 224, 6)),
+	ColorSequenceKeypoint.new(0.86, Color3.fromRGB(250, 130, 16)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(228, 36, 36)),
+})
+local GREEN = { Color3.fromRGB(160, 246, 30), Color3.fromRGB(192, 252, 26), Color3.fromRGB(110, 222, 15) } -- yellow-green shine in the middle
+local RED = { Color3.fromRGB(244, 34, 28), Color3.fromRGB(170, 4, 4) }
 
 export type Card = { set: (state: "claimed" | "ready" | "waiting", secondsLeft: number) -> () }
 
@@ -53,7 +58,11 @@ function Card.new(parent: Instance, position: UDim2, tier: string, gift, onClaim
 		ClipsDescendants = true,
 		Parent = parent,
 	}, { Theme.corner(20), Theme.stroke(4, INK) })
-	Gradient.apply(card, TIERS[tier])
+	if tier == "Rainbow" then
+		Gradient.apply(card, { Color3.new(1, 1, 1), Color3.new(1, 1, 1) }).Color = RAINBOW
+	else
+		Gradient.apply(card, TIERS[tier])
+	end
 	Studs.apply(card, 24)
 	local scale = new("UIScale", { Parent = card })
 
@@ -63,7 +72,7 @@ function Card.new(parent: Instance, position: UDim2, tier: string, gift, onClaim
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 0, 0, 93),
 			Parent = card,
-		}, Color3.fromRGB(255, 250, 225), 12, false)
+		}, Color3.fromRGB(255, 236, 120), 12, false, 0.45)
 	end
 	RewardIcon.new(gift.reward, {
 		Size = UDim2.fromOffset(110, 110),
