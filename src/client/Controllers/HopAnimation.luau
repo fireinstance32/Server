@@ -14,6 +14,7 @@ local Game = require(Shared.Config.Game)
 local Frogs = require(Shared.Config.Frogs)
 local Zones = require(Shared.Config.Zones)
 local Ponds = require(Shared.Config.Ponds)
+local Trails = require(Shared.Config.Trails)
 local Format = require(Shared.Util.Format)
 local Models = require(Shared.Util.Models)
 
@@ -28,16 +29,44 @@ local HopAnimation = {}
 local player = Players.LocalPlayer
 local FROG_LIFT = Vector3.new(0, 1, 0) -- pad positions are pad surfaces; lift the frog onto them
 
+-- Adds the equipped trail behind the hopping frog.
+local function attachTrail(frog: Model)
+	local trailId = State.data and State.data.equippedTrail
+	local def = trailId and Trails.ById[trailId]
+	local body = frog.PrimaryPart
+	if not def or not body then
+		return
+	end
+	local a0 = Instance.new("Attachment")
+	a0.Position = Vector3.new(0, 0.6, 0)
+	a0.Parent = body
+	local a1 = Instance.new("Attachment")
+	a1.Position = Vector3.new(0, -0.6, 0)
+	a1.Parent = body
+	local keypoints = {}
+	for k, color in def.colors do
+		table.insert(keypoints, ColorSequenceKeypoint.new((k - 1) / math.max(#def.colors - 1, 1), color))
+	end
+	local trail = Instance.new("Trail")
+	trail.Attachment0 = a0
+	trail.Attachment1 = a1
+	trail.Color = ColorSequence.new(keypoints)
+	trail.Lifetime = 0.6
+	trail.LightEmission = 0.4
+	trail.Transparency = NumberSequence.new(0.1, 1)
+	trail.Parent = body
+end
+
 local function spawnFrog(): Model
 	local frogId = State.data and State.data.equippedFrog or Frogs.Default
 	local def = Frogs.ById[frogId] or Frogs.ById[Frogs.Default]
 	local frog = Models.frog(def.color, 2.4)
 	frog.Parent = Workspace
+	attachTrail(frog)
 	return frog
 end
 
 -- Move the frog from a to b along a parabola over `duration` seconds.
-
 local function hopArc(frog: Model, a: Vector3, b: Vector3, height: number, duration: number)
 	local facing = Vector3.new(b.X - a.X, 0, b.Z - a.Z)
 	local rotation = if facing.Magnitude > 0.01

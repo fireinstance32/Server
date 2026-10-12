@@ -8,6 +8,7 @@ local ShopMenu = require(script.Shop)
 local RebirthMenu = require(script.RebirthMenu)
 local InventoryMenu = require(script.Inventory)
 local ComingSoonMenu = require(script.ComingSoonMenu)
+local TrailsMenu = require(script.TrailsMenu)
 
 local Menus = {}
 
@@ -25,9 +26,7 @@ local MENUS: { [string]: Spec } = {
 	Frogs = { title = "Frogs", icon = "🐸", build = function(body)
 		return InventoryMenu.build(body, "Frogs")
 	end },
-	Trails = { title = "Trails", icon = "✨", build = function(body)
-		return ComingSoonMenu.build(body, "Trails arrive in Phase 2.4")
-	end },
+	Trails = { title = "Trails", icon = "✨", build = TrailsMenu.build },
 	Gifts = { title = "Gifts", icon = "🎁", build = function(body)
 		return ComingSoonMenu.build(body, "Playtime gifts arrive in Phase 3.6")
 	end },

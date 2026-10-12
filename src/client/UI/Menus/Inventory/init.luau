@@ -1,5 +1,5 @@
 -- Inventory window with tabs down the left (reference "My Pets" layout):
--- Frogs, Pets, Boosts, Titles. Pets/Inventory buttons open different tabs.
+-- Frogs, Pets, Trails, Boosts, Titles. Pets/Inventory buttons open different tabs.
 
 local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
@@ -7,6 +7,7 @@ local Window = require(script.Parent.Window)
 local ComingSoonMenu = require(script.Parent.ComingSoonMenu)
 local FrogsTab = require(script.FrogsTab)
 local PetsTab = require(script.PetsTab)
+local TrailsMenu = require(script.Parent.TrailsMenu)
 
 local new = Theme.new
 
@@ -15,6 +16,7 @@ local InventoryMenu = {}
 local TABS = {
 	{ id = "Frogs", icon = "🐸", build = FrogsTab.build },
 	{ id = "Pets", icon = "🐾", build = PetsTab.build },
+	{ id = "Trails", icon = "✨", build = TrailsMenu.build },
 	{ id = "Boosts", icon = "🧪", build = function(content)
 		return ComingSoonMenu.build(content, "Potions arrive in Phase 3.2")
 	end },
@@ -55,7 +57,7 @@ function InventoryMenu.build(body: Frame, startTab: string?)
 
 	for i, tab in TABS do
 		local button = new("TextButton", {
-			Size = UDim2.new(1, 0, 0, 86),
+			Size = UDim2.new(1, 0, 0, 74),
 			Text = "",
 			LayoutOrder = i,
 			Parent = tabColumn,

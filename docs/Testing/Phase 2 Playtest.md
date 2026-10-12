@@ -1,10 +1,10 @@
 ---
 tags: [testing, phase2]
-status: draft
+status: ready
 ---
 # Phase 2 Playtest
 
-> Draft – filled in as Phase 2 steps land. Setup: [[Testing Guide]].
+> Ready to run. Setup: [[Testing Guide]].
 
 ## 2.1 Frog podiums
 - [ ] A row of 11 pedestals along the south side of the plaza, each with its frog on top
@@ -29,3 +29,12 @@ status: draft
 - [ ] 🗑 deletes one pet; "Delete Unequipped" asks "Tap again!" then deletes every unequipped, unlocked pet
 - [ ] Auto Delete: turn on Common, hatch Common Eggs → already-discovered Commons show "AUTO DELETED" on the reveal and don't enter the inventory
 - [ ] Equip Best equips your 3 highest bonuses
+
+## 2.4 Trails
+- [ ] Trails tile opens the Trails window: Leaf 1K, Bubble 10K, Firefly 50K, Sunset 250K (Wins), Rainbow ◎99, Void ◎149
+- [ ] Buying a Wins trail equips it; the multiplier rises by its bonus (breakdown shows "Trail")
+- [ ] River hop: the frog leaves a coloured trail
+- [ ] Unequip removes the trail and its bonus; Robux trails show "not on sale yet"
+
+## 2.5 Inventory
+- [ ] Inventory tile: tabs Frogs, Pets, Trails, Boosts (coming soon), Titles (coming soon); all fit

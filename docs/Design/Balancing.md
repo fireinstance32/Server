@@ -60,6 +60,16 @@ Pets **add** their bonus to the Hops multiplier (reference "+2"). Luck multiplie
 
 Hatch 1 by default; 3 / 8 at once with the HatchTriple / HatchOcto passes. Inventory 50 (+100 with PetStorage), 3 equipped (+2 with ExtraPetSlots).
 
+## Trails
+| Trail | Price | Bonus |
+|---|---|---|
+| Leaf | 1K Wins | +0.5 |
+| Bubble | 10K Wins | +1 |
+| Firefly | 50K Wins | +2 |
+| Sunset | 250K Wins | +4 |
+| Rainbow | Robux 99 | +10 |
+| Void | Robux 149 | +15 |
+
 ## Open questions
 - [ ] Playtest time-to-Zone-9 for a new player (target: ~25 min)
 - [ ] Is the late game too fast once Royal Frog + pets stack?

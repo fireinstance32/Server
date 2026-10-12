@@ -15,6 +15,8 @@ local FUNCTIONS = {
 	"DeletePets", -- ({ uid }) -> ok, message
 	"LockPet", -- (uid, locked) -> ok, message
 	"SetAutoDelete", -- (rarity, enabled) -> ok, message
+	"BuyTrail", -- (trailId) -> ok, message
+	"EquipTrail", -- (trailId | "") -> ok, message
 	"Rebirth", -- () -> ok, message
 	"RedeemCode", -- (code) -> ok, message
 }

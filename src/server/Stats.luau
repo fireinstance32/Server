@@ -10,6 +10,7 @@ local Frogs = require(Shared.Config.Frogs)
 local Pets = require(Shared.Config.Pets)
 local Levels = require(Shared.Config.Levels)
 local Ponds = require(Shared.Config.Ponds)
+local Trails = require(Shared.Config.Trails)
 local Multipliers = require(Shared.Util.Multipliers)
 
 local Passes = require(script.Parent.Passes)
@@ -89,6 +90,16 @@ local MODIFIERS: { Modifier } = {
 		value = function(_, _, context)
 			local pond = context.pond and Ponds.ById[context.pond]
 			return if pond then pond.multiplier else nil
+		end,
+	},
+	{
+		id = "trail",
+		label = "Trail",
+		stat = "hops",
+		kind = "add",
+		value = function(_, data)
+			local trail = data.equippedTrail and Trails.ById[data.equippedTrail]
+			return if trail then trail.bonus else nil
 		end,
 	},
 	{ id = "doubleHops", label = "2x Hops", stat = "hops", kind = "mult", value = passFactor("DoubleHops", 2) },

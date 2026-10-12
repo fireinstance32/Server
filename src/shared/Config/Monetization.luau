@@ -29,6 +29,8 @@ local Products: { [string]: Item } = {
 	SkipRebirth = { id = 0, price = 25, label = "Skip Rebirth" },
 	PhoenixFrog = { id = 0, price = 199, label = "Phoenix Frog" },
 	RainbowEgg = { id = 0, price = 41, label = "Rainbow Egg" },
+	RainbowTrail = { id = 0, price = 99, label = "Rainbow Trail" },
+	VoidTrail = { id = 0, price = 149, label = "Void Trail" },
 }
 
 -- What each Hops pack gives (shown on the buttons too).

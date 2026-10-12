@@ -12,6 +12,8 @@ local Passes = require(script.Parent.Parent.Passes)
 local DataService = require(script.Parent.DataService)
 local ProgressionService = require(script.Parent.ProgressionService)
 local PetService = require(script.Parent.PetService)
+local TrailService = require(script.Parent.TrailService)
+local Trails = require(Shared.Config.Trails)
 local Net = require(Shared.Net)
 local Pets = require(Shared.Config.Pets)
 
@@ -73,6 +75,16 @@ function MonetizationService.start()
 					PetService.refreshModels(player)
 					Net.event("Notify"):FireClient(player, { kind = "Hatch", egg = egg.id, results = results })
 				end)
+				return true
+			end)
+		end
+	end
+
+	for _, trail in Trails.List do
+		local product = trail.product and products[trail.product]
+		if product then
+			register(product.id, function(_, data)
+				TrailService.grant(data, trail.id)
 				return true
 			end)
 		end

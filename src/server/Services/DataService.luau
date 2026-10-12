@@ -37,6 +37,7 @@ local function template()
 		pets = {}, -- [uid: string] = { id: string, equipped: boolean, locked: boolean? }
 		discovered = {}, -- [petId] = true once hatched (for NEW! and the index)
 		autoDelete = {}, -- [rarity] = true: delete those pets right after hatching
+		trails = {}, -- [trailId] = true (equippedTrail: string? is set when one is worn)
 		nextPetUid = 1,
 		codes = {}, -- [code: string] = true
 	}
@@ -102,6 +103,8 @@ local function snapshot(player: Player, data: any)
 		maxPetInventory = Stats.maxPetInventory(player),
 		discovered = data.discovered,
 		autoDelete = data.autoDelete,
+		trails = data.trails,
+		equippedTrail = data.equippedTrail,
 		passes = Passes.ownedList(player),
 		friendBoost = 0, -- filled in by Phase 3.5
 	}

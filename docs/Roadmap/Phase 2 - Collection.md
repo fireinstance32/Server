@@ -23,14 +23,14 @@ tags: [planning, phase2]
 - [x] Bonus totals via 1.1
 - **Done when:** a full inventory is manageable in under 10 seconds. (Final look in Phase 5.3.)
 
-## 2.4 Trails ⭐ NEXT
-- [ ] `Config/Trails.luau`, trail attachment on the frog's hop
-- [ ] Trails menu (equip, small boost through 1.1)
+## 2.4 Trails ✅ (2026-10-12)
+- [x] `Config/Trails.luau` (4 Wins trails + Rainbow/Void Robux trails), trail behind the hopping frog
+- [x] Trails menu + Inventory tab (buy, equip, unequip; +bonus through 1.1)
 
-## 2.5 Inventory menu
-- [ ] One menu with tabs: Frogs, Pets, Trails, Potions (Potions filled in 3.2)
+## 2.5 Inventory menu ✅ (2026-10-12)
+- [x] One menu with tabs: Frogs, Pets, Trails, Boosts (filled in 3.2), Titles
 
-## 2.6 Playtest 🧪
+## 2.6 Playtest 🧪 ⭐ READY FOR YOU
 - [ ] I write the test plan: [[Phase 2 Playtest]], plus any new test commands
 - [ ] You run it in Studio (see [[Testing Guide]]) and report issues
 - [ ] Fix everything found, re-test, then the phase is closed

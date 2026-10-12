@@ -27,6 +27,7 @@ All items live in `src/shared/Config/Monetization.luau` as `{ id, price, label }
 | SkipRebirth | Rebirth without reaching max level | 25 | wired |
 | PhoenixFrog | Unlock + equip Phoenix Frog | 199 | wired |
 | RainbowEgg | Hatch one Rainbow Egg | 41 | wired |
+| RainbowTrail / VoidTrail | Unlock + equip the trail | 99 / 149 | wired |
 
 ## Copy from the reference shop (see [[Stone Skipping Reference]])
 Robux eggs (x1/x3/x8), permanent 2x/10x Wins, tiered Hops packs, Skip Rebirth, Auto Rebirth, offline rewards x2, paid training zones, starter pack, `[GIFT]` version of every product, +pet inventory slots, trails.
