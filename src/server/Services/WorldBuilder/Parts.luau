@@ -10,6 +10,7 @@ Parts.Colors = {
 }
 
 function Parts.block(name: string, size: Vector3, cframe: CFrame, color: Color3, parent: Instance, material: Enum.Material?): Part
+	assert(parent, `Parts.block("{name}") needs a parent`)
 	local p = Instance.new("Part")
 	p.Name = name
 	p.Anchored = true

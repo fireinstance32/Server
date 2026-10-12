@@ -1,10 +1,10 @@
 ---
 tags: [testing, phase1]
-status: draft
+status: ready
 ---
 # Phase 1 Playtest
 
-> Draft – filled in as Phase 1 steps land. Run it once 1.6 is done. Setup: [[Testing Guide]].
+> Ready to run. Setup: [[Testing Guide]]. Report anything that fails (what you did → expected → what happened, + Output window screenshot).
 
 ## 1.1 Multipliers
 - [ ] New player (`/reset`): stats panel shows **Hops x1 • Wins x1**
@@ -57,5 +57,8 @@ status: draft
 - [ ] The camera chases the frog smoothly from behind and returns to your character on landing
 - [ ] Landing card: "ZONE 3: Mossy Rocks" + "123 m • +8 Wins" (+ "NEW BEST!")
 
-## 1.6
-*(added when built)*
+## 1.6 River biomes
+- [ ] Each zone's river banks have their own colour/material (green → mossy → slate → mud → sand…)
+- [ ] Props line the banks: flowers and reeds early, trees, willows, rocks, mushrooms, palms in Sunset Lagoon / King's Pond
+- [ ] The banks and riverbed actually exist (they were missing before this fix)
+- [ ] Crossing into a new zone during a hop shows a "Zone N: Name!" toast

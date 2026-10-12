@@ -41,12 +41,12 @@ Every later system (ponds, levels, potions, friend boost, passes, trails) adds a
 - [x] Landing result card (zone, Wins, best distance)
 - **Done when:** a hop is readable without looking at the stats.
 
-## 1.6 River biomes ⭐ NEXT
-- [ ] Zones become biome sections with floating names and bank colours
-- [ ] Zone-cross toast and banner (already partly built)
+## 1.6 River biomes ✅ (2026-10-12)
+- [x] Zones become biome sections with floating names and bank colours
+- [x] Zone-cross toast and banner (already partly built)
 - **Done when:** you can tell which zone you're in at a glance.
 
-## 1.7 Playtest 🧪
+## 1.7 Playtest 🧪 ⭐ READY FOR YOU
 - [ ] I write the test plan: [[Phase 1 Playtest]], plus any new test commands
 - [ ] You run it in Studio (see [[Testing Guide]]) and report issues
 - [ ] Fix everything found, re-test, then the phase is closed

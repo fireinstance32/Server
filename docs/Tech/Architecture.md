@@ -17,7 +17,7 @@ Rojo maps:
 - `Leaderstats.luau` – the Roblox player-list stats.
 - `Services/`
   - `WorldBuilder/` – generates the greybox map from config (skipped if `Workspace.World` exists)
-    - `init` (entry) · `Parts` (block/sign helpers, palette) · `Environment` (lighting, ground, river water) · `River` (pads, zone arches, portal) · `Plaza` (Hop Zone strip, spawn) · `PondRow` (training ponds) · `Stands` (egg stands, frog shop)
+    - `init` (entry) · `Parts` (block/sign helpers, palette) · `Environment` (lighting, per-zone biome banks, river water) · `Props` (trees, palms, rocks, reeds, flowers, mushrooms) · `River` (pads, zone arches, portal) · `Plaza` (Hop Zone strip, spawn) · `PondRow` (training ponds) · `Stands` (egg stands, frog shop)
   - `DataService` – DataStore load/save, leaderstats, `DataChanged` snapshots.
   - `HopService` – Train/Launch; server-authoritative; validates position + cooldown.
   - `HeldFrogService` – equipped frog in every character's right hand; hidden while it hops.
