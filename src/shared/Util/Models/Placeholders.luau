@@ -1,8 +1,8 @@
 --!strict
--- Placeholder models built from parts so the rough copy needs no uploaded
--- assets. Swap these for real meshes later; callers only rely on PrimaryPart.
+-- Part-built stand-ins used until the Blender models are imported into
+-- ReplicatedStorage.Assets (see Models/init). Callers only rely on PrimaryPart.
 
-local Models = {}
+local Placeholders = {}
 
 local function part(props: { [string]: any }): Part
 	local p = Instance.new("Part")
@@ -27,7 +27,7 @@ local function weldTo(root: BasePart, child: BasePart)
 end
 
 -- A chubby cartoon frog roughly `scale` studs wide, facing +X.
-function Models.frog(color: Color3, scale: number?): Model
+function Placeholders.frog(color: Color3, scale: number?): Model
 	local s = scale or 2
 	local model = Instance.new("Model")
 	model.Name = "Frog"
@@ -87,11 +87,11 @@ function Models.frog(color: Color3, scale: number?): Model
 end
 
 -- Cube animal pet (reference style): rounded cube body, eyes, little ears,
--- and a name tag. Placeholder until the Blender models.
-function Models.pet(name: string, color: Color3, size: number?): Model
+-- (the name tag is added by Models/init).
+function Placeholders.pet(color: Color3, size: number?): Model
 	local s = size or 1.6
 	local model = Instance.new("Model")
-	model.Name = name
+	model.Name = "Pet"
 	local body = part({
 		Name = "Body",
 		Size = Vector3.one * s,
@@ -130,28 +130,12 @@ function Models.pet(name: string, color: Color3, size: number?): Model
 		weldTo(body, ear)
 	end
 
-	local tag = Instance.new("BillboardGui")
-	tag.Size = UDim2.fromOffset(120, 24)
-	tag.StudsOffset = Vector3.new(0, s, 0)
-	tag.AlwaysOnTop = true
-	tag.MaxDistance = 60
-	local label = Instance.new("TextLabel")
-	label.Size = UDim2.fromScale(1, 1)
-	label.BackgroundTransparency = 1
-	label.Text = name
-	label.TextColor3 = Color3.new(1, 1, 1)
-	label.TextStrokeTransparency = 0.3
-	label.Font = Enum.Font.FredokaOne
-	label.TextScaled = true
-	label.Parent = tag
-	tag.Parent = body
-
 	return model
 end
 
 -- Egg shape for stands and the hatch screen. Ball parts are always round,
 -- so a sphere mesh stretches it into an egg.
-function Models.egg(color: Color3, height: number?): Model
+function Placeholders.egg(color: Color3, height: number?): Model
 	local h = height or 4
 	local model = Instance.new("Model")
 	model.Name = "Egg"
@@ -169,4 +153,4 @@ function Models.egg(color: Color3, height: number?): Model
 	return model
 end
 
-return Models
+return Placeholders

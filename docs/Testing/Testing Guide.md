@@ -40,5 +40,6 @@ For each issue, note: **what you did → what you expected → what happened**, 
 - [[Phase 2 Playtest]]
 - [[Phase 3 Playtest]]
 - [[Phase 4 Playtest]]
+- [[Phase 6 Playtest]]
 - [[Phase 7 Playtest]]
 - [[Phase 8 Playtest]]

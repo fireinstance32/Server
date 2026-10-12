@@ -4,6 +4,8 @@ tags: [planning, phase5]
 # Phase 5 – Interface
 *Goal: every screen looks and feels like the references. All systems exist by now (Phases 1–4), so the UI is built once against final data.* Back to [[Roadmap]]. References: [[HUD References]], [[Stone Skipping UI Breakdown]].
 
+> **How we work (decided 2026-10-12):** you design each screen in Figma (file "Frog Hop UI") and send me the frame link. I read it once (1 of the 20 monthly Figma calls) and write the Luau UI code that rebuilds it in the game — you never touch code. Order: Design System → HUD → Menus → Hatch → World UI.
+
 ## 5.1 Design system
 - [ ] Final fonts, colour tokens, stroke weights, corner radii
 - [ ] Image assets: studded "brick" panel texture, button art, Robux chip, icons for every menu and stat (replace emoji)

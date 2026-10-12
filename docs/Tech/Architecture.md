@@ -42,7 +42,7 @@ Rojo maps:
 
 ## Shared (`src/shared`)
 - `Config/` – all balance numbers: `Game`, `Worlds`, `WorldContent/` (one file per world 2–5: frogs, pets, eggs, zones), `Frogs`, `Pets`, `Zones`, `Levels`, `Ponds`, `Trails`, `Potions`, `DailyRewards`, `Gifts`, `Quests`, `Codes`, `Monetization`, `Sounds`, `Dev`, `Security`, `Leaderboards`, `Events`, `Funnel`.
-- `Util/` – `Format` (number text), `Models` (placeholder models), `Multipliers` (pure boost maths), `Hatch` (pure egg odds/picks), `RateLimit` (token bucket), `SessionLock` (save locking rules).
+- `Util/` – `Format` (number text), `Models/` (`init` picks imported meshes or `Placeholders`; `Assets` clones/recolours `ReplicatedStorage.Assets`), `Multipliers` (pure boost maths), `Hatch` (pure egg odds/picks), `RateLimit` (token bucket), `SessionLock` (save locking rules).
 - `Net.luau` – every remote, declared once.
 
 ## Client (`src/client`)
