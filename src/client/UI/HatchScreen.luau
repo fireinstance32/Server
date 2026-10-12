@@ -15,6 +15,8 @@ local Hatch = require(Shared.Util.Hatch)
 
 local Theme = require(script.Parent.Theme)
 local Hud = require(script.Parent.Hud)
+local Icon = require(script.Parent.Components.Icon)
+local PetImage = require(script.Parent.Components.PetImage)
 
 local new = Theme.new
 local C = Theme.Colors
@@ -68,7 +70,7 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 	local clickCatcher = new("TextButton", {
 		Size = UDim2.fromScale(1, 1),
 		BackgroundColor3 = Color3.new(0, 0, 0),
-		BackgroundTransparency = 0.55,
+		BackgroundTransparency = 0.72,
 		Text = "",
 		AutoButtonColor = false,
 		Parent = gui,
@@ -125,29 +127,46 @@ function HatchScreen.play(eggId: string, results: { any }, auto: boolean?)
 			child:Destroy()
 		end
 		if def then
+			-- Reference reveal: name, chance + NEW!, the pet, then bolt +bonus.
 			local nameLabel = Theme.label({
-				Size = UDim2.new(1, 0, 0, 34),
+				Size = UDim2.new(1, 0, 0, 40),
 				Text = def.name,
-				TextColor3 = Pets.RarityColors[def.rarity],
+				TextColor3 = if def.rarity == "Common" then C.White else Pets.RarityColors[def.rarity],
 				Parent = cell,
 			})
-			Theme.textStroke().Parent = nameLabel
+			if not nameLabel:FindFirstChildOfClass("UIStroke") then
+				Theme.textStroke().Parent = nameLabel
+			end
 			local chanceRow = Theme.label({
 				Size = UDim2.new(1, 0, 0, 22),
-				Position = UDim2.fromOffset(0, 34),
-				Text = Hatch.percentText(result.chance or 0)
-					.. (if result.isNew then "   NEW!" elseif result.deleted then "   AUTO DELETED" else ""),
-				TextColor3 = if result.isNew then Color3.fromRGB(120, 255, 120) else C.White,
+				Position = UDim2.fromOffset(0, 40),
+				Text = if result.deleted then "AUTO DELETED" else Hatch.percentText(result.chance or 0),
+				TextColor3 = C.White,
 				Parent = cell,
 			})
 			Theme.textStroke().Parent = chanceRow
-			local view = viewport(cell, Models.pet(def, 3))
-			view.Position = UDim2.fromOffset(0, 58)
-			view.Size = UDim2.new(1, 0, 0, 190)
+			if result.isNew then
+				local newTag = Theme.label({
+					Size = UDim2.fromOffset(70, 26),
+					Position = UDim2.new(0.62, 0, 0, 36),
+					Rotation = 10,
+					Text = "NEW!",
+					TextColor3 = Color3.fromRGB(120, 255, 120),
+					Parent = cell,
+				})
+				Theme.textStroke().Parent = newTag
+			end
+			PetImage.new("pet", result.pet, {
+				Size = UDim2.new(1, -20, 0, 180),
+				Position = UDim2.fromOffset(10, 64),
+				Parent = cell,
+			})
+			Icon.new("bolt", { Size = UDim2.fromOffset(44, 44), Position = UDim2.new(0.5, -64, 0, 248), Parent = cell })
 			local bonus = Theme.label({
-				Size = UDim2.new(1, 0, 0, 40),
-				Position = UDim2.fromOffset(0, 252),
-				Text = `⚡ +{def.bonus}`,
+				Size = UDim2.new(0.5, 0, 0, 40),
+				Position = UDim2.new(0.5, -18, 0, 250),
+				Text = `+{def.bonus}`,
+				TextXAlignment = Enum.TextXAlignment.Left,
 				TextColor3 = Color3.fromRGB(140, 235, 80),
 				Parent = cell,
 			})

@@ -27,12 +27,13 @@ tags: [planning, phase5]
 - [x] Frogs rebuilt as cube frogs (pet builder) with per-frog extras; pet/frog picture sheets (`pets.png`, `frogs.png`)
 - [ ] My Pets details panel, Sort, Index; Settings menu
 
-## 5.4 Reward & hatch animations
-- [ ] Egg hatch: blur, click to crack, reveal card (NEW!, chance %), multi-hatch layout
+## 5.4 Reward & hatch animations 🟡
+- [x] Egg hatch reveal to the reference: floating pet picture, name, chance, tilted NEW!, bolt +bonus, lighter overlay — ![[Hatch Preview.png]]
 - [ ] Level up, rebirth, purchase, daily claim celebrations
 
-## 5.5 World UI
-- [ ] Billboards: egg odds panel (E / R / T), pond and podium signs, zone names, portal gates, limited-stock counters, leaderboards
+## 5.5 World UI 🟡
+- [x] Egg signs: name + price from afar, odds panel with pet pictures and E / R / T keys up close — ![[Egg Signs Preview.png]]
+- [ ] Pond and podium signs, zone names, portal gates, limited-stock counters, leaderboards
 
 ## 5.6 Feedback & juice
 - [ ] Button squish/hover, number count-ups, floating "+N", toasts, sound hooks on every interaction

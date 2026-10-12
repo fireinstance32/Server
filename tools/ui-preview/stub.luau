@@ -253,9 +253,18 @@ function task.spawn(fn, ...)
 	return co
 end
 task.defer = task.spawn
+-- Scenes can let each thread pass WAIT_BUDGET waits instantly (to step
+-- through a sequence like the hatch screen); after that, waits park the
+-- thread for good so endless loops stop.
+WAIT_BUDGET = 0
+local waits = setmetatable({}, { __mode = "k" })
 function task.wait(t)
 	if coroutine.isyieldable() then
-		coroutine.yield()
+		local co = coroutine.running()
+		waits[co] = (waits[co] or 0) + 1
+		if waits[co] > WAIT_BUDGET then
+			coroutine.yield()
+		end
 	end
 	return t or 0
 end
@@ -512,6 +521,11 @@ Instance = {
 			rawset(obj, "Enabled", true)
 		elseif class == "UIScale" then
 			rawset(obj, "Scale", 1)
+		elseif BASES.BasePart[class] then
+			rawset(obj, "CFrame", CFrame.new())
+			rawset(obj, "Size", Vector3.new(4, 1, 2))
+			rawset(obj, "Color", Color3.new(0.6, 0.6, 0.6))
+			rawset(obj, "Transparency", 0)
 		elseif class == "Humanoid" then
 			rawset(obj, "Health", 100)
 		end
@@ -657,6 +671,31 @@ end
 
 function DUMP_GUI()
 	return dump(playerGui)
+end
+
+-- Lays every BillboardGui out flat on a ScreenGui so world signs can be
+-- previewed (they normally float over parts).
+function FLATTEN_BILLBOARDS()
+	local screen = Instance.new("ScreenGui")
+	screen.Name = "Billboards"
+	local x, y, rowHeight = 40, 40, 0
+	for _, gui in playerGui:GetDescendants() do
+		if gui.ClassName == "BillboardGui" then
+			local size = gui.Size
+			local w, h = size.X.Offset, size.Y.Offset
+			if x + w > 1880 then
+				x, y, rowHeight = 40, y + rowHeight + 40, 0
+			end
+			rawset(gui, "ClassName", "Frame")
+			gui.BackgroundTransparency = 1
+			gui.Position = UDim2.fromOffset(x, y)
+			gui.Visible = true
+			gui.Parent = screen
+			x += w + 40
+			rowHeight = math.max(rowHeight, h)
+		end
+	end
+	screen.Parent = playerGui
 end
 
 -- Sends a snapshot to the client the way the server does.
