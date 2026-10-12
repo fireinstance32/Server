@@ -45,5 +45,6 @@ tags: [planning, phase5]
 - [ ] Phone layout (scaled tiles, thumb-reach HOP button), tablet, gamepad navigation
 
 ## 5.8 Playtest 🧪
-- [ ] I write the test plan ("Phase 5 Playtest"), you run it in Studio (see [[Testing Guide]]), we fix what you find
+- [x] I write the test plan: [[Phase 5 Playtest]]
+- [ ] You run it in Studio (see [[Testing Guide]]), we fix what you find
 - **Done when:** every check in the playtest note passes.
