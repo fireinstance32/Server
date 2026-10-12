@@ -13,14 +13,30 @@ tags: [tech]
 
 Offline checks (no Studio needed): `cd tools/luau-check && npm install && npm run check` (compile + lint + unit tests).
 
-## Auto-pull with Obsidian Git
-The vault is the repo, so the **Obsidian Git** plugin keeps notes *and* code up to date (Rojo then syncs the code into Studio).
-1. Settings → Community plugins → Turn on → Browse → **Git** (by Vinzent) → Install → Enable.
-2. Plugin settings:
-   - **Auto pull interval (minutes):** `1`
-   - **Pull on startup:** on
-   - **Auto commit-and-sync interval:** `0` (off – only Claude pushes)
-   - **Push on commit-and-sync:** off
-3. Command palette → "Git: Pull" to pull on demand.
+## Two-way sync with Obsidian Git (no more stash/pull)
+The vault is the repo. Obsidian Git now **commits your note edits and pushes them**, and **pulls Claude's changes** every minute, so nothing gets stuck. Rojo then syncs the pulled code into Studio.
 
-See [[Architecture]] for where code lives.
+### One-time setup (PowerShell, in `C:\1FrogHop`)
+```powershell
+git config user.name "Ben Lewis"
+git config user.email "fireinstance32@gmail.com"
+git config pull.rebase true
+git config rebase.autoStash true
+```
+`pull.rebase` + `rebase.autoStash` mean a plain `git pull` never refuses because of local edits; they're set aside and put back automatically.
+
+### Obsidian Git settings
+| Setting | Value |
+|---|---|
+| Sync method | **Rebase** |
+| Auto commit-and-sync interval (minutes) | **1** |
+| Auto pull interval (minutes) | **1** |
+| Pull on startup | **On** |
+| Push on commit-and-sync | **On** |
+| Pull before push | **On** |
+| Commit message | `vault: {{date}}` |
+
+Also turn off **Settings → Files and links → Automatically update internal links**. Obsidian rewriting links on its own is what caused the stuck pulls.
+
+### If it ever gets stuck
+Command palette → **Git: Pull**. If it reports a conflict, tell Claude which note; Claude merges it.

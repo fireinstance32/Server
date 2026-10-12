@@ -20,6 +20,7 @@ Roblox "+1" incremental game: press **HOP**, your frog leaps across lily pads, e
 ## Tech
 - [[Setup - Rojo and Studio]]
 - [[Architecture]]
+- [[Art Pipeline]]
 
 ## Testing
 - [[Testing Guide]]

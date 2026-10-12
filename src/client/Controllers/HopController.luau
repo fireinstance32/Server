@@ -1,6 +1,7 @@
 -- Drives the HOP button: works out where the player stands (a pond's stand
 -- pad → Train, the river dock → Launch), asks the server for a result, then
--- hands it to HopAnimation. Also runs auto-train (free) and Auto Hop (pass).
+-- hands it to HopAnimation. Standing on an unlocked pond's pad trains
+-- automatically (no button); Auto Hop (pass) repeats river launches.
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -21,7 +22,6 @@ local HopController = {}
 
 local player = Players.LocalPlayer
 local busy = false
-local autoTrain = false -- free toggle shown while on a pond pad
 local autoHop = false -- Auto Hop pass: repeats river launches
 
 local function rootPart(): BasePart?
@@ -89,10 +89,6 @@ function HopController.hop()
 	busy = false
 end
 
-function HopController.setAutoTrain(enabled: boolean)
-	autoTrain = enabled
-end
-
 function HopController.setAutoHop(enabled: boolean)
 	autoHop = enabled
 end
@@ -109,7 +105,7 @@ function HopController.init()
 		if busy then
 			return
 		end
-		local wantsAuto = (mode == "Train" and autoTrain and not locked) or (mode == "Launch" and autoHop)
+		local wantsAuto = (mode == "Train" and not locked) or (mode == "Launch" and autoHop)
 		if wantsAuto then
 			task.spawn(HopController.hop)
 		end

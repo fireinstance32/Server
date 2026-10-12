@@ -23,7 +23,7 @@ Every later system (ponds, levels, potions, friend boost, passes, trails) adds a
 - [x] `Config/Ponds.luau`: ponds gated by rebirths (0→1x, 2→4x, 4→10x, 6→20x) + Robux ponds valid in all worlds (3x / 15x / 50x)
 - [x] World: ponds in a row with LOCKED/UNLOCKED + requirement signs
 - [x] Each pond has a **training pad**; standing on it trains, with "+N Hops" pops per bounce
-- [x] **AUTO** toggle while on a pad (free); Auto Hop pass becomes launch-only
+- [x] Standing on an unlocked pad **trains automatically** (no toggle, no button); Auto Hop pass is launch-only
 - [x] Pond multiplier added to the boost list (`Stats` → "Pond"); server checks the pad and the unlock
 - [x] Signs drawn per player (lock state differs per player)
 - **Done when:** a new player trains in pond 1 and sees pond 2 locked behind 2 rebirths.

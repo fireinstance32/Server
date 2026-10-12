@@ -17,7 +17,6 @@ Hud.init({
 	end,
 	openMenu = Menus.open,
 	setAutoHop = HopController.setAutoHop,
-	setAutoTrain = HopController.setAutoTrain,
 })
 Menus.init()
 HopController.init()
