@@ -11,6 +11,7 @@ local Dev = require(Shared.Config.Dev)
 local Levels = require(Shared.Config.Levels)
 local Frogs = require(Shared.Config.Frogs)
 local Game = require(Shared.Config.Game)
+local Ponds = require(Shared.Config.Ponds)
 local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
@@ -89,15 +90,19 @@ local COMMANDS: { [string]: Command } = {
 		end,
 	},
 	goto = {
-		usage = "/goto train|river  teleport to a hop spot",
+		usage = "/goto river | train | pond <1-7>  teleport to a hop spot",
 		run = function(player, _, args)
 			local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart") :: BasePart?
 			if not root then
 				return "No character"
 			end
-			local target = if args[1] == "river" then Game.LaunchDock else Game.TrainingPond
-			root.CFrame = CFrame.new(target + Vector3.new(0, 5, 0))
-			return `Teleported to {if args[1] == "river" then "the river dock" else "the training pond"}`
+			if args[1] == "river" then
+				root.CFrame = CFrame.new(Game.LaunchDock + Vector3.new(0, 5, 0))
+				return "Teleported to the river dock"
+			end
+			local pond = Ponds.List[tonumber(args[2]) or 1] or Ponds.List[1]
+			root.CFrame = CFrame.new(Ponds.standPosition(pond) + Vector3.new(0, 5, 0))
+			return `Teleported to {pond.name}`
 		end,
 	},
 	reset = {

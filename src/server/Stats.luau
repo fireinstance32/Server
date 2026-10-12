@@ -9,14 +9,15 @@ local Game = require(Shared.Config.Game)
 local Frogs = require(Shared.Config.Frogs)
 local Pets = require(Shared.Config.Pets)
 local Levels = require(Shared.Config.Levels)
+local Ponds = require(Shared.Config.Ponds)
 local Multipliers = require(Shared.Util.Multipliers)
 
 local Passes = require(script.Parent.Passes)
 
 export type StatName = "hops" | "wins" | "luck"
 
--- Optional situation info, e.g. { mode = "Train", pond = "Starter" } once
--- ponds exist. Modifiers that don't care ignore it.
+-- Optional situation info, e.g. { mode = "Train", pond = "Lotus" } or
+-- { mode = "Launch", zone = 3 }. Modifiers that don't care ignore it.
 export type Context = { [string]: any }
 
 type Modifier = {
@@ -75,6 +76,16 @@ local MODIFIERS: { Modifier } = {
 		kind = "add",
 		value = function(_, data)
 			return Levels.hopsBonus(data.level)
+		end,
+	},
+	{
+		id = "pond",
+		label = "Pond",
+		stat = "hops",
+		kind = "mult",
+		value = function(_, _, context)
+			local pond = context.pond and Ponds.ById[context.pond]
+			return if pond then pond.multiplier else nil
 		end,
 	},
 	{ id = "doubleHops", label = "2x Hops", stat = "hops", kind = "mult", value = passFactor("DoubleHops", 2) },

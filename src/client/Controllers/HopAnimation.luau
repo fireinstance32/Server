@@ -13,6 +13,7 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Frogs = require(Shared.Config.Frogs)
 local Zones = require(Shared.Config.Zones)
+local Ponds = require(Shared.Config.Ponds)
 local Format = require(Shared.Util.Format)
 local Models = require(Shared.Util.Models)
 
@@ -67,14 +68,16 @@ local function splash(position: Vector3)
 end
 
 function HopAnimation.playTraining(result)
+	local pond = Ponds.ById[result.pond] or Ponds.List[1]
 	local frog = spawnFrog()
 	local perHop = result.hopsGained / result.bounces
-	local start = math.random(1, Game.TrainingPadCount)
-	local from = Game.trainingPadPosition(start) + FROG_LIFT
+	local start = math.random(1, Ponds.PadsPerPond)
+	local lift = FROG_LIFT + Vector3.new(0, Ponds.SurfaceY, 0)
+	local from = Ponds.padPosition(pond, start) + lift
 	frog:PivotTo(CFrame.new(from))
 	local hopTime = (Game.TrainingCooldown * 0.9) / result.bounces
 	for i = 1, result.bounces do
-		local to = Game.trainingPadPosition((start + i - 1) % Game.TrainingPadCount + 1) + FROG_LIFT
+		local to = Ponds.padPosition(pond, (start + i - 1) % Ponds.PadsPerPond + 1) + lift
 		hopArc(frog, from, to, 3, hopTime)
 		splash(to)
 		Hud.floatText(`+{Format.abbreviate(perHop)}`, Theme.Colors.Green)

@@ -11,12 +11,12 @@ Game.RiverOrigin = Vector3.new(0, 0, 0)
 Game.RiverWidth = 44
 Game.PadSpacing = 12
 
--- Where players stand to use each mode, and how close they must be.
+-- Where players stand to launch, and how close they must be.
+-- (Training happens at the ponds in Config/Ponds.)
 Game.LaunchDock = Vector3.new(-14, 0, 0)
-Game.TrainingPond = Vector3.new(-70, 0.5, 60) -- Y = plaza surface
 Game.UseRadius = 22
 
--- Training: a short hop session in the small pond.
+-- Training: a short hop session on a training pond.
 Game.TrainingBounces = 5
 Game.TrainingCooldown = 0.6
 
@@ -46,14 +46,6 @@ end
 -- animation agree on where every pad is.
 function Game.padPosition(i: number): Vector3
 	return Game.RiverOrigin + Vector3.new(i * Game.PadSpacing, 0.3, math.sin(i * 0.7) * 6)
-end
-
--- Pads in the training pond sit on a ring.
-Game.TrainingPadCount = 8
-Game.TrainingPondRadius = 26
-function Game.trainingPadPosition(i: number): Vector3
-	local angle = (i / Game.TrainingPadCount) * math.pi * 2
-	return Game.TrainingPond + Vector3.new(math.cos(angle) * 14, 0.3, math.sin(angle) * 14)
 end
 
 function Game.flightTime(bounces: number): number

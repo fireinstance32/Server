@@ -17,7 +17,7 @@ Rojo maps:
 - `Leaderstats.luau` – the Roblox player-list stats.
 - `Services/`
   - `WorldBuilder/` – generates the greybox map from config (skipped if `Workspace.World` exists)
-    - `init` (entry) · `Parts` (block/sign helpers, palette) · `Environment` (lighting, ground, river water) · `River` (pads, zone arches, portal) · `Plaza` (dock, training pond, spawn) · `Stands` (egg stands, frog shop)
+    - `init` (entry) · `Parts` (block/sign helpers, palette) · `Environment` (lighting, ground, river water) · `River` (pads, zone arches, portal) · `Plaza` (dock, spawn) · `PondRow` (training ponds) · `Stands` (egg stands, frog shop)
   - `DataService` – DataStore load/save, leaderstats, `DataChanged` snapshots.
   - `HopService` – Train/Launch; server-authoritative; validates position + cooldown.
   - `ProgressionService` – XP/levels, rebirths, codes.
@@ -27,7 +27,7 @@ Rojo maps:
   - `DevService` – Studio-only test commands (see [[Testing Guide]]).
 
 ## Shared (`src/shared`)
-- `Config/` – all balance numbers: `Game`, `Frogs`, `Pets`, `Zones`, `Levels`, `Codes`, `Monetization`, `Sounds`, `Dev`.
+- `Config/` – all balance numbers: `Game`, `Frogs`, `Pets`, `Zones`, `Levels`, `Ponds`, `Codes`, `Monetization`, `Sounds`, `Dev`.
 - `Util/` – `Format` (number text), `Models` (placeholder models), `Multipliers` (pure boost maths).
 - `Net.luau` – every remote, declared once.
 
@@ -35,15 +35,17 @@ Rojo maps:
 - `State` – latest snapshot + `observe()`.
 - `UI/Theme` – colours, fonts, `new()` helper, chunky buttons.
 - `Purchases` – prompts passes/products by config name; `owns(pass)` from the snapshot.
+- `PondAccess` – which ponds this player can use (signs, HOP button, auto-train).
 - `UI/Components/` – reusable pieces: `Gradient` (presets), `RobuxChip`, `Badge`, `IconTile`, `PassCard`.
-- `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `AutoRebirth` · `Popups`
+- `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `AutoRebirth` · `AutoTrain` · `Popups`
 - `UI/Menus/` – `init` (open/close by name) · `Window` (panel, list, grid, card, button) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `CodesSection`) · `RebirthMenu` · `Inventory/` (`FrogsTab`, `PetsTab`) · `ComingSoonMenu`
 - `Controllers/`
-  - `HopController` – mode detection, server call, teleports
+  - `HopController` – spot detection (pond pad / dock), server call, auto-train and Auto Hop
   - `HopAnimation` – frog hop visuals, splashes, camera, landing banner
   - `NotifyController` – level-up banners, dev messages, sound hook
   - `PetFollowController` – moves pets behind owners locally
   - `PromptController` – egg stands and shop prompts
+  - `PondSigns` – per-player pond signs (requirement, LOCKED/UNLOCKED, multiplier)
 
 ## Rules
 - Server decides every reward; the client only animates.
@@ -68,4 +70,5 @@ end },
 | Pets | hops | mult `1 + Σ(pet − 1)` |
 | 2x Hops pass | hops | mult 2 |
 | Level | hops | add `0.02 × (level − 1)` |
+| Pond (training only) | hops | mult = pond multiplier |
 | 2x Wins pass | wins | mult 2 |

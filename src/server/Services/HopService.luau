@@ -8,11 +8,13 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Zones = require(Shared.Config.Zones)
+local Ponds = require(Shared.Config.Ponds)
 local Net = require(Shared.Net)
 
 local Stats = require(script.Parent.Parent.Stats)
 local DataService = require(script.Parent.DataService)
 local ProgressionService = require(script.Parent.ProgressionService)
+local Passes = require(script.Parent.Parent.Passes)
 
 local HopService = {}
 
@@ -28,15 +30,15 @@ local function rootPosition(player: Player): Vector3?
 	return if root then (root :: BasePart).Position else nil
 end
 
-local function train(player: Player, data: any)
+local function train(player: Player, data: any, pond: Ponds.Pond)
 	local bounces = Game.TrainingBounces
-	local context = { mode = "Train" }
+	local context = { mode = "Train", pond = pond.id }
 	local hopsGained = math.floor(bounces * Stats.perBounce(data) * Stats.hopsMultiplier(player, data, context))
 	data.hops += hopsGained
 	ProgressionService.addXp(player, data, bounces)
 	busyUntil[player] = os.clock() + Game.TrainingCooldown
 	DataService.changed(player)
-	return { ok = true, mode = "Train", bounces = bounces, hopsGained = hopsGained }
+	return { ok = true, mode = "Train", pond = pond.id, bounces = bounces, hopsGained = hopsGained }
 end
 
 local function launch(player: Player, data: any)
@@ -96,10 +98,17 @@ local function onHop(player: Player, mode: unknown)
 	end
 
 	if mode == "Train" then
-		if flatDistance(position, Game.TrainingPond) > Game.UseRadius then
-			return { ok = false, message = "Go to the Training Pond!" }
+		local pond = Ponds.at(position)
+		if not pond then
+			return { ok = false, message = "Stand on a training pond's pad!" }
 		end
-		return train(player, data)
+		local locked = Ponds.lockReason(pond, data.rebirths, function(pass)
+			return Passes.owns(player, pass)
+		end)
+		if locked then
+			return { ok = false, message = `{pond.name}: {locked}` }
+		end
+		return train(player, data, pond)
 	else
 		if flatDistance(position, Game.LaunchDock) > Game.UseRadius then
 			return { ok = false, message = "Go to the River Dock!" }

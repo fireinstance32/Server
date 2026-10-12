@@ -7,6 +7,7 @@ local Environment = require(script.Environment)
 local River = require(script.River)
 local Plaza = require(script.Plaza)
 local Stands = require(script.Stands)
+local PondRow = require(script.PondRow)
 
 local WorldBuilder = {}
 
@@ -27,6 +28,7 @@ function WorldBuilder.init()
 	River.build(world)
 	Plaza.build(world)
 	Stands.build(world)
+	PondRow.build(world)
 end
 
 return WorldBuilder

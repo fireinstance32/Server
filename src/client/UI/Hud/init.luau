@@ -22,6 +22,7 @@ local IconGrid = require(script.IconGrid)
 local PassColumn = require(script.PassColumn)
 local TopBar = require(script.TopBar)
 local AutoRebirth = require(script.AutoRebirth)
+local AutoTrain = require(script.AutoTrain)
 
 local Hud = {}
 
@@ -32,15 +33,20 @@ Hud.toast = Popups.toast
 Hud.floatText = Popups.floatText
 Hud.banner = Popups.banner
 
--- mode: "Train", "Launch" or nil (not at a hop spot → button hidden).
-function Hud.setHopMode(mode: string?)
+-- mode: "Train" (with the pond), "Launch", or nil (not at a hop spot →
+-- button hidden). `locked` = standing at a pond the player can't use yet.
+function Hud.setHopMode(mode: string?, pond: any?, locked: boolean?)
 	hopButton.Visible = mode ~= nil
 	AutoRebirth.setVisible(mode == "Train")
+	AutoTrain.setVisible(mode == "Train" and not locked)
 	if mode == "Launch" then
 		hopButton.Text = "HOP! 🐸"
 		Gradient.apply(hopButton, "Blue")
+	elseif mode == "Train" and locked then
+		hopButton.Text = if pond and pond.pass then "UNLOCK 🔒" else "LOCKED 🔒"
+		Gradient.apply(hopButton, "Grey")
 	elseif mode == "Train" then
-		hopButton.Text = "TRAIN 💪"
+		hopButton.Text = if pond then `TRAIN {pond.multiplier}x 💪` else "TRAIN 💪"
 		Gradient.apply(hopButton, "Green")
 	end
 end
@@ -53,6 +59,7 @@ function Hud.init(callbacks: {
 	onHop: () -> (),
 	openMenu: (string) -> (),
 	setAutoHop: (boolean) -> (),
+	setAutoTrain: (boolean) -> (),
 })
 	gui = Theme.new("ScreenGui", {
 		Name = "FrogHopHud",
@@ -75,6 +82,7 @@ function Hud.init(callbacks: {
 	LevelBar.init(bottom, 44, 60)
 	PackRow.init(bottom, 112, 72)
 	AutoRebirth.init(bottom)
+	AutoTrain.init(bottom, callbacks.setAutoTrain)
 
 	hopButton = Theme.button({
 		Name = "HopButton",

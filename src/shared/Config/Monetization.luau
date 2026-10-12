@@ -12,6 +12,10 @@ local Passes: { [string]: Item } = {
 	DoubleHops = { id = 0, price = 5, label = "+2x Hops" },
 	DoubleWins = { id = 0, price = 54, label = "2x Wins" },
 	ExtraPetSlots = { id = 0, price = 149, label = "+2 Pet Slots" },
+	-- Robux training ponds (Config/Ponds), valid in all worlds.
+	PondGolden = { id = 0, price = 90, label = "Golden Pond (3x)" },
+	PondRainbow = { id = 0, price = 225, label = "Rainbow Pond (15x)" },
+	PondCosmic = { id = 0, price = 540, label = "Cosmic Pond (50x)" },
 }
 
 local Products: { [string]: Item } = {

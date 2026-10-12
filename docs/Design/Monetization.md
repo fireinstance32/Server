@@ -15,6 +15,7 @@ All items live in `src/shared/Config/Monetization.luau` as `{ id, price, label }
 | DoubleHops | x2 Hops | 5 | wired |
 | DoubleWins | x2 Wins | 54 | wired |
 | ExtraPetSlots | +2 equipped pets | 149 | wired |
+| PondGolden / PondRainbow / PondCosmic | Unlock the 3x / 15x / 50x training ponds (all worlds) | 90 / 225 / 540 | wired |
 
 ## Developer products
 | Product | Effect | Shown price | Status |

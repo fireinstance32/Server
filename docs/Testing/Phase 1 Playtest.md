@@ -22,8 +22,8 @@ status: draft
 
 ## HUD first pass (layout, menus)
 - [ ] Layout matches [[HUD References#Frog Hop HUD layout (spec for 5.2)]]: tile grid left, pass cards right, AUTO HOP top, Hops / multiplier / Level bar / packs bottom-centre, Rebirths / Wins / Friend Boost bottom-left
-- [ ] HOP button only appears at the Training Pond ("TRAIN 💪") or River Dock ("HOP! 🐸"); `/goto train`, `/goto river`
-- [ ] AUTO REBIRTH button only shows at the Training Pond
+- [ ] HOP button only appears on a pond pad or at the River Dock ("HOP! 🐸"); `/goto pond 1`, `/goto river`
+- [ ] AUTO REBIRTH button only shows on a pond pad
 - [ ] Click "xN Multiplier" → breakdown panel lists Rebirths / Pets / Level
 - [ ] Rebirth tile badge shows % to max level, "!" at max
 - [ ] Every Robux button (packs, passes, Starter Pack, Skip Rebirth, Auto Hop) shows "…: not on sale yet" (ids are still 0)
@@ -33,5 +33,15 @@ status: draft
 - [ ] Trails / Gifts open "Coming soon"
 - [ ] Clicking the same tile again closes the window; red ✕ closes it
 
-## 1.3 – 1.6
+## 1.3 Training ponds
+- [ ] A row of 7 ponds sits along the north side of the plaza (`/goto pond 1` … `/goto pond 7`)
+- [ ] Signs: Starter "🔁 0 · UNLOCKED · 1x HOPS"; Lotus "🔁 2 · LOCKED · 4x HOPS"; Golden/Rainbow/Cosmic "ALL WORLDS ◎ 90/225/540 · LOCKED"
+- [ ] Standing on the orange stand pad shows "TRAIN 1x 💪"; stepping off hides the button
+- [ ] Training hops the frog around that pond's lily pads; Hops gained = 5 × frog × multiplier
+- [ ] On a locked rebirth pond the button says "LOCKED 🔒" and pressing it explains why; a Robux pond says "UNLOCK 🔒" (shows "not on sale yet" for now)
+- [ ] `/rebirths 2` → Lotus turns UNLOCKED; training there shows the "Pond x4" line in the multiplier breakdown
+- [ ] AUTO TRAIN (free) appears on an unlocked pad; ON keeps training until you step off
+- [ ] AUTO HOP (pass) now only repeats river launches, not training
+
+## 1.4 – 1.6
 *(added as each step is built)*

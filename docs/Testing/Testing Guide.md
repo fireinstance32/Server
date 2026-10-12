@@ -23,7 +23,7 @@ Type these in the game chat. They only work in Studio (or for user ids listed in
 | `/maxlevel` | Jump to MAX LEVEL |
 | `/rebirths 2` | Set Rebirths |
 | `/frogs` | Unlock every frog |
-| `/goto train` / `/goto river` | Teleport to the Training Pond / River Dock |
+| `/goto river` / `/goto pond 3` | Teleport to the River Dock / a training pond (1–7) |
 | `/reset` | Wipe your data to a brand-new player |
 
 ## Reporting a problem

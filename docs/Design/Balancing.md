@@ -20,6 +20,19 @@ All numbers live in `src/shared/Config/`. Edit there, not in services. Pricing c
 | Royal | 40K | 500 |
 | Phoenix | Robux | 1000 |
 
+## Training ponds
+| Pond | Unlock | Multiplier |
+|---|---|---|
+| Starter | 0 rebirths | 1x |
+| Lotus | 2 rebirths | 4x |
+| Crystal | 4 rebirths | 10x |
+| Royal | 6 rebirths | 20x |
+| Golden | Robux 90 (all worlds) | 3x |
+| Rainbow | Robux 225 (all worlds) | 15x |
+| Cosmic | Robux 540 (all worlds) | 50x |
+
+Training = 5 pads × frog Hops/pad × multiplier, every 0.6 s.
+
 ## Zones (World 1)
 | # | Name | Distance | Wins |
 |---|---|---|---|
