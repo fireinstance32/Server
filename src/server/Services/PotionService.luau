@@ -7,9 +7,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Potions = require(Shared.Config.Potions)
-local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
+local Remotes = require(script.Parent.Parent.Remotes)
 
 local PotionService = {}
 
@@ -36,7 +36,7 @@ local function use(player: Player, potionId: unknown): (boolean, string)
 end
 
 function PotionService.start()
-	Net.func("UsePotion").OnServerInvoke = use
+	Remotes.handle("UsePotion", use)
 
 	-- Clear expired potions so the client's multiplier drops when they end.
 	task.spawn(function()

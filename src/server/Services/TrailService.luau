@@ -5,9 +5,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Trails = require(Shared.Config.Trails)
-local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
+local Remotes = require(script.Parent.Parent.Remotes)
 
 local TrailService = {}
 
@@ -56,8 +56,8 @@ local function equip(player: Player, trailId: unknown): (boolean, string)
 end
 
 function TrailService.start()
-	Net.func("BuyTrail").OnServerInvoke = buy
-	Net.func("EquipTrail").OnServerInvoke = equip
+	Remotes.handle("BuyTrail", buy)
+	Remotes.handle("EquipTrail", equip)
 end
 
 return TrailService

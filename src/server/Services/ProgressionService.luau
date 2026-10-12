@@ -8,6 +8,7 @@ local Codes = require(Shared.Config.Codes)
 local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
+local Remotes = require(script.Parent.Parent.Remotes)
 
 local ProgressionService = {}
 
@@ -73,8 +74,8 @@ local function redeemCode(player: Player, input: unknown): (boolean, string)
 end
 
 function ProgressionService.start()
-	Net.func("Rebirth").OnServerInvoke = rebirth
-	Net.func("RedeemCode").OnServerInvoke = redeemCode
+	Remotes.handle("Rebirth", rebirth)
+	Remotes.handle("RedeemCode", redeemCode)
 end
 
 return ProgressionService

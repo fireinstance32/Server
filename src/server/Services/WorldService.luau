@@ -6,9 +6,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Worlds = require(Shared.Config.Worlds)
 local Format = require(Shared.Util.Format)
-local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
+local Remotes = require(script.Parent.Parent.Remotes)
 
 local WorldService = {}
 
@@ -42,7 +42,7 @@ function WorldService.travel(player: Player, worldId: unknown): (boolean, string
 end
 
 function WorldService.start()
-	Net.func("TravelWorld").OnServerInvoke = WorldService.travel
+	Remotes.handle("TravelWorld", WorldService.travel)
 end
 
 return WorldService

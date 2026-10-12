@@ -10,13 +10,13 @@ local Game = require(Shared.Config.Game)
 local Zones = require(Shared.Config.Zones)
 local Ponds = require(Shared.Config.Ponds)
 local Worlds = require(Shared.Config.Worlds)
-local Net = require(Shared.Net)
 
 local Stats = require(script.Parent.Parent.Stats)
 local DataService = require(script.Parent.DataService)
 local ProgressionService = require(script.Parent.ProgressionService)
 local HeldFrogService = require(script.Parent.HeldFrogService)
 local Passes = require(script.Parent.Parent.Passes)
+local Remotes = require(script.Parent.Parent.Remotes)
 
 local HopService = {}
 
@@ -129,7 +129,9 @@ local function onHop(player: Player, mode: unknown)
 end
 
 function HopService.start()
-	Net.func("Hop").OnServerInvoke = onHop
+	Remotes.handle("Hop", onHop, function(message)
+		return { ok = false, message = message }
+	end)
 	Players.PlayerRemoving:Connect(function(player)
 		busyUntil[player] = nil
 	end)

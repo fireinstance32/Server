@@ -15,6 +15,7 @@ local Net = require(Shared.Net)
 local Passes = require(script.Parent.Parent.Parent.Passes)
 local DataService = require(script.Parent.Parent.DataService)
 local Handlers = require(script.Parent.Handlers)
+local Remotes = require(script.Parent.Parent.Parent.Remotes)
 
 local Gifting = {}
 
@@ -114,7 +115,7 @@ function Gifting.start()
 		return DataStoreService:GetDataStore("FrogHop_PendingGifts_v1")
 	end)
 	pendingStore = if ok then result else nil
-	Net.func("RequestGift").OnServerInvoke = request
+	Remotes.handle("RequestGift", request)
 	DataService.Loaded:Connect(onLoaded)
 	Players.PlayerRemoving:Connect(function(player)
 		pending[player] = nil

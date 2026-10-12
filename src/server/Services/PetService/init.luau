@@ -8,12 +8,12 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Pets = require(Shared.Config.Pets)
 local Models = require(Shared.Util.Models)
-local Net = require(Shared.Net)
 
 local Stats = require(script.Parent.Parent.Stats)
 local DataService = require(script.Parent.DataService)
 local Hatching = require(script.Hatching)
 local Management = require(script.Management)
+local Remotes = require(script.Parent.Parent.Remotes)
 
 local PetService = {}
 
@@ -114,21 +114,21 @@ end
 
 function PetService.start()
 	Hatching.onHatched = PetService.refreshModels
-	Net.func("HatchEgg").OnServerInvoke = function(player, eggId, count)
+	Remotes.handle("HatchEgg", function(player, eggId, count)
 		return Hatching.hatch(player, eggId, count)
-	end
-	Net.func("EquipPet").OnServerInvoke = equipPet
-	Net.func("UnequipPet").OnServerInvoke = unequipPet
-	Net.func("EquipBestPets").OnServerInvoke = equipBest
-	Net.func("DeletePets").OnServerInvoke = function(player, uids)
+	end)
+	Remotes.handle("EquipPet", equipPet)
+	Remotes.handle("UnequipPet", unequipPet)
+	Remotes.handle("EquipBestPets", equipBest)
+	Remotes.handle("DeletePets", function(player, uids)
 		local ok, message = Management.delete(player, uids)
 		if ok then
 			PetService.refreshModels(player)
 		end
 		return ok, message
-	end
-	Net.func("LockPet").OnServerInvoke = Management.lock
-	Net.func("SetAutoDelete").OnServerInvoke = Management.setAutoDelete
+	end)
+	Remotes.handle("LockPet", Management.lock)
+	Remotes.handle("SetAutoDelete", Management.setAutoDelete)
 
 	local function onPlayer(player: Player)
 		-- Wait for the profile to load, then spawn saved pets.

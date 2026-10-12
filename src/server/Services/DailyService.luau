@@ -4,11 +4,11 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local DailyRewards = require(Shared.Config.DailyRewards)
-local Net = require(Shared.Net)
 
 local Rewards = require(script.Parent.Parent.Rewards)
 local DataService = require(script.Parent.DataService)
 local PetService = require(script.Parent.PetService)
+local Remotes = require(script.Parent.Parent.Remotes)
 
 local DailyService = {}
 
@@ -32,7 +32,7 @@ local function claim(player: Player): (boolean, string)
 end
 
 function DailyService.start()
-	Net.func("ClaimDaily").OnServerInvoke = claim
+	Remotes.handle("ClaimDaily", claim)
 end
 
 return DailyService

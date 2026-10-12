@@ -5,9 +5,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Frogs = require(Shared.Config.Frogs)
 local Worlds = require(Shared.Config.Worlds)
-local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
+local Remotes = require(script.Parent.Parent.Remotes)
 
 local ShopService = {}
 
@@ -58,8 +58,8 @@ local function equipFrog(player: Player, frogId: unknown): (boolean, string)
 end
 
 function ShopService.start()
-	Net.func("BuyFrog").OnServerInvoke = buyFrog
-	Net.func("EquipFrog").OnServerInvoke = equipFrog
+	Remotes.handle("BuyFrog", buyFrog)
+	Remotes.handle("EquipFrog", equipFrog)
 end
 
 return ShopService

@@ -7,11 +7,11 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Gifts = require(Shared.Config.Gifts)
-local Net = require(Shared.Net)
 
 local Rewards = require(script.Parent.Parent.Rewards)
 local DataService = require(script.Parent.DataService)
 local PetService = require(script.Parent.PetService)
+local Remotes = require(script.Parent.Parent.Remotes)
 
 local GiftService = {}
 
@@ -45,7 +45,7 @@ local function claim(player: Player, index: unknown): (boolean, string)
 end
 
 function GiftService.start()
-	Net.func("ClaimGift").OnServerInvoke = claim
+	Remotes.handle("ClaimGift", claim)
 	local function onPlayer(player: Player)
 		player:SetAttribute("SessionStart", os.time())
 		player:SetAttribute("GiftsClaimed", "")
