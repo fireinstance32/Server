@@ -20,3 +20,6 @@ node_modules/
 # UI preview screenshots
 tools/ui-preview/out/
 __pycache__/
+
+# Paid icon pack (licence: don't redistribute) – only the packed sheet is committed
+Gvesster Icon Pack v8/

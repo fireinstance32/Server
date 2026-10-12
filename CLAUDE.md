@@ -1,8 +1,10 @@
 # +1 Frog Hop – notes for Claude
 
-- Roblox game synced with Rojo (`default.project.json`, port 34873). The user runs `rojo serve` locally from `C:\1FrogHop`; this cloud session cannot reach their machine, so changes reach Studio via git push → Obsidian Git pulls.
+- Roblox game synced with Rojo (`default.project.json`, port 34873). The user runs `rojo serve` from `C:\1FrogHop`.
+  - **Local session (on the user's PC, in `C:\1FrogHop`):** edit files directly — Rojo syncs them into Studio live. Still commit + push so the branch stays the record. Local assets (e.g. `C:\1FrogHop\Gvesster Icon Pack v8`, a paid icon pack — never commit it, add it to .gitignore) can be read directly.
+  - **Cloud session:** it can't reach the PC; changes reach Studio via git push → Obsidian Git pulls.
 - Two-way sync: Obsidian Git also commits and pushes the user's note edits. **Always `git pull --rebase origin <branch>` before pushing**, and keep their edits when merging.
-- Art pipeline: UI in Figma (connector; Starter plan = 20 MCP calls/month, read frames sparingly), models in Blender via `bpy` here → .fbx → user imports in Studio. See docs/Tech/Art Pipeline.md.
+- Art pipeline: no Figma — UI is built in Luau and checked with `tools/ui-preview` (needs Node + `npx playwright install chromium` locally). Icons: the user wants the Gvesster Icon Pack v8 for ALL UI icons (pick one per `Config/IconAtlas` name, pack into `assets/textures/ui/icons.png` with `tools/textures/pack_icons.py <dir> icon_ icons IconAtlas 170 6 flat`); the hand-drawn vectors in `assets/vectors/icons` are the fallback. Models in Blender via `bpy` → .fbx → user imports in Studio. See docs/Tech/Art Pipeline.md.
 - Balance numbers only in `src/shared/Config/`. Reward maths only in `src/server/Stats.luau`.
 - One job per file: split any module past ~200 lines or doing two things into a folder (`Name/init.luau` + parts). See docs/Tech/Architecture.md.
 - Server-authoritative: the client never decides rewards. Remotes are declared in `src/shared/Net.luau`.
