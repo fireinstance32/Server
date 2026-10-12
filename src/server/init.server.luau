@@ -11,6 +11,7 @@ local ORDER = {
 	"WorldBuilder",
 	"DataService",
 	"MonetizationService",
+	"HeldFrogService",
 	"HopService",
 	"ShopService",
 	"PetService",

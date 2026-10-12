@@ -2,7 +2,7 @@
 
 - Roblox game synced with Rojo (`default.project.json`, port 34873). The user runs `rojo serve` locally from `C:\1FrogHop`; this cloud session cannot reach their machine, so changes reach Studio via git push → Obsidian Git pulls.
 - Two-way sync: Obsidian Git also commits and pushes the user's note edits. **Always `git pull --rebase origin <branch>` before pushing**, and keep their edits when merging.
-- Art pipeline: UI in Figma (connector; Starter plan = very few MCP calls, read frames sparingly), models in Blender via `bpy` here → .fbx → user imports in Studio. See docs/Tech/Art Pipeline.md.
+- Art pipeline: UI in Figma (connector; Starter plan = 20 MCP calls/month, read frames sparingly), models in Blender via `bpy` here → .fbx → user imports in Studio. See docs/Tech/Art Pipeline.md.
 - Balance numbers only in `src/shared/Config/`. Reward maths only in `src/server/Stats.luau`.
 - One job per file: split any module past ~200 lines or doing two things into a folder (`Name/init.luau` + parts). See docs/Tech/Architecture.md.
 - Server-authoritative: the client never decides rewards. Remotes are declared in `src/shared/Net.luau`.

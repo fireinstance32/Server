@@ -5,7 +5,7 @@ tags: [tech, art]
 
 ## UI → Figma
 - Connector: **Figma** (connected 2026-10-12, team "Ben Lewis's team", **Starter** plan).
-- ⚠️ Figma's published MCP limits for Starter plans are very low (a handful of tool calls per month; see https://developers.figma.com/docs/figma-mcp-server/rate-limits-access/). So: **you design in Figma, I read each finished frame once** (screenshot + design context) and turn it into Roblox UI code. A Professional plan raises the limit if we want Claude to generate designs in Figma too.
+- ⚠️ The Starter plan allows **20 Figma MCP tool calls per month** (https://developers.figma.com/docs/figma-mcp-server/rate-limits-access/). So: **you design in Figma, I read each finished frame once** (screenshot + design context) and turn it into Roblox UI code. A Professional plan raises the limit if we want Claude to generate designs in Figma too.
 - Planned file: **"Frog Hop UI"**, pages: Design System · HUD (1920×1080) · Menus · Hatch · World UI.
 - Exported icons/textures (PNG) → uploaded to Roblox → ids kept in one config file → used by the UI code.
 - Used in [[Phase 5 - Interface]].

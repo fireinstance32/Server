@@ -11,10 +11,16 @@ Game.RiverOrigin = Vector3.new(0, 0, 0)
 Game.RiverWidth = 44
 Game.PadSpacing = 12
 
--- Where players stand to launch, and how close they must be.
+-- Hop Zone: the painted strip at the river start where players stand to
+-- launch (reference: "THROW ZONE"). A rectangle on the plaza, X × Z studs.
 -- (Training happens at the ponds in Config/Ponds.)
-Game.LaunchDock = Vector3.new(-14, 0, 0)
-Game.UseRadius = 22
+Game.HopZoneCenterX = -14
+Game.HopZoneCenterZ = 0
+Game.HopZoneSizeX = 24
+Game.HopZoneSizeZ = 44
+
+-- The hold-and-toss: wind-up before the frog leaves the hand (seconds).
+Game.TossWindup = 0.35
 
 -- Training: a short hop session on a training pond.
 Game.TrainingBounces = 5
@@ -38,6 +44,16 @@ Game.MaxPetInventory = 50
 -- = x2, 2 rebirths = x3), matching the reference game.
 Game.RebirthHopsBonus = 1
 
+-- True when (x, z) is inside the Hop Zone. Plain numbers so it's testable.
+function Game.inHopZone(x: number, z: number): boolean
+	return math.abs(x - Game.HopZoneCenterX) <= Game.HopZoneSizeX / 2
+		and math.abs(z - Game.HopZoneCenterZ) <= Game.HopZoneSizeZ / 2
+end
+
+function Game.hopZoneCenter(): Vector3
+	return Vector3.new(Game.HopZoneCenterX, 0, Game.HopZoneCenterZ)
+end
+
 function Game.distanceForHops(hops: number): number
 	return Game.DistanceBase + Game.DistanceScale * math.max(hops, 0) ^ Game.DistanceExponent
 end
@@ -50,7 +66,7 @@ end
 
 function Game.flightTime(bounces: number): number
 	local visualHops = math.clamp(bounces, 1, Game.MaxVisualHops)
-	return visualHops * Game.SecondsPerVisualHop + Game.LandingPause
+	return Game.TossWindup + visualHops * Game.SecondsPerVisualHop + Game.LandingPause
 end
 
 return Game

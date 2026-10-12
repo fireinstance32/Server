@@ -28,13 +28,14 @@ Every later system (ponds, levels, potions, friend boost, passes, trails) adds a
 - [x] Signs drawn per player (lock state differs per player)
 - **Done when:** a new player trains in pond 1 and sees pond 2 locked behind 2 rebirths.
 
-## 1.4 Hop Zone + hold-and-toss ⭐ NEXT
-- [ ] Painted **Hop Zone** strip at the river start; the HOP button shows only while you stand on it
-- [ ] Equipped frog held in the character's hand (tool/weld)
-- [ ] Wind-up + toss animation, then the frog leaves the hand and starts hopping
+## 1.4 Hop Zone + hold-and-toss ✅ (2026-10-12)
+- [x] Painted **Hop Zone** strip at the river start; the HOP button shows only while you stand on it
+- [x] Equipped frog held in the character's hand (tool/weld)
+- [x] Wind-up + toss animation, then the frog leaves the hand and starts hopping
+- Notes: the held frog is built on the server (everyone sees it) and hides while the frog is out; the arm swing is procedural and local-only until Phase 6 adds a real animation.
 - **Done when:** pressing HOP in the zone plays toss → hop with no visual gap.
 
-## 1.5 Distance tracking + camera
+## 1.5 Distance tracking + camera ⭐ NEXT
 - [ ] Live "123 m" meter at the top while the frog travels
 - [ ] Smooth camera follow, return to the player on landing
 - [ ] Landing result card (zone, Wins, best distance)

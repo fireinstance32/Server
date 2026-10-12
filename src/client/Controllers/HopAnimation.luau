@@ -20,6 +20,7 @@ local Models = require(Shared.Util.Models)
 local Hud = require(script.Parent.Parent.UI.Hud)
 local Theme = require(script.Parent.Parent.UI.Theme)
 local State = require(script.Parent.Parent.State)
+local TossAnimation = require(script.Parent.TossAnimation)
 
 local HopAnimation = {}
 
@@ -87,6 +88,11 @@ function HopAnimation.playTraining(result)
 end
 
 function HopAnimation.playLaunch(result)
+	-- Hold-and-toss first; the frog appears where the held one was.
+	local character = player.Character
+	TossAnimation.play(character)
+	local from = TossAnimation.releasePoint(character)
+
 	local frog = spawnFrog()
 	local camera = Workspace.CurrentCamera
 	local previousSubject = camera.CameraSubject
@@ -94,7 +100,6 @@ function HopAnimation.playLaunch(result)
 
 	local visualHops = math.min(result.bounces, Game.MaxVisualHops)
 	local perPad = result.hopsGained / result.bounces
-	local from = Game.LaunchDock + Vector3.new(8, 1.5, 0)
 	local lastPad = 0
 	local lastZone = 1
 	frog:PivotTo(CFrame.new(from))

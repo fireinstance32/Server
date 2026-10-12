@@ -22,7 +22,7 @@ status: draft
 
 ## HUD first pass (layout, menus)
 - [ ] Layout matches [[HUD References#Frog Hop HUD layout (spec for 5.2)]]: tile grid left, pass cards right, AUTO HOP top, Hops / multiplier / Level bar / packs bottom-centre, Rebirths / Wins / Friend Boost bottom-left
-- [ ] HOP button only appears at the River Dock ("HOP! 🐸") or on a locked pond; `/goto pond 1`, `/goto river`
+- [ ] HOP button only appears at the Hop Zone ("HOP! 🐸") or on a locked pond; `/goto pond 1`, `/goto river` (Hop Zone)
 - [ ] AUTO REBIRTH button only shows on a pond pad
 - [ ] Click "xN Multiplier" → breakdown panel lists Rebirths / Pets / Level
 - [ ] Rebirth tile badge shows % to max level, "!" at max
@@ -42,5 +42,14 @@ status: draft
 - [ ] `/rebirths 2` → Lotus turns UNLOCKED; training there shows the "Pond x4" line in the multiplier breakdown
 - [ ] AUTO HOP (pass) now only repeats river launches, not training
 
-## 1.4 – 1.6
+## 1.4 Hop Zone + hold-and-toss
+- [ ] A painted orange **HOP ZONE** strip with blue edges sits where the plaza meets the river; the old dock is gone
+- [ ] Your character holds your equipped frog in the right hand; a second player (Test → 2 Players) sees it too
+- [ ] Equipping a different frog swaps the one in your hand
+- [ ] HOP button shows only while standing on the strip
+- [ ] Pressing HOP: character turns to face the river, winds the arm back, swings, and the frog leaves the hand and hops down the river
+- [ ] The frog in your hand disappears while it's hopping and comes back when it lands
+- [ ] Wins/Hops arrive as it lands (not before the toss)
+
+## 1.5 – 1.6
 *(added as each step is built)*

@@ -106,6 +106,11 @@ function DataService.reset(player: Player)
 	end
 end
 
+-- Fires (player, data) after every change, for server systems that react
+-- to data (e.g. the frog held in hand).
+local changedEvent = Instance.new("BindableEvent")
+DataService.Changed = changedEvent.Event
+
 function DataService.changed(player: Player)
 	local data = profiles[player]
 	if not data then
@@ -113,6 +118,7 @@ function DataService.changed(player: Player)
 	end
 	Leaderstats.update(player, data)
 	Net.event("DataChanged"):FireClient(player, snapshot(player, data))
+	changedEvent:Fire(player, data)
 end
 
 local function save(player: Player)

@@ -1,5 +1,5 @@
 -- Drives the HOP button: works out where the player stands (a pond's stand
--- pad → Train, the river dock → Launch), asks the server for a result, then
+-- pad → Train, the Hop Zone → Launch), asks the server for a result, then
 -- hands it to HopAnimation. Standing on an unlocked pond's pad trains
 -- automatically (no button); Auto Hop (pass) repeats river launches.
 
@@ -29,7 +29,7 @@ local function rootPart(): BasePart?
 	return character and character:FindFirstChild("HumanoidRootPart") :: BasePart?
 end
 
--- Returns "Train" (+ pond), "Launch", or nil.
+-- Returns "Train" (+ pond) on a pond pad, "Launch" in the Hop Zone, or nil.
 local function currentSpot(): (string?, Ponds.Pond?)
 	local root = rootPart()
 	if not root then
@@ -39,8 +39,7 @@ local function currentSpot(): (string?, Ponds.Pond?)
 	if pond then
 		return "Train", pond
 	end
-	local dock = Game.LaunchDock
-	if Vector3.new(root.Position.X - dock.X, 0, root.Position.Z - dock.Z).Magnitude <= Game.UseRadius then
+	if Game.inHopZone(root.Position.X, root.Position.Z) then
 		return "Launch", nil
 	end
 	return nil, nil
@@ -52,7 +51,7 @@ function HopController.hop()
 	end
 	local mode, pond = currentSpot()
 	if not mode then
-		Hud.toast("Stand on a pond's pad or the River Dock!", Theme.Colors.Red)
+		Hud.toast("Stand on a pond's pad or in the Hop Zone!", Theme.Colors.Red)
 		return
 	end
 	if pond and not PondAccess.isUnlocked(pond) then

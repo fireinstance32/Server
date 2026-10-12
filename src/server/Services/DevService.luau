@@ -97,8 +97,8 @@ local COMMANDS: { [string]: Command } = {
 				return "No character"
 			end
 			if args[1] == "river" then
-				root.CFrame = CFrame.new(Game.LaunchDock + Vector3.new(0, 5, 0))
-				return "Teleported to the river dock"
+				root.CFrame = CFrame.new(Game.hopZoneCenter() + Vector3.new(0, 5, 0))
+				return "Teleported to the Hop Zone"
 			end
 			local pond = Ponds.List[tonumber(args[2]) or 1] or Ponds.List[1]
 			root.CFrame = CFrame.new(Ponds.standPosition(pond) + Vector3.new(0, 5, 0))

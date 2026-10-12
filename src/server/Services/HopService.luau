@@ -14,15 +14,12 @@ local Net = require(Shared.Net)
 local Stats = require(script.Parent.Parent.Stats)
 local DataService = require(script.Parent.DataService)
 local ProgressionService = require(script.Parent.ProgressionService)
+local HeldFrogService = require(script.Parent.HeldFrogService)
 local Passes = require(script.Parent.Parent.Passes)
 
 local HopService = {}
 
 local busyUntil: { [Player]: number } = {}
-
-local function flatDistance(a: Vector3, b: Vector3): number
-	return Vector3.new(a.X - b.X, 0, a.Z - b.Z).Magnitude
-end
 
 local function rootPosition(player: Player): Vector3?
 	local character = player.Character
@@ -51,6 +48,8 @@ local function launch(player: Player, data: any)
 	local flight = Game.flightTime(bounces)
 
 	busyUntil[player] = os.clock() + flight
+	-- The frog leaves the hand after the wind-up and is back once it lands.
+	HeldFrogService.hideDuring(player, HeldFrogService.ReleaseDelay, flight - HeldFrogService.ReleaseDelay)
 
 	-- Pay out when the frog lands so the stats tick up with the animation.
 	task.delay(flight, function()
@@ -110,8 +109,8 @@ local function onHop(player: Player, mode: unknown)
 		end
 		return train(player, data, pond)
 	else
-		if flatDistance(position, Game.LaunchDock) > Game.UseRadius then
-			return { ok = false, message = "Go to the River Dock!" }
+		if not Game.inHopZone(position.X, position.Z) then
+			return { ok = false, message = "Stand in the Hop Zone!" }
 		end
 		return launch(player, data)
 	end

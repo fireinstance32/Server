@@ -1,4 +1,4 @@
--- Start area: launch dock and spawn. (Training ponds: PondRow.)
+-- Start area: the Hop Zone strip and spawn. (Training ponds: PondRow.)
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -9,28 +9,48 @@ local Parts = require(script.Parent.Parts)
 
 local Plaza = {}
 
-local function buildDock(world: Model)
-	local dock = Game.LaunchDock
-	local platform = Parts.block(
-		"LaunchDock",
-		Vector3.new(20, 1, 20),
-		CFrame.new(dock.X, Parts.GroundTop + 0.5, dock.Z),
-		Parts.Colors.Wood,
+-- The painted Hop Zone strip at the river start (reference "THROW ZONE").
+local function buildHopZone(world: Model)
+	local center = Game.hopZoneCenter()
+	local strip = Parts.block(
+		"HopZone",
+		Vector3.new(Game.HopZoneSizeX, 0.2, Game.HopZoneSizeZ),
+		CFrame.new(center.X, Parts.GroundTop + 0.1, center.Z),
+		Color3.fromRGB(255, 190, 60),
 		world,
-		Enum.Material.WoodPlanks
+		Enum.Material.SmoothPlastic
 	)
-	Parts.sign(platform, "RIVER DOCK", "Press LAUNCH to hop for Wins!")
-	local ring = Parts.block(
-		"UseRing",
-		Vector3.new(0.2, Game.UseRadius * 2, Game.UseRadius * 2),
-		CFrame.new(dock.X, Parts.GroundTop + 0.1, dock.Z) * CFrame.Angles(0, 0, math.rad(90)),
-		Color3.fromRGB(255, 220, 80),
-		world,
-		Enum.Material.Neon
-	)
-	ring.Shape = Enum.PartType.Cylinder
-	ring.Transparency = 0.75
-	ring.CanCollide = false
+	strip.CanCollide = false
+
+	-- "HOP ZONE" painted across the strip, readable from the plaza side.
+	local gui = Instance.new("SurfaceGui")
+	gui.Face = Enum.NormalId.Top
+	gui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	gui.PixelsPerStud = 20
+	gui.LightInfluence = 0
+	local text = Instance.new("TextLabel")
+	text.Size = UDim2.fromScale(1, 1)
+	text.BackgroundTransparency = 1
+	text.Font = Enum.Font.FredokaOne
+	text.Text = "HOP ZONE"
+	text.TextScaled = true
+	text.TextColor3 = Color3.new(1, 1, 1)
+	text.TextStrokeTransparency = 0
+	text.Rotation = 90
+	text.Parent = gui
+	gui.Parent = strip
+
+	-- Edge stripes so the zone's border is obvious.
+	for _, side in { -1, 1 } do
+		local edge = Parts.block(
+			"HopZoneEdge",
+			Vector3.new(Game.HopZoneSizeX, 0.25, 1.2),
+			CFrame.new(center.X, Parts.GroundTop + 0.12, center.Z + side * Game.HopZoneSizeZ / 2),
+			Color3.fromRGB(70, 160, 255),
+			world
+		)
+		edge.CanCollide = false
+	end
 end
 
 local function buildSpawn(world: Model)
@@ -46,7 +66,7 @@ local function buildSpawn(world: Model)
 end
 
 function Plaza.build(world: Model)
-	buildDock(world)
+	buildHopZone(world)
 	buildSpawn(world)
 end
 

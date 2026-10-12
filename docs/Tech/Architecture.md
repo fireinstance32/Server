@@ -17,9 +17,10 @@ Rojo maps:
 - `Leaderstats.luau` – the Roblox player-list stats.
 - `Services/`
   - `WorldBuilder/` – generates the greybox map from config (skipped if `Workspace.World` exists)
-    - `init` (entry) · `Parts` (block/sign helpers, palette) · `Environment` (lighting, ground, river water) · `River` (pads, zone arches, portal) · `Plaza` (dock, spawn) · `PondRow` (training ponds) · `Stands` (egg stands, frog shop)
+    - `init` (entry) · `Parts` (block/sign helpers, palette) · `Environment` (lighting, ground, river water) · `River` (pads, zone arches, portal) · `Plaza` (Hop Zone strip, spawn) · `PondRow` (training ponds) · `Stands` (egg stands, frog shop)
   - `DataService` – DataStore load/save, leaderstats, `DataChanged` snapshots.
   - `HopService` – Train/Launch; server-authoritative; validates position + cooldown.
+  - `HeldFrogService` – equipped frog in every character's right hand; hidden while it hops.
   - `ProgressionService` – XP/levels, rebirths, codes.
   - `ShopService` – buy/equip frogs.
   - `PetService` – hatch (uses luck), equip, pet models in `Workspace.Pets.<UserId>`.
@@ -40,8 +41,9 @@ Rojo maps:
 - `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `AutoRebirth` · `AutoTrain` · `Popups`
 - `UI/Menus/` – `init` (open/close by name) · `Window` (panel, list, grid, card, button) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `CodesSection`) · `RebirthMenu` · `Inventory/` (`FrogsTab`, `PetsTab`) · `ComingSoonMenu`
 - `Controllers/`
-  - `HopController` – spot detection (pond pad / dock), server call, auto-train and Auto Hop
+  - `HopController` – spot detection (pond pad / Hop Zone), server call, auto-train and Auto Hop
   - `HopAnimation` – frog hop visuals, splashes, camera, landing banner
+  - `TossAnimation` – face the river, wind-up and swing, release point
   - `NotifyController` – level-up banners, dev messages, sound hook
   - `PetFollowController` – moves pets behind owners locally
   - `PromptController` – egg stands and shop prompts
