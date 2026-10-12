@@ -46,6 +46,8 @@ function FrogsTab.build(content: Frame)
 				action = function()
 					Window.report(Net.func("EquipFrog"):InvokeServer(frog.id))
 				end
+			elseif frog.rewardOnly then
+				text, color = `🎁 {frog.rewardOnly}`, "Grey"
 			elseif frog.robuxOnly then
 				text, color = `\u{E002} {Purchases.price("product", "PhoenixFrog")}`, "Purple"
 				action = function()

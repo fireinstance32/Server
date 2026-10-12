@@ -57,10 +57,12 @@ local function buildSign(anchor: BasePart, frog, prompt: ProximityPrompt, contai
 			prompt.ActionText, prompt.Enabled = "Equip", true
 		else
 			status.Text, status.TextColor3 = "LOCKED", C.Red
-			prompt.ActionText, prompt.Enabled = "Buy", true
+			prompt.ActionText, prompt.Enabled = "Buy", frog.rewardOnly == nil
 		end
 		if owned then
 			price.Text = ""
+		elseif frog.rewardOnly then
+			price.Text = `🎁 {frog.rewardOnly}`
 		elseif frog.robuxOnly then
 			price.Text = `ONLY \u{E002} {Purchases.price("product", "PhoenixFrog")}`
 		else

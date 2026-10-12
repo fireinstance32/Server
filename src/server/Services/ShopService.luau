@@ -25,6 +25,9 @@ local function buyFrog(player: Player, frogId: unknown): (boolean, string)
 	if frog.robuxOnly then
 		return false, "This frog is sold for Robux"
 	end
+	if frog.rewardOnly then
+		return false, `Get it from: {frog.rewardOnly}`
+	end
 	if data.wins < frog.price then
 		return false, "Not enough Wins"
 	end

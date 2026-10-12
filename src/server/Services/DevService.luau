@@ -117,6 +117,17 @@ local COMMANDS: { [string]: Command } = {
 			return `{id} potions: {data.potions[id]}`
 		end,
 	},
+	daily = {
+		usage = "/daily next | reset  pretend a day passed / restart the streak",
+		run = function(_, data, args)
+			if args[1] == "reset" then
+				data.daily.lastDay, data.daily.streak = 0, 0
+				return "Daily streak reset"
+			end
+			data.daily.lastDay -= 1
+			return "Pretending a day has passed"
+		end,
+	},
 	reset = {
 		usage = "/reset  wipe your data to a new player",
 		run = function(player)

@@ -12,9 +12,9 @@ tags: [planning, phase3]
 - [x] Hops / Wins / Luck potions: x2 for 10 min; using another adds time (via 1.1)
 - [x] Active-potion timers on the HUD; use from Inventory › Boosts; `/potion hops 3` for testing
 
-## 3.3 Daily rewards
-- [ ] 7-day calendar, streak saved; day 7 = limited Legend Frog
-- [ ] Auto-opens on join when a reward is ready
+## 3.3 Daily rewards ✅ (2026-10-12)
+- [x] 7-day calendar (UTC days, miss a day → Day 1), streak saved; Day 2 Fortune Neko pet, Day 7 limited Shooting Star Frog
+- [x] Auto-opens on join when a reward is ready; 📅 button top-right with "!" badge; `/daily next` to test
 
 ## 3.4 Offline training
 - [ ] Hops earned while away (rate × hours, capped), "Welcome back" pop-up

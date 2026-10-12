@@ -9,6 +9,7 @@ export type Frog = {
 	perBounce: number,
 	color: Color3,
 	robuxOnly: boolean?,
+	rewardOnly: string?, -- can't be bought; how to get it (shown on the podium)
 }
 
 local Frogs: { Frog } = {
@@ -22,6 +23,14 @@ local Frogs: { Frog } = {
 	{ id = "Golden", name = "Golden Frog", price = 4500, perBounce = 120, color = Color3.fromRGB(255, 200, 40) },
 	{ id = "Ninja", name = "Ninja Frog", price = 14000, perBounce = 250, color = Color3.fromRGB(40, 40, 50) },
 	{ id = "Royal", name = "Royal Frog", price = 40000, perBounce = 500, color = Color3.fromRGB(170, 70, 220) },
+	{
+		id = "ShootingStar",
+		name = "Shooting Star Frog",
+		price = 0,
+		perBounce = 300,
+		color = Color3.fromRGB(120, 200, 255),
+		rewardOnly = "Daily Day 7",
+	},
 	{
 		id = "Phoenix",
 		name = "Phoenix Frog",

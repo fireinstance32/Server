@@ -24,6 +24,7 @@ Type these in the game chat. They only work in Studio (or for user ids listed in
 | `/rebirths 2` | Set Rebirths |
 | `/frogs` | Unlock every frog |
 | `/potion hops 3` | Add potions (hops / wins / luck) |
+| `/daily next` / `/daily reset` | Pretend a day passed / restart the daily streak |
 | `/goto river` / `/goto pond 3` | Teleport to the Hop Zone / a training pond (1–7) |
 | `/reset` | Wipe your data to a brand-new player |
 

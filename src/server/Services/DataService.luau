@@ -10,6 +10,7 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Frogs = require(Shared.Config.Frogs)
 local Pets = require(Shared.Config.Pets)
+local DailyRewards = require(Shared.Config.DailyRewards)
 local Levels = require(Shared.Config.Levels)
 local Net = require(Shared.Net)
 
@@ -40,6 +41,7 @@ local function template()
 		trails = {}, -- [trailId] = true (equippedTrail: string? is set when one is worn)
 		potions = {}, -- [potionId] = count
 		activePotions = {}, -- [potionId] = expiry (os.time)
+		daily = { lastDay = 0, streak = 0 }, -- UTC day number of the last claim
 		nextPetUid = 1,
 		codes = {}, -- [code: string] = true
 	}
@@ -83,6 +85,13 @@ local function keyFor(player: Player): string
 	return "player_" .. player.UserId
 end
 
+-- Daily reward status, without requiring DailyService (it requires us).
+local function dailyStatus(data: any)
+	local today = DailyRewards.dayNumber(os.time())
+	local canClaim, day = DailyRewards.status(data.daily.lastDay, data.daily.streak, today)
+	return { canClaim = canClaim, day = day, streak = data.daily.streak }
+end
+
 -- Seconds left on each active potion.
 local function potionTimers(data: any): { [string]: number }
 	local timers = {}
@@ -117,6 +126,7 @@ local function snapshot(player: Player, data: any)
 		trails = data.trails,
 		potions = data.potions,
 		potionTimers = potionTimers(data),
+		daily = dailyStatus(data),
 		equippedTrail = data.equippedTrail,
 		passes = Passes.ownedList(player),
 		friendBoost = 0, -- filled in by Phase 3.5

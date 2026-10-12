@@ -65,6 +65,8 @@ local Pets: { Pet } = {
 	pet("WillowOwl", "Willow Owl", "Rare", 12, Color3.fromRGB(150, 120, 90)),
 	pet("CrystalAxolotl", "Crystal Axolotl", "Epic", 18, Color3.fromRGB(255, 160, 210)),
 	pet("GoldenToad", "Golden Toad", "Legendary", 30, Color3.fromRGB(255, 200, 40)),
+	-- Reward-only (daily rewards)
+	pet("FortuneNeko", "Fortune Neko", "Rare", 5, Color3.fromRGB(255, 225, 190)),
 	-- Rainbow Egg (Robux)
 	pet("RainbowFrog", "Rainbow Frog", "Legendary", 40, Color3.fromRGB(255, 90, 160)),
 	pet("GalaxyCat", "Galaxy Cat", "Legendary", 60, Color3.fromRGB(90, 70, 200)),

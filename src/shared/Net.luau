@@ -18,6 +18,7 @@ local FUNCTIONS = {
 	"BuyTrail", -- (trailId) -> ok, message
 	"EquipTrail", -- (trailId | "") -> ok, message
 	"UsePotion", -- (potionId) -> ok, message
+	"ClaimDaily", -- () -> ok, message
 	"Rebirth", -- () -> ok, message
 	"RedeemCode", -- (code) -> ok, message
 }
