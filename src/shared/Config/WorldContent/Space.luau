@@ -8,7 +8,7 @@ return {
 		{ id = "Astro", name = "Astro Frog", price = 60_000_000, perBounce = 1_500_000, color = rgb(230, 230, 240) },
 		{ id = "Comet", name = "Comet Frog", price = 250_000_000, perBounce = 4_000_000, color = rgb(110, 200, 255) },
 		{ id = "Nebula", name = "Nebula Frog", price = 900_000_000, perBounce = 10_000_000, color = rgb(170, 90, 255) },
-		{ id = "GalaxyKing", name = "Galaxy King", price = 3_600_000_000, perBounce = 25_000_000, color = rgb(60, 40, 160) },
+		{ id = "GalaxyKing", name = "Galaxy King", price = 3_600_000_000, perBounce = 25_000_000, color = rgb(60, 40, 160), ultimate = true },
 	},
 	pets = {
 		{ id = "MoonMouse", name = "Moon Mouse", rarity = "Uncommon", bonus = 80_000, color = rgb(210, 210, 220) },

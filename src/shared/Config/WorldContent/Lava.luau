@@ -8,7 +8,7 @@ return {
 		{ id = "Ember", name = "Ember Frog", price = 1_600_000_000, perBounce = 60_000_000, color = rgb(255, 140, 50) },
 		{ id = "Magma", name = "Magma Frog", price = 6_500_000_000, perBounce = 150_000_000, color = rgb(230, 70, 30) },
 		{ id = "Obsidian", name = "Obsidian Frog", price = 24_000_000_000, perBounce = 400_000_000, color = rgb(40, 30, 50) },
-		{ id = "VolcanoKing", name = "Volcano King", price = 95_000_000_000, perBounce = 1_000_000_000, color = rgb(255, 60, 20) },
+		{ id = "VolcanoKing", name = "Volcano King", price = 95_000_000_000, perBounce = 1_000_000_000, color = rgb(255, 60, 20), ultimate = true },
 	},
 	pets = {
 		{ id = "EmberPup", name = "Ember Pup", rarity = "Uncommon", bonus = 2_000_000, color = rgb(255, 150, 70) },

@@ -130,7 +130,8 @@ div, span { box-sizing: border-box; }
 fs.mkdirSync(path.dirname(out), { recursive: true });
 const htmlPath = out.replace(/\.png$/, '.html');
 fs.writeFileSync(htmlPath, html);
-const browser = await chromium.launch();
+fs.writeFileSync(out.replace(/\.png$/, '.json'), tree); // GUI tree, for debugging
+const browser = await chromium.launch({ args: ['--allow-file-access-from-files'] }); // masks (tinted images) need same-origin files
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
 page.on('console', (msg) => console.log('[page]', msg.text()));
 page.on('pageerror', (err) => console.log('[page error]', err.message));

@@ -14,6 +14,10 @@ status: in progress
 - [ ] Hatching an Epic/Legendary pet: flash + confetti on the reveal
 - [ ] No lag spikes from effects (watch FPS during a long hop)
 
+## 6.3 Ultimate hop
+- [ ] `/frogs`, equip Phoenix Frog (or a King), river hop: cut-in (speed lines + black frog silhouette + "ULTIMATE HOP!") for ~1 s, fire aura on you, beam + explosion where you throw
+- [ ] Normal frogs don't play it; hop rewards arrive at the same time as before
+
 ## 6.1 Pets (parts + decals)
 - [ ] `/petgallery` → every pet in rows next to spawn, name + animal under each; run again to remove
 - [ ] Before uploading images: pets have part-built faces (square eyes, snouts)

@@ -13,6 +13,7 @@ export type Frog = {
 	robuxOnly: boolean?,
 	rewardOnly: string?, -- can't be bought; how to get it (shown on the podium)
 	world: string?, -- world whose podiums sell it (nil = Lily Valley)
+	ultimate: boolean?, -- river hops play the ultimate cut-in (cosmetic)
 }
 
 local Frogs: { Frog } = {
@@ -33,6 +34,7 @@ local Frogs: { Frog } = {
 		perBounce = 300,
 		color = Color3.fromRGB(120, 200, 255),
 		rewardOnly = "Daily Day 7",
+		ultimate = true,
 	},
 	{
 		id = "Phoenix",
@@ -41,6 +43,7 @@ local Frogs: { Frog } = {
 		perBounce = 1000,
 		color = Color3.fromRGB(255, 90, 30),
 		robuxOnly = true,
+		ultimate = true,
 	},
 }
 

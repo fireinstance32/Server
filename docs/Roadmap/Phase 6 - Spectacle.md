@@ -18,8 +18,9 @@ tags: [planning, phase6]
 - [x] `Effects/World`: droplet splash on every pad, landing burst (ripples, golden sparkle fountain, mist), sparkles around you on level up
 - [x] `Effects/Screen`: confetti on NEW BEST / MAX LEVEL / Epic+ hatch, colour flash on new zone and rare hatch
 - [ ] Tune in Studio (amounts, sizes) after the playtest
-## 6.3 Legend Frog ultimate hop
-- [ ] Anime cut-in (silhouette + speed lines), beam, explosion, aura
+## 6.3 Legend Frog ultimate hop 🟡
+- [x] Top frogs (`ultimate = true`: Shooting Star, Phoenix, the 4 Kings) play it on every river hop: anime cut-in (frog silhouette over speed lines in the frog's colour, "ULTIMATE HOP!"), fire aura on the player, beam from the sky + explosion at the throw
+- [ ] Tune timing/size in Studio
 ## 6.4 Audio
 - [ ] Hop, splash, buy, hatch, level up, music per world
 ## 6.5 World art pass

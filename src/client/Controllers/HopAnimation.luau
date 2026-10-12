@@ -25,6 +25,7 @@ local TossAnimation = require(script.Parent.TossAnimation)
 local FollowCamera = require(script.Parent.FollowCamera)
 local WorldFx = require(script.Parent.Parent.Effects.World)
 local ScreenFx = require(script.Parent.Parent.Effects.Screen)
+local Ultimate = require(script.Parent.Parent.Effects.Ultimate)
 
 local HopAnimation = {}
 
@@ -117,6 +118,10 @@ function HopAnimation.playLaunch(result)
 	local frog = spawnFrog()
 	frog:PivotTo(CFrame.new(from))
 	FollowCamera.start(frog.PrimaryPart :: BasePart)
+	local def = Frogs.ById[State.data and State.data.equippedFrog or Frogs.Default]
+	if def and def.ultimate then
+		Ultimate.play(character, def, from)
+	end
 
 	-- Best before this hop (the server updates it on landing); the meter
 	-- turns gold once it's beaten.
