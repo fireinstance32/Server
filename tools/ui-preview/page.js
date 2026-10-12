@@ -382,8 +382,10 @@ function drawNode(n, box, parentEl) {
     cw = Math.max(cw, box.w * c[0] + c[1]);
     ch = Math.max(ch, box.h * c[2] + c[3]);
   }
+  // ScrollingFrame: shift children by CanvasPosition.
+  const scroll = n.c === 'ScrollingFrame' && n.p.CanvasPosition ? n.p.CanvasPosition.v : [0, 0];
   for (const it of layoutChildren(n, cw, ch).items) {
-    drawNode(it.node, { x: it.x + pl, y: it.y + pt, w: it.w, h: it.h }, el);
+    drawNode(it.node, { x: it.x + pl - scroll[0], y: it.y + pt - scroll[1], w: it.w, h: it.h }, el);
   }
 }
 

@@ -6,5 +6,14 @@ local Hud = require("@client/UI/Hud")
 local Menus = require("@client/UI/Menus")
 Hud.init({ onHop = function() end, openMenu = Menus.open, setAutoHop = function() end })
 Menus.init()
-Menus.open(SCENE_ARG ~= "" and SCENE_ARG or "Shop")
+-- "Shop@700" scrolls the menu's list down 700 px.
+local name, scroll = string.match(SCENE_ARG, "^(%w+)@?(%d*)$")
+Menus.open(if name and name ~= "" then name else "Shop")
+if scroll and scroll ~= "" then
+	for _, item in game:GetService("Players").LocalPlayer.PlayerGui:GetDescendants() do
+		if item.ClassName == "ScrollingFrame" then
+			item.CanvasPosition = Vector2.new(0, tonumber(scroll))
+		end
+	end
+end
 local _ = State
