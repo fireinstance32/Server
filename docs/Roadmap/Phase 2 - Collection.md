@@ -2,7 +2,7 @@
 tags: [planning, phase2]
 ---
 # Phase 2 – Collection
-*Goal: always something to unlock.* Back to [[Roadmap]]. Needs: [[Phase 1 - Core Loop|1.1]].
+*Goal: always something to unlock. Systems first; final visuals of menus and the hatch animation are polished in [[Phase 5 - Interface]].* Back to [[Roadmap]]. Needs: [[Phase 1 - Core Systems|1.1]].
 
 ## 2.1 Frog podiums
 - [ ] Each frog on its own pedestal: LOCKED/UNLOCKED, "+N Hops", price

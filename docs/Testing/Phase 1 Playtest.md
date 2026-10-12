@@ -4,7 +4,7 @@ status: draft
 ---
 # Phase 1 Playtest
 
-> Draft – filled in as Phase 1 steps land. Run it once 1.7 is done. Setup: [[Testing Guide]].
+> Draft – filled in as Phase 1 steps land. Run it once 1.6 is done. Setup: [[Testing Guide]].
 
 ## 1.1 Multipliers
 - [ ] New player (`/reset`): stats panel shows **Hops x1 • Wins x1**
@@ -20,8 +20,8 @@ status: draft
 - [ ] Rebirth below max level shows "Reach Level N to rebirth"
 - [ ] Leave and rejoin → level and XP are saved
 
-## 1.3 HUD & menus
-- [ ] Layout matches [[HUD References#Frog Hop HUD layout (spec for 1.3)]]: tile grid left, pass cards right, AUTO HOP top, Hops / multiplier / Level bar / packs bottom-centre, Rebirths / Wins / Friend Boost bottom-left
+## HUD first pass (layout, menus)
+- [ ] Layout matches [[HUD References#Frog Hop HUD layout (spec for 5.2)]]: tile grid left, pass cards right, AUTO HOP top, Hops / multiplier / Level bar / packs bottom-centre, Rebirths / Wins / Friend Boost bottom-left
 - [ ] HOP button only appears at the Training Pond ("TRAIN 💪") or River Dock ("HOP! 🐸"); `/goto train`, `/goto river`
 - [ ] AUTO REBIRTH button only shows at the Training Pond
 - [ ] Click "xN Multiplier" → breakdown panel lists Rebirths / Pets / Level
@@ -33,5 +33,5 @@ status: draft
 - [ ] Trails / Gifts open "Coming soon"
 - [ ] Clicking the same tile again closes the window; red ✕ closes it
 
-## 1.4 – 1.7
+## 1.3 – 1.6
 *(added as each step is built)*

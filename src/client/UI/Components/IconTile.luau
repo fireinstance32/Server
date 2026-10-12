@@ -1,5 +1,5 @@
 -- Square menu tile: big icon on top, caption at the bottom, badge slot.
--- Icons are emoji placeholders until Phase 5 art.
+-- Icons are emoji placeholders until Phase 5 (Interface) icons.
 
 local TweenService = game:GetService("TweenService")
 

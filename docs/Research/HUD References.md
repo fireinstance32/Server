@@ -3,7 +3,7 @@ tags: [research, ui]
 ---
 # HUD References
 
-Screenshots of top "+1" / incremental simulators, compared side by side to decide the Frog Hop HUD for [[Phase 1 - Core Loop|1.3]]. Images live in `docs/Research/References/`.
+Screenshots of top "+1" / incremental simulators, compared side by side to decide the Frog Hop HUD for [[Phase 5 - Interface|5.2]]. Images live in `docs/Research/References/`.
 
 ## The games
 | # | Game | Screenshot |
@@ -42,7 +42,7 @@ Screenshots of top "+1" / incremental simulators, compared side by side to decid
 - **Tilted sticker tags** on buttons ("OP!", "NEW!", "Forever!", "Stacks!").
 - Big, chunky, readable at phone size. Text never sits on the 3D world without a stroke.
 
-## Frog Hop HUD layout (spec for 1.3)
+## Frog Hop HUD layout (spec for 5.2)
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │ [Roblox]            [ QUEST: Get 2 Wins (1/2) ]   [AUTO HOP] │
