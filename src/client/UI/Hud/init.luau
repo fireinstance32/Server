@@ -22,6 +22,7 @@ local IconGrid = require(script.IconGrid)
 local PassColumn = require(script.PassColumn)
 local TopBar = require(script.TopBar)
 local AutoRebirth = require(script.AutoRebirth)
+local DistanceMeter = require(script.DistanceMeter)
 
 local Hud = {}
 
@@ -31,6 +32,7 @@ local hopButton: TextButton
 Hud.toast = Popups.toast
 Hud.floatText = Popups.floatText
 Hud.banner = Popups.banner
+Hud.distance = DistanceMeter
 
 -- mode: "Train" (with the pond), "Launch", or nil. Training is automatic,
 -- so the button only shows at the dock, or on a locked pond to explain or
@@ -94,6 +96,7 @@ function Hud.init(callbacks: {
 	IconGrid.init(gui, callbacks.openMenu)
 	PassColumn.init(gui, callbacks.openMenu)
 	TopBar.init(gui, callbacks.setAutoHop)
+	DistanceMeter.init(gui)
 	Popups.init(gui)
 
 	Purchases.onNotForSale(function(text)

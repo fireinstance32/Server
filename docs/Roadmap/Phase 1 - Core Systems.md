@@ -35,13 +35,13 @@ Every later system (ponds, levels, potions, friend boost, passes, trails) adds a
 - Notes: the held frog is built on the server (everyone sees it) and hides while the frog is out; the arm swing is procedural and local-only until Phase 6 adds a real animation.
 - **Done when:** pressing HOP in the zone plays toss → hop with no visual gap.
 
-## 1.5 Distance tracking + camera ⭐ NEXT
-- [ ] Live "123 m" meter at the top while the frog travels
-- [ ] Smooth camera follow, return to the player on landing
-- [ ] Landing result card (zone, Wins, best distance)
+## 1.5 Distance tracking + camera ✅ (2026-10-12)
+- [x] Live "123 m" meter at the top while the frog travels
+- [x] Smooth camera follow, return to the player on landing
+- [x] Landing result card (zone, Wins, best distance)
 - **Done when:** a hop is readable without looking at the stats.
 
-## 1.6 River biomes
+## 1.6 River biomes ⭐ NEXT
 - [ ] Zones become biome sections with floating names and bank colours
 - [ ] Zone-cross toast and banner (already partly built)
 - **Done when:** you can tell which zone you're in at a glance.

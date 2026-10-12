@@ -21,6 +21,7 @@ local Hud = require(script.Parent.Parent.UI.Hud)
 local Theme = require(script.Parent.Parent.UI.Theme)
 local State = require(script.Parent.Parent.State)
 local TossAnimation = require(script.Parent.TossAnimation)
+local FollowCamera = require(script.Parent.FollowCamera)
 
 local HopAnimation = {}
 
@@ -94,15 +95,18 @@ function HopAnimation.playLaunch(result)
 	local from = TossAnimation.releasePoint(character)
 
 	local frog = spawnFrog()
-	local camera = Workspace.CurrentCamera
-	local previousSubject = camera.CameraSubject
-	camera.CameraSubject = frog.PrimaryPart
+	frog:PivotTo(CFrame.new(from))
+	FollowCamera.start(frog.PrimaryPart :: BasePart)
+
+	-- Best before this hop (the server updates it on landing); the meter
+	-- turns gold once it's beaten.
+	local previousBest = Game.metersFor(if State.data then State.data.bestDistance or 0 else 0)
+	Hud.distance.show(previousBest)
 
 	local visualHops = math.min(result.bounces, Game.MaxVisualHops)
 	local perPad = result.hopsGained / result.bounces
 	local lastPad = 0
 	local lastZone = 1
-	frog:PivotTo(CFrame.new(from))
 
 	for k = 1, visualHops do
 		local pad = math.max(lastPad + 1, math.floor(k * result.bounces / visualHops + 0.5))
@@ -111,6 +115,9 @@ function HopAnimation.playLaunch(result)
 		hopArc(frog, from, to, 2 + span * 0.25, Game.SecondsPerVisualHop)
 		splash(to)
 		Hud.floatText(`+{Format.abbreviate(perPad * (pad - lastPad))}`, Theme.Colors.Green)
+
+		local meters = math.min(Game.metersFor(to.X - Game.RiverOrigin.X), result.meters)
+		Hud.distance.set(meters, meters > previousBest)
 
 		local zone = Zones.zoneForDistance(pad * Game.PadSpacing)
 		if zone.index > lastZone then
@@ -121,18 +128,17 @@ function HopAnimation.playLaunch(result)
 		lastPad = pad
 	end
 
-	Hud.banner(
-		`ZONE {result.zone}!`,
-		`{result.zoneName}  •  +{Format.abbreviate(result.winsGained)} Wins`,
-		Zones.List[result.zone].color
-	)
+	Hud.distance.set(result.meters, result.newBest)
+	local subtitle = `{result.meters} m  •  +{Format.abbreviate(result.winsGained)} Wins`
+	if result.newBest then
+		subtitle ..= "  •  NEW BEST!"
+	end
+	Hud.banner(`ZONE {result.zone}: {result.zoneName}`, subtitle, Zones.List[result.zone].color)
 	task.wait(Game.LandingPause)
 	frog:Destroy()
-	camera.CameraSubject = previousSubject
+	Hud.distance.hide()
 	local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
-	if humanoid then
-		camera.CameraSubject = humanoid
-	end
+	FollowCamera.stop(humanoid)
 end
 
 return HopAnimation

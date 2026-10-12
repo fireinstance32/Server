@@ -51,5 +51,11 @@ status: draft
 - [ ] The frog in your hand disappears while it's hopping and comes back when it lands
 - [ ] Wins/Hops arrive as it lands (not before the toss)
 
-## 1.5 – 1.6
-*(added as each step is built)*
+## 1.5 Distance + camera
+- [ ] During a river hop a big "123 m" counts up at the top, with "Best: N m" under it
+- [ ] Beating your best turns the number gold and shows NEW BEST!
+- [ ] The camera chases the frog smoothly from behind and returns to your character on landing
+- [ ] Landing card: "ZONE 3: Mossy Rocks" + "123 m • +8 Wins" (+ "NEW BEST!")
+
+## 1.6
+*(added when built)*

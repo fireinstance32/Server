@@ -38,12 +38,13 @@ Rojo maps:
 - `Purchases` – prompts passes/products by config name; `owns(pass)` from the snapshot.
 - `PondAccess` – which ponds this player can use (signs, HOP button, auto-train).
 - `UI/Components/` – reusable pieces: `Gradient` (presets), `RobuxChip`, `Badge`, `IconTile`, `PassCard`.
-- `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `AutoRebirth` · `AutoTrain` · `Popups`
+- `UI/Hud/` – `init` (layout + HOP button) · `StatRow` · `MultiplierInfo` · `LevelBar` · `PackRow` · `BottomLeft` · `IconGrid` · `PassColumn` · `TopBar` (Auto Hop) · `DistanceMeter` · `AutoRebirth` · `AutoTrain` · `Popups`
 - `UI/Menus/` – `init` (open/close by name) · `Window` (panel, list, grid, card, button) · `Shop/` (`PackSection`, `PassSection`, `HopsSection`, `CodesSection`) · `RebirthMenu` · `Inventory/` (`FrogsTab`, `PetsTab`) · `ComingSoonMenu`
 - `Controllers/`
   - `HopController` – spot detection (pond pad / Hop Zone), server call, auto-train and Auto Hop
   - `HopAnimation` – frog hop visuals, splashes, camera, landing banner
   - `TossAnimation` – face the river, wind-up and swing, release point
+  - `FollowCamera` – smooth chase camera during a hop
   - `NotifyController` – level-up banners, dev messages, sound hook
   - `PetFollowController` – moves pets behind owners locally
   - `PromptController` – egg stands and shop prompts

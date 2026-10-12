@@ -46,6 +46,7 @@ local function launch(player: Player, data: any)
 	local hopsGained = math.floor(bounces * Stats.perBounce(data) * Stats.hopsMultiplier(player, data, context))
 	local winsGained = math.floor(zone.wins * Stats.winsMultiplier(player, data, context))
 	local flight = Game.flightTime(bounces)
+	local previousBest = data.bestDistance
 
 	busyUntil[player] = os.clock() + flight
 	-- The frog leaves the hand after the wind-up and is back once it lands.
@@ -71,6 +72,9 @@ local function launch(player: Player, data: any)
 		mode = "Launch",
 		bounces = bounces,
 		distance = distance,
+		meters = Game.metersFor(distance),
+		bestMeters = Game.metersFor(math.max(previousBest, distance)),
+		newBest = distance > previousBest,
 		zone = zone.index,
 		zoneName = zone.name,
 		hopsGained = hopsGained,

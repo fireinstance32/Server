@@ -31,6 +31,13 @@ Game.DistanceBase = 20
 Game.DistanceScale = 6
 Game.DistanceExponent = 0.5
 
+-- Distance shown to players in metres (studs × MetersPerStud).
+Game.MetersPerStud = 0.5
+
+function Game.metersFor(studs: number): number
+	return math.floor(math.max(studs, 0) * Game.MetersPerStud)
+end
+
 -- Flight animation pacing (shared so server cooldowns match client visuals).
 Game.MaxVisualHops = 40
 Game.SecondsPerVisualHop = 0.18
