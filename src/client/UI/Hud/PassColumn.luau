@@ -25,7 +25,7 @@ function PassColumn.init(gui: ScreenGui, openMenu: (string) -> ())
 		Parent = gui,
 	}, {
 		new("UIListLayout", {
-			Padding = UDim.new(0, 26),
+			Padding = UDim.new(0, 13),
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),

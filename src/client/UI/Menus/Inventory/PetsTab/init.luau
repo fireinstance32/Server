@@ -22,7 +22,8 @@ local new = Theme.new
 local PetsTab = {}
 
 local SORTS = { "Best", "Rarity", "Name" }
-local LEFT = 250 -- details column width
+local LEFT = 230 -- details column width (reference)
+local TOP = 40 -- keeps the details clear of the window's corner icon
 
 local function sortedPets(data, mode: string)
 	local entries = {}
@@ -56,9 +57,9 @@ function PetsTab.build(content: Frame)
 	local render: (any) -> ()
 
 	-- Left: details + INDEX.
-	local _, showDetails = Details.build(content, { Size = UDim2.new(0, LEFT, 1, -66) })
+	local _, showDetails = Details.build(content, { Size = UDim2.new(0, LEFT, 1, -TOP - 70), Position = UDim2.fromOffset(0, TOP) })
 	local indexButton = Window.button({
-		Size = UDim2.fromOffset(LEFT, 56),
+		Size = UDim2.fromOffset(LEFT, 60),
 		AnchorPoint = Vector2.new(0, 1),
 		Position = UDim2.fromScale(0, 1),
 		Text = "INDEX",
@@ -89,7 +90,7 @@ function PetsTab.build(content: Frame)
 		Parent = right,
 	})
 	local holder = Window.inset(right, { Size = UDim2.new(1, 0, 1, -106), Position = UDim2.fromOffset(0, 40) })
-	local grid = Window.grid(holder, PetTile.Size, PetTile.Size, 10)
+	local grid = Window.grid(holder, PetTile.Size, PetTile.Size, 16)
 	local index = Index.build(holder)
 	index.Visible = false
 	local empty = Theme.label({

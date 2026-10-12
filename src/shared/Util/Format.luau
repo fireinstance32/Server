@@ -24,4 +24,14 @@ function Format.multiplier(value: number): string
 	return "x" .. string.format("%.2f", value):gsub("%.?0+$", "")
 end
 
+-- Countdown clock: 76413 -> "21:13:33" (hours shown only when needed).
+function Format.clock(seconds: number): string
+	seconds = math.max(math.floor(seconds), 0)
+	local h, m, sec = seconds // 3600, seconds // 60 % 60, seconds % 60
+	if h > 0 then
+		return string.format("%d:%02d:%02d", h, m, sec)
+	end
+	return string.format("%02d:%02d", m, sec)
+end
+
 return Format

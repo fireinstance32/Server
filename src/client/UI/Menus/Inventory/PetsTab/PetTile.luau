@@ -17,7 +17,7 @@ local new = Theme.new
 
 local PetTile = {}
 
-PetTile.Size = 104
+PetTile.Size = 128
 
 local IDLE_EDGE = Color3.fromRGB(150, 152, 162)
 local SELECTED_EDGE = Color3.fromRGB(140, 222, 255)

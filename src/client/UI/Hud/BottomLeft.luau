@@ -36,7 +36,7 @@ function BottomLeft.init(gui: ScreenGui)
 		Name = "BottomLeft",
 		Size = UDim2.fromOffset(300, 196),
 		AnchorPoint = Vector2.new(0, 1),
-		Position = UDim2.new(0, 110, 1, -40),
+		Position = UDim2.new(0, 110, 1, -65),
 		BackgroundTransparency = 1,
 		Parent = gui,
 	}, { new("UIListLayout", { Padding = UDim.new(0, 4), SortOrder = Enum.SortOrder.LayoutOrder }) })

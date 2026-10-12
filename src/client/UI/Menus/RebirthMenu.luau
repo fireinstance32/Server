@@ -21,68 +21,83 @@ local new = Theme.new
 
 local RebirthMenu = {}
 
+-- Pixel layout measured from the reference (1920×1080, 914×618 window; body
+-- is 886 wide).
 local function multiplierCard(parent: Frame, x: number): TextLabel
 	local card = new("Frame", {
-		Size = UDim2.new(0.42, 0, 0, 100),
-		Position = UDim2.new(x, 0, 0, 50),
+		Size = UDim2.fromOffset(371, 117),
+		Position = UDim2.fromOffset(x, 122),
 		Parent = parent,
-	}, { Theme.corner(12), Theme.stroke(3) })
+	}, { Theme.corner(8), Theme.stroke(3) })
 	Gradient.apply(card, "Yellow")
 	Studs.apply(card, 22, 0.5)
-	Icon.new("bolt", { Size = UDim2.fromOffset(100, 100), Position = UDim2.fromOffset(6, 0), Rotation = -8, Parent = card })
+	Icon.new("bolt", {
+		Size = UDim2.fromOffset(112, 128),
+		AnchorPoint = Vector2.new(0, 0.5),
+		Position = UDim2.new(0, 22, 0.5, 0),
+		Rotation = 8,
+		Parent = card,
+	})
 	return Theme.label({
-		Size = UDim2.new(1, -110, 0.8, 0),
-		Position = UDim2.new(0, 100, 0.1, 0),
+		Size = UDim2.fromOffset(200, 96),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0, 252, 0.5, 0),
 		Text = "x1\nHOPS",
 		Parent = card,
 	})
 end
 
 function RebirthMenu.build(body: Frame)
-	Theme.label({ Size = UDim2.new(0.42, 0, 0, 44), Text = "Before", Parent = body })
-	Theme.label({ Size = UDim2.new(0.42, 0, 0, 44), Position = UDim2.fromScale(0.58, 0), Text = "After", Parent = body })
-	local before = multiplierCard(body, 0)
-	local after = multiplierCard(body, 0.58)
+	for _, spec in { { "Before", 203 }, { "After", 693 } } do
+		Theme.label({
+			Size = UDim2.fromOffset(300, 58),
+			AnchorPoint = Vector2.new(0.5, 0),
+			Position = UDim2.fromOffset(spec[2], 20),
+			Text = spec[1],
+			Parent = body,
+		})
+	end
+	local before = multiplierCard(body, 20)
+	local after = multiplierCard(body, 508)
 	Icon.new("arrow_right", {
-		Size = UDim2.fromOffset(72, 72),
+		Size = UDim2.fromOffset(80, 80),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(0.5, 0, 0, 100),
+		Position = UDim2.fromOffset(450, 180),
 		Parent = body,
 	})
 
 	local warning = Theme.label({
-		Size = UDim2.new(1, 0, 0, 40),
-		Position = UDim2.fromOffset(0, 165),
+		Size = UDim2.new(1, 0, 0, 50),
+		Position = UDim2.fromOffset(0, 274),
 		Text = "Resets your LEVEL, HOPS and WINS!",
-		TextColor3 = Color3.fromRGB(255, 60, 60),
+		TextColor3 = Color3.fromRGB(255, 40, 40),
 		Parent = body,
 	})
 	Theme.textStroke().Parent = warning
 
 	local bar = new("Frame", {
-		Size = UDim2.new(0.9, 0, 0, 56),
+		Size = UDim2.fromOffset(732, 90),
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 215),
+		Position = UDim2.new(0.5, 0, 0, 335),
 		ClipsDescendants = true,
 		Parent = body,
-	}, { Theme.corner(12), Theme.stroke(4) })
+	}, { Theme.corner(8), Theme.stroke(3) })
 	Gradient.apply(bar, "Silver")
 	Studs.apply(bar, 22, 0.7)
-	local fill = new("Frame", { Size = UDim2.fromScale(0, 1), Parent = bar }, { Theme.corner(12) })
+	local fill = new("Frame", { Size = UDim2.fromScale(0, 1), Parent = bar }, { Theme.corner(8) })
 	Gradient.apply(fill, "Blue")
 	Studs.apply(fill, 22, 0.6)
 	local barText = Theme.label({
-		Size = UDim2.new(1, 0, 0.7, 0),
-		Position = UDim2.fromScale(0, 0.15),
+		Size = UDim2.new(1, -40, 0.66, 0),
+		Position = UDim2.new(0, 20, 0.17, 0),
 		Text = "Level 1 / Level 20",
 		ZIndex = 2,
 		Parent = bar,
 	})
 
 	local rebirthButton = Window.button({
-		Size = UDim2.fromOffset(220, 70),
-		AnchorPoint = Vector2.new(1, 0),
-		Position = UDim2.new(0.5, -15, 0, 290),
+		Size = UDim2.fromOffset(238, 88),
+		Position = UDim2.fromOffset(178, 457),
 		Text = "Rebirth",
 	}, "Green", function()
 		Window.report(Net.func("Rebirth"):InvokeServer())
@@ -90,8 +105,8 @@ function RebirthMenu.build(body: Frame)
 	rebirthButton.Parent = body
 
 	local skip = Window.button({
-		Size = UDim2.fromOffset(220, 70),
-		Position = UDim2.new(0.5, 15, 0, 290),
+		Size = UDim2.fromOffset(240, 88),
+		Position = UDim2.fromOffset(496, 457),
 		Text = `Skip Rebirth \u{E002}{Purchases.price("product", "SkipRebirth")}`,
 	}, "Purple", function()
 		Purchases.product("SkipRebirth")

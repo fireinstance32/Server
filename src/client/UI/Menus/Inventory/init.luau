@@ -35,23 +35,23 @@ local EDGE = Color3.fromRGB(12, 12, 16)
 local function tabButton(column: Frame, tab, order: number): (TextButton, GuiObject)
 	local button = new("TextButton", {
 		Name = tab.id,
-		Size = UDim2.new(1, 0, 0.17, 0),
+		Size = UDim2.new(1, 0, 0, 90),
 		Text = "",
 		AutoButtonColor = false,
 		LayoutOrder = order,
 		Parent = column,
-	}, { Theme.corner(12), Theme.stroke(3, EDGE) })
+	}, { Theme.corner(8), Theme.stroke(3, EDGE) })
 	local icon = Icon.new(tab.icon, {
-		Size = UDim2.fromScale(0.62, 0.86),
+		Size = UDim2.fromOffset(110, 80),
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.fromScale(0.5, -0.12),
+		Position = UDim2.new(0.5, 0, 0, -14),
 		ZIndex = 2,
 		Parent = button,
 	})
 	Theme.label({
-		Size = UDim2.fromScale(0.92, 0.42),
+		Size = UDim2.new(0.92, 0, 0, 48),
 		AnchorPoint = Vector2.new(0.5, 1),
-		Position = UDim2.fromScale(0.5, 0.96),
+		Position = UDim2.new(0.5, 0, 1, -2),
 		Text = tab.id,
 		ZIndex = 3,
 		Parent = button,
@@ -65,13 +65,13 @@ function InventoryMenu.build(body: Frame, startTab: string?)
 	local frame = body.Parent :: Frame
 	local column = new("Frame", {
 		Name = "Tabs",
-		Size = UDim2.new(0, Window.TabWidth - 14, 1, -60),
-		Position = UDim2.new(0, -Window.TabWidth + 4, 0, 40),
+		Size = UDim2.new(0, Window.TabWidth - 10, 1, -26),
+		Position = UDim2.new(0, -Window.TabWidth, 0, 26),
 		BackgroundTransparency = 1,
 		Parent = frame,
 	}, {
 		new("UIListLayout", {
-			Padding = UDim.new(0.035, 0),
+			Padding = UDim.new(0, 32), -- reference: 245×90 tabs, 32px apart
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 	})

@@ -104,12 +104,12 @@ function Hud.init(callbacks: {
 	ScreenScale.attach(gui)
 
 	-- Bottom-centre stack, reference proportions at 1080p: stat row (44) ·
-	-- level bar (88) · packs (80), ~90 px off the bottom edge.
+	-- level bar (88) · packs (80), ~97 px off the bottom edge.
 	local bottom = Theme.new("Frame", {
 		Name = "BottomBar",
 		Size = UDim2.fromOffset(870, 236),
 		AnchorPoint = Vector2.new(0.5, 1),
-		Position = UDim2.new(0.5, 0, 1, -72),
+		Position = UDim2.new(0.5, 0, 1, -97),
 		BackgroundTransparency = 1,
 		Parent = gui,
 	})

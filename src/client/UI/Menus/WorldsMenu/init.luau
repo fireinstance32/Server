@@ -42,7 +42,7 @@ local function card(list: Instance, world: Worlds.World, data: any, here: boolea
 	local unlocked = Worlds.isUnlocked(world, data.worldsUnlocked)
 	local frame = new("Frame", {
 		Name = world.id,
-		Size = UDim2.new(1, -8, 0, 230),
+		Size = UDim2.fromOffset(942, 282), -- reference card size
 		BackgroundColor3 = Color3.new(0, 0, 0),
 		LayoutOrder = world.index,
 		Parent = list,
@@ -50,40 +50,22 @@ local function card(list: Instance, world: Worlds.World, data: any, here: boolea
 		Theme.corner(12),
 		Theme.stroke(if here then 5 else 4, if here then Color3.fromRGB(110, 200, 255) else Color3.fromRGB(12, 12, 16)),
 	})
-	local scene = Scene.build(frame, world)
-	if not unlocked then
-		-- Dim locked worlds so the bright ones read as "open".
-		new("Frame", {
-			Size = UDim2.fromScale(1, 1),
-			BackgroundColor3 = Color3.new(0, 0, 0),
-			BackgroundTransparency = 0.45,
-			ZIndex = 2,
-			Parent = scene,
-		})
-	end
+	Scene.build(frame, world)
 	local name = Theme.label({
-		Size = UDim2.new(0.6, 0, 0, 58),
-		Position = UDim2.fromOffset(22, 14),
+		Size = UDim2.new(0.6, 0, 0, 66),
+		Position = UDim2.fromOffset(32, 22),
 		Text = `World {world.index}`,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		ZIndex = 4,
 		Parent = frame,
 	})
-	name:FindFirstChildOfClass("UIStroke").Thickness = 4
-	Theme.label({
-		Size = UDim2.new(0.6, 0, 0, 30),
-		Position = UDim2.fromOffset(24, 70),
-		Text = world.name,
-		ZIndex = 4,
-		TextXAlignment = Enum.TextXAlignment.Left,
-		Parent = frame,
-	})
+	name:FindFirstChildOfClass("UIStroke").Thickness = 5
 
 	if not unlocked then
 		local need = new("Frame", {
-			Size = UDim2.new(0.5, 0, 0, 36),
+			Size = UDim2.new(0.5, 0, 0, 40),
 			AnchorPoint = Vector2.new(0, 1),
-			Position = UDim2.new(0, 22, 1, -18),
+			Position = UDim2.new(0, 32, 1, -34),
 			BackgroundTransparency = 1,
 			ZIndex = 4,
 			Parent = frame,
@@ -97,7 +79,7 @@ local function card(list: Instance, world: Worlds.World, data: any, here: boolea
 			Parent = need,
 		})
 		text:FindFirstChildOfClass("UIStroke").Thickness = 3
-		Icon.new("bolt", { Size = UDim2.fromOffset(36, 36), ZIndex = 4, Parent = need })
+		Icon.new("bolt", { Size = UDim2.fromOffset(40, 40), ZIndex = 4, Parent = need })
 	end
 
 	local text, color
@@ -111,9 +93,9 @@ local function card(list: Instance, world: Worlds.World, data: any, here: boolea
 		text, color = "LOCKED", "Red"
 	end
 	local button = Window.button({
-		Size = UDim2.fromOffset(260, 62),
+		Size = UDim2.fromOffset(400, 85),
 		AnchorPoint = Vector2.new(1, 1),
-		Position = UDim2.new(1, -22, 1, -18),
+		Position = UDim2.new(1, -32, 1, -22),
 		Text = text,
 		ZIndex = 4,
 	}, color, function()
@@ -123,20 +105,10 @@ local function card(list: Instance, world: Worlds.World, data: any, here: boolea
 		Window.report(Net.func("TravelWorld"):InvokeServer(world.id))
 	end)
 	button.Parent = frame
-	if not unlocked then
-		Icon.new("lock", {
-			Size = UDim2.fromOffset(56, 56),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.new(1, -24, 0, 20),
-			Rotation = 12,
-			ZIndex = 5,
-			Parent = frame,
-		})
-	end
 end
 
 function WorldsMenu.build(body: Frame)
-	local list = Window.list(body, 16)
+	local list = Window.list(body, 25)
 	return Signature.guard(key, function(data)
 		Window.clear(list)
 		local here = currentWorld() or "Lily"

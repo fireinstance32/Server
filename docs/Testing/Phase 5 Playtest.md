@@ -29,6 +29,9 @@ status: ready
 - [ ] Every menu pops in (and shrinks away on close), world blurred behind it, big icon top-left, red square X button top-right; Auto Hop, quest bar, tips and the bottom bar hide while it's open and come back after
 - [ ] Rebirth window is short (no empty space); bolt cards, studded progress bar
 - [ ] Daily Rewards: orange DAY tabs, reward pictures, CLAIMED overlays on past days, today outlined green, rainbow Day 7 "Limited!"
+- [ ] Daily: click today's (green-outlined) card to claim; "Next reward in: h:mm:ss" counts down under the window; hovering a card shows the white info card beside it
+- [ ] Gifts: 4 cards per row; orange with a red timer while counting down, purple with green CLAIM when ready, blue with a tick once claimed; last gift rainbow
+- [ ] Window sizes look like the reference at 1920×1080 and still fit on a small window / phone (ScreenScale)
 - [ ] Shop: Starter Pack; gamepasses as coloured cards in 2 columns with a gift button (giftable ones) and price/OWNED; Hops packs 2×2; the gift button opens a player list (test with 2 players)
 - [ ] Inventory: big tabs left of the window; title changes to My Frogs / My Pets / My Trails / My Boosts / My Titles
 - [ ] My Pets: click a tile → left panel shows it on spinning rays with EQUIP/UNEQUIP, lock, delete; trash "Auto" opens the rarity toggles; Delete asks "Sure?"; sort icon cycles; INDEX swaps the grid

@@ -25,7 +25,7 @@ function PassCard.create(props: {
 }): PassCard
 	local button = Theme.new("TextButton", {
 		Name = props.title,
-		Size = UDim2.new(1, 0, 0, 84),
+		Size = UDim2.new(1, 0, 0, 85),
 		Text = "",
 		AutoButtonColor = true,
 		LayoutOrder = props.order,

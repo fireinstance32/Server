@@ -17,11 +17,12 @@ local WorldsMenu = require(script.WorldsMenu)
 
 local Menus = {}
 
-type Spec = { title: string, icon: string, height: number?, tabs: boolean?, build: (Frame) -> (any) -> () }
+-- height / width: window size in px at 1920×1080 (default 914×618).
+type Spec = { title: string, icon: string, height: number?, width: number?, tabs: boolean?, build: (Frame) -> (any) -> () }
 
 local MENUS: { [string]: Spec } = {
 	Shop = { title = "Shop", icon = "shop", build = ShopMenu.build },
-	Rebirth = { title = "Rebirth", icon = "rebirth", height = 0.45, build = RebirthMenu.build },
+	Rebirth = { title = "Rebirth", icon = "rebirth", build = RebirthMenu.build },
 	Pets = { title = "My Pets", icon = "pets", tabs = true, build = function(body)
 		return InventoryMenu.build(body, "Pets")
 	end },
@@ -38,10 +39,10 @@ local MENUS: { [string]: Spec } = {
 		return InventoryMenu.build(body, "Boosts")
 	end },
 	Trails = { title = "Trails", icon = "trails", build = TrailsMenu.build },
-	Daily = { title = "Daily Rewards", icon = "daily", height = 0.66, build = DailyMenu.build },
-	Gifts = { title = "Gifts", icon = "gifts", height = 0.6, build = GiftsMenu.build },
-	Worlds = { title = "Worlds", icon = "globe", height = 0.7, build = WorldsMenu.build },
-	Settings = { title = "Settings", icon = "settings", height = 0.6, build = SettingsMenu.build },
+	Daily = { title = "Daily Rewards", icon = "daily", height = 695, width = 1026, build = DailyMenu.build },
+	Gifts = { title = "Gifts", icon = "gifts", height = 720, build = GiftsMenu.build },
+	Worlds = { title = "Worlds", icon = "", height = 805, width = 1025, build = WorldsMenu.build },
+	Settings = { title = "Settings", icon = "settings", height = 560, build = SettingsMenu.build },
 }
 
 local current: { name: string, frame: Frame, refresh: (any) -> () }? = nil
@@ -69,7 +70,7 @@ function Menus.show(name: string)
 	if not spec then
 		return
 	end
-	local frame, body = Window.create(spec.title, spec.icon, Menus.close, spec.height, spec.tabs)
+	local frame, body = Window.create(spec.title, spec.icon, Menus.close, spec.height, spec.tabs, spec.width)
 	Hud.setMenuOpen(true)
 	-- Track the window before building it, so its X still works if the build
 	-- errors.

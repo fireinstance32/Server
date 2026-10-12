@@ -23,7 +23,9 @@ local Window = {}
 Window.PanelColor = Layout.PanelColor
 Window.CardColor = Layout.CardColor
 Window.InsetColor = Layout.InsetColor
-Window.TabWidth = 168 -- side tab column (Inventory) sits outside the panel
+Window.TabWidth = 245 -- side tab column (Inventory) hangs off the panel's left edge
+Window.Width = 914 -- reference window size at 1920×1080 (ScreenScale handles other screens)
+Window.Height = 618
 
 Window.header = Layout.header
 Window.list = Layout.list
@@ -66,9 +68,9 @@ local function titleLabel(frame: Frame, text: string)
 	-- shifted down underneath (the "extruded" look).
 	local shadow = Theme.label({
 		Name = "TitleShadow",
-		Size = UDim2.new(0.66, 0, 0, 84),
+		Size = UDim2.new(0.76, 0, 0, 100),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(0.5, 0, 0, 7),
+		Position = UDim2.new(0.5, 0, 0, -10),
 		Text = text,
 		TextColor3 = TITLE_INK,
 		ZIndex = 5,
@@ -77,9 +79,9 @@ local function titleLabel(frame: Frame, text: string)
 	Theme.new("UIStroke", { Thickness = 7, Color = TITLE_INK, Parent = shadow })
 	local title = Theme.label({
 		Name = "Title",
-		Size = UDim2.new(0.66, 0, 0, 84),
+		Size = UDim2.new(0.76, 0, 0, 100),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(0.5, 0, 0, 0),
+		Position = UDim2.new(0.5, 0, 0, -16),
 		Text = text,
 		ZIndex = 6,
 		Parent = frame,
@@ -90,53 +92,44 @@ local function titleLabel(frame: Frame, text: string)
 end
 
 local function closeButton(frame: Frame, onClose: () -> ())
-	CloseButton.new({ Size = UDim2.fromOffset(76, 76), Position = UDim2.new(1, -6, 0, 6), ZIndex = 7, Parent = frame }, onClose)
+	CloseButton.new({ Size = UDim2.fromOffset(96, 96), Position = UDim2.new(1, -2, 0, 1), ZIndex = 7, Parent = frame }, onClose)
 end
 
--- `height` = fraction of the screen. `tabs` leaves room on the left for a
--- side tab column (the window shifts right so the pair stays centred).
-function Window.create(title: string, icon: string, onClose: () -> (), height: number?, tabs: boolean?): (Frame, Frame)
-	local shift = if tabs then Window.TabWidth / 2 else 0
+-- `height` / `width` in pixels at 1920×1080 (default: the reference 914×618).
+-- `tabs`: the Inventory tab column hangs off the left edge (the window stays
+-- centred, like the reference).
+function Window.create(title: string, icon: string, onClose: () -> (), height: number?, _tabs: boolean?, width: number?): (Frame, Frame)
 	local frame = new("Frame", {
 		Name = title,
-		Size = UDim2.fromScale(0.54, height or 0.64),
+		Size = UDim2.fromOffset(width or Window.Width, height or Window.Height),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(0.5, shift, 0.53, 0),
+		Position = UDim2.fromScale(0.5, 0.51),
 		BackgroundColor3 = Window.PanelColor,
-		BackgroundTransparency = 0.16,
+		BackgroundTransparency = 0.3, -- reference: the blurred world shows through
 		Active = true, -- clicks on the panel don't fall through to the world/HUD
 		Parent = menuScreen(),
 	}, {
-		Theme.corner(18),
-		Theme.stroke(5, Color3.fromRGB(12, 12, 16)),
-		new("UISizeConstraint", { MaxSize = Vector2.new(940, 660), MinSize = Vector2.new(540, 380) }),
+		Theme.corner(10),
+		Theme.stroke(3, Color3.fromRGB(8, 8, 10)),
 	})
-	-- Lighter rim inside the outline (glassy edge).
-	new("Frame", {
-		Name = "Rim",
-		Size = UDim2.new(1, -6, 1, -6),
-		Position = UDim2.fromOffset(3, 3),
-		BackgroundTransparency = 1,
-		ZIndex = 0,
-		Parent = frame,
-	}, { Theme.corner(15), Theme.stroke(2, Color3.fromRGB(120, 122, 140)) }):FindFirstChildOfClass("UIStroke").Transparency = 0.55
 
 	titleLabel(frame, title)
-	Icon.new(icon, {
-		Name = "CornerIcon",
-		Size = UDim2.fromOffset(136, 136),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.fromOffset(30, 6),
-		Rotation = -10,
-		ZIndex = 6,
-		Parent = frame,
-	})
+	if icon ~= "" then -- "" = no corner icon (Worlds reference)
+		Icon.new(icon, {
+			Name = "CornerIcon",
+			Size = UDim2.fromOffset(170, 170),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromOffset(60, 6),
+			ZIndex = 6,
+			Parent = frame,
+		})
+	end
 	closeButton(frame, onClose)
 
 	local body = new("Frame", {
 		Name = "Body",
-		Size = UDim2.new(1, -40, 1, -76),
-		Position = UDim2.fromOffset(20, 54),
+		Size = UDim2.new(1, -28, 1, -68),
+		Position = UDim2.fromOffset(14, 56),
 		BackgroundTransparency = 1,
 		Parent = frame,
 	})
@@ -155,7 +148,7 @@ function Window.create(title: string, icon: string, onClose: () -> (), height: n
 	TweenService:Create(scale, TweenInfo.new(0.32, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Scale = 1 }):Play()
 	frame.Position += UDim2.fromOffset(0, 40)
 	TweenService:Create(frame, TweenInfo.new(0.28, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-		Position = UDim2.new(0.5, shift, 0.53, 0),
+		Position = UDim2.fromScale(0.5, 0.51),
 	}):Play()
 	Sfx.play("Open")
 	return frame, body

@@ -37,6 +37,7 @@ tags: [planning, phase5]
 - [x] Settings sliders + ON/OFF + Camera Shake — ![[Settings Preview.png]]
 - [x] Worlds menu — ![[Worlds Preview.png]]
 - [x] Shop gamepass grid with gift buttons, Hops pack grid, gift picker — ![[Shop Preview.png]]
+- [x] Frame sizes measured from the full-screen screenshots: fixed-pixel windows, Rebirth / My Pets / Shop / Gifts / Daily / Worlds to reference pixels, Daily click-to-claim + countdown + hover info card — ![[Gifts Preview.png]] ![[Rebirth Preview.png]]
 
 ## 5.4 Reward & hatch animations 🟡
 - [x] Egg hatch reveal to the reference: floating pet picture, name, chance, tilted NEW!, bolt +bonus, lighter overlay — ![[Hatch Preview.png]]
