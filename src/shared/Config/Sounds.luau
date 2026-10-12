@@ -8,4 +8,7 @@ return {
 	Splash = "",
 	Purchase = "",
 	Hatch = "",
+	Click = "", -- every button
+	Hover = "", -- mouse over tiles/buttons
+	Claim = "", -- daily / gift / quest reward
 }

@@ -11,6 +11,7 @@ local Ponds = require(Shared.Config.Ponds)
 local Worlds = require(Shared.Config.Worlds)
 
 local Theme = require(script.Parent.Parent.UI.Theme)
+local Icon = require(script.Parent.Parent.UI.Components.Icon)
 local Purchases = require(script.Parent.Parent.Purchases)
 local PondAccess = require(script.Parent.Parent.PondAccess)
 local State = require(script.Parent.Parent.State)
@@ -24,7 +25,7 @@ local function requirementText(pond: Ponds.Pond): string
 	if pond.pass then
 		return `ALL WORLDS  \u{E002} {Purchases.price("pass", pond.pass)}`
 	end
-	return `🔁 {pond.rebirths}`
+	return `{pond.rebirths}`
 end
 
 local function buildSign(anchor: BasePart, pond: Ponds.Pond, container: Instance)
@@ -47,6 +48,11 @@ local function buildSign(anchor: BasePart, pond: Ponds.Pond, container: Instance
 		Parent = gui,
 	})
 	Theme.corner(20).Parent = pill
+	Theme.stroke(3).Parent = pill
+	if not pond.pass then
+		-- Rebirth icon inside the pill (reference "⟳ 0").
+		Icon.new("rebirth", { Size = UDim2.fromOffset(44, 44), Position = UDim2.new(0.5, -60, 0, -2), ZIndex = 2, Parent = gui })
+	end
 	local status = Theme.label({
 		Size = UDim2.new(1, 0, 0, 34),
 		Position = UDim2.fromOffset(0, 46),
@@ -54,9 +60,10 @@ local function buildSign(anchor: BasePart, pond: Ponds.Pond, container: Instance
 		Parent = gui,
 	})
 	Theme.textStroke().Parent = status
+	Icon.new("bolt", { Size = UDim2.fromOffset(54, 54), Position = UDim2.fromOffset(18, 84), Parent = gui })
 	Theme.label({
-		Size = UDim2.new(1, 0, 0, 56),
-		Position = UDim2.fromOffset(0, 84),
+		Size = UDim2.new(1, -80, 0, 56),
+		Position = UDim2.fromOffset(70, 84),
 		Text = `{pond.multiplier}x HOPS`,
 		Parent = gui,
 	})
@@ -67,6 +74,8 @@ local function buildSign(anchor: BasePart, pond: Ponds.Pond, container: Instance
 		status.TextColor3 = if unlocked then Color3.fromRGB(90, 230, 90) else C.Red
 	end
 end
+
+PondSigns.buildSign = buildSign -- (UI preview)
 
 function PondSigns.init()
 	local root = Workspace:WaitForChild("World")

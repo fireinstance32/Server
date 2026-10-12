@@ -2,6 +2,8 @@
 
 local TweenService = game:GetService("TweenService")
 
+local Sfx = require(script.Parent.Parent.Sfx)
+
 local Theme = {}
 
 Theme.Font = Enum.Font.FredokaOne
@@ -100,14 +102,28 @@ function Theme.button(props: { [string]: any }, onClick: () -> ()): TextButton
 	local scale = Theme.new("UIScale", { Parent = button })
 	Theme.textStroke().Parent = button
 
+	Theme.hover(button, scale)
 	button.Activated:Connect(function()
 		scale.Scale = 0.9
 		TweenService:Create(scale, TweenInfo.new(0.25, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
 			Scale = 1,
 		}):Play()
+		Sfx.play("Click")
 		onClick()
 	end)
 	return button
+end
+
+-- Grows a button a little while the mouse is over it.
+function Theme.hover(button: GuiButton, scale: UIScale)
+	local info = TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+	button.MouseEnter:Connect(function()
+		TweenService:Create(scale, info, { Scale = 1.06 }):Play()
+		Sfx.play("Hover", 0.3)
+	end)
+	button.MouseLeave:Connect(function()
+		TweenService:Create(scale, info, { Scale = 1 }):Play()
+	end)
 end
 
 function Theme.pop(guiObject: GuiObject)

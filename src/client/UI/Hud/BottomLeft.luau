@@ -8,6 +8,7 @@ local Format = require(ReplicatedStorage:WaitForChild("Shared").Util.Format)
 local Theme = require(script.Parent.Parent.Theme)
 local State = require(script.Parent.Parent.Parent.State)
 local Icon = require(script.Parent.Parent.Components.Icon)
+local CountUp = require(script.Parent.Parent.Components.CountUp)
 
 local new = Theme.new
 
@@ -68,9 +69,10 @@ function BottomLeft.init(gui: ScreenGui)
 		pcall(SocialService.PromptGameInvite, SocialService, Players.LocalPlayer)
 	end)
 
+	local setWins = CountUp.bind(wins, Format.abbreviate)
 	State.observe(function(data)
 		rebirths.Text = Format.abbreviate(data.rebirths)
-		wins.Text = Format.abbreviate(data.wins)
+		setWins(data.wins)
 		friend.Text = `Friend Boost +{math.floor((data.friendBoost or 0) * 100)}%`
 	end)
 end

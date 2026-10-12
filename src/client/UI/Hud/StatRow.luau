@@ -8,6 +8,7 @@ local Theme = require(script.Parent.Parent.Theme)
 local State = require(script.Parent.Parent.Parent.State)
 local MultiplierInfo = require(script.Parent.MultiplierInfo)
 local Icon = require(script.Parent.Parent.Components.Icon)
+local CountUp = require(script.Parent.Parent.Components.CountUp)
 
 local C = Theme.Colors
 
@@ -44,8 +45,11 @@ function StatRow.init(parent: Frame)
 	}, { Theme.textStroke() })
 	MultiplierInfo.init(parent, multiplier)
 
+	local setHops = CountUp.bind(hops, function(value)
+		return `{Format.abbreviate(value)} HOPS`
+	end)
 	State.observe(function(data)
-		hops.Text = `{Format.abbreviate(data.hops)} HOPS`
+		setHops(data.hops)
 		multiplier.Text = `{Format.multiplier(data.hopsMultiplier)} Multiplier`
 	end)
 end

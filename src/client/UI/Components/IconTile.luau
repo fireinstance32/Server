@@ -7,6 +7,7 @@ local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Gradient)
 local Badge = require(script.Parent.Badge)
 local Icon = require(script.Parent.Icon)
+local Sfx = require(script.Parent.Parent.Parent.Sfx)
 
 local IconTile = {}
 
@@ -43,7 +44,9 @@ function IconTile.create(props: {
 	})
 
 	local scale = Theme.new("UIScale", { Parent = tile })
+	Theme.hover(tile, scale)
 	tile.Activated:Connect(function()
+		Sfx.play("Click")
 		scale.Scale = 0.9
 		TweenService:Create(scale, TweenInfo.new(0.25, Enum.EasingStyle.Back), { Scale = 1 }):Play()
 		props.onClick()
