@@ -4,6 +4,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Frogs = require(Shared.Config.Frogs)
+local Settings = require(Shared.Config.Settings)
 
 local Template = {}
 
@@ -51,6 +52,7 @@ function Template.new()
 		worldsUnlocked = { Lily = true }, -- [worldId] = true once unlocked
 		nextPetUid = 1,
 		codes = {}, -- [code: string] = true
+		settings = Settings.defaults(), -- [settingId] = on/off (Config/Settings)
 	}
 end
 
@@ -68,6 +70,11 @@ function Template.reconcile(data: any)
 	for key, value in fresh.stats do
 		if data.stats[key] == nil then
 			data.stats[key] = value
+		end
+	end
+	for key, value in fresh.settings do
+		if data.settings[key] == nil then
+			data.settings[key] = value
 		end
 	end
 	-- Convert pets from the v0.1 test build to their new ids.

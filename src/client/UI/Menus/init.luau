@@ -11,6 +11,7 @@ local InventoryMenu = require(script.Inventory)
 local TrailsMenu = require(script.TrailsMenu)
 local DailyMenu = require(script.DailyMenu)
 local GiftsMenu = require(script.GiftsMenu)
+local SettingsMenu = require(script.SettingsMenu)
 
 local Menus = {}
 
@@ -31,6 +32,7 @@ local MENUS: { [string]: Spec } = {
 	Trails = { title = "Trails", icon = "trails", build = TrailsMenu.build },
 	Daily = { title = "Daily Rewards", icon = "daily", height = 0.66, build = DailyMenu.build },
 	Gifts = { title = "Gifts", icon = "gifts", height = 0.56, build = GiftsMenu.build },
+	Settings = { title = "Settings", icon = "settings", height = 0.5, build = SettingsMenu.build },
 }
 
 local current: { name: string, frame: Frame, refresh: (any) -> () }? = nil

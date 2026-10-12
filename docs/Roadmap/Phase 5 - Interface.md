@@ -25,7 +25,9 @@ tags: [planning, phase5]
 - [x] Window: translucent panel, blurred world, 3D corner icon, icon close button, per-menu height, studded buttons
 - [x] Shop (starter icon, content tiles, pass icons), Rebirth (studded bolt cards, studded bar), Daily (DAY tabs, reward pictures, CLAIMED overlay, rainbow Day 7), Gifts (reward pictures), Inventory tabs with icons, pet and frog pictures on cards — ![[Daily Preview.png]]
 - [x] Frogs rebuilt as cube frogs (pet builder) with per-frog extras; pet/frog picture sheets (`pets.png`, `frogs.png`)
-- [ ] My Pets details panel, Sort, Index; Settings menu
+- [x] My Pets: Sort (Best / Rarity / Name) and INDEX view (hatched pets shown, the rest as silhouettes) — ![[Pet Index Preview.png]]
+- [x] Settings menu (gear by Daily): sound effects, music, other players' pets, big effects — saved with your data
+- [ ] My Pets details panel
 
 ## 5.4 Reward & hatch animations 🟡
 - [x] Egg hatch reveal to the reference: floating pet picture, name, chance, tilted NEW!, bolt +bonus, lighter overlay — ![[Hatch Preview.png]]

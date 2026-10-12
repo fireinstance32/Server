@@ -38,6 +38,7 @@ Rojo maps:
   - `LeaderboardService` – time played, OrderedDataStore writes/reads, fills the hub boards.
   - `AnalyticsTracker` – onboarding funnel (`Config/Funnel`) + Wins sink events.
   - `EventService` – active seasonal event, event currency, event egg stand + props.
+  - `SettingsService` – `SetSetting`: saves the player's on/off settings (`Config/Settings`).
   - `DevService/` – `init` (chat plumbing, permissions) · `Commands` (Studio-only test commands, see [[Testing Guide]]).
 
 ## Shared (`src/shared`)
@@ -50,6 +51,7 @@ Rojo maps:
 - `State` – latest snapshot + `observe()`.
 - `UI/Theme` – colours, fonts, `new()` helper, chunky buttons.
 - `Purchases` – prompts passes/products/gifts by config name; `owns(pass)`, `stock(product)`.
+- `Settings` – the local player's settings from the snapshot (`get(id)`).
 - `Sfx` – plays named sounds from `Config/Sounds` (silent until ids are filled in).
 - `Effects/` – `World` (splashes, landing burst, sparkles), `Screen` (confetti, flashes), `Ultimate/` (`init` aura + beam, `CutIn`).
 - `PondAccess` – which ponds this player can use (signs, HOP button, auto-train).

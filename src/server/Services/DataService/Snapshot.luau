@@ -70,6 +70,7 @@ return function(player: Player, data: any)
 		worldsUnlocked = data.worldsUnlocked,
 		equippedTrail = data.equippedTrail,
 		event = data.event,
+		settings = data.settings,
 		passes = Passes.ownedList(player),
 		friendBoost = player:GetAttribute("FriendBoost") or 0,
 	}

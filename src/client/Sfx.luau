@@ -7,11 +7,13 @@ local SoundService = game:GetService("SoundService")
 
 local Sounds = require(ReplicatedStorage:WaitForChild("Shared").Config.Sounds)
 
+local Settings = require(script.Parent.Settings)
+
 local Sfx = {}
 
 function Sfx.play(name: string, volume: number?)
 	local id = Sounds[name]
-	if not id or id == "" then
+	if not id or id == "" or not Settings.get("sfx") then
 		return
 	end
 	local sound = Instance.new("Sound")

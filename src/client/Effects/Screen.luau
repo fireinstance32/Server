@@ -5,6 +5,8 @@ local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local Debris = game:GetService("Debris")
 
+local Settings = require(script.Parent.Parent.Settings)
+
 local Screen = {}
 
 local COLORS = {
@@ -34,6 +36,9 @@ end
 
 -- Confetti pieces falling from the top of the screen.
 function Screen.confetti(amount: number?)
+	if not Settings.get("effects") then
+		return
+	end
 	local gui = getLayer()
 	for _ = 1, amount or 60 do
 		local piece = Instance.new("Frame")

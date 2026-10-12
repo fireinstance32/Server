@@ -14,6 +14,7 @@ Security.RateLimits = {
 	TravelWorld = { rate = 0.5, burst = 2 },
 	ClaimDaily = { rate = 0.5, burst = 2 },
 	ClaimGift = { rate = 1, burst = 3 },
+	SetSetting = { rate = 2, burst = 6 },
 }
 
 -- A save written by another server counts as still in use for this long

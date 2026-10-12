@@ -6,6 +6,8 @@ local Debris = game:GetService("Debris")
 local TweenService = game:GetService("TweenService")
 local Workspace = game:GetService("Workspace")
 
+local Settings = require(script.Parent.Parent.Settings)
+
 local World = {}
 
 local SPARKLE = "rbxasset://textures/particles/sparkles_main.dds"
@@ -61,6 +63,9 @@ end
 function World.splash(position: Vector3, size: number?)
 	local s = size or 1
 	ring(position, Color3.fromRGB(200, 240, 255), 2 * s, 9 * s, 0.4)
+	if not Settings.get("effects") then
+		return
+	end
 	local holder = anchor(position + Vector3.new(0, 0.4, 0), 1.2)
 	local drops = emitter(holder, {
 		Texture = SPARKLE,
@@ -81,6 +86,9 @@ function World.landingBurst(position: Vector3, color: Color3?)
 	local tint = color or Color3.fromRGB(255, 210, 60)
 	ring(position, tint, 3, 26, 0.7)
 	ring(position, Color3.fromRGB(220, 245, 255), 2, 16, 0.5)
+	if not Settings.get("effects") then
+		return
+	end
 	local holder = anchor(position + Vector3.new(0, 1, 0), 2.5)
 	emitter(holder, {
 		Texture = SPARKLE,
@@ -107,7 +115,7 @@ end
 -- Sparkles swirling up around a character (level up, rebirth).
 function World.sparkleAround(character: Model?, color: Color3?)
 	local root = character and character:FindFirstChild("HumanoidRootPart") :: BasePart?
-	if not root then
+	if not root or not Settings.get("effects") then
 		return
 	end
 	local holder = anchor(root.Position, 2.5)

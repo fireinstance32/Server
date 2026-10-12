@@ -1,5 +1,5 @@
 -- Small top-right buttons (reference calendar icon): Daily Rewards with a
--- "!" badge when today's reward is ready. Opens the menu on join if so.
+-- "!" badge when today's reward is ready (opens on join if so), and Settings.
 
 local Theme = require(script.Parent.Parent.Theme)
 local IconTile = require(script.Parent.Parent.Components.IconTile)
@@ -35,6 +35,17 @@ function TopRight.init(gui: ScreenGui, openMenu: (string) -> ())
 	})
 	daily.Size = UDim2.fromOffset(76, 76)
 	daily.Parent = row
+	local settings = IconTile.create({
+		icon = "settings",
+		caption = "Settings",
+		color = "Grey",
+		order = 2,
+		onClick = function()
+			openMenu("Settings")
+		end,
+	})
+	settings.Size = UDim2.fromOffset(76, 76)
+	settings.Parent = row
 
 	local openedOnJoin = false
 	State.observe(function(data)

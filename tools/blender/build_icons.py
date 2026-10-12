@@ -433,6 +433,22 @@ def icon_globe():
         sphere(s, (x, -0.72 + abs(x) * 0.25, z), mat((100, 210, 90)), scale=(1, 0.35, 0.8))
 
 
+def icon_music():
+    ink = mat((150, 80, 230))
+    for x, z in ((-0.45, -0.55), (0.45, -0.35)):
+        sphere(0.32, (x, 0, z), ink, scale=(1.2, 0.8, 0.9), rot=(0, -20, 0))
+        cube((0.12, 0.12, 1.3), (x + 0.3, 0, z + 0.62), ink, 0.03)
+    cube((1.0, 0.16, 0.3), (0.3, 0, 0.98), ink, 0.05, rot=(0, -12, 0))
+
+
+def icon_speaker():
+    grey = mat((70, 75, 95))
+    cube((0.5, 0.6, 0.7), (-0.55, 0, 0), grey, 0.08)
+    cyl(0.75, 0.6, (-0.05, 0, 0), grey, rot=(0, 90, 0), r2=0.3)
+    for r in (0.55, 0.85):
+        arc(r, 0.07, -50, 50, (0.15, 0, 0), mat((90, 210, 255)))
+
+
 ICONS = {name[5:]: fn for name, fn in list(globals().items()) if name.startswith("icon_")}
 
 

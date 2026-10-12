@@ -28,6 +28,11 @@ status: ready
 - [ ] Daily Rewards: orange DAY tabs, reward pictures, CLAIMED overlays on past days, today outlined green, rainbow Day 7 "Limited!"
 - [ ] Shop: Starter Pack icon + content tiles with icons; pass rows with icons
 
+## Settings & pets
+- [ ] Gear button (top right) opens Settings; each toggle flips ON/OFF and stays after rejoining
+- [ ] Sound effects OFF: no UI/game sounds; Big effects OFF: no droplets/confetti (ripples stay); other players' pets OFF: their pets vanish for you only (test with 2 players)
+- [ ] My Pets: Sort cycles Best → Rarity → Name (equipped stay first); INDEX shows every pet, unhatched as black silhouettes with ???
+
 ## Hatch & world
 - [ ] Hatch reveal: pet picture, name, chance, tilted NEW!, ⚡ +bonus, "Click to continue" (compare [[Hatch Preview.png]])
 - [ ] Egg signs: name + price from afar; walking up shows the odds panel with pet pictures and E / R / T keys (compare [[Egg Signs Preview.png]])
