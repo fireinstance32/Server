@@ -18,10 +18,14 @@ function Purchases.onNotForSale(fn: (string) -> ())
 	notOnSale = fn
 end
 
-local function unavailable(label: string)
+local function say(message: string)
 	if notOnSale then
-		notOnSale(`{label}: not on sale yet`)
+		notOnSale(message)
 	end
+end
+
+local function unavailable(label: string)
+	say(`{label}: not on sale yet`)
 end
 
 function Purchases.owns(passName: string): boolean
@@ -45,6 +49,34 @@ function Purchases.product(productName: string)
 		return
 	end
 	MarketplaceService:PromptProductPurchase(Players.LocalPlayer, item.id)
+end
+
+-- Gift an item (pass or product name) to another player in the server.
+function Purchases.gift(itemName: string, targetUserId: number)
+	local giftId = Monetization.GiftIds[itemName]
+	local item = Monetization.Passes[itemName] or Monetization.Products[itemName]
+	local label = if item then item.label else itemName
+	if not giftId or giftId == 0 then
+		unavailable(`[GIFT] {label}`)
+		return
+	end
+	local Net = require(ReplicatedStorage:WaitForChild("Shared").Net)
+	local ok, message = Net.func("RequestGift"):InvokeServer(targetUserId, itemName)
+	if not ok then
+		say(message)
+		return
+	end
+	MarketplaceService:PromptProductPurchase(Players.LocalPlayer, giftId)
+end
+
+-- Remaining stock of a limited item, or nil if it isn't limited.
+function Purchases.stock(productName: string): (number?, number?)
+	local limit = Monetization.Limited[productName]
+	if not limit then
+		return nil, nil
+	end
+	local left = ReplicatedStorage:GetAttribute("Stock_" .. productName)
+	return if typeof(left) == "number" then left else limit, limit
 end
 
 function Purchases.price(kind: "pass" | "product", name: string): number

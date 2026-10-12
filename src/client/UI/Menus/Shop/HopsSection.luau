@@ -1,4 +1,4 @@
--- "~ Hops ~": the three Hops packs as bigger cards.
+-- "~ Hops ~": the three Hops packs and the Potion Pack as bigger cards.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -16,7 +16,7 @@ local new = Theme.new
 
 local HopsSection = {}
 
-local PACKS = { { "HopsPack1", "Yellow" }, { "HopsPack2", "Red" }, { "HopsPack3", "Rainbow" } }
+local PACKS = { { "HopsPack1", "Yellow" }, { "HopsPack2", "Red" }, { "HopsPack3", "Rainbow" }, { "PotionPack", "Blue" } }
 
 function HopsSection.build(list: ScrollingFrame, order: number)
 	Window.header(list, "Hops", order)
@@ -34,7 +34,7 @@ function HopsSection.build(list: ScrollingFrame, order: number)
 	for _, spec in PACKS do
 		local name, color = spec[1], spec[2]
 		local button = new("TextButton", {
-			Size = UDim2.new(1 / 3, -7, 1, 0),
+			Size = UDim2.new(1 / #PACKS, -8, 1, 0),
 			Text = "",
 			AutoButtonColor = true,
 			Parent = row,
@@ -43,7 +43,9 @@ function HopsSection.build(list: ScrollingFrame, order: number)
 		Theme.label({
 			Size = UDim2.fromScale(0.8, 0.5),
 			Position = UDim2.fromScale(0.1, 0.12),
-			Text = `+{Format.abbreviate(Monetization.HopsPacks[name])} Hops`,
+			Text = if Monetization.HopsPacks[name]
+				then `+{Format.abbreviate(Monetization.HopsPacks[name])} Hops`
+				else `🧪 x{Monetization.PotionPackEach} each`,
 			Parent = button,
 		})
 		RobuxChip.attach(button, Purchases.price("product", name))

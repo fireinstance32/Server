@@ -64,7 +64,9 @@ local function buildSign(anchor: BasePart, frog, prompt: ProximityPrompt, contai
 		elseif frog.rewardOnly then
 			price.Text = `🎁 {frog.rewardOnly}`
 		elseif frog.robuxOnly then
+			local left, limit = Purchases.stock("PhoenixFrog")
 			price.Text = `ONLY \u{E002} {Purchases.price("product", "PhoenixFrog")}`
+				.. (if left then `  •  STOCK {left}/{limit}` else "")
 		else
 			price.Text = `🏆 {Format.abbreviate(frog.price)} Wins`
 		end

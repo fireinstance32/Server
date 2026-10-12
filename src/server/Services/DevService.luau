@@ -16,6 +16,9 @@ local Potions = require(Shared.Config.Potions)
 local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
+local MonetizationService = require(script.Parent.MonetizationService)
+local Passes = require(script.Parent.Parent.Passes)
+local Monetization = require(Shared.Config.Monetization)
 local PetService = require(script.Parent.PetService)
 
 local DevService = {}
@@ -115,6 +118,29 @@ local COMMANDS: { [string]: Command } = {
 			end
 			data.potions[id] = (data.potions[id] or 0) + (number(args[2]) or 1)
 			return `{id} potions: {data.potions[id]}`
+		end,
+	},
+	grant = {
+		usage = "/grant <PassName>  pretend you own a pass (this session)",
+		run = function(player, _, args)
+			for name in Monetization.Passes do
+				if string.lower(name) == args[1] then
+					Passes.grant(player, name)
+					return `Granted pass {name}`
+				end
+			end
+			return "Unknown pass (see Config/Monetization)"
+		end,
+	},
+	buy = {
+		usage = "/buy <ProductName>  run a product's effect without paying",
+		run = function(player, _, args)
+			for name in Monetization.Products do
+				if string.lower(name) == args[1] then
+					return if MonetizationService.simulate(player, name) then `Simulated {name}` else `{name} failed`
+				end
+			end
+			return "Unknown product (see Config/Monetization)"
 		end,
 	},
 	daily = {

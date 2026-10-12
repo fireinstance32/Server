@@ -91,6 +91,14 @@ function PackSection.build(list: ScrollingFrame, order: number)
 	end)
 	buy.Font = Enum.Font.BuilderSansBold
 	buy.Parent = card
+
+	-- One-time offer: show it as owned once bought.
+	return function(data)
+		local bought = data.oneTime and data.oneTime.StarterPack
+		buy.Text = if bought then "OWNED" else `\u{E002} {Purchases.price("product", "StarterPack")}`
+		buy.Active = not bought
+		Gradient.apply(buy, if bought then "Grey" else "Green")
+	end
 end
 
 return PackSection

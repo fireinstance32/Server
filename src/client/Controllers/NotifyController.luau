@@ -38,6 +38,10 @@ function NotifyController.init()
 			for _, line in string.split(payload.text, "\n") do
 				Hud.toast(line, Theme.Colors.Ink)
 			end
+		elseif payload.kind == "Gift" then
+			Hud.banner("🎁 You got a gift!", `{payload.from} sent you {payload.item}`, Theme.Colors.Gold)
+		elseif payload.kind == "GiftSent" then
+			Hud.toast(`🎁 Gift sent: {payload.item}`, Theme.Colors.DarkGreen)
 		elseif payload.kind == "Quest" then
 			NotifyController.playSound("Purchase")
 			Hud.toast(`✅ Quest complete: {payload.text}  (+{payload.reward})`, Theme.Colors.DarkGreen)

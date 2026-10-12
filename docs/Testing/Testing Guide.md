@@ -25,6 +25,8 @@ Type these in the game chat. They only work in Studio (or for user ids listed in
 | `/frogs` | Unlock every frog |
 | `/potion hops 3` | Add potions (hops / wins / luck) |
 | `/daily next` / `/daily reset` | Pretend a day passed / restart the daily streak |
+| `/grant DoubleHops` | Pretend you own a pass (this session) |
+| `/buy HopsPack3` | Run a product's effect without paying |
 | `/goto river` / `/goto pond 3` | Teleport to the Hop Zone / a training pond (1–7) |
 | `/reset` | Wipe your data to a brand-new player |
 

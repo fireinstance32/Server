@@ -10,6 +10,7 @@ Roblox "+1" incremental game: press **HOP**, your frog leaps across lily pads, e
 - [[Core Loop]]
 - [[Balancing]]
 - [[Monetization]]
+- [[Monetization Setup]]
 
 ## Research
 - [[Stone Skipping Reference]]
@@ -27,6 +28,7 @@ Roblox "+1" incremental game: press **HOP**, your frog leaps across lily pads, e
 - [[Phase 1 Playtest]]
 - [[Phase 2 Playtest]]
 - [[Phase 3 Playtest]]
+- [[Phase 4 Playtest]]
 
 ## Planning
 - [[Roadmap]]

@@ -31,6 +31,7 @@ local Products: { [string]: Item } = {
 	PhoenixFrog = { id = 0, price = 199, label = "Phoenix Frog" },
 	RainbowEgg = { id = 0, price = 41, label = "Rainbow Egg" },
 	RainbowTrail = { id = 0, price = 99, label = "Rainbow Trail" },
+	PotionPack = { id = 0, price = 49, label = "Potion Pack (3 of each)" },
 	VoidTrail = { id = 0, price = 149, label = "Void Trail" },
 }
 
@@ -49,9 +50,38 @@ local StarterPack = {
 	rebirths = 1,
 }
 
+-- Potion Pack: this many of every potion.
+local PotionPackEach = 3
+
+-- Limited stock across all servers (shown as "STOCK n / limit").
+local Limited: { [string]: number } = {
+	PhoenixFrog = 1000,
+}
+
+-- "[GIFT]" developer products: one per giftable item (a pass or product
+-- name above). 0 = not created yet. Price shown = the item's price.
+local GiftIds: { [string]: number } = {
+	DoubleHops = 0,
+	DoubleWins = 0,
+	AutoHop = 0,
+	HatchTriple = 0,
+	HatchOcto = 0,
+	ExtraPetSlots = 0,
+	PetStorage = 0,
+	OfflineDouble = 0,
+	HopsPack1 = 0,
+	HopsPack2 = 0,
+	HopsPack3 = 0,
+	RainbowEgg = 0,
+	PotionPack = 0,
+}
+
 return {
 	Passes = Passes,
 	Products = Products,
 	HopsPacks = HopsPacks,
 	StarterPack = StarterPack,
+	PotionPackEach = PotionPackEach,
+	Limited = Limited,
+	GiftIds = GiftIds,
 }

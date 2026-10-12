@@ -20,6 +20,7 @@ local FUNCTIONS = {
 	"UsePotion", -- (potionId) -> ok, message
 	"ClaimDaily", -- () -> ok, message
 	"ClaimGift", -- (index) -> ok, message
+	"RequestGift", -- (targetUserId, item) -> ok, message
 	"Rebirth", -- () -> ok, message
 	"RedeemCode", -- (code) -> ok, message
 }

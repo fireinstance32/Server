@@ -46,6 +46,10 @@ local function template()
 		lastSeen = 0, -- os.time() of the last save (offline training)
 		questStep = 1, -- current tutorial quest (past the end = done)
 		stats = { winsEarned = 0, launches = 0, hatched = 0 }, -- lifetime counters
+		receipts = {}, -- [PurchaseId] = true for recent Robux receipts (no double grants)
+		receiptOrder = {}, -- oldest → newest PurchaseIds, trimmed to the last 50
+		oneTime = {}, -- [productName] = true for one-time offers already bought
+		giftedPasses = {}, -- [passName] = true for passes received as gifts
 		nextPetUid = 1,
 		codes = {}, -- [code: string] = true
 	}
@@ -151,6 +155,7 @@ local function snapshot(player: Player, data: any)
 		potionTimers = potionTimers(data),
 		daily = dailyStatus(data),
 		quest = questStatus(data),
+		oneTime = data.oneTime,
 		equippedTrail = data.equippedTrail,
 		passes = Passes.ownedList(player),
 		friendBoost = player:GetAttribute("FriendBoost") or 0,
@@ -202,6 +207,11 @@ local function save(player: Player)
 	if not ok then
 		warn(`[DataService] Failed to save {player.Name}: {err}`)
 	end
+end
+
+-- Save right away (after a Robux purchase), without waiting for autosave.
+function DataService.saveNow(player: Player)
+	task.spawn(save, player)
 end
 
 local function onPlayerAdded(player: Player)

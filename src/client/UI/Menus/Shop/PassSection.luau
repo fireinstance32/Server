@@ -11,14 +11,38 @@ local Window = require(script.Parent.Parent.Window)
 
 local PassSection = {}
 
-local ORDER = { "AutoHop", "DoubleHops", "DoubleWins", "AutoRebirth", "ExtraPetSlots" }
-local ICONS = { AutoHop = "🤖", DoubleHops = "🐸", DoubleWins = "🏆", AutoRebirth = "🔁", ExtraPetSlots = "🐾" }
+local ICONS = {
+	AutoHop = "🤖",
+	DoubleHops = "🐸",
+	DoubleWins = "🏆",
+	AutoRebirth = "🔁",
+	ExtraPetSlots = "🐾",
+	PetStorage = "🎒",
+	HatchTriple = "🥚",
+	HatchOcto = "🥚",
+	OfflineDouble = "💤",
+	PondGolden = "🌊",
+	PondRainbow = "🌈",
+	PondCosmic = "🌌",
+}
+
+-- Every pass in Config/Monetization, cheapest first.
+local function passOrder(): { string }
+	local names = {}
+	for name in Monetization.Passes do
+		table.insert(names, name)
+	end
+	table.sort(names, function(a, b)
+		return Monetization.Passes[a].price < Monetization.Passes[b].price
+	end)
+	return names
+end
 
 function PassSection.build(list: ScrollingFrame, order: number)
 	Window.header(list, "Passes", order)
 
 	local buttons = {}
-	for i, name in ORDER do
+	for i, name in passOrder() do
 		local item = Monetization.Passes[name]
 		local row = Window.card(list, order + i)
 		row.Size = UDim2.new(1, -10, 0, 70)
