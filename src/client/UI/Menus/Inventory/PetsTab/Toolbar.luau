@@ -47,7 +47,10 @@ function Toolbar.build(content: Frame, getData: () -> any)
 		chips[rarity] = chip
 	end
 
+	-- First press arms, second confirms. `presses` counts arming presses so a
+	-- stale timeout from an earlier one can't disarm a later one.
 	local armed = false
+	local presses = 0
 	local deleteButton
 	deleteButton = Window.button({
 		Size = UDim2.fromOffset(150, 44),
@@ -56,15 +59,19 @@ function Toolbar.build(content: Frame, getData: () -> any)
 	}, "Red", function()
 		if not armed then
 			armed = true
-			deleteButton.Text = "Tap again!"
+			presses += 1
+			local press = presses
+			Theme.setText(deleteButton, "Tap again!")
 			task.delay(2.5, function()
-				armed = false
-				deleteButton.Text = "Delete Unequipped"
+				if armed and press == presses then
+					armed = false
+					Theme.setText(deleteButton, "Delete Unequipped")
+				end
 			end)
 			return
 		end
 		armed = false
-		deleteButton.Text = "Delete Unequipped"
+		Theme.setText(deleteButton, "Delete Unequipped")
 		local data = getData()
 		local uids = {}
 		for uid, pet in (data and data.pets or {}) do

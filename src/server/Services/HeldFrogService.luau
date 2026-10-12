@@ -22,10 +22,15 @@ local function hand(character: Model): BasePart?
 	return (character:FindFirstChild("RightHand") or character:FindFirstChild("Right Arm")) :: BasePart?
 end
 
+-- Parts and decals keep their imported transparency (the Astro helmet is
+-- see-through) in an attribute, so showing the frog again restores it.
+local ORIGINAL = "OriginalTransparency"
+
 local function setVisible(model: Model, visible: boolean)
-	for _, part in model:GetDescendants() do
-		if part:IsA("BasePart") then
-			part.Transparency = if visible then 0 else 1
+	for _, item in model:GetDescendants() do
+		if item:IsA("BasePart") or item:IsA("Decal") then
+			local original = item:GetAttribute(ORIGINAL)
+			item.Transparency = if visible then (if typeof(original) == "number" then original else 0) else 1
 		end
 	end
 end
@@ -49,6 +54,9 @@ local function attach(player: Player, frogId: string)
 			part.Anchored = false
 			part.Massless = true
 			part.CanCollide = false
+		end
+		if part:IsA("BasePart") or part:IsA("Decal") then
+			part:SetAttribute(ORIGINAL, part.Transparency)
 		end
 	end
 	local body = model.PrimaryPart :: BasePart

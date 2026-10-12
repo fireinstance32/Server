@@ -11,4 +11,5 @@ return {
 	Click = "", -- every button
 	Hover = "", -- mouse over tiles/buttons
 	Claim = "", -- daily / gift / quest reward
+	Music = "", -- looping background track (volume follows the Music setting)
 }

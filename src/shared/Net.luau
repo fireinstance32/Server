@@ -25,6 +25,7 @@ local FUNCTIONS = {
 	"Rebirth", -- () -> ok, message
 	"RedeemCode", -- (code) -> ok, message
 	"SetSetting", -- (id, on) -> ok, message
+	"EquipTitle", -- (titleId | "") -> ok, message
 }
 
 local EVENTS = {

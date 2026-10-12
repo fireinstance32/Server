@@ -86,9 +86,13 @@ function CutIn.play(frogId: string, color: Color3): ScreenGui
 		Position = UDim2.fromScale(0.42, 0.52),
 	}):Play()
 	Theme.pop(title)
+	-- Fade, then destroy once the fade is done (Debris is the backstop).
 	task.delay(DURATION - 0.25, function()
-		TweenService:Create(backdrop, TweenInfo.new(0.25), { BackgroundTransparency = 1 }):Play()
-		gui:Destroy()
+		local fade = TweenService:Create(backdrop, TweenInfo.new(0.25), { BackgroundTransparency = 1 })
+		fade.Completed:Connect(function()
+			gui:Destroy()
+		end)
+		fade:Play()
 	end)
 	Debris:AddItem(gui, DURATION + 0.2)
 	return gui

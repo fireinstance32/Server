@@ -70,7 +70,9 @@ function Assets.build(template: Model, rootName: string, color: Color3, width: n
 		end
 	end
 	local size = model:GetExtentsSize()
-	model:ScaleTo(width / math.max(size.X, size.Z))
+	-- ScaleTo is absolute, so scale relative to the template's own factor.
+	local current: number = (model :: any):GetScale()
+	model:ScaleTo(current * width / math.max(size.X, size.Z))
 	return model
 end
 

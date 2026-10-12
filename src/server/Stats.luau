@@ -13,6 +13,7 @@ local Ponds = require(Shared.Config.Ponds)
 local Trails = require(Shared.Config.Trails)
 local Potions = require(Shared.Config.Potions)
 local Events = require(Shared.Config.Events)
+local Titles = require(Shared.Config.Titles)
 local Multipliers = require(Shared.Util.Multipliers)
 
 local Passes = require(script.Parent.Passes)
@@ -112,6 +113,26 @@ local MODIFIERS: { Modifier } = {
 		value = function(player)
 			local boost = player:GetAttribute("FriendBoost")
 			return if typeof(boost) == "number" and boost > 0 then boost else nil
+		end,
+	},
+	{
+		id = "title",
+		label = "Title",
+		stat = "hops",
+		kind = "add",
+		value = function(_, data)
+			local title = Titles.ById[data.equippedTitle or ""]
+			return if title and title.stat == "hops" then title.bonus else nil
+		end,
+	},
+	{
+		id = "titleWins",
+		label = "Title",
+		stat = "wins",
+		kind = "mult",
+		value = function(_, data)
+			local title = Titles.ById[data.equippedTitle or ""]
+			return if title and title.stat == "wins" then title.bonus else nil
 		end,
 	},
 	{ id = "doubleHops", label = "2x Hops", stat = "hops", kind = "mult", value = passFactor("DoubleHops", 2) },

@@ -9,7 +9,21 @@ local Settings = require(script.Parent.Parent.Settings)
 
 local PetFollowController = {}
 
--- Shows/hides a pet model for this client only.
+-- Things with an Enabled switch that should go dark with a hidden pet
+-- (lights too, or a hidden pet still glows).
+local TOGGLED = { "BillboardGui", "ParticleEmitter", "Light", "Trail", "Beam" }
+
+local function isToggled(item: Instance): boolean
+	for _, class in TOGGLED do
+		if item:IsA(class) then
+			return true
+		end
+	end
+	return false
+end
+
+-- Shows/hides a pet model for this client only. Switched-off items remember
+-- whether they were on ("LocalEnabled") so showing restores them as built.
 local function setLocalVisible(model: Model, visible: boolean)
 	if (model:GetAttribute("LocalHidden") == true) == not visible then
 		return
@@ -18,8 +32,18 @@ local function setLocalVisible(model: Model, visible: boolean)
 	for _, item in model:GetDescendants() do
 		if item:IsA("BasePart") or item:IsA("Decal") then
 			item.LocalTransparencyModifier = if visible then 0 else 1
-		elseif item:IsA("BillboardGui") or item:IsA("ParticleEmitter") then
-			item.Enabled = visible
+		elseif isToggled(item) then
+			local toggle = item :: any
+			if visible then
+				local was = item:GetAttribute("LocalEnabled")
+				if was ~= nil then
+					toggle.Enabled = was
+					item:SetAttribute("LocalEnabled", nil)
+				end
+			else
+				item:SetAttribute("LocalEnabled", toggle.Enabled)
+				toggle.Enabled = false
+			end
 		end
 	end
 end

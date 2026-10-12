@@ -60,12 +60,12 @@ function PassSection.build(list: ScrollingFrame, order: number)
 			AnchorPoint = Vector2.new(1, 0.5),
 			Position = UDim2.new(1, -10, 0.5, 0),
 			Text = `\u{E002} {item.price}`,
+			Font = Enum.Font.BuilderSansBold,
 		}, "Green", function()
 			if not Purchases.owns(name) then
 				Purchases.pass(name)
 			end
 		end)
-		buy.Font = Enum.Font.BuilderSansBold
 		buy.Parent = row
 		buttons[name] = buy
 	end
@@ -73,7 +73,7 @@ function PassSection.build(list: ScrollingFrame, order: number)
 	return function()
 		for name, button in buttons do
 			local owned = Purchases.owns(name)
-			button.Text = if owned then "OWNED" else `\u{E002} {Monetization.Passes[name].price}`
+			Theme.setText(button, if owned then "OWNED" else `\u{E002} {Monetization.Passes[name].price}`)
 			Gradient.apply(button, if owned then "Grey" else "Green")
 		end
 	end

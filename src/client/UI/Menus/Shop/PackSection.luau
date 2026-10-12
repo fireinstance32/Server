@@ -89,16 +89,16 @@ function PackSection.build(list: ScrollingFrame, order: number)
 		AnchorPoint = Vector2.new(1, 1),
 		Position = UDim2.new(1, -16, 1, -12),
 		Text = `\u{E002} {Purchases.price("product", "StarterPack")}`,
+		Font = Enum.Font.BuilderSansBold,
 	}, "Green", function()
 		Purchases.product("StarterPack")
 	end)
-	buy.Font = Enum.Font.BuilderSansBold
 	buy.Parent = card
 
 	-- One-time offer: show it as owned once bought.
 	return function(data)
 		local bought = data.oneTime and data.oneTime.StarterPack
-		buy.Text = if bought then "OWNED" else `\u{E002} {Purchases.price("product", "StarterPack")}`
+		Theme.setText(buy, if bought then "OWNED" else `\u{E002} {Purchases.price("product", "StarterPack")}`)
 		buy.Active = not bought
 		Gradient.apply(buy, if bought then "Grey" else "Green")
 	end

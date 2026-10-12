@@ -50,6 +50,10 @@ return function(overrides: { [string]: any }?)
 		event = { id = "Halloween2026", currency = 120 },
 		passes = { "DoubleWins" },
 		friendBoost = 0.1,
+		stats = { winsEarned = 14_200, launches = 64, hatched = 38, timePlayed = 7_400, robuxSpent = 0 },
+		titles = { Tadpole = true, PondHopper = true, Splasher = true, Regular = true, LilyLeaper = true, FrogFan = true, Reborn = true, Winner = true, Dedicated = true },
+		equippedTitle = "Winner",
+		settings = { sfx = true, music = true, otherPets = true, effects = false },
 	}
 	for k, v in overrides or {} do
 		data[k] = v

@@ -5,11 +5,11 @@ local Theme = require(script.Parent.Parent.Theme)
 local Gradient = require(script.Parent.Parent.Components.Gradient)
 local Window = require(script.Parent.Window)
 local Icon = require(script.Parent.Parent.Components.Icon)
-local ComingSoonMenu = require(script.Parent.ComingSoonMenu)
 local FrogsTab = require(script.FrogsTab)
 local PetsTab = require(script.PetsTab)
 local TrailsMenu = require(script.Parent.TrailsMenu)
 local BoostsTab = require(script.BoostsTab)
+local TitlesTab = require(script.TitlesTab)
 
 local new = Theme.new
 
@@ -19,10 +19,8 @@ local TABS = {
 	{ id = "Frogs", icon = "frog", build = FrogsTab.build },
 	{ id = "Pets", icon = "pets", build = PetsTab.build },
 	{ id = "Trails", icon = "trails", build = TrailsMenu.build },
-	{ id = "Boosts", icon = "potion_hops", build = BoostsTab.build },
-	{ id = "Titles", icon = "crown", build = function(content)
-		return ComingSoonMenu.build(content, "Titles arrive in a later phase")
-	end },
+	{ id = "Boosts", icon = "boost", build = BoostsTab.build },
+	{ id = "Titles", icon = "title", build = TitlesTab.build },
 }
 
 function InventoryMenu.build(body: Frame, startTab: string?)

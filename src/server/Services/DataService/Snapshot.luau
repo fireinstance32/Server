@@ -71,6 +71,9 @@ return function(player: Player, data: any)
 		equippedTrail = data.equippedTrail,
 		event = data.event,
 		settings = data.settings,
+		titles = data.titles,
+		stats = data.stats, -- lifetime counters (title progress)
+		equippedTitle = data.equippedTitle,
 		passes = Passes.ownedList(player),
 		friendBoost = player:GetAttribute("FriendBoost") or 0,
 	}

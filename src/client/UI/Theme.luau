@@ -75,32 +75,52 @@ function Theme.label(props: { [string]: any }): TextLabel
 	return label
 end
 
--- Chunky button with a squish animation on press.
+-- Props that belong to a button's text, which lives in a child "Label":
+-- a UIGradient on the button would tint its own Text, and the button's
+-- children (Studs texture) would draw over it.
+local TEXT_PROPS = {
+	Text = true,
+	Font = true,
+	TextColor3 = true,
+	TextScaled = true,
+	TextSize = true,
+	TextWrapped = true,
+	TextTransparency = true,
+	TextXAlignment = true,
+	TextYAlignment = true,
+	RichText = true,
+}
+
+-- Chunky button with a squish animation on press. Change its text with
+-- Theme.setText (button.Text stays "").
 function Theme.button(props: { [string]: any }, onClick: () -> ()): TextButton
-	local color = props.Color or Theme.Colors.Green
-	props.Color = nil
-	local defaults = {
-		BackgroundColor3 = color,
-		Font = Theme.Font,
-		TextColor3 = Theme.Colors.White,
-		TextScaled = true,
+	local buttonProps: { [string]: any } = {
+		BackgroundColor3 = props.Color or Theme.Colors.Green,
 		AutoButtonColor = true,
 	}
+	local labelProps: { [string]: any } = { Name = "Label", Size = UDim2.fromScale(1, 1), ZIndex = 3 }
 	for k, v in props do
-		defaults[k] = v
+		if TEXT_PROPS[k] then
+			labelProps[k] = v
+		elseif k ~= "Color" then
+			buttonProps[k] = v
+		end
 	end
-	local button = Theme.new("TextButton", defaults, {
-		Theme.corner(),
-		Theme.stroke(3),
-		Theme.new("UIPadding", {
-			PaddingTop = UDim.new(0.12, 0),
-			PaddingBottom = UDim.new(0.12, 0),
-			PaddingLeft = UDim.new(0.06, 0),
-			PaddingRight = UDim.new(0.06, 0),
-		}),
+	buttonProps.Text = ""
+	local button = Theme.new("TextButton", buttonProps, { Theme.corner(), Theme.stroke(3) })
+	local label = Theme.label(labelProps)
+	Theme.new("UIPadding", {
+		PaddingTop = UDim.new(0.12, 0),
+		PaddingBottom = UDim.new(0.12, 0),
+		PaddingLeft = UDim.new(0.06, 0),
+		PaddingRight = UDim.new(0.06, 0),
+		Parent = label,
 	})
+	if not label:FindFirstChildOfClass("UIStroke") then
+		Theme.textStroke().Parent = label
+	end
+	label.Parent = button
 	local scale = Theme.new("UIScale", { Parent = button })
-	Theme.textStroke().Parent = button
 
 	Theme.hover(button, scale)
 	button.Activated:Connect(function()
@@ -112,6 +132,14 @@ function Theme.button(props: { [string]: any }, onClick: () -> ()): TextButton
 		onClick()
 	end)
 	return button
+end
+
+-- Sets a Theme.button's text (it lives in the child "Label").
+function Theme.setText(button: GuiObject, text: string)
+	local label = button:FindFirstChild("Label")
+	if label and label:IsA("TextLabel") then
+		label.Text = text
+	end
 end
 
 -- Grows a button a little while the mouse is over it.

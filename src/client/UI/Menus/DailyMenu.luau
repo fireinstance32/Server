@@ -106,7 +106,7 @@ function DailyMenu.build(body: Frame)
 				stroke.Thickness = if today then 6 else 3
 			end
 		end
-		claim.Text = if status.canClaim then "CLAIM YOUR REWARD" else "Come back tomorrow!"
+		Theme.setText(claim, if status.canClaim then "CLAIM YOUR REWARD" else "Come back tomorrow!")
 		Gradient.apply(claim, if status.canClaim then "Green" else "Grey")
 	end
 end

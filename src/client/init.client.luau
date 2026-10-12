@@ -5,6 +5,7 @@ local Controllers = script.Controllers
 
 local Hud = require(UI.Hud)
 local Menus = require(UI.Menus)
+local Sfx = require(script.Sfx)
 local HopController = require(Controllers.HopController)
 local PetFollowController = require(Controllers.PetFollowController)
 local PromptController = require(Controllers.PromptController)
@@ -21,6 +22,11 @@ Hud.init({
 		task.spawn(HopController.hop)
 	end,
 	openMenu = Menus.open,
+	autoOpenMenu = function(name)
+		if not Menus.isOpen() then
+			Menus.show(name)
+		end
+	end,
 	setAutoHop = HopController.setAutoHop,
 })
 Menus.init()
@@ -34,3 +40,4 @@ task.spawn(EggSigns.init)
 QuestGuide.init()
 WorldLighting.init()
 task.spawn(PetFollowController.init)
+Sfx.startMusic()

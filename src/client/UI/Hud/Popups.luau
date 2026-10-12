@@ -13,30 +13,34 @@ local Popups = {}
 local gui: ScreenGui
 local toastHolder: Frame
 
+-- The gradient sits on the pill frame and the text in a child label, so the
+-- gradient doesn't tint the text.
 function Popups.toast(text: string, color: Color3?)
 	local base = color or C.Ink
-	local toast = new("TextLabel", {
+	local border = Theme.stroke(3)
+	local toast = new("Frame", {
 		Size = UDim2.new(1, 0, 0, 44),
 		BackgroundColor3 = base,
-		Font = Theme.Font,
-		Text = text,
-		TextColor3 = C.White,
-		TextScaled = true,
 		Parent = toastHolder,
-	}, {
-		Theme.corner(22),
-		Theme.stroke(3),
-		Theme.textStroke(2.5),
-		new("UIPadding", { PaddingTop = UDim.new(0, 7), PaddingBottom = UDim.new(0, 7), PaddingLeft = UDim.new(0, 16), PaddingRight = UDim.new(0, 16) }),
-	})
+	}, { Theme.corner(22), border })
 	Gradient.apply(toast, { base:Lerp(Color3.new(1, 1, 1), 0.2), base:Lerp(Color3.new(0, 0, 0), 0.15) })
+	local label = Theme.label({
+		Name = "Label",
+		Size = UDim2.fromScale(1, 1),
+		Text = text,
+		ZIndex = 2,
+		Parent = toast,
+	})
+	local textStroke = label:FindFirstChildOfClass("UIStroke") :: UIStroke
+	textStroke.Thickness = 2.5
+	new("UIPadding", { PaddingTop = UDim.new(0, 7), PaddingBottom = UDim.new(0, 7), PaddingLeft = UDim.new(0, 16), PaddingRight = UDim.new(0, 16), Parent = label })
 	Theme.pop(toast)
 	task.delay(2.5, function()
-		TweenService:Create(toast, TweenInfo.new(0.3), { BackgroundTransparency = 1, TextTransparency = 1 }):Play()
-		local stroke = toast:FindFirstChildOfClass("UIStroke")
-		if stroke then
-			TweenService:Create(stroke, TweenInfo.new(0.3), { Transparency = 1 }):Play()
-		end
+		local fade = TweenInfo.new(0.3)
+		TweenService:Create(toast, fade, { BackgroundTransparency = 1 }):Play()
+		TweenService:Create(label, fade, { TextTransparency = 1 }):Play()
+		TweenService:Create(border, fade, { Transparency = 1 }):Play()
+		TweenService:Create(textStroke, fade, { Transparency = 1 }):Play()
 		task.wait(0.3)
 		toast:Destroy()
 	end)

@@ -58,13 +58,13 @@ function GiftsMenu.build(body: Frame)
 		for i, gift in Gifts.List do
 			local button = buttons[i]
 			if claimed[i] then
-				button.Text = "CLAIMED"
+				Theme.setText(button, "CLAIMED")
 				Gradient.apply(button, "Grey")
 			elseif Gifts.isReady(i, elapsed) then
-				button.Text = "CLAIM"
+				Theme.setText(button, "CLAIM")
 				Gradient.apply(button, "Green")
 			else
-				button.Text = clock(gift.minutes * 60 - elapsed)
+				Theme.setText(button, clock(gift.minutes * 60 - elapsed))
 				Gradient.apply(button, "Grey")
 			end
 		end

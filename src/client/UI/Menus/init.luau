@@ -1,5 +1,6 @@
 -- Pop-up windows. One open at a time; each menu lives in its own module and
--- rebuilds from State whenever data changes. Names are what HUD buttons and
+-- refreshes from State whenever data changes (menus skip rebuilding cards
+-- whose data is unchanged, see Util/Signature). Names are what HUD buttons and
 -- world prompts pass to Menus.open.
 
 local State = require(script.Parent.Parent.State)
@@ -29,6 +30,12 @@ local MENUS: { [string]: Spec } = {
 	Frogs = { title = "Frogs", icon = "frog", build = function(body)
 		return InventoryMenu.build(body, "Frogs")
 	end },
+	Titles = { title = "My Titles", icon = "title", build = function(body)
+		return InventoryMenu.build(body, "Titles")
+	end },
+	Boosts = { title = "My Boosts", icon = "boost", build = function(body)
+		return InventoryMenu.build(body, "Boosts")
+	end },
 	Trails = { title = "Trails", icon = "trails", build = TrailsMenu.build },
 	Daily = { title = "Daily Rewards", icon = "daily", height = 0.66, build = DailyMenu.build },
 	Gifts = { title = "Gifts", icon = "gifts", height = 0.56, build = GiftsMenu.build },
@@ -45,12 +52,17 @@ function Menus.close()
 	end
 end
 
-function Menus.open(name: string)
-	local wasOpen = current and current.name == name
-	Menus.close()
-	if wasOpen then
-		return -- clicking the same button again closes the menu
+-- Whether `name` is open, or (with no name) whether any menu is.
+function Menus.isOpen(name: string?): boolean
+	return current ~= nil and (name == nil or current.name == name)
+end
+
+-- Opens `name` without toggling: does nothing if it's already open.
+function Menus.show(name: string)
+	if Menus.isOpen(name) then
+		return
 	end
+	Menus.close()
 	local spec = MENUS[name]
 	if not spec then
 		return
@@ -62,6 +74,15 @@ function Menus.open(name: string)
 	if State.data then
 		refresh(State.data)
 	end
+end
+
+-- HUD buttons: clicking the open menu's button again closes it.
+function Menus.open(name: string)
+	if Menus.isOpen(name) then
+		Menus.close()
+		return
+	end
+	Menus.show(name)
 end
 
 function Menus.init()

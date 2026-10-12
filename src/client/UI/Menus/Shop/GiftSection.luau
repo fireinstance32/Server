@@ -41,7 +41,7 @@ function GiftSection.build(list: ScrollingFrame, order: number)
 	end
 	local function refreshPicker()
 		local target = currentTarget()
-		picker.Text = if target then `🎁 To: {target.DisplayName}  ▶` else "No other players here"
+		Theme.setText(picker, if target then `🎁 To: {target.DisplayName}  ▶` else "No other players here")
 	end
 	picker = Window.button({
 		Size = UDim2.new(1, -20, 0, 48),
@@ -76,13 +76,13 @@ function GiftSection.build(list: ScrollingFrame, order: number)
 		local button = Window.button({
 			Name = name,
 			Text = `{item.label}  \u{E002}{item.price}`,
+			Font = Enum.Font.BuilderSansBold,
 		}, "Purple", function()
 			local target = currentTarget()
 			if target then
 				Purchases.gift(name, target.UserId)
 			end
 		end)
-		button.Font = Enum.Font.BuilderSansBold
 		button.Parent = grid
 	end
 

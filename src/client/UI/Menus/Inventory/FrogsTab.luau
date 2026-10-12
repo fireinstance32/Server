@@ -6,6 +6,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Frogs = require(Shared.Config.Frogs)
 local Format = require(Shared.Util.Format)
+local Signature = require(Shared.Util.Signature)
 local Net = require(Shared.Net)
 
 local Theme = require(script.Parent.Parent.Parent.Theme)
@@ -15,9 +16,18 @@ local PetImage = require(script.Parent.Parent.Parent.Components.PetImage)
 
 local FrogsTab = {}
 
+-- Only what the cards show: owned/equipped, and which prices are affordable.
+local function key(data): string
+	local affordable = {}
+	for _, frog in Frogs.List do
+		affordable[frog.id] = data.wins >= frog.price
+	end
+	return Signature.of(data.equippedFrog, data.frogs, affordable)
+end
+
 function FrogsTab.build(content: Frame)
 	local grid = Window.grid(content, 150, 190)
-	return function(data)
+	return Signature.guard(key, function(data)
 		Window.clear(grid)
 		for i, frog in Frogs.List do
 			local card = Window.card(grid, i, frog.color)
@@ -69,7 +79,7 @@ function FrogsTab.build(content: Frame)
 			end)
 			button.Parent = card
 		end
-	end
+	end)
 end
 
 return FrogsTab

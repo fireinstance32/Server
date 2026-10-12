@@ -15,7 +15,12 @@ function CountUp.bind(label: TextLabel, format: (number) -> string): (number) ->
 	local connection: RBXScriptConnection? = nil
 	return function(value: number)
 		if shown == nil or value < (shown :: number) then
-			-- First value, or a drop (rebirth/purchase): jump straight there.
+			-- First value, or a drop (rebirth/purchase): jump straight there,
+			-- stopping any roll in progress so it can't overwrite the jump.
+			if connection then
+				connection:Disconnect()
+				connection = nil
+			end
 			shown, target = value, value
 			label.Text = format(value)
 			return

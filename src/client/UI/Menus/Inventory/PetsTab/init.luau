@@ -7,6 +7,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Pets = require(Shared.Config.Pets)
 local Format = require(Shared.Util.Format)
+local Signature = require(Shared.Util.Signature)
 
 local Theme = require(script.Parent.Parent.Parent.Theme)
 local Window = require(script.Parent.Parent.Window)
@@ -99,31 +100,47 @@ function PetsTab.build(content: Frame)
 		return lastData
 	end)
 
+	-- Cards and the index only rebuild when what they show changes (the
+	-- server pushes a snapshot every few hundred ms while training).
+	local renderGrid = Signature.guard(function(data)
+		return Signature.of(SORTS[sortMode], data.pets)
+	end, function(data)
+		Window.clear(grid)
+		for i, entry in sortedPets(data, SORTS[sortMode]) do
+			PetCard.build(grid, i, entry.uid, entry.pet)
+		end
+	end)
+	local renderIndex = Signature.guard(function(data)
+		return Signature.of(data.discovered)
+	end, function(data)
+		Index.fill(index, data)
+	end)
+
 	render = function(data)
 		lastData = data
-		sortButton.Text = `Sort: {SORTS[sortMode]}`
-		indexButton.Text = if index.Visible then "MY PETS" else "INDEX"
+		Theme.setText(sortButton, `Sort: {SORTS[sortMode]}`)
+		Theme.setText(indexButton, if index.Visible then "MY PETS" else "INDEX")
 		if index.Visible then
-			Index.fill(index, data)
+			renderIndex(data)
 		end
-		Window.clear(grid)
-		local entries = sortedPets(data, SORTS[sortMode])
-		local equipped, bonus = 0, 0
-		for _, entry in entries do
-			if entry.pet.equipped then
-				equipped += 1
-				bonus += entry.def.bonus
+		renderGrid(data)
+		local count, equipped, bonus = 0, 0, 0
+		for _, pet in data.pets do
+			local def = Pets.ById[pet.id]
+			if def then
+				count += 1
+				if pet.equipped then
+					equipped += 1
+					bonus += def.bonus
+				end
 			end
 		end
 		local found = 0
 		for _ in data.discovered or {} do
 			found += 1
 		end
-		header.Text = `{#entries} / {data.maxPetInventory}   Equipped {equipped} / {data.maxEquippedPets} (+{Format.abbreviate(bonus)})   Index {found} / {#Pets.List}`
-		empty.Visible = #entries == 0 and not index.Visible
-		for i, entry in entries do
-			PetCard.build(grid, i, entry.uid, entry.pet)
-		end
+		header.Text = `{count} / {data.maxPetInventory}   Equipped {equipped} / {data.maxEquippedPets} (+{Format.abbreviate(bonus)})   Index {found} / {#Pets.List}`
+		empty.Visible = count == 0 and not index.Visible
 		refreshToolbar(data)
 	end
 	return render

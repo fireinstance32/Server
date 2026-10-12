@@ -25,5 +25,5 @@ Things I need from you, or choices I made for now that you can change. Newest fi
 | Halloween | 24 Oct – 3 Nov 2026 (you confirmed) | — |
 | World gates | 1M / 50M / 2.5B / 100B Hops | Tune after the Phase 7 playtest |
 | Max players | 12 | More = more Friend Boost and busier boards |
-| Performance | No StreamingEnabled yet | Decide after the Phase 8 playtest numbers |
+| Performance | No StreamingEnabled yet (forced off in default.project.json; sign/podium controllers WaitForChild on far worlds) | Decide after the Phase 8 playtest numbers |
 | Sounds | Hooks everywhere (click, hover, claim, hop, splash, hatch, level up, purchase), all silent | Pick sounds from the Creator Store (or let me suggest ids) → `Config/Sounds.luau` |

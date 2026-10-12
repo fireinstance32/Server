@@ -5,6 +5,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Format = require(Shared.Util.Format)
 local Net = require(Shared.Net)
+local Titles = require(Shared.Config.Titles)
 
 local Hud = require(script.Parent.Parent.UI.Hud)
 local Theme = require(script.Parent.Parent.UI.Theme)
@@ -39,6 +40,12 @@ function NotifyController.init()
 			task.delay(1, function()
 				Hud.banner("Welcome back! 🐸", `You trained offline for {away}: +{Format.abbreviate(payload.hops)} Hops`, Theme.Colors.Gold)
 			end)
+		elseif payload.kind == "Title" then
+			local title = Titles.ById[payload.id]
+			if title then
+				NotifyController.playSound("Purchase")
+				Hud.toast(`🎖 New title: {title.name}!  ({Titles.bonusText(title)})`, Theme.Colors.Purple)
+			end
 		elseif payload.kind == "LevelUp" then
 			NotifyController.playSound("LevelUp")
 			WorldFx.sparkleAround(game:GetService("Players").LocalPlayer.Character)

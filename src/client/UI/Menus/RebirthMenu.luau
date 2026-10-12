@@ -7,6 +7,7 @@ local TweenService = game:GetService("TweenService")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Format = require(Shared.Util.Format)
+local Signature = require(Shared.Util.Signature)
 local Net = require(Shared.Net)
 
 local Theme = require(script.Parent.Parent.Theme)
@@ -92,7 +93,10 @@ function RebirthMenu.build(body: Frame)
 	end)
 	skip.Parent = body
 
-	return function(data)
+	-- Only re-tween the bar when level or rebirths actually change.
+	return Signature.guard(function(data)
+		return Signature.of(data.rebirths, data.level, data.levelCap)
+	end, function(data)
 		local now = 1 + data.rebirths * Game.RebirthHopsBonus
 		local nextValue = 1 + (data.rebirths + 1) * Game.RebirthHopsBonus
 		before.Text = `{Format.multiplier(now)}\nHOPS`
@@ -101,7 +105,7 @@ function RebirthMenu.build(body: Frame)
 		TweenService:Create(fill, TweenInfo.new(0.25), { Size = UDim2.fromScale(ratio, 1) }):Play()
 		barText.Text = `Level {data.level} / Level {data.levelCap}`
 		Gradient.apply(rebirthButton, if ratio >= 1 then "Green" else "Grey")
-	end
+	end)
 end
 
 return RebirthMenu

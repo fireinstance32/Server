@@ -24,13 +24,18 @@ Gradient.Presets = {
 
 -- Applies a gradient. `colors` is a preset name or a list of Color3.
 -- Rainbow runs left→right; everything else top→bottom.
+-- Re-applying the preset already on the object is a no-op (menus refresh
+-- their button colours on every data snapshot).
 function Gradient.apply(guiObject: GuiObject, colors: string | { Color3 }): UIGradient
+	local existing = guiObject:FindFirstChildOfClass("UIGradient")
+	if existing and typeof(colors) == "string" and existing:GetAttribute("Preset") == colors then
+		return existing
+	end
 	local list = if typeof(colors) == "string" then Gradient.Presets[colors] else colors
 	local keypoints = {}
 	for i, color in list do
 		table.insert(keypoints, ColorSequenceKeypoint.new((i - 1) / math.max(#list - 1, 1), color))
 	end
-	local existing = guiObject:FindFirstChildOfClass("UIGradient")
 	if existing then
 		existing:Destroy()
 	end
@@ -38,6 +43,9 @@ function Gradient.apply(guiObject: GuiObject, colors: string | { Color3 }): UIGr
 	local gradient = Instance.new("UIGradient")
 	gradient.Color = ColorSequence.new(keypoints)
 	gradient.Rotation = if colors == "Rainbow" then 0 else 90
+	if typeof(colors) == "string" then
+		gradient:SetAttribute("Preset", colors)
+	end
 	gradient.Parent = guiObject
 	return gradient
 end

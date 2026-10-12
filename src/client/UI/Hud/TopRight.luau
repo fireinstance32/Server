@@ -1,5 +1,6 @@
 -- Small top-right buttons (reference calendar icon): Daily Rewards with a
--- "!" badge when today's reward is ready (opens on join if so), and Settings.
+-- "!" badge when today's reward is ready (opens on join if so, unless another
+-- menu is already up), and Settings.
 
 local Theme = require(script.Parent.Parent.Theme)
 local IconTile = require(script.Parent.Parent.Components.IconTile)
@@ -9,7 +10,8 @@ local new = Theme.new
 
 local TopRight = {}
 
-function TopRight.init(gui: ScreenGui, openMenu: (string) -> ())
+-- `autoOpen` opens a menu only if none is open (never toggles one shut).
+function TopRight.init(gui: ScreenGui, openMenu: (string) -> (), autoOpen: ((string) -> ())?)
 	local row = new("Frame", {
 		Name = "TopRight",
 		Size = UDim2.fromOffset(200, 80),
@@ -54,7 +56,9 @@ function TopRight.init(gui: ScreenGui, openMenu: (string) -> ())
 		if ready and not openedOnJoin then
 			openedOnJoin = true
 			task.delay(2, function()
-				openMenu("Daily")
+				if autoOpen then
+					autoOpen("Daily")
+				end
 			end)
 		end
 	end)

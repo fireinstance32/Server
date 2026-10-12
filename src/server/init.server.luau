@@ -28,6 +28,7 @@ local ORDER = {
 	"AnalyticsTracker",
 	"EventService",
 	"SettingsService",
+	"TitleService",
 	"DevService",
 }
 

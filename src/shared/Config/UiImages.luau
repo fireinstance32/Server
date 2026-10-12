@@ -43,6 +43,12 @@ UiImages.Fallback = {
 	globe = "🌍",
 	music = "🎵",
 	speaker = "🔊",
+	boost = "⭐",
+	check = "✅",
+	info = "ℹ",
+	sort = "↕",
+	title = "🎖",
+	trash = "🗑",
 } :: { [string]: string }
 
 -- "rbxassetid://..." for an uploaded image, or nil.

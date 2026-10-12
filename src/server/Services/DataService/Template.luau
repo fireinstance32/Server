@@ -53,6 +53,8 @@ function Template.new()
 		nextPetUid = 1,
 		codes = {}, -- [code: string] = true
 		settings = Settings.defaults(), -- [settingId] = on/off (Config/Settings)
+		titles = {}, -- [titleId] = true once unlocked (Config/Titles)
+		equippedTitle = "", -- worn title id, "" for none
 	}
 end
 

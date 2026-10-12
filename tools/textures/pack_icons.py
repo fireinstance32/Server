@@ -5,6 +5,8 @@ lookup table the game uses.
         icon_*.png  -> assets/textures/ui/icons.png + Config/IconAtlas.luau
     python3 tools/textures/pack_icons.py <render_dir> pet_ pets PetIconAtlas 128 8
         pet_*.png   -> assets/textures/ui/pets.png  + Config/PetIconAtlas.luau
+    python3 tools/textures/pack_icons.py <render_dir> icon_ icons IconAtlas 170 6 flat
+        vector icons (tools/textures/vector_icons.py) that already have outlines
 """
 
 import glob
@@ -21,6 +23,7 @@ SHEET = ARGS[2] if len(ARGS) > 2 else "icons"
 LUA = ARGS[3] if len(ARGS) > 3 else "IconAtlas"
 CELL = int(ARGS[4]) if len(ARGS) > 4 else 170
 COLS = int(ARGS[5]) if len(ARGS) > 5 else 6
+FLAT = len(ARGS) > 6 and ARGS[6] == "flat"  # images already carry their outline
 OUTLINE = (28, 26, 38, 255)
 
 
@@ -30,11 +33,13 @@ def outlined(path):
     box = img.split()[3].point(lambda a: 255 if a > 8 else 0).getbbox()
     if box:
         img = img.crop(box)
-    inner = CELL - max(8, CELL // 12)
+    inner = CELL - (4 if FLAT else max(8, CELL // 12))
     k = inner / max(img.size)
     img = img.resize((max(1, round(img.width * k)), max(1, round(img.height * k))), Image.LANCZOS)
     canvas = Image.new("RGBA", (CELL, CELL), (0, 0, 0, 0))
     canvas.paste(img, ((CELL - img.width) // 2, (CELL - img.height) // 2))
+    if FLAT:
+        return canvas
     alpha = canvas.split()[3].point(lambda a: 255 if a > 90 else 0)
     ring = alpha.filter(ImageFilter.MaxFilter(7)).filter(ImageFilter.GaussianBlur(0.8))
     back = Image.new("RGBA", canvas.size, OUTLINE)

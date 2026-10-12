@@ -42,7 +42,7 @@ function SettingsMenu.build(body: Frame)
 	return function()
 		for id, button in buttons do
 			local on = ClientSettings.get(id)
-			button.Text = if on then "ON" else "OFF"
+			Theme.setText(button, if on then "ON" else "OFF")
 			Gradient.apply(button, if on then "Green" else "Red")
 		end
 	end

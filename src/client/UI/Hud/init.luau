@@ -48,12 +48,13 @@ function Hud.setHopMode(mode: string?, pond: any?, locked: boolean?)
 	AutoRebirth.setVisible(mode == "Train")
 	hopButton.Visible = mode == "Launch" or (mode == "Train" and locked == true)
 	if mode == "Launch" then
-		hopButton.Text = "HOP!"
+		Theme.setText(hopButton, "HOP!")
 		Gradient.apply(hopButton, "Blue")
 	elseif mode == "Train" and locked and pond then
-		hopButton.Text = if pond.pass
-			then `UNLOCK \u{E002}{Purchases.price("pass", pond.pass)}`
-			else `🔒 {pond.rebirths} REBIRTHS`
+		Theme.setText(
+			hopButton,
+			if pond.pass then `UNLOCK \u{E002}{Purchases.price("pass", pond.pass)}` else `🔒 {pond.rebirths} REBIRTHS`
+		)
 		Gradient.apply(hopButton, if pond.pass then "Green" else "Grey")
 	end
 end
@@ -72,7 +73,8 @@ end
 
 function Hud.init(callbacks: {
 	onHop: () -> (),
-	openMenu: (string) -> (),
+	openMenu: (string) -> (), -- toggles
+	autoOpenMenu: ((string) -> ())?, -- opens only if no menu is open
 	setAutoHop: (boolean) -> (),
 })
 	gui = Theme.new("ScreenGui", {
@@ -110,7 +112,7 @@ function Hud.init(callbacks: {
 	Icon.new("frog", {
 		Size = UDim2.fromOffset(84, 84),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(1, 4, 0.5, -10),
+		Position = UDim2.new(1, -12, 0.5, -10),
 		Rotation = 10,
 		ZIndex = 2,
 		Parent = hopButton,
@@ -122,7 +124,7 @@ function Hud.init(callbacks: {
 	TopBar.init(gui, callbacks.setAutoHop)
 	DistanceMeter.init(gui)
 	PotionTimers.init(gui)
-	TopRight.init(gui, callbacks.openMenu)
+	TopRight.init(gui, callbacks.openMenu, callbacks.autoOpenMenu)
 	EventBanner.init(gui)
 	QuestBar.init(gui)
 	TipTicker.init(gui)

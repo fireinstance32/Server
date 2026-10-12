@@ -50,7 +50,7 @@ function PromptController.init()
 			local ok, message = Net.func("TravelWorld"):InvokeServer(travelTo)
 			Hud.toast(message, if ok then Theme.Colors.DarkGreen else Theme.Colors.Red)
 		elseif typeof(menu) == "string" then
-			Menus.open(menu)
+			Menus.show(menu) -- a world prompt opens, never toggles shut
 		end
 	end)
 end

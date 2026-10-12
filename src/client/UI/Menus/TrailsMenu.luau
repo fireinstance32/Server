@@ -7,6 +7,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Trails = require(Shared.Config.Trails)
 local Format = require(Shared.Util.Format)
+local Signature = require(Shared.Util.Signature)
 local Net = require(Shared.Net)
 
 local Theme = require(script.Parent.Parent.Theme)
@@ -18,9 +19,18 @@ local new = Theme.new
 
 local TrailsMenu = {}
 
+-- Only what the cards show: owned/equipped, and which prices are affordable.
+local function key(data): string
+	local affordable = {}
+	for _, trail in Trails.List do
+		affordable[trail.id] = data.wins >= trail.price
+	end
+	return Signature.of(data.equippedTrail, data.trails, affordable)
+end
+
 function TrailsMenu.build(body: Frame)
 	local grid = Window.grid(body, 170, 190)
-	return function(data)
+	return Signature.guard(key, function(data)
 		Window.clear(grid)
 		for i, trail in Trails.List do
 			local card = Window.card(grid, i, trail.colors[1])
@@ -73,7 +83,7 @@ function TrailsMenu.build(body: Frame)
 			}, color, action)
 			button.Parent = card
 		end
-	end
+	end)
 end
 
 return TrailsMenu
