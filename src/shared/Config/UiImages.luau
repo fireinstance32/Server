@@ -12,6 +12,7 @@ UiImages.Ids = {
 	studs = 111592566563956, -- studs.png: tiling brick-stud texture for panels
 	pets = 107708070810178, -- pets.png: every pet's picture (layout in Config/PetIconAtlas)
 	frogs = 81136670797846, -- frogs.png: every rock's picture (layout in Config/FrogIconAtlas)
+	caustics = 0, -- assets/textures/water/caustics.png: light lines on the water (tools/textures/make_caustics.py)
 } :: { [string]: number }
 
 -- Emoji shown until the icon sheet is uploaded.

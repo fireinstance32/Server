@@ -41,7 +41,7 @@ local function train(player: Player, data: any, pond: Ponds.Pond, world: Worlds.
 end
 
 local function launch(player: Player, data: any, world: Worlds.World)
-	local distance = math.min(Game.distanceForHops(data.hops), Zones.RiverLength)
+	local distance = math.min(Zones.distanceForStrength(data.hops), Zones.RiverLength)
 	local bounces = math.max(1, math.floor(distance / Game.PadSpacing))
 	local zone = Zones.zoneForDistance(distance, world.id)
 	local context = { mode = "Launch", zone = zone.index }

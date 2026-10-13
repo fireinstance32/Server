@@ -29,11 +29,6 @@ t.test("flight time includes the toss wind-up and caps visual hops", function()
 	t.near(Game.flightTime(10_000), Game.flightTime(Game.MaxVisualHops))
 end)
 
-t.test("distance grows with hops", function()
-	assert(Game.distanceForHops(1000) > Game.distanceForHops(10), "more hops should go farther")
-	t.equal(Game.distanceForHops(0), Game.DistanceBase)
-end)
-
 t.test("metres are whole numbers and never negative", function()
 	t.equal(Game.metersFor(0), 0)
 	t.equal(Game.metersFor(-50), 0)

@@ -4,8 +4,9 @@
 -- Robux ponds unlock with a game pass and work in every world (reference:
 -- 0→1x, 2→4x, 4→10x, 6→20x; Robux 3x / 15x / 50x).
 --
--- Layout: one row along +X at RowZ (the lobby's +Z side). Positions are computed in functions (not
--- at load) so the pure parts of this module stay unit-testable offline.
+-- Layout: one row along +X at RowZ (the lobby's +Z side). Positions are
+-- computed in functions (not at load) so the pure parts of this module stay
+-- unit-testable offline.
 
 export type Pond = {
 	index: number,
@@ -34,16 +35,18 @@ for _, pond in Ponds.List do
 	Ponds.ById[pond.id] = pond
 end
 
--- Layout (studs). Gyms are WidthX × LengthZ platforms in a row along the
--- lobby's +Z wall (Config/Lobby), the stand pad in the middle.
-Ponds.RowStartX = -138
-Ponds.Spacing = 16
-Ponds.RowZ = 56
-Ponds.WidthX = 13
-Ponds.LengthZ = 18
+-- Layout (studs). Gyms are WidthX × LengthZ in a row along the lobby's +Z
+-- wall (Config/Lobby), long side toward the wall: a Rim-wide raised border,
+-- the stand pad at the front end and a pool behind it (Util/GymGrid).
+Ponds.RowStartX = -160
+Ponds.Spacing = 20
+Ponds.RowZ = 63
+Ponds.WidthX = 16
+Ponds.LengthZ = 34
 Ponds.SurfaceY = 0.5
-Ponds.PadsPerPond = 8 -- (legacy) lily pad loop, unused by the gym look
-Ponds.StandRadius = 4.5 -- how close to the stand pad counts as "on the pad"
+Ponds.Rim = 2 -- border width
+Ponds.StandSize = 8 -- the square stand pad
+Ponds.StandRadius = 4.5 -- how close to the stand pad's centre counts as "on the pad"
 
 function Ponds.isUnlocked(pond: Pond, rebirths: number, ownsPass: (string) -> boolean): boolean
 	if pond.pass then
@@ -67,16 +70,10 @@ function Ponds.center(pond: Pond): Vector3
 	return Vector3.new(Ponds.RowStartX + (pond.index - 1) * Ponds.Spacing, Ponds.SurfaceY, Ponds.RowZ)
 end
 
--- The square pad in the middle of the gym where the player stands.
+-- The square pad at the gym's front (-Z) end, just inside the rim, where
+-- the player stands.
 function Ponds.standPosition(pond: Pond): Vector3
-	return Ponds.center(pond) - Vector3.new(0, 0, 2)
-end
-
--- Lily pad i inside the pond, on an oval loop.
-function Ponds.padPosition(pond: Pond, i: number): Vector3
-	local angle = (i / Ponds.PadsPerPond) * math.pi * 2
-	local offset = Vector3.new(math.cos(angle) * Ponds.WidthX * 0.32, 0.3, math.sin(angle) * Ponds.LengthZ * 0.34)
-	return Ponds.center(pond) + offset
+	return Ponds.center(pond) - Vector3.new(0, 0, Ponds.LengthZ / 2 - Ponds.Rim - Ponds.StandSize / 2)
 end
 
 -- The pond whose stand pad is at `position`, if any.

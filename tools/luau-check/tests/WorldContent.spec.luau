@@ -88,3 +88,18 @@ t.test("every zone has a sign icon, its lane look and known props", function()
 		end
 	end
 end)
+
+t.test("zones are evenly spaced and each needs its Strength", function()
+	for i, zone in Zones.List do
+		t.equal(zone.distance, (i - 1) * Zones.ZoneLength)
+		if i > 1 then
+			assert(zone.strength > Zones.List[i - 1].strength, "zone Strength must rise")
+			t.near(Zones.distanceForStrength(zone.strength), zone.distance)
+			assert(Zones.distanceForStrength(zone.strength - 1) < zone.distance, "just short of a zone stays in the one before")
+			t.equal(Zones.zoneForDistance(Zones.distanceForStrength(zone.strength)).index, i)
+		end
+	end
+	t.equal(Zones.distanceForStrength(0), Zones.MinDistance)
+	t.equal(Zones.distanceForStrength(1e12), Zones.RiverLength)
+	assert(Zones.distanceForStrength(1000) > Zones.distanceForStrength(10), "more Strength goes farther")
+end)

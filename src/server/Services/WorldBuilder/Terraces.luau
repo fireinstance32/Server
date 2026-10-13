@@ -15,7 +15,7 @@ Terraces.Tiers = {
 }
 local BOTTOM = -8 -- blocks reach down under the floor / riverbed
 local CAP = 1 -- grass cap thickness (it shows as a grass edge above the checker)
-local LEDGE_CELL = 5
+local LEDGE_CELL = 4 -- same as the lobby floor (Config/Lobby.Cell)
 
 export type Run = {
 	name: string,

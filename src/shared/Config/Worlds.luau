@@ -23,7 +23,7 @@ Worlds.List = {
 	{ index = 5, id = "Lava", name = "Lava Springs", gateHops = 100e9, rewardScale = 400000, offsetZ = 16000, color = Color3.fromRGB(255, 100, 40) },
 } :: { World }
 
--- Look of each world: plaza checker colours, lily pads, and the lighting
+-- Look of each world: floor checker colours (two clearly different tones), lily pads, and the lighting
 -- the client fades to when you're in that world (Controllers/WorldLighting).
 export type Theme = {
 	plaza: Color3,
@@ -42,34 +42,35 @@ export type Theme = {
 local rgb = Color3.fromRGB
 Worlds.Themes = {
 	Lily = {
-		plaza = rgb(110, 200, 90),
-		plazaAlt = rgb(126, 214, 104),
+		-- Bright, saturated checker greens (reference).
+		plaza = rgb(76, 186, 40),
+		plazaAlt = rgb(124, 216, 72),
 		pad = rgb(70, 175, 70),
-		-- Sunset look (reference). Early morning, so the low sun sits over the
-		-- far end of the lane (+X); it reads as a sunset.
-		lighting = { ClockTime = 6.55, Brightness = 2.6, OutdoorAmbient = rgb(185, 150, 160), atmosphere = rgb(255, 175, 150), density = 0.3, tint = rgb(255, 242, 235) },
+		-- Clear midday (reference): high sun behind the lobby so shadows fall
+		-- down the lane, crisp colours, little haze.
+		lighting = { ClockTime = 14.2, Brightness = 2.2, OutdoorAmbient = rgb(128, 128, 140), atmosphere = rgb(200, 225, 255), density = 0.22, tint = rgb(255, 255, 255) },
 	},
 	Swamp = {
-		plaza = rgb(95, 122, 95),
-		plazaAlt = rgb(108, 136, 106),
+		plaza = rgb(80, 130, 70),
+		plazaAlt = rgb(110, 160, 92),
 		pad = rgb(95, 155, 90),
 		lighting = { ClockTime = 18.2, Brightness = 1.6, OutdoorAmbient = rgb(130, 110, 150), atmosphere = rgb(170, 140, 200), density = 0.35, tint = rgb(235, 225, 255) },
 	},
 	Candy = {
-		plaza = rgb(255, 188, 218),
-		plazaAlt = rgb(255, 206, 230),
+		plaza = rgb(255, 160, 205),
+		plazaAlt = rgb(255, 200, 228),
 		pad = rgb(255, 150, 200),
 		lighting = { ClockTime = 13, Brightness = 2.8, OutdoorAmbient = rgb(180, 150, 170), atmosphere = rgb(255, 210, 235), density = 0.25, tint = rgb(255, 242, 250) },
 	},
 	Space = {
-		plaza = rgb(78, 80, 112),
-		plazaAlt = rgb(94, 96, 132),
+		plaza = rgb(70, 72, 120),
+		plazaAlt = rgb(98, 100, 160),
 		pad = rgb(130, 110, 220),
 		lighting = { ClockTime = 0, Brightness = 1.4, OutdoorAmbient = rgb(120, 120, 175), atmosphere = rgb(90, 90, 160), density = 0.2, tint = rgb(220, 226, 255) },
 	},
 	Lava = {
-		plaza = rgb(92, 72, 66),
-		plazaAlt = rgb(108, 82, 74),
+		plaza = rgb(90, 64, 56),
+		plazaAlt = rgb(122, 84, 70),
 		pad = rgb(75, 68, 66),
 		lighting = { ClockTime = 17.4, Brightness = 1.8, OutdoorAmbient = rgb(170, 110, 90), atmosphere = rgb(255, 140, 90), density = 0.35, tint = rgb(255, 230, 215) },
 	},

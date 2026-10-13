@@ -5,6 +5,7 @@
 local Parts = require(script.Parent.Parts)
 local Plants = require(script.Plants)
 local Things = require(script.Things)
+local Decor = require(script.Decor)
 
 local Props = {}
 
@@ -12,8 +13,10 @@ local BUILDERS: { [string]: (Vector3, Random, Instance) -> () } = {}
 for kind, builder in Plants do
 	BUILDERS[kind] = builder
 end
-for kind, builder in Things do
-	BUILDERS[kind] = builder
+for _, set in { Things, Decor } do
+	for kind, builder in set do
+		BUILDERS[kind] = builder
+	end
 end
 
 local rgb = Color3.fromRGB
@@ -24,6 +27,8 @@ local AUTUMN = { rgb(240, 140, 40), rgb(225, 80, 45), rgb(250, 195, 60) }
 local CAPS = { rgb(220, 60, 60), rgb(170, 90, 220), rgb(240, 150, 60) }
 local GEMS = { rgb(170, 120, 255), rgb(110, 200, 255), rgb(255, 120, 220) }
 local SWEETS = { rgb(255, 90, 160), rgb(120, 200, 255), rgb(255, 200, 60), rgb(160, 110, 255) }
+local FLAME = { rgb(255, 170, 60) }
+local LANTERNS = { rgb(230, 60, 50), rgb(255, 150, 60) }
 local PETALS = { rgb(255, 90, 120), rgb(255, 220, 60), rgb(160, 110, 255), rgb(255, 255, 255) }
 
 type ModelSpec = { names: { string }, width: NumberRange, colors: { Color3 }? }
@@ -47,18 +52,35 @@ local MODELS: { [string]: ModelSpec } = {
 	pumpkin = { names = { "Pumpkin" }, width = NumberRange.new(2.5, 4) },
 	reed = { names = { "Reeds" }, width = NumberRange.new(2, 3) },
 	flower = { names = { "Flowers" }, width = NumberRange.new(2, 3), colors = PETALS },
+	-- Gym decor (assets/models/Decor)
+	grass = { names = { "GrassTuft" }, width = NumberRange.new(1.5, 2.5) },
+	lilypad = { names = { "LilyPad", "LilyPadFlower" }, width = NumberRange.new(2, 3), colors = PETALS },
+	lotus = { names = { "Lotus" }, width = NumberRange.new(2, 3) },
+	candle = { names = { "Candle", "CandleTrio" }, width = NumberRange.new(1.2, 2), colors = FLAME },
+	jackolantern = { names = { "JackOLantern" }, width = NumberRange.new(2, 3), colors = FLAME },
+	lantern = { names = { "PaperLantern" }, width = NumberRange.new(1.3, 1.8), colors = LANTERNS },
+	stonelantern = { names = { "StoneLantern" }, width = NumberRange.new(2, 3), colors = FLAME },
+	bamboo = { names = { "Bamboo" }, width = NumberRange.new(2.5, 3.5) },
+	cherry = { names = { "CherryTree", "CherryTreeSmall" }, width = NumberRange.new(7, 10) },
+	torii = { names = { "ToriiGate" }, width = NumberRange.new(10, 14) },
 }
 
+-- Overrides for one placement: its width (studs) and turn (radians; random
+-- when left out).
+export type Options = { width: number?, turn: number? }
+
 -- Builds a prop of `kind` standing on the ground at `position`.
-function Props.place(kind: string, position: Vector3, rng: Random, parent: Instance)
+function Props.place(kind: string, position: Vector3, rng: Random, parent: Instance, options: Options?)
 	local model = MODELS[kind]
+	local width = options and options.width
+	local turn = options and options.turn
 	if model then
 		local name = model.names[rng:NextInteger(1, #model.names)]
-		local width = rng:NextNumber(model.width.Min, model.width.Max)
-		local cframe = CFrame.new(position) * CFrame.Angles(0, rng:NextNumber(0, math.pi * 2), 0)
+		local size = width or rng:NextNumber(model.width.Min, model.width.Max)
+		local cframe = CFrame.new(position) * CFrame.Angles(0, turn or rng:NextNumber(0, math.pi * 2), 0)
 		local colors = model.colors
 		local color = if colors then colors[rng:NextInteger(1, #colors)] else Color3.new(1, 1, 1)
-		if Parts.prop(name, color, width, cframe, parent) then
+		if Parts.prop(name, color, size, cframe, parent) then
 			return
 		end
 	end

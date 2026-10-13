@@ -17,15 +17,15 @@ local function roleOf(name: string): string
 end
 
 -- The imported template, or nil if it hasn't been imported yet. Looks in
--- Assets and in Assets.Rocks / Assets.Props / Assets.Nature (the combined
--- Rocks.fbx, Props.fbx and Nature.fbx imports).
+-- Assets and in Assets.Rocks / Props / Nature / Decor (the combined
+-- Rocks.fbx, Props.fbx, Nature.fbx and Decor.fbx imports).
 function Assets.template(name: string): Model?
 	local folder = ReplicatedStorage:FindFirstChild("Assets")
 	if not folder then
 		return nil
 	end
 	local template = folder:FindFirstChild(name)
-	for _, group in { "Rocks", "Props", "Nature" } do
+	for _, group in { "Rocks", "Props", "Nature", "Decor" } do
 		local sub = folder:FindFirstChild(group)
 		if not template and sub then
 			template = sub:FindFirstChild(name)
@@ -57,8 +57,8 @@ function Assets.build(template: Model, rootName: string, color: Color3, width: n
 			part.CanCollide = false
 			part.CanQuery = false
 			part.CanTouch = false
-			part.CastShadow = false
 			local role = roleOf(part.Name)
+			part.CastShadow = role ~= "Glow" -- the reference scenery throws shadows
 			local tint = TINTS[role]
 			if tint then
 				part.Color = tint(color)

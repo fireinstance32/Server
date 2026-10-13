@@ -90,3 +90,12 @@ status: in progress
 - [ ] The THROW button shows a red STOP while training; pressing it lets you walk off
 - [ ] Jumping also lets you go; you aren't grabbed again until you leave the pad and step back on
 - [ ] Respawning while training doesn't leave you frozen
+
+## 6.5 Lobby round 2
+- [ ] Grass is a bright green checker; walks are a lavender checker with a darker raised edge, and the spawn plaza is round
+- [ ] Each gym looks different (ground colour, decor), with an irregular blue pool
+- [ ] The stand pad has white corner brackets and a chevron; standing on it locks you in place facing the lobby
+- [ ] Throw at low and high Strength: each zone takes about as long to cross as the next (300 studs each), and each zone needs the same Strength as before
+- [ ] Water is opaque bright blue on the lane, the gym pools and the waterfalls; you can still swim in the lane
+- [ ] Sunny lighting with clear shadows under trees and props (with Lighting.Technology = Future)
+- [ ] After importing `Decor.fbx` as `Assets.Decor`: the gyms use the torii, cherry tree, lantern, candle, lily pad, lotus and bamboo models instead of blocks

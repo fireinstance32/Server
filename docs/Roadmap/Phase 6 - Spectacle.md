@@ -39,6 +39,8 @@ tags: [planning, phase6]
 - [x] ~~Stud texture on every walkable surface~~ removed 2026-10-13: the user adds studs with a plugin
 - [x] **Lobby like the reference screenshots** (2026-10-13): a small walled courtyard with two-tier terraced checker walls, gyms down one side, a rock shelf and portals on the other, eggs, boards and waterfalls at the back, and a wide checker Throw Zone at the water (`Config/Lobby`, `WorldBuilder/Terraces`, `Hub/*`)
 - [x] Map saved in `Workspace.Map` (built only if missing), so it can be edited in Studio; walk speed 24
+- [x] **Lobby round 2** (2026-10-13): green checker grass, lavender checker walks with raised borders and a round spawn plaza (`Util/LobbyGrid`); themed gym pools with decor and a marked stand pad (`PondRow/`, `Util/GymGrid`); zones evenly 300 studs apart (`Zones.distanceForStrength`); opaque water with caustics (`WorldBuilder/Water`); midday lighting with shadows; 13 Blender decor models (`build_decor.py`)
+- [ ] Upload the caustics texture (needs your OK) and import `Decor.fbx`
 - [ ] Check the map in Play and polish (sign/checker facing, prop placement, performance: ~31k instances)
 - [ ] Skyboxes per world
 

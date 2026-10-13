@@ -1,6 +1,7 @@
--- Lighting, sky and the water's look (reference: warm sunset, a huge sun
--- low over the far end of the throw lane, pink-orange clouds, clear bright
--- water). Controllers/WorldLighting fades the per-world parts of this.
+-- Lighting and sky (reference: clear bright midday, crisp shadows, punchy
+-- colours, white clouds). Controllers/WorldLighting fades the per-world
+-- parts of this. (Lighting.Technology can't be set from a script: set it to
+-- Future in Studio, Lighting → Technology.)
 
 local Lighting = game:GetService("Lighting")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -24,45 +25,56 @@ function Environment.buildLighting()
 	Lighting.ClockTime = look.ClockTime
 	Lighting.Brightness = look.Brightness
 	Lighting.OutdoorAmbient = look.OutdoorAmbient
-	Lighting.Ambient = Color3.fromRGB(90, 80, 90)
+	Lighting.Ambient = Color3.fromRGB(90, 90, 105)
 	Lighting.GlobalShadows = true
-	Lighting.EnvironmentDiffuseScale = 0.4
-	Lighting.EnvironmentSpecularScale = 0.4
+	Lighting.ShadowSoftness = 0.15
+	Lighting.EnvironmentDiffuseScale = 1
+	Lighting.EnvironmentSpecularScale = 0.25
+	Lighting.ColorShift_Top = Color3.fromRGB(255, 245, 225)
+	Lighting.ColorShift_Bottom = Color3.new(0, 0, 0)
+	Lighting.GeographicLatitude = 35
 
 	local atmosphere = child("Atmosphere", Lighting)
 	atmosphere.Density = look.density
-	atmosphere.Offset = 0.1
-	atmosphere.Haze = 1.4
-	atmosphere.Glare = 0.6
+	atmosphere.Offset = 0
+	atmosphere.Haze = 0.3
+	atmosphere.Glare = 0
 	atmosphere.Color = look.atmosphere
-	atmosphere.Decay = Color3.fromRGB(150, 110, 170)
+	atmosphere.Decay = Color3.fromRGB(110, 150, 210)
 
-	-- A big low sun (it rises over the far end of the lane: +X).
 	local sky = child("Sky", Lighting)
-	sky.SunAngularSize = 32
-	sky.MoonAngularSize = 14
+	sky.SunAngularSize = 12
+	sky.MoonAngularSize = 9
 	sky.CelestialBodiesShown = true
 
 	local bloom = child("BloomEffect", Lighting)
-	bloom.Intensity = 0.6
-	bloom.Size = 30
-	bloom.Threshold = 1.6
+	bloom.Intensity = 0.15
+	bloom.Size = 20
+	bloom.Threshold = 2
 	local rays = child("SunRaysEffect", Lighting)
-	rays.Intensity = 0.06
-	rays.Spread = 0.6
+	rays.Intensity = 0.02
+	rays.Spread = 0.4
+	-- Punchy toy colours (reference).
+	local grade = Lighting:FindFirstChild("Grade") or Instance.new("ColorCorrectionEffect")
+	grade.Name = "Grade"
+	grade.Saturation = 0.08
+	grade.Contrast = 0.1
+	grade.Brightness = -0.02
+	grade.Parent = Lighting
 
 	local clouds = child("Clouds", workspace.Terrain)
-	clouds.Cover = 0.62
-	clouds.Density = 0.55
-	clouds.Color = Color3.fromRGB(255, 205, 215)
+	clouds.Cover = 0.5
+	clouds.Density = 0.45
+	clouds.Color = Color3.fromRGB(255, 255, 255)
 
-	-- Clear, bright water: each zone's riverbed colour shows through it.
+	-- The terrain water under the lane is only there to swim in: the water
+	-- you see is WorldBuilder/Water's surface, so it's invisible from above.
 	local terrain = workspace.Terrain
-	terrain.WaterColor = Color3.fromRGB(110, 205, 235)
-	terrain.WaterTransparency = 0.82
-	terrain.WaterReflectance = 0.35
-	terrain.WaterWaveSize = 0.08
-	terrain.WaterWaveSpeed = 8
+	terrain.WaterColor = Color3.fromRGB(22, 150, 232)
+	terrain.WaterTransparency = 1
+	terrain.WaterReflectance = 0
+	terrain.WaterWaveSize = 0
+	terrain.WaterWaveSpeed = 0
 end
 
 return Environment

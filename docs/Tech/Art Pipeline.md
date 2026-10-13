@@ -81,3 +81,14 @@ tags: [tech, art]
 1. **Home → Import 3D** → `C:\1FrogHop\assets\models\Nature\Nature.fbx` → Import.
 2. Drag it into `ReplicatedStorage.Assets` and rename it exactly `Nature`. If it comes in flattened, import `Nature\Shapes\*.fbx` one by one straight into `Assets`, named as the file.
 3. **File → Save**, then Play.
+
+### Decor (gym dressing)
+- Script: `tools/blender/build_decor.py` (reuses the rock and nature helpers): ToriiGate, CherryTree, CherryTreeSmall, StoneLantern, PaperLantern, Candle, CandleTrio, LilyPad, LilyPadFlower, Lotus, GrassTuft, JackOLantern, Bamboo. Preview: [[Decor Preview.png]]
+  - Rebuild: `blender -b -P tools/blender/build_decor.py -- assets/models/Decor --preview "docs/Art/Decor Preview.png"`
+- Output: `assets/models/Decor/Decor.fbx` + `Decor/Shapes/<Name>.fbx`.
+- Fixed roles: Lacquer, Ink, Blossom, BlossomLight, Wax, Wick, StoneLight, Pad, PadLight, LotusPink, LotusWhite, Cane, CaneDark (+ the nature and rock ones). Body (lantern paper, petals) and Glow (flames, Neon) take the colour `WorldBuilder/Props` picks.
+- In game: the gym themes (`WorldBuilder/PondRow/Themes`) name prop kinds; `Props.place` uses the model and falls back to `Props/Decor` (part-built).
+- Import: **Home → Import 3D** → `C:\1FrogHop\assets\models\Decor\Decor.fbx`, drag it into `ReplicatedStorage.Assets`, rename it exactly `Decor`, then **File → Save**.
+
+### Water caustics
+- `python tools/textures/make_caustics.py` → `assets/textures/water/caustics.png` (tiling light lines). Upload it as a Decal and put the id in `Config/UiImages.Ids.caustics`; `WorldBuilder/Water` adds it to every water surface and `Controllers/WaterCaustics` scrolls it.

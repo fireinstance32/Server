@@ -14,7 +14,7 @@ Game.PadSpacing = 12
 -- Hop Zone: the painted strip at the water's edge where players stand to
 -- throw (reference: "THROW ZONE"), as wide as the lane. X × Z studs.
 -- (Training happens at the gyms in Config/Ponds; lobby layout: Config/Lobby.)
-Game.HopZoneCenterX = -10
+Game.HopZoneCenterX = -10 -- x = -20..0, right at the water
 Game.HopZoneCenterZ = 0
 Game.HopZoneSizeX = 20
 Game.HopZoneSizeZ = Game.RiverWidth
@@ -28,10 +28,7 @@ Game.TossWindup = 0.35
 Game.TrainingBounces = 5
 Game.TrainingCooldown = 0.6
 
--- Distance curve: distance = Base + Scale * Hops ^ Exponent (studs).
-Game.DistanceBase = 20
-Game.DistanceScale = 6
-Game.DistanceExponent = 0.5
+-- (How far a throw goes: Config/Zones.distanceForStrength.)
 
 -- Distance shown to players in metres (studs × MetersPerStud).
 Game.MetersPerStud = 0.5
@@ -80,10 +77,6 @@ end
 
 function Game.hopZoneCenter(): Vector3
 	return Vector3.new(Game.HopZoneCenterX, 0, Game.HopZoneCenterZ)
-end
-
-function Game.distanceForHops(hops: number): number
-	return Game.DistanceBase + Game.DistanceScale * math.max(hops, 0) ^ Game.DistanceExponent
 end
 
 -- Lily pad i (1-based) on the river. Shared so the world and the hop

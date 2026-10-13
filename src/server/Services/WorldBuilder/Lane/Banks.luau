@@ -1,6 +1,7 @@
 -- One zone's stretch of the throw lane (reference): two-tier checker banks
 -- in the zone's wall colours with grass on top, a grass checker along the
--- lower ledge, the zone's riverbed tint, and its props on both tiers.
+-- lower ledge, the water (tinted a little by the zone) and its props on
+-- both tiers.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -9,9 +10,9 @@ local Game = require(Shared.Config.Game)
 local Lobby = require(Shared.Config.Lobby)
 local Zones = require(Shared.Config.Zones)
 
-local Parts = require(script.Parent.Parent.Parts)
 local Terraces = require(script.Parent.Parent.Terraces)
 local Props = require(script.Parent.Parent.Props)
+local Water = require(script.Parent.Parent.Water)
 
 local Banks = {}
 
@@ -63,8 +64,9 @@ function Banks.build(zone: Zones.Zone, startX: number, endX: number, first: bool
 		scatter(run, 2, 6, 44, NumberRange.new(14, 26), zone.props, rng, props)
 	end
 
-	-- Riverbed in the zone's water colour (seen through the clear water).
-	Parts.block("Riverbed", Vector3.new(len, 2, Game.RiverWidth), CFrame.new(startX + len / 2, -6, 0), zone.water, model)
+	-- The water, a touch of the zone's colour in the reference blue.
+	local waterFrom = math.max(startX, Game.RiverOrigin.X)
+	Water.surface("Water", Vector2.new(endX - waterFrom, Game.RiverWidth), CFrame.new((waterFrom + endX) / 2, 0, 0), model, Water.Color:Lerp(zone.water, 0.25))
 	model.Parent = folder
 end
 

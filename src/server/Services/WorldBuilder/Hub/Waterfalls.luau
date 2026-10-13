@@ -8,18 +8,17 @@ local Lobby = require(ReplicatedStorage:WaitForChild("Shared").Config.Lobby)
 local Parts = require(script.Parent.Parent.Parts)
 local Style = require(script.Parent.Parent.Style)
 local Terraces = require(script.Parent.Parent.Terraces)
+local Water = require(script.Parent.Parent.Water)
 
 local Waterfalls = {}
 
 local WIDTH = 6
-local WATER = Color3.fromRGB(120, 210, 245)
+local WATER = Water.Color:Lerp(Color3.new(1, 1, 1), 0.2) -- falling water is a little paler
 local FOAM = Color3.fromRGB(235, 250, 255)
 local STONE = Color3.fromRGB(170, 165, 185)
 
 local function water(name: string, size: Vector3, cframe: CFrame, parent: Instance)
-	local part = Parts.block(name, size, cframe, WATER, parent, Enum.Material.Glass)
-	part.Transparency = 0.25
-	Style.quiet(part)
+	Style.quiet(Parts.block(name, size, cframe, WATER, parent))
 end
 
 function Waterfalls.build(map: Model)
@@ -40,7 +39,7 @@ function Waterfalls.build(map: Model)
 		-- Pool at the foot with a stone rim and foam where it lands.
 		local rim = Parts.block("PoolRim", Vector3.new(7, 1, WIDTH + 2), CFrame.new(face1 + 3.5, Lobby.FloorY + 0.5, z), STONE, model)
 		rim.CanCollide = false
-		water("Pool", Vector3.new(6, 0.2, WIDTH), CFrame.new(face1 + 3, Lobby.FloorY + 1.05, z), model)
+		Water.surface("Pool", Vector2.new(6, WIDTH), CFrame.new(face1 + 3, Lobby.FloorY + 0.9, z), model)
 		local foam = Parts.block("Foam", Vector3.new(1.4, 0.5, WIDTH), CFrame.new(face1 + 0.9, Lobby.FloorY + 1.1, z), FOAM, model, Enum.Material.Neon)
 		foam.Transparency = 0.3
 		Style.quiet(foam)
