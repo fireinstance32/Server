@@ -8,13 +8,13 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Monetization = require(Shared.Config.Monetization)
 local Pets = require(Shared.Config.Pets)
 local Trails = require(Shared.Config.Trails)
-local Potions = require(Shared.Config.Potions)
 local Net = require(Shared.Net)
 
 local ProgressionService = require(script.Parent.Parent.ProgressionService)
 local PetService = require(script.Parent.Parent.PetService)
 local TrailService = require(script.Parent.Parent.TrailService)
 local Stock = require(script.Parent.Stock)
+local Rewards = require(script.Parent.Parent.Parent.Rewards)
 
 local Handlers: { [string]: (Player, any) -> boolean } = {}
 
@@ -25,24 +25,22 @@ for name, amount in Monetization.HopsPacks do
 	end
 end
 
-Handlers.StarterPack = function(_, data)
-	local pack = Monetization.StarterPack
-	data.hops += pack.hops
-	data.wins += pack.wins
-	data.rebirths += pack.rebirths
-	data.oneTime.StarterPack = true
-	return true
+-- Bundles (Starter Pack, Boost Bundle, Wins packs...): grant every reward.
+-- A one-time offer bought twice anyway (two clients) still grants: it was paid.
+for name, bundle in Monetization.Bundles do
+	Handlers[name] = function(_, data)
+		for _, reward in bundle.rewards do
+			Rewards.grant(data, reward)
+		end
+		if bundle.oneTime then
+			data.oneTime[name] = true
+		end
+		return true
+	end
 end
 
 Handlers.SkipRebirth = function(_, data)
 	return (ProgressionService.applyRebirth(data, true))
-end
-
-Handlers.PotionPack = function(_, data)
-	for _, potion in Potions.List do
-		data.potions[potion.id] = (data.potions[potion.id] or 0) + Monetization.PotionPackEach
-	end
-	return true
 end
 
 Handlers.PhoenixFrog = function(_, data)
@@ -52,18 +50,24 @@ Handlers.PhoenixFrog = function(_, data)
 	return true
 end
 
--- Robux eggs: hatch one and show the reveal on the recipient's screen.
+-- Robux eggs: hatch `count` and show the reveal on the recipient's screen.
+local function eggHandler(egg: Pets.Egg, count: number)
+	return function(player: Player, data: any): boolean
+		local results = PetService.grantHatch(player, data, egg, count)
+		task.defer(function()
+			PetService.refreshModels(player)
+			Net.event("Notify"):FireClient(player, { kind = "Hatch", egg = egg.id, results = results })
+		end)
+		return true
+	end
+end
 for _, egg in Pets.Eggs do
 	if egg.product then
-		Handlers[egg.product] = function(player, data)
-			local results = PetService.grantHatch(player, data, egg, 1)
-			task.defer(function()
-				PetService.refreshModels(player)
-				Net.event("Notify"):FireClient(player, { kind = "Hatch", egg = egg.id, results = results })
-			end)
-			return true
-		end
+		Handlers[egg.product] = eggHandler(egg, 1)
 	end
+end
+for name, bundle in Monetization.EggBundles do
+	Handlers[name] = eggHandler(Pets.EggsById[bundle.egg], bundle.count)
 end
 
 for _, trail in Trails.List do

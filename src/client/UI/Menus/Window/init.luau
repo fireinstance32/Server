@@ -107,6 +107,7 @@ export type Options = {
 	iconY: number?,
 	iconRotation: number?,
 	tabs: boolean?,
+	fullBody: boolean?, -- body fills the whole panel, under the title (Shop: the list scrolls under it)
 }
 
 function Window.create(title: string, icon: string, onClose: () -> (), options: Options?): (Frame, Frame)
@@ -143,8 +144,8 @@ function Window.create(title: string, icon: string, onClose: () -> (), options: 
 
 	local body = new("Frame", {
 		Name = "Body",
-		Size = UDim2.new(1, -28, 1, -68),
-		Position = UDim2.fromOffset(14, 56),
+		Size = if o.fullBody then UDim2.fromScale(1, 1) else UDim2.new(1, -28, 1, -68),
+		Position = if o.fullBody then UDim2.new() else UDim2.fromOffset(14, 56),
 		BackgroundTransparency = 1,
 		Parent = frame,
 	})

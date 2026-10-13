@@ -45,6 +45,8 @@ function Rewards.grant(data: any, reward: any)
 		data.wins += amount
 	elseif reward.kind == "hops" then
 		data.hops += amount
+	elseif reward.kind == "rebirths" then
+		data.rebirths += amount
 	end
 end
 

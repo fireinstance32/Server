@@ -34,9 +34,11 @@ local SQUARE: Window.Options = {
 	iconX = 60,
 	iconY = 0,
 }
+local SHOP: Window.Options = table.clone(SQUARE)
+SHOP.fullBody = true -- the reference shop list scrolls under the title
 
 local MENUS: { [string]: Spec } = {
-	Shop = { title = "Shop", icon = "shop", window = SQUARE, build = ShopMenu.build },
+	Shop = { title = "Shop", icon = "shop", window = SHOP, build = ShopMenu.build },
 	Rebirth = { title = "Rebirth", icon = "rebirth", window = SQUARE, build = RebirthMenu.build },
 	Pets = { title = "My Pets", icon = "pets", window = { tabs = true }, build = function(body)
 		return InventoryMenu.build(body, "Pets")

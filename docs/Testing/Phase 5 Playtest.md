@@ -32,7 +32,7 @@ status: ready
 - [ ] Daily: click today's (green-outlined) card to claim; "Next reward in: h:mm:ss" counts down under the window; hovering a card shows the white info card beside it
 - [ ] Gifts: 4 cards per row; orange with a red timer while counting down, purple with green CLAIM when ready, blue with a tick once claimed; last gift rainbow
 - [ ] Window sizes look like the reference at 1920×1080 and still fit on a small window / phone (ScreenScale)
-- [ ] Shop: Starter Pack; gamepasses as coloured cards in 2 columns with a gift button (giftable ones) and price/OWNED; Hops packs 2×2; the gift button opens a player list (test with 2 players)
+- [ ] Shop (compare with the shop video): list scrolls under the title; Starter + Galaxy Pack (Starter shows OWNED after buying); Rainbow Egg Buy 8 / 3 / 1 shows the hatch reveal with that many pets; gamepass cards show OWNED when owned; Boost Bundle and single boosts add potions; Wins packs add Wins; Mega Pack drops its FIRST TIME DISCOUNT after the first buy; codes redeem; every gift button opens a player list (test with 2 players). Products with id 0 say "not on sale yet"
 - [ ] Inventory: big tabs left of the window; title changes to My Frogs / My Pets / My Trails / My Boosts / My Titles
 - [ ] My Pets: click a tile → left panel shows it on spinning rays with EQUIP/UNEQUIP, lock, delete; trash "Auto" opens the rarity toggles; Delete asks "Sure?"; sort icon cycles; INDEX swaps the grid
 - [ ] My Boosts: click a potion → white card shows it; USE uses one; timer shows on the tile while active
