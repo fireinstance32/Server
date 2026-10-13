@@ -32,16 +32,16 @@ local HOUR = 3600
 
 local List: { Title } = {
 	title("Tadpole", "Tadpole", "Common", "launches", 1, "hops", 0.5),
-	title("PondHopper", "Pond Hopper", "Common", "launches", 25, "hops", 1),
+	title("PondHopper", "Pebble Lifter", "Common", "launches", 25, "hops", 1),
 	title("Splasher", "Splasher", "Common", "distance", 100, "hops", 1),
 	title("EggSeeker", "Egg Seeker", "Common", "hatched", 10, "hops", 1),
 	title("Regular", "Regular", "Common", "playtime", HOUR / 2, "wins", 1.05),
-	title("LilyLeaper", "Lily Leaper", "Uncommon", "distance", 250, "hops", 2),
-	title("FrogFan", "Frog Fan", "Uncommon", "frogs", 3, "hops", 2),
+	title("LilyLeaper", "Rock Rookie", "Uncommon", "distance", 250, "hops", 2),
+	title("FrogFan", "Rock Collector", "Uncommon", "frogs", 3, "hops", 2),
 	title("Hatcher", "Hatcher", "Uncommon", "hatched", 50, "hops", 2),
 	title("Reborn", "Reborn", "Uncommon", "rebirths", 1, "wins", 1.1),
 	title("Trainee", "Trainee", "Uncommon", "level", 10, "hops", 2),
-	title("RiverRunner", "River Runner", "Rare", "distance", 1000, "hops", 4),
+	title("RiverRunner", "Field Thrower", "Rare", "distance", 1000, "hops", 4),
 	title("Winner", "Winner", "Rare", "winsEarned", 1000, "wins", 1.15),
 	title("PetPal", "Pet Pal", "Rare", "discovered", 10, "hops", 4),
 	title("Collector", "Collector", "Rare", "frogs", 6, "hops", 4),
@@ -53,11 +53,11 @@ local List: { Title } = {
 	title("ZooKeeper", "Zoo Keeper", "Epic", "discovered", 25, "hops", 8),
 	title("Veteran", "Veteran", "Epic", "level", 100, "hops", 8),
 	title("Phoenix", "Phoenix", "Epic", "rebirths", 25, "wins", 1.4),
-	title("PondKing", "King of the Pond", "Legendary", "distance", 2500, "hops", 15),
-	title("FrogRoyalty", "Frog Royalty", "Legendary", "frogs", 12, "hops", 15),
+	title("PondKing", "King of the Quarry", "Legendary", "distance", 2500, "hops", 15),
+	title("FrogRoyalty", "Rock Royalty", "Legendary", "frogs", 12, "hops", 15),
 	title("Unstoppable", "Unstoppable", "Legendary", "rebirths", 100, "wins", 1.6),
 	title("NoLife", "No Life", "Legendary", "playtime", 50 * HOUR, "hops", 15),
-	title("Hopfather", "The Hopfather", "Rainbow", "rebirths", 250, "wins", 2),
+	title("Hopfather", "The Rockfather", "Rainbow", "rebirths", 250, "wins", 2),
 }
 
 local ById: { [string]: Title } = {}
@@ -144,7 +144,7 @@ function Titles.describe(t: Title): string
 	elseif t.need == "playtime" then
 		return if n < 3600 then `Play {n // 60} minutes` else `Play {n // 3600} hours`
 	elseif t.need == "frogs" then
-		return `Own {n} frogs`
+		return `Own {n} rocks`
 	elseif t.need == "discovered" then
 		return `Discover {n} pets`
 	elseif t.need == "rebirths" then
@@ -158,7 +158,7 @@ end
 -- "+4 Hops" / "x1.2 Wins" for the card's bonus line.
 function Titles.bonusText(t: Title): string
 	if t.stat == "hops" then
-		return `+{t.bonus} Hops`
+		return `+{t.bonus} Strength`
 	end
 	return `x{t.bonus} Wins`
 end

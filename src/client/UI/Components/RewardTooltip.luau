@@ -31,7 +31,7 @@ local function info(reward: { kind: string, id: string?, amount: number?, label:
 			title = frog.name,
 			sub = if frog.rewardOnly then "Limited" else "Frog",
 			subColor = PURPLE,
-			bonus = `+{Format.abbreviate(frog.perBounce)} per hop`,
+			bonus = `+{Format.abbreviate(frog.perBounce)} per lift`,
 			note = if frog.rewardOnly then "Only from Day 7!" else nil,
 		}
 	elseif reward.kind == "potion" and reward.id and Potions.ById[reward.id] then
@@ -40,7 +40,7 @@ local function info(reward: { kind: string, id: string?, amount: number?, label:
 			title = reward.label,
 			sub = "Boost",
 			subColor = Color3.fromRGB(40, 170, 60),
-			note = `x{potion.factor} {string.upper(potion.stat)} for {potion.duration // 60} min`,
+			note = `x{potion.factor} {Potions.StatWord[potion.stat]} for {potion.duration // 60} min`,
 		}
 	end
 	return { title = reward.label, sub = "Reward", subColor = Color3.fromRGB(240, 150, 10) }

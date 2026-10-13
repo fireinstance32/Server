@@ -42,7 +42,7 @@ local function multiplierCard(parent: Frame, x: number): TextLabel
 		Size = UDim2.fromOffset(200, 96),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0, 252, 0.5, 0),
-		Text = "x1\nHOPS",
+		Text = "x1\nSTRENGTH",
 		Parent = card,
 	})
 end
@@ -69,7 +69,7 @@ function RebirthMenu.build(body: Frame)
 	local warning = Theme.label({
 		Size = UDim2.new(1, 0, 0, 50),
 		Position = UDim2.fromOffset(0, 274),
-		Text = "Resets your LEVEL and HOPS!",
+		Text = "Resets your LEVEL and STRENGTH!",
 		TextColor3 = Color3.fromRGB(255, 40, 40),
 		Parent = body,
 	})
@@ -119,8 +119,8 @@ function RebirthMenu.build(body: Frame)
 	end, function(data)
 		local now = 1 + data.rebirths * Game.RebirthHopsBonus
 		local nextValue = 1 + (data.rebirths + 1) * Game.RebirthHopsBonus
-		before.Text = `{Format.multiplier(now)}\nHOPS`
-		after.Text = `{Format.multiplier(nextValue)}\nHOPS`
+		before.Text = `{Format.multiplier(now)}\nSTRENGTH`
+		after.Text = `{Format.multiplier(nextValue)}\nSTRENGTH`
 		local ratio = math.clamp(data.level / data.levelCap, 0, 1)
 		TweenService:Create(fill, TweenInfo.new(0.25), { Size = UDim2.fromScale(ratio, 1) }):Play()
 		barText.Text = `Level {data.level} / Level {data.levelCap}`

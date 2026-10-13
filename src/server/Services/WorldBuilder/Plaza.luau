@@ -23,7 +23,7 @@ local function buildHopZone(world: Model)
 	)
 	strip.CanCollide = false
 
-	-- "HOP ZONE" painted across the strip, readable from the plaza side.
+	-- "THROW ZONE" painted across the strip, readable from the plaza side.
 	local gui = Instance.new("SurfaceGui")
 	gui.Face = Enum.NormalId.Top
 	gui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
@@ -33,7 +33,7 @@ local function buildHopZone(world: Model)
 	text.Size = UDim2.fromScale(1, 1)
 	text.BackgroundTransparency = 1
 	text.Font = Enum.Font.FredokaOne
-	text.Text = "HOP ZONE"
+	text.Text = "THROW ZONE"
 	text.TextScaled = true
 	text.TextColor3 = Color3.new(1, 1, 1)
 	text.TextStrokeTransparency = 0

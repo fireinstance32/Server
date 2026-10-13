@@ -38,7 +38,7 @@ local function buildSign(anchor: BasePart, frog, prompt: ProximityPrompt, contai
 	Theme.label({
 		Size = UDim2.new(1, -60, 0, 38),
 		Position = UDim2.fromOffset(50, 50),
-		Text = `+{Format.abbreviate(frog.perBounce)} Hops`,
+		Text = `+{Format.abbreviate(frog.perBounce)} Strength`,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Parent = gui,
 	})

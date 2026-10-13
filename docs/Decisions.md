@@ -5,6 +5,10 @@ tags: [planning, decisions]
 
 Things I need from you, or choices I made for now that you can change. Newest first. Back to [[Home]].
 
+## Rock pivot (2026-10-13)
+- [x] **Theme:** +1 Frog Hop → a rock-lifting game on the same loop (lift for Strength, throw for Wins, pets kept). Plan, naming and stages: [[Rock Pivot]].
+- [ ] **Title:** working title *+1 Strength Every Lift*; pick after the icon test.
+
 ## Things only you can do
 - [ ] **Upload images to Roblox** — UI sheets done 2026-10-12 (icons, icons2, icons3, studs, pets, frogs uploaded from Studio; ids in `Config/UiImages.luau`; re-upload + new ids whenever a sheet changes). Still to do:
   - Pet faces/patterns: 26 PNGs in `assets/textures/pets` → `Config/PetFaces.luau` ([[Art Pipeline]])

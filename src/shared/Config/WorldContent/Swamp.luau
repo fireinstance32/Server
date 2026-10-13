@@ -5,9 +5,9 @@ local rgb = Color3.fromRGB
 return {
 	world = "Swamp",
 	frogs = {
-		{ id = "Swamp", name = "Swamp Frog", price = 100_000, perBounce = 1_000, color = rgb(90, 130, 80) },
-		{ id = "Mushroom", name = "Mushroom Frog", price = 400_000, perBounce = 2_500, color = rgb(220, 70, 70) },
-		{ id = "Bog", name = "Bog Frog", price = 1_500_000, perBounce = 6_000, color = rgb(110, 90, 60) },
+		{ id = "Swamp", name = "Swamp Rock", price = 100_000, perBounce = 1_000, color = rgb(90, 130, 80) },
+		{ id = "Mushroom", name = "Mushroom Rock", price = 400_000, perBounce = 2_500, color = rgb(220, 70, 70) },
+		{ id = "Bog", name = "Bog Rock", price = 1_500_000, perBounce = 6_000, color = rgb(110, 90, 60) },
 		{ id = "ToadKing", name = "Toad King", price = 6_000_000, perBounce = 15_000, color = rgb(170, 110, 230), ultimate = true },
 	},
 	pets = {

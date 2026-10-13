@@ -44,7 +44,7 @@ function FrogsTab.build(content: Frame)
 		for _ in data.frogs do
 			owned += 1
 		end
-		count.Text = `{owned} / {#Frogs.List} Frogs`
+		count.Text = `{owned} / {#Frogs.List} Rocks`
 		Window.clear(grid)
 		for i, frog in Frogs.List do
 			local equipped = data.equippedFrog == frog.id
@@ -72,7 +72,7 @@ function FrogsTab.build(content: Frame)
 			local perPad = Theme.label({
 				Size = UDim2.new(1, -26, 1, 0),
 				Position = UDim2.fromOffset(26, 0),
-				Text = `+{Format.abbreviate(frog.perBounce)} / pad`,
+				Text = `+{Format.abbreviate(frog.perBounce)} / lift`,
 				TextColor3 = Color3.fromRGB(150, 255, 110),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				ZIndex = 3,

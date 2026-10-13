@@ -51,7 +51,7 @@ function MultiplierInfo.init(parent: Frame, toggle: TextButton)
 			end
 		end
 		local breakdown = data.multipliers and data.multipliers.hops
-		local lines = { `Hops {Format.multiplier(data.hopsMultiplier)}` }
+		local lines = { `Strength {Format.multiplier(data.hopsMultiplier)}` }
 		if breakdown then
 			for _, part in breakdown.parts do
 				table.insert(lines, partText(part))

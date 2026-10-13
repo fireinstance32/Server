@@ -57,7 +57,7 @@ local function single(row: Frame, x: number, spec: any, giftOver: GuiObject)
 	local card = Cards.card(row, { name = spec.product, size = Vector2.new(440, 266), position = Vector2.new(x, 0), colors = spec.colors, horizontal = true, edge = 8 })
 	Cards.icon(card, POTION_ICON[spec.potion], Vector2.new(117, 138), 175, 0, 3)
 	Cards.text(card, { text = potion.name, size = 40, at = Vector2.new(415, 72), anchor = Vector2.new(1, 0.5), align = RIGHT, width = 400, color = CREAM, stroke = 4 })
-	for i, line in { `{potion.factor}x {string.upper(potion.stat)}`, `for {math.floor(potion.duration / 60)} min` } do
+	for i, line in { `{potion.factor}x {Potions.StatWord[potion.stat]}`, `for {math.floor(potion.duration / 60)} min` } do
 		Cards.text(card, { text = line, size = 26, at = Vector2.new(217, 126 + (i - 1) * 25), anchor = Vector2.new(0, 0.5), align = LEFT, width = 220, stroke = 3 })
 	end
 	buyButtons(card, spec.product, Vector2.new(197, 168), Vector2.new(289, 168), 123, giftOver)

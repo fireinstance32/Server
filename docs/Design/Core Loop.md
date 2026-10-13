@@ -3,6 +3,8 @@ tags: [design]
 ---
 # Core Loop
 
+> **2026-10-13:** being reworked as a rock-lifting game (Hops → Strength, frogs → rocks, ponds → gyms) — see [[Rock Pivot]].
+
 ```
 Train (pond) ──► Hops ──► Launch (river) ──► Wins ──► Frogs / Eggs ──► more Hops per pad
       ▲                                                             │

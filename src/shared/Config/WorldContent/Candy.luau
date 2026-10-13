@@ -5,9 +5,9 @@ local rgb = Color3.fromRGB
 return {
 	world = "Candy",
 	frogs = {
-		{ id = "Gummy", name = "Gummy Frog", price = 2_500_000, perBounce = 40_000, color = rgb(255, 120, 150) },
-		{ id = "Lollipop", name = "Lollipop Frog", price = 10_000_000, perBounce = 100_000, color = rgb(255, 80, 200) },
-		{ id = "Cupcake", name = "Cupcake Frog", price = 36_000_000, perBounce = 250_000, color = rgb(250, 200, 160) },
+		{ id = "Gummy", name = "Gummy Rock", price = 2_500_000, perBounce = 40_000, color = rgb(255, 120, 150) },
+		{ id = "Lollipop", name = "Rock Candy", price = 10_000_000, perBounce = 100_000, color = rgb(255, 80, 200) },
+		{ id = "Cupcake", name = "Cupcake Rock", price = 36_000_000, perBounce = 250_000, color = rgb(250, 200, 160) },
 		{ id = "CandyKing", name = "Candy King", price = 150_000_000, perBounce = 600_000, color = rgb(255, 230, 90), ultimate = true },
 	},
 	pets = {

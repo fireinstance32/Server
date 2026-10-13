@@ -87,7 +87,7 @@ local MODIFIERS: { Modifier } = {
 	},
 	{
 		id = "pond",
-		label = "Pond",
+		label = "Gym",
 		stat = "hops",
 		kind = "mult",
 		value = function(_, _, context)
@@ -135,7 +135,7 @@ local MODIFIERS: { Modifier } = {
 			return if title and title.stat == "wins" then title.bonus else nil
 		end,
 	},
-	{ id = "doubleHops", label = "2x Hops", stat = "hops", kind = "mult", value = passFactor("DoubleHops", 2) },
+	{ id = "doubleHops", label = "2x Strength", stat = "hops", kind = "mult", value = passFactor("DoubleHops", 2) },
 	{ id = "doubleWins", label = "2x Wins", stat = "wins", kind = "mult", value = passFactor("DoubleWins", 2) },
 }
 

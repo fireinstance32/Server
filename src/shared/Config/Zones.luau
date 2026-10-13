@@ -21,7 +21,7 @@ export type Zone = {
 
 local Zones: { Zone } = {
 	{
-		index = 1, name = "Lily Shallows", distance = 0, wins = 1,
+		index = 1, name = "Pebble Patch", distance = 0, wins = 1,
 		color = Color3.fromRGB(120, 220, 120),
 		bank = Color3.fromRGB(120, 215, 100),
 		material = Enum.Material.Grass,
@@ -77,7 +77,7 @@ local Zones: { Zone } = {
 		props = { "palm", "rock" },
 	},
 	{
-		index = 9, name = "King's Pond", distance = 2500, wins = 1600,
+		index = 9, name = "King's Quarry", distance = 2500, wins = 1600,
 		color = Color3.fromRGB(255, 200, 40),
 		bank = Color3.fromRGB(150, 210, 90),
 		material = Enum.Material.Grass,

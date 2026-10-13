@@ -93,7 +93,7 @@ end
 
 local function onHop(player: Player, mode: unknown)
 	if mode ~= "Train" and mode ~= "Launch" then
-		return { ok = false, message = "Invalid hop" }
+		return { ok = false, message = "Invalid throw" }
 	end
 	local data = DataService.get(player)
 	if not data then
@@ -115,7 +115,7 @@ local function onHop(player: Player, mode: unknown)
 	if mode == "Train" then
 		local pond = Ponds.at(localPosition)
 		if not pond then
-			return { ok = false, message = "Stand on a training pond's pad!" }
+			return { ok = false, message = "Stand in a gym!" }
 		end
 		local locked = Ponds.lockReason(pond, data.rebirths, function(pass)
 			return Passes.owns(player, pass)
@@ -126,7 +126,7 @@ local function onHop(player: Player, mode: unknown)
 		return train(player, data, pond, world)
 	else
 		if not Game.inHopZone(localPosition.X, localPosition.Z) then
-			return { ok = false, message = "Stand in the Hop Zone!" }
+			return { ok = false, message = "Stand in the Throw Zone!" }
 		end
 		return launch(player, data, world)
 	end

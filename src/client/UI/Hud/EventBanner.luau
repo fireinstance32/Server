@@ -51,7 +51,7 @@ function EventBanner.init(gui: ScreenGui)
 		title.Text = `{event.icon} {event.name} event · {Events.timeLeftText(event, now)} left`
 		local data = State.data
 		local amount = if data and data.event and data.event.id == event.id then data.event.currency else 0
-		detail.Text = `{amount} {event.currency} · hop the river to earn more`
+		detail.Text = `{amount} {event.currency} · throw down the field to earn more`
 	end
 
 	State.observe(refresh)

@@ -1,0 +1,43 @@
+---
+tags: [design, planning]
+---
+# Rock Pivot (2026-10-13)
+
+The game changes from +1 Frog Hop to a **rock-lifting** game on the same [[Stone Skipping Reference|Stone Skipping]] loop. Every system and all the UI carry over; what changes is the theme, the held item, two animations and the art. Back to [[Home]] · [[Core Loop]] · [[Decisions]].
+
+**Why:** "+1 Lift Rock" makes a stronger thumbnail (tiny character under a giant glowing boulder), lifting/strength simulators are a proven Roblox genre, and it's the cheapest switch: the game already holds an item in your hands (`HeldFrogService`), rocks are simple shapes, and it needs 1–2 animations instead of a sword game's swing sets.
+
+**Working title:** *+1 Strength Every Lift* (alternatives: *+1 Rock Lift*, *Rock Throw Simulator*). Pick the one whose icon gets the most clicks (stage 5).
+
+## Core loop
+```
+Lift rock (click, +1 Strength × multipliers) ──► Throw it down the field ──► farther zone = more Wins
+      ▲                                                                              │
+      └──── Rocks / Eggs → Pets / Gyms / Rebirth (more Strength per lift) ◄──────────┘
+```
+Same maths as before: Strength sets throw distance, the zone you land in pays Wins, rebirth resets Strength + Level and keeps Wins ([[Core Loop#Formulas]]).
+
+## Naming
+| Stone Skipping | Frog Hop (old) | Now |
+|---|---|---|
+| Skill | Hops | **Strength** |
+| Stone (equipped, bought with Wins) | Frog | **Rock** |
+| Throw | Hop / Launch | **Throw** |
+| Training | Hopping pads in a pond | **Lifting** the rock |
+| Training zones | Ponds | **Gyms** |
+| River | River | **Field** |
+| Skips | Pads | **Bounces** |
+| Relic | Legend Frog | **Legend Rock** |
+| Auto Throw pass | Auto Hop | **Auto Lift** |
+
+Code keeps its internal names (`data.hops`, `HopService`, `Config/Frogs`, `Ponds`...) so saves and systems don't break; only what players see changes. A full internal rename can come later if it's worth it.
+
+## Pets
+Kept. Eggs are usually the biggest earner in these games and pets are what players collect; the system is finished. Frog-themed pets (Lily Frogling...) get renamed in stage 3.
+
+## Stages
+1. **Words** – every on-screen Hops/Frog/Pond/Hop/River string → the new names; game title.
+2. **Gameplay** – hold a rock instead of a frog; click = lift animation (+Strength pop); throw animation; rock bounces down the field; camera follows the rock.
+3. **Content names** – zones, worlds, rocks (pebble → boulder → crystal / gold / lava / galaxy), pets, eggs, codes, trails.
+4. **Art** – rock models in tiers (Blender `bpy`), gyms, the throwing field, world themes, lift/throw animations (Roblox Animation Editor).
+5. **Icon test before ads** – 2–3 icons/thumbnails, a few dollars of ads each (or Roblox thumbnail testing); build on the winner. No real ad budget until day-1 retention and session length look good in playtests.

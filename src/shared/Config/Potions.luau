@@ -12,7 +12,7 @@ export type Potion = {
 }
 
 local List: { Potion } = {
-	{ id = "Hops", name = "Hops Boost", stat = "hops", factor = 2, duration = 600, icon = "🧪" },
+	{ id = "Hops", name = "Strength Boost", stat = "hops", factor = 2, duration = 600, icon = "🧪" },
 	{ id = "Wins", name = "Wins Boost", stat = "wins", factor = 2, duration = 600, icon = "⭐" },
 	{ id = "Luck", name = "Luck Boost", stat = "luck", factor = 2, duration = 600, icon = "🍀" },
 }
@@ -22,7 +22,10 @@ for _, potion in List do
 	byId[potion.id] = potion
 end
 
-local Potions = { List = List, ById = byId }
+-- What players call each stat (the stat ids stay "hops" etc. in code).
+local StatWord: { [string]: string } = { hops = "STRENGTH", wins = "WINS", luck = "LUCK" }
+
+local Potions = { List = List, ById = byId, StatWord = StatWord }
 
 -- New expiry time after drinking a potion at `now` (pure; unit-tested).
 function Potions.extend(currentExpiry: number?, now: number, duration: number): number

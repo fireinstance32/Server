@@ -16,7 +16,7 @@ export type World = {
 local Worlds = {}
 
 Worlds.List = {
-	{ index = 1, id = "Lily", name = "Lily Valley", gateHops = 0, rewardScale = 1, offsetZ = 0, color = Color3.fromRGB(110, 200, 90) },
+	{ index = 1, id = "Lily", name = "Stone Valley", gateHops = 0, rewardScale = 1, offsetZ = 0, color = Color3.fromRGB(110, 200, 90) },
 	{ index = 2, id = "Swamp", name = "Mushroom Swamp", gateHops = 1e6, rewardScale = 25, offsetZ = 4000, color = Color3.fromRGB(150, 90, 200) },
 	{ index = 3, id = "Candy", name = "Candy Falls", gateHops = 50e6, rewardScale = 600, offsetZ = 8000, color = Color3.fromRGB(255, 130, 200) },
 	{ index = 4, id = "Space", name = "Cosmic Cove", gateHops = 2.5e9, rewardScale = 15000, offsetZ = 12000, color = Color3.fromRGB(90, 110, 255) },

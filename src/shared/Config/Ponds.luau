@@ -20,13 +20,13 @@ export type Pond = {
 local Ponds = {}
 
 Ponds.List = {
-	{ index = 1, id = "Starter", name = "Starter Pond", multiplier = 1, rebirths = 0, color = Color3.fromRGB(80, 170, 230) },
-	{ index = 2, id = "Lotus", name = "Lotus Pond", multiplier = 4, rebirths = 2, color = Color3.fromRGB(90, 200, 170) },
-	{ index = 3, id = "Crystal", name = "Crystal Pond", multiplier = 10, rebirths = 4, color = Color3.fromRGB(170, 120, 255) },
-	{ index = 4, id = "Royal", name = "Royal Pond", multiplier = 20, rebirths = 6, color = Color3.fromRGB(90, 110, 240) },
-	{ index = 5, id = "Golden", name = "Golden Pond", multiplier = 3, pass = "PondGolden", color = Color3.fromRGB(255, 200, 40) },
-	{ index = 6, id = "Rainbow", name = "Rainbow Pond", multiplier = 15, pass = "PondRainbow", color = Color3.fromRGB(255, 90, 170) },
-	{ index = 7, id = "Cosmic", name = "Cosmic Pond", multiplier = 50, pass = "PondCosmic", color = Color3.fromRGB(40, 220, 140) },
+	{ index = 1, id = "Starter", name = "Starter Gym", multiplier = 1, rebirths = 0, color = Color3.fromRGB(80, 170, 230) },
+	{ index = 2, id = "Lotus", name = "Iron Gym", multiplier = 4, rebirths = 2, color = Color3.fromRGB(90, 200, 170) },
+	{ index = 3, id = "Crystal", name = "Crystal Gym", multiplier = 10, rebirths = 4, color = Color3.fromRGB(170, 120, 255) },
+	{ index = 4, id = "Royal", name = "Royal Gym", multiplier = 20, rebirths = 6, color = Color3.fromRGB(90, 110, 240) },
+	{ index = 5, id = "Golden", name = "Golden Gym", multiplier = 3, pass = "PondGolden", color = Color3.fromRGB(255, 200, 40) },
+	{ index = 6, id = "Rainbow", name = "Rainbow Gym", multiplier = 15, pass = "PondRainbow", color = Color3.fromRGB(255, 90, 170) },
+	{ index = 7, id = "Cosmic", name = "Cosmic Gym", multiplier = 50, pass = "PondCosmic", color = Color3.fromRGB(40, 220, 140) },
 } :: { Pond }
 
 Ponds.ById = {} :: { [string]: Pond }
@@ -57,7 +57,7 @@ function Ponds.lockReason(pond: Pond, rebirths: number, ownsPass: (string) -> bo
 		return nil
 	end
 	if pond.pass then
-		return "Robux pond"
+		return "Robux gym"
 	end
 	return `Needs {pond.rebirths} rebirths`
 end

@@ -31,7 +31,7 @@ Events.List = {
 		pets = {
 			{ id = "CandyBat", name = "Candy Bat", rarity = "Uncommon", bonus = 20, color = rgb(80, 60, 90) },
 			{ id = "PumpkinCat", name = "Pumpkin Cat", rarity = "Rare", bonus = 50, color = rgb(255, 140, 30) },
-			{ id = "GhostFrog", name = "Ghost Frog", rarity = "Epic", bonus = 150, color = rgb(235, 240, 255) },
+			{ id = "GhostFrog", name = "Ghost Rock", rarity = "Epic", bonus = 150, color = rgb(235, 240, 255) },
 			{ id = "SpookyDragon", name = "Spooky Dragon", rarity = "Legendary", bonus = 500, color = rgb(120, 40, 160) },
 		},
 		egg = {

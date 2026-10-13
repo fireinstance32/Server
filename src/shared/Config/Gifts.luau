@@ -7,17 +7,17 @@ export type Gift = { minutes: number, reward: { kind: string, id: string?, amoun
 -- Same 12 slots as the reference Playtime Rewards (Skill → Hops). Row 1
 -- (1–4) blue, row 2 (5–8) purple, row 3 (9–11) orange, the last rainbow.
 local List: { Gift } = {
-	{ minutes = 1, reward = { kind = "hops", amount = 5000 }, label = "+5K Hops", icon = "⚡" },
+	{ minutes = 1, reward = { kind = "hops", amount = 5000 }, label = "+5K Strength", icon = "⚡" },
 	{ minutes = 2, reward = { kind = "wins", amount = 5 }, label = "+5 Wins", icon = "🏆" },
 	{ minutes = 4, reward = { kind = "egg", id = "Common" }, label = "Common Egg", icon = "🥚" },
-	{ minutes = 6, reward = { kind = "potion", id = "Hops", amount = 1 }, label = "1 Hops Boost", icon = "🧪" },
+	{ minutes = 6, reward = { kind = "potion", id = "Hops", amount = 1 }, label = "1 Strength Boost", icon = "🧪" },
 	{ minutes = 8, reward = { kind = "wins", amount = 500 }, label = "+500 Wins", icon = "🏆" },
-	{ minutes = 10, reward = { kind = "hops", amount = 15000 }, label = "+15K Hops", icon = "⚡" },
+	{ minutes = 10, reward = { kind = "hops", amount = 15000 }, label = "+15K Strength", icon = "⚡" },
 	{ minutes = 13, reward = { kind = "potion", id = "Wins", amount = 1 }, label = "1 Win Boost", icon = "⭐" },
 	{ minutes = 16, reward = { kind = "egg", id = "Uncommon" }, label = "Uncommon Egg", icon = "🥚" },
 	{ minutes = 20, reward = { kind = "potion", id = "Luck", amount = 1 }, label = "1 Luck Boost", icon = "🍀" },
 	{ minutes = 25, reward = { kind = "wins", amount = 5000 }, label = "+5K Wins", icon = "🏆" },
-	{ minutes = 45, reward = { kind = "hops", amount = 50000 }, label = "+50K Hops", icon = "⚡" },
+	{ minutes = 45, reward = { kind = "hops", amount = 50000 }, label = "+50K Strength", icon = "⚡" },
 	{ minutes = 65, reward = { kind = "egg", id = "Rare" }, label = "Rare Egg", icon = "🥚" },
 }
 

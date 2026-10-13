@@ -14,18 +14,18 @@ local ShopService = {}
 
 local function buyFrog(player: Player, frogId: unknown): (boolean, string)
 	if typeof(frogId) ~= "string" then
-		return false, "Invalid frog"
+		return false, "Invalid rock"
 	end
 	local frog = Frogs.ById[frogId]
 	local data = DataService.get(player)
 	if not frog or not data then
-		return false, "Invalid frog"
+		return false, "Invalid rock"
 	end
 	if data.frogs[frog.id] then
-		return false, "You already own this frog"
+		return false, "You already own this rock"
 	end
 	if frog.robuxOnly then
-		return false, "This frog is sold for Robux"
+		return false, "This rock is sold for Robux"
 	end
 	if frog.rewardOnly then
 		return false, `Get it from: {frog.rewardOnly}`
@@ -48,11 +48,11 @@ end
 
 local function equipFrog(player: Player, frogId: unknown): (boolean, string)
 	if typeof(frogId) ~= "string" then
-		return false, "Invalid frog"
+		return false, "Invalid rock"
 	end
 	local data = DataService.get(player)
 	if not data or not data.frogs[frogId] then
-		return false, "You don't own this frog"
+		return false, "You don't own this rock"
 	end
 	data.equippedFrog = frogId
 	DataService.changed(player)

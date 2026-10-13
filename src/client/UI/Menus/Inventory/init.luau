@@ -20,7 +20,7 @@ local new = Theme.new
 local InventoryMenu = {}
 
 local TABS = {
-	{ id = "Frogs", icon = "frog", build = FrogsTab.build },
+	{ id = "Frogs", label = "Rocks", icon = "gem", build = FrogsTab.build },
 	{ id = "Pets", icon = "pets", build = PetsTab.build },
 	{ id = "Trails", icon = "trails", build = TrailsMenu.build },
 	{ id = "Boosts", icon = "boost", build = BoostsTab.build },
@@ -52,7 +52,7 @@ local function tabButton(column: Frame, tab, order: number): (TextButton, GuiObj
 		Size = UDim2.new(0.92, 0, 0, 48),
 		AnchorPoint = Vector2.new(0.5, 1),
 		Position = UDim2.new(0.5, 0, 1, -2),
-		Text = tab.id,
+		Text = tab.label or tab.id,
 		ZIndex = 3,
 		Parent = button,
 	})
@@ -87,7 +87,7 @@ function InventoryMenu.build(body: Frame, startTab: string?)
 			local on = tab.id == id
 			if on then
 				current = { id = id, refresh = tab.build(body) }
-				Window.setTitle(frame, `My {tab.id}`, if animate then tab.icon else nil)
+				Window.setTitle(frame, `My {tab.label or tab.id}`, if animate then tab.icon else nil)
 			end
 			Gradient.apply(buttons[tab.id], if on then SELECTED else IDLE)
 			buttons[tab.id]:FindFirstChildOfClass("UIStroke").Color = if on then SELECTED_EDGE else EDGE
@@ -116,7 +116,7 @@ function InventoryMenu.build(body: Frame, startTab: string?)
 	local first = startTab or "Frogs"
 	for _, tab in TABS do
 		if tab.id == first then
-			Window.setTitle(frame, `My {tab.id}`, tab.icon)
+			Window.setTitle(frame, `My {tab.label or tab.id}`, tab.icon)
 		end
 	end
 	select(first, false)

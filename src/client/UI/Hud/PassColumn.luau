@@ -11,7 +11,7 @@ local new = Theme.new
 local PassColumn = {}
 
 local CARDS = {
-	{ pass = "DoubleHops", title = "+2x HOPS", icon = "bolt", color = "Lime" },
+	{ pass = "DoubleHops", title = "+2x STRENGTH", icon = "bolt", color = "Lime" },
 	{ pass = "DoubleWins", title = "2x WINS", icon = "trophy", color = "Gold" },
 }
 

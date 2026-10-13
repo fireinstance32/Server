@@ -32,10 +32,10 @@ export type Command = { usage: string, run: (Player, any, { string }) -> string 
 
 local COMMANDS: { [string]: Command } = {
 	hops = {
-		usage = "/hops <n>  set Hops",
+		usage = "/hops <n>  set Strength",
 		run = function(_, data, args)
 			data.hops = number(args[1]) or data.hops
-			return `Hops = {data.hops}`
+			return `Strength = {data.hops}`
 		end,
 	},
 	wins = {
@@ -70,16 +70,16 @@ local COMMANDS: { [string]: Command } = {
 		end,
 	},
 	frogs = {
-		usage = "/frogs  unlock every frog",
+		usage = "/frogs  unlock every rock",
 		run = function(_, data)
 			for _, frog in Frogs.List do
 				data.frogs[frog.id] = true
 			end
-			return "All frogs unlocked"
+			return "All rocks unlocked"
 		end,
 	},
 	goto = {
-		usage = "/goto river | train | pond <1-7>  teleport to a hop spot",
+		usage = "/goto river | train | pond <1-7>  teleport to the Throw Zone or a gym",
 		run = function(player, _, args)
 			local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart") :: BasePart?
 			if not root then
@@ -87,7 +87,7 @@ local COMMANDS: { [string]: Command } = {
 			end
 			if args[1] == "river" then
 				root.CFrame = CFrame.new(Game.hopZoneCenter() + Vector3.new(0, 5, 0))
-				return "Teleported to the Hop Zone"
+				return "Teleported to the Throw Zone"
 			end
 			local pond = Ponds.List[tonumber(args[2]) or 1] or Ponds.List[1]
 			root.CFrame = CFrame.new(Ponds.standPosition(pond) + Vector3.new(0, 5, 0))

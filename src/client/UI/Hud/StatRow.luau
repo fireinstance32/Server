@@ -24,7 +24,7 @@ function StatRow.init(parent: Frame)
 		Name = "Hops",
 		Size = UDim2.new(0.5, -44, 0, 40),
 		Position = UDim2.fromOffset(44, 0),
-		Text = "0 HOPS",
+		Text = "0 STRENGTH",
 		TextColor3 = C.Gold,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Parent = parent,
@@ -46,7 +46,7 @@ function StatRow.init(parent: Frame)
 	MultiplierInfo.init(parent, multiplier)
 
 	local setHops = CountUp.bind(hops, function(value)
-		return `{Format.abbreviate(value)} HOPS`
+		return `{Format.abbreviate(value)} STRENGTH`
 	end)
 	State.observe(function(data)
 		setHops(data.hops)

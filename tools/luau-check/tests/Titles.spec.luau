@@ -57,7 +57,7 @@ t.test("descriptions and bonus text", function()
 	t.equal(Titles.describe(Titles.ById.Regular), "Play 30 minutes")
 	t.equal(Titles.describe(Titles.ById.Tadpole), "Throw 1 time")
 	t.equal(Titles.bonusText(Titles.ById.Reborn), "x1.1 Wins")
-	t.equal(Titles.bonusText(Titles.ById.Trainee), "+2 Hops")
+	t.equal(Titles.bonusText(Titles.ById.Trainee), "+2 Strength")
 end)
 
 t.test("every title uses a known rarity", function()

@@ -17,13 +17,13 @@ Funnel.Steps = {
 	{ name = "Joined", done = function()
 		return true
 	end },
-	{ name = "First Hops", done = function(data)
+	{ name = "First Strength", done = function(data)
 		return data.hops > 0 or data.stats.launches > 0 or data.rebirths > 0
 	end },
-	{ name = "First River Hop", done = function(data)
+	{ name = "First Throw", done = function(data)
 		return data.stats.launches > 0
 	end },
-	{ name = "Bought a Frog", done = function(data)
+	{ name = "Bought a Rock", done = function(data)
 		return count(data.frogs) > 1
 	end },
 	{ name = "Hatched an Egg", done = function(data)

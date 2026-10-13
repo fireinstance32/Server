@@ -72,7 +72,7 @@ local function bonusLine(card: Frame, bonus: number)
 	local text = Theme.label({
 		Size = UDim2.new(1, -30, 1, 0),
 		Position = UDim2.fromOffset(30, 0),
-		Text = `+{bonus} Hops Boost`,
+		Text = `+{bonus} Strength Boost`,
 		TextColor3 = Color3.fromRGB(150, 255, 110),
 		TextXAlignment = Enum.TextXAlignment.Left,
 		ZIndex = 3,

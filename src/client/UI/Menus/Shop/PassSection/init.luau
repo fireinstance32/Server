@@ -24,7 +24,7 @@ local TALL: { Tall.Spec } = {
 local function pondCaption(pass: string): string
 	for _, pond in Ponds.ById do
 		if pond.pass == pass then
-			return `{pond.multiplier}x HOPS`
+			return `{pond.multiplier}x STRENGTH`
 		end
 	end
 	return ""
@@ -33,18 +33,18 @@ end
 -- Rows top to bottom: a pair = half-width cards, a single = full width.
 local ROWS: { { Wide.Spec } } = {
 	{
-		{ pass = "AutoHop", caption = "AFK HOPS", title = "Auto\nHop", icon = "frog", colors = "Orange" },
+		{ pass = "AutoHop", caption = "AFK LIFTING", title = "Auto\nLift", icon = "auto", colors = "Orange" },
 		{ pass = "AutoRebirth", caption = "AFK REBIRTHS", title = "Auto\nRebirth", icon = "rebirth", colors = "Cyan" },
 	},
 	{
-		{ pass = "PondCosmic", caption = pondCaption("PondCosmic"), title = "Cosmic Pond", icon = "portal", colors = "Green", ink = Color3.fromRGB(96, 240, 88) },
+		{ pass = "PondCosmic", caption = pondCaption("PondCosmic"), title = "Cosmic Gym", icon = "portal", colors = "Green", ink = Color3.fromRGB(96, 240, 88) },
 	},
 	{
-		{ pass = "PondGolden", caption = pondCaption("PondGolden"), title = "Golden\nPond", icon = "globe", colors = "Pink" },
-		{ pass = "PondRainbow", caption = pondCaption("PondRainbow"), title = "Rainbow\nPond", icon = "portal", colors = "Gold", ink = Color3.fromRGB(255, 226, 70) },
+		{ pass = "PondGolden", caption = pondCaption("PondGolden"), title = "Golden\nGym", icon = "globe", colors = "Pink" },
+		{ pass = "PondRainbow", caption = pondCaption("PondRainbow"), title = "Rainbow\nGym", icon = "portal", colors = "Gold", ink = Color3.fromRGB(255, 226, 70) },
 	},
 	{
-		{ pass = "DoubleHops", caption = "2X HOPS", title = "Double\nHops", icon = "bolt", colors = "Blue" },
+		{ pass = "DoubleHops", caption = "2X STRENGTH", title = "Double\nStrength", icon = "bolt", colors = "Blue" },
 		{ pass = "DoubleWins", caption = "2X WINS", title = "Double\nWins", icon = "trophy", colors = "Purple" },
 	},
 	{

@@ -14,7 +14,7 @@ local Cards = require(script.Parent.Parent.Cards)
 export type Spec = {
 	pass: string,
 	caption: string,
-	title: string, -- "Auto\nHop"
+	title: string, -- "Auto\nLift"
 	icon: string,
 	colors: string,
 	ink: Color3?, -- title colour (default white)

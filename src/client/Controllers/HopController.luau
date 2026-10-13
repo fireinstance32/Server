@@ -56,7 +56,7 @@ function HopController.hop()
 	end
 	local mode, pond = currentSpot()
 	if not mode then
-		Hud.toast("Stand on a pond's pad or in the Hop Zone!", Theme.Colors.Red)
+		Hud.toast("Stand in a gym or the Throw Zone!", Theme.Colors.Red)
 		return
 	end
 	if pond and not PondAccess.isUnlocked(pond) then

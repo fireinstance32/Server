@@ -64,7 +64,7 @@ local function buildSign(anchor: BasePart, pond: Ponds.Pond, container: Instance
 	Theme.label({
 		Size = UDim2.new(1, -80, 0, 56),
 		Position = UDim2.fromOffset(70, 84),
-		Text = `{pond.multiplier}x HOPS`,
+		Text = `{pond.multiplier}x STRENGTH`,
 		Parent = gui,
 	})
 

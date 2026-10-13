@@ -70,7 +70,7 @@ function PotionTimers.init(gui: ScreenGui)
 				local label = labels[potion.id]
 				local left = math.max(math.floor((ends[potion.id] or 0) - now), 0)
 				label.Parent.Visible = left > 0
-				label.Text = `x{potion.factor} {string.upper(potion.stat)}  {string.format("%d:%02d", left // 60, left % 60)}`
+				label.Text = `x{potion.factor} {Potions.StatWord[potion.stat]}  {string.format("%d:%02d", left // 60, left % 60)}`
 			end
 			task.wait(1)
 		end

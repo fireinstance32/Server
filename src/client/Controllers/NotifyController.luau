@@ -38,7 +38,7 @@ function NotifyController.init()
 			local minutes = (payload.seconds % 3600) // 60
 			local away = if hours > 0 then `{hours}h {minutes}m` else `{minutes}m`
 			task.delay(1, function()
-				Hud.banner("Welcome back! 🐸", `You trained offline for {away}: +{Format.abbreviate(payload.hops)} Hops`, Theme.Colors.Gold)
+				Hud.banner("Welcome back! 🐸", `You trained offline for {away}: +{Format.abbreviate(payload.hops)} Strength`, Theme.Colors.Gold)
 			end)
 		elseif payload.kind == "Title" then
 			local title = Titles.ById[payload.id]
@@ -54,7 +54,7 @@ function NotifyController.init()
 				ScreenFx.confetti(50)
 			else
 				-- A toast, not a banner: level ups often land with the zone banner.
-				Hud.toast(`LEVEL {payload.level}!  +Hops boost`, Theme.Colors.Blue)
+				Hud.toast(`LEVEL {payload.level}!  +Strength boost`, Theme.Colors.Blue)
 			end
 		end
 	end)

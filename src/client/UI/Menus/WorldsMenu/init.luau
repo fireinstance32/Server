@@ -73,7 +73,7 @@ local function card(list: Instance, world: Worlds.World, data: any, here: boolea
 		local text = Theme.label({
 			Size = UDim2.new(1, -42, 1, 0),
 			Position = UDim2.fromOffset(42, 0),
-			Text = `NEEDS {Format.abbreviate(world.gateHops)} HOPS`,
+			Text = `NEEDS {Format.abbreviate(world.gateHops)} STRENGTH`,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 4,
 			Parent = need,

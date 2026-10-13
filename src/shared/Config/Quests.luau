@@ -26,7 +26,7 @@ end
 
 local List: { Quest } = {
 	{
-		text = "Train at the Starter Pond",
+		text = "Lift at the Starter Gym",
 		target = 50,
 		progress = function(data)
 			return data.hops
@@ -38,17 +38,17 @@ local List: { Quest } = {
 		rewardLabel = "10 Wins",
 	},
 	{
-		text = "Hop down the river: get Wins",
+		text = "Throw your rock down the field: get Wins",
 		target = 2,
 		progress = function(data)
 			return data.stats.winsEarned
 		end,
 		where = Game.hopZoneCenter,
 		reward = { kind = "potion", id = "Hops", amount = 1 },
-		rewardLabel = "Hops Boost",
+		rewardLabel = "Strength Boost",
 	},
 	{
-		text = "Buy a new frog",
+		text = "Buy a new rock",
 		target = 1,
 		progress = function(data)
 			return countKeys(data.frogs) - 1
@@ -90,7 +90,7 @@ local List: { Quest } = {
 			return data.rebirths
 		end,
 		reward = { kind = "potion", id = "Hops", amount = 2 },
-		rewardLabel = "2 Hops Boosts",
+		rewardLabel = "2 Strength Boosts",
 	},
 }
 

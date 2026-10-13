@@ -49,7 +49,7 @@ function Hud.setHopMode(mode: string?, pond: any?, locked: boolean?)
 	AutoRebirth.setVisible(mode == "Train")
 	hopButton.Visible = mode == "Launch" or (mode == "Train" and locked == true)
 	if mode == "Launch" then
-		Theme.setText(hopButton, "HOP")
+		Theme.setText(hopButton, "THROW")
 		Layout.recolor(hopButton, "Green")
 	elseif mode == "Train" and locked and pond then
 		Theme.setText(
@@ -107,7 +107,7 @@ function Hud.init(callbacks: {
 		Size = UDim2.fromOffset(250, 92),
 		AnchorPoint = Vector2.new(0.5, 1),
 		Position = UDim2.new(0.5, 0, 1, -340),
-		Text = "HOP",
+		Text = "THROW",
 		Visible = false,
 	}, "Green", callbacks.onHop)
 	hopButton.Parent = gui

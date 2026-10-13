@@ -38,7 +38,7 @@ function TopBar.init(gui: ScreenGui, setAutoHop: (boolean) -> ())
 	Theme.label({
 		Size = UDim2.new(0.9, 0, 0.55, 0),
 		Position = UDim2.fromScale(0.05, 0.06),
-		Text = "AUTO HOP",
+		Text = "AUTO LIFT",
 		ZIndex = 3,
 		Parent = button,
 	})

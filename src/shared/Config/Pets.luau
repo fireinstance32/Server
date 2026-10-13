@@ -61,9 +61,9 @@ local Pets: { Pet } = {
 	pet("BrookOtter", "Brook Otter", "Rare", 2, Color3.fromRGB(190, 110, 60)),
 	pet("MossTurtle", "Moss Turtle", "Epic", 3, Color3.fromRGB(80, 150, 80)),
 	-- Uncommon Egg
-	pet("LilyFrogling", "Lily Frogling", "Common", 3, Color3.fromRGB(120, 210, 90)),
+	pet("LilyFrogling", "Moss Golem", "Common", 3, Color3.fromRGB(120, 210, 90)),
 	pet("ReedFox", "Reed Fox", "Uncommon", 4, Color3.fromRGB(240, 140, 60)),
-	pet("PondPanda", "Pond Panda", "Rare", 6, Color3.fromRGB(240, 240, 240)),
+	pet("PondPanda", "Bamboo Panda", "Rare", 6, Color3.fromRGB(240, 240, 240)),
 	pet("DragonflyKitty", "Dragonfly Kitty", "Epic", 9, Color3.fromRGB(110, 200, 240)),
 	-- Rare Egg
 	pet("FireflyBear", "Firefly Bear", "Uncommon", 8, Color3.fromRGB(250, 220, 90)),
@@ -73,7 +73,7 @@ local Pets: { Pet } = {
 	-- Reward-only (daily rewards)
 	pet("FortuneNeko", "Fortune Neko", "Rare", 5, Color3.fromRGB(255, 225, 190)),
 	-- Rainbow Egg (Robux)
-	pet("RainbowFrog", "Rainbow Frog", "Legendary", 40, Color3.fromRGB(255, 90, 160)),
+	pet("RainbowFrog", "Rainbow Golem", "Legendary", 40, Color3.fromRGB(255, 90, 160)),
 	pet("GalaxyCat", "Galaxy Cat", "Legendary", 60, Color3.fromRGB(90, 70, 200)),
 	pet("PrismDragon", "Prism Dragon", "Rainbow", 120, Color3.fromRGB(120, 255, 230)),
 }

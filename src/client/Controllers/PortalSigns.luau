@@ -73,7 +73,7 @@ local function buildSign(gate: BasePart, target: Worlds.World, container: Instan
 			child:Destroy()
 		end
 		Icon.new(if unlocked then "portal" elseif ready then "star" else "lock", { Size = UDim2.fromScale(1, 1), Parent = iconHolder })
-		status.Text = if unlocked then "OPEN" elseif ready then "UNLOCK!" else `{Format.abbreviate(target.gateHops)} HOPS`
+		status.Text = if unlocked then "OPEN" elseif ready then "UNLOCK!" else `{Format.abbreviate(target.gateHops)} STRENGTH`
 		status.TextColor3 = if unlocked then Color3.fromRGB(110, 245, 110) elseif ready then Color3.fromRGB(255, 220, 70) else Color3.fromRGB(255, 92, 92)
 	end
 end

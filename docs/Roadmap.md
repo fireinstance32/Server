@@ -5,7 +5,9 @@ tags: [planning, moc]
 
 Build order for +1 Frog Hop. Each phase has its own note split into numbered sub-phases. Work top to bottom; a sub-phase is done when its **Done when** line is true.
 
-**Naming:** Skill → **Hops**, Stone → **Frog**, Throw → **Hop**, Throw Zone → **Hop Zone**, Relic → **Legend Frog**. Reference: [[Stone Skipping UI Breakdown]].
+**2026-10-13: switching to a rock-lifting theme — see [[Rock Pivot]] (new names below are being replaced).**
+
+**Naming (old):** Skill → **Hops**, Stone → **Frog**, Throw → **Hop**, Throw Zone → **Hop Zone**, Relic → **Legend Frog**. Reference: [[Stone Skipping UI Breakdown]].
 
 | Phase | Goal | Sub-phases |
 |---|---|---|

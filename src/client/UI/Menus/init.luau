@@ -46,7 +46,7 @@ local MENUS: { [string]: Spec } = {
 	Inventory = { title = "Inventory", icon = "inventory", window = { tabs = true }, build = function(body)
 		return InventoryMenu.build(body, "Frogs")
 	end },
-	Frogs = { title = "Frogs", icon = "frog", window = { tabs = true }, build = function(body)
+	Frogs = { title = "Rocks", icon = "gem", window = { tabs = true }, build = function(body)
 		return InventoryMenu.build(body, "Frogs")
 	end },
 	Titles = { title = "My Titles", icon = "title", window = { tabs = true }, build = function(body)

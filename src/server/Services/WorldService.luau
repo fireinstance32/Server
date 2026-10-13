@@ -28,7 +28,7 @@ function WorldService.travel(player: Player, worldId: unknown): (boolean, string
 	end
 	if not Worlds.isUnlocked(world, data.worldsUnlocked) then
 		if data.hops < world.gateHops then
-			return false, `{world.name} needs {Format.abbreviate(world.gateHops)} Hops`
+			return false, `{world.name} needs {Format.abbreviate(world.gateHops)} Strength`
 		end
 		data.worldsUnlocked[world.id] = true
 		DataService.changed(player)

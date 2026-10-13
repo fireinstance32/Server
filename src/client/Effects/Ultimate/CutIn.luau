@@ -1,5 +1,5 @@
 -- Anime cut-in (reference trailer): the frog's black silhouette over a
--- burst of speed lines in the frog's colour, with "ULTIMATE HOP!".
+-- burst of speed lines in the frog's colour, with "ULTIMATE THROW!".
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
@@ -75,7 +75,7 @@ function CutIn.play(frogId: string, color: Color3): ScreenGui
 		AnchorPoint = Vector2.new(1, 1),
 		Position = UDim2.fromScale(0.96, 0.92),
 		Rotation = -6,
-		Text = "ULTIMATE HOP!",
+		Text = "ULTIMATE THROW!",
 		Parent = backdrop,
 	})
 	Theme.textStroke(5).Parent = title

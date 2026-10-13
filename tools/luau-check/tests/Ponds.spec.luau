@@ -43,7 +43,7 @@ t.test("robux ponds need their pass, not rebirths", function()
 	local golden = Ponds.ById.Golden
 	t.equal(Ponds.isUnlocked(golden, 999, owns({})), false)
 	t.equal(Ponds.isUnlocked(golden, 0, owns({ [golden.pass] = true })), true)
-	t.equal(Ponds.lockReason(golden, 0, owns({})), "Robux pond")
+	t.equal(Ponds.lockReason(golden, 0, owns({})), "Robux gym")
 end)
 
 t.test("rebirth pond multipliers increase", function()
