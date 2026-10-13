@@ -10,7 +10,7 @@ UiImages.Ids = {
 	icons2 = 93345046140419,
 	icons3 = 137541970315843,
 	studs = 111592566563956, -- studs.png: tiling brick-stud texture for panels
-	pets = 93645169916307, -- pets.png: every pet's picture (layout in Config/PetIconAtlas)
+	pets = 107708070810178, -- pets.png: every pet's picture (layout in Config/PetIconAtlas)
 	frogs = 128928020041908, -- frogs.png: every frog's picture (layout in Config/FrogIconAtlas)
 } :: { [string]: number }
 

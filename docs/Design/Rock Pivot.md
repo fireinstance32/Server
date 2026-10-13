@@ -7,7 +7,7 @@ The game changes from +1 Frog Hop to a **rock-lifting** game on the same [[Stone
 
 **Why:** "+1 Lift Rock" makes a stronger thumbnail (tiny character under a giant glowing boulder), lifting/strength simulators are a proven Roblox genre, and it's the cheapest switch: the game already holds an item in your hands (`HeldFrogService`), rocks are simple shapes, and it needs 1–2 animations instead of a sword game's swing sets.
 
-**Working title:** *+1 Strength Every Lift* (alternatives: *+1 Rock Lift*, *Rock Throw Simulator*). Pick the one whose icon gets the most clicks (stage 5).
+**Title:** *+1 Lift Rock For Pets* (decided 2026-10-13).
 
 ## Core loop
 ```
@@ -36,7 +36,7 @@ Code keeps its internal names (`data.hops`, `HopService`, `Config/Frogs`, `Ponds
 Kept. Eggs are usually the biggest earner in these games and pets are what players collect; the system is finished. Frog-themed pets (Lily Frogling...) get renamed in stage 3.
 
 ## Stages
-1. ✅ **Words** – every on-screen Hops/Frog/Pond/Hop/River string → the new names; game title.
+1. ✅ **Words** – every on-screen Hops/Frog/Pond/Hop/River string → the new names; game title *+1 Lift Rock For Pets*.
 2. 🟡 **Gameplay** (first pass 2026-10-13: part-built rocks, procedural lift + throw; camera follow kept) – hold a rock instead of a frog; click = lift animation (+Strength pop); throw animation; rock bounces down the field; camera follows the rock.
 3. **Content names** – zones, worlds, rocks (pebble → boulder → crystal / gold / lava / galaxy), pets, eggs, codes, trails.
 4. **Art** – rock models in tiers (Blender `bpy`), gyms, the throwing field, world themes, lift/throw animations (Roblox Animation Editor).

@@ -7,44 +7,44 @@
 export type Item = { id: number, price: number, label: string }
 
 local Passes: { [string]: Item } = {
-	AutoHop = { id = 0, price = 23, label = "Auto Lift" },
+	AutoHop = { id = 0, price = 49, label = "Auto Lift" },
 	AutoRebirth = { id = 0, price = 99, label = "Auto Rebirth" },
-	DoubleHops = { id = 0, price = 5, label = "+2x Strength" },
-	DoubleWins = { id = 0, price = 54, label = "2x Wins" },
-	ExtraPetSlots = { id = 0, price = 149, label = "+2 Pet Slots" },
-	HatchTriple = { id = 0, price = 149, label = "+3 Eggs (hatch 3 at once)" },
-	HatchOcto = { id = 0, price = 399, label = "+8 Eggs (hatch 8 at once)" },
-	PetStorage = { id = 0, price = 99, label = "+100 Pet Storage" },
-	OfflineDouble = { id = 0, price = 79, label = "Offline Rewards x2" },
+	DoubleHops = { id = 0, price = 79, label = "+2x Strength" },
+	DoubleWins = { id = 0, price = 99, label = "2x Wins" },
+	ExtraPetSlots = { id = 0, price = 129, label = "+2 Pet Slots" },
+	HatchTriple = { id = 0, price = 129, label = "+3 Eggs (hatch 3 at once)" },
+	HatchOcto = { id = 0, price = 299, label = "+8 Eggs (hatch 8 at once)" },
+	PetStorage = { id = 0, price = 59, label = "+100 Pet Storage" },
+	OfflineDouble = { id = 0, price = 49, label = "Offline Rewards x2" },
 	-- Robux training ponds (Config/Ponds), valid in all worlds.
-	PondGolden = { id = 0, price = 90, label = "Golden Gym (3x)" },
-	PondRainbow = { id = 0, price = 225, label = "Rainbow Gym (15x)" },
-	PondCosmic = { id = 0, price = 540, label = "Cosmic Gym (50x)" },
+	PondGolden = { id = 0, price = 79, label = "Golden Gym (3x)" },
+	PondRainbow = { id = 0, price = 199, label = "Rainbow Gym (15x)" },
+	PondCosmic = { id = 0, price = 399, label = "Cosmic Gym (50x)" },
 }
 
 local Products: { [string]: Item } = {
-	StarterPack = { id = 0, price = 36, label = "Starter Pack" },
-	HopsPack1 = { id = 0, price = 10, label = "+10K Strength" },
-	HopsPack2 = { id = 0, price = 41, label = "+100K Strength" },
-	HopsPack3 = { id = 0, price = 86, label = "+1M Strength" },
-	SkipRebirth = { id = 0, price = 25, label = "Skip Rebirth" },
-	PhoenixFrog = { id = 0, price = 199, label = "Phoenix Stone" },
-	RainbowEgg = { id = 0, price = 41, label = "Rainbow Egg" },
-	RainbowTrail = { id = 0, price = 99, label = "Rainbow Trail" },
-	PotionPack = { id = 0, price = 49, label = "Boost Bundle (3 of each potion)" },
-	VoidTrail = { id = 0, price = 149, label = "Void Trail" },
+	StarterPack = { id = 0, price = 49, label = "Starter Pack" },
+	HopsPack1 = { id = 0, price = 19, label = "+10K Strength" },
+	HopsPack2 = { id = 0, price = 49, label = "+100K Strength" },
+	HopsPack3 = { id = 0, price = 99, label = "+1M Strength" },
+	SkipRebirth = { id = 0, price = 29, label = "Skip Rebirth" },
+	PhoenixFrog = { id = 0, price = 249, label = "Phoenix Stone" },
+	RainbowEgg = { id = 0, price = 39, label = "Rainbow Egg" },
+	RainbowTrail = { id = 0, price = 79, label = "Rainbow Trail" },
+	PotionPack = { id = 0, price = 99, label = "Boost Bundle (3 of each potion)" },
+	VoidTrail = { id = 0, price = 129, label = "Void Trail" },
 	-- Shop (reference shop video): second pack, egg bundles, single boosts, Wins packs.
-	GalaxyPack = { id = 0, price = 270, label = "Galaxy Pack" },
-	RainbowEgg3 = { id = 0, price = 107, label = "3 Rainbow Eggs" },
-	RainbowEgg8 = { id = 0, price = 269, label = "8 Rainbow Eggs" },
-	HopsBoost = { id = 0, price = 27, label = "Strength Boost" },
-	WinsBoost = { id = 0, price = 27, label = "Wins Boost" },
-	WinsPack1 = { id = 0, price = 23, label = "Tiny Pack" },
-	WinsPack2 = { id = 0, price = 54, label = "Small Pack" },
-	WinsPack3 = { id = 0, price = 104, label = "Medium Pack" },
-	WinsPack4 = { id = 0, price = 207, label = "Large Pack" },
-	WinsPackMega = { id = 0, price = 414, label = "Mega Pack (first time)" },
-	WinsPackMega2 = { id = 0, price = 518, label = "Mega Pack" },
+	GalaxyPack = { id = 0, price = 299, label = "Galaxy Pack" },
+	RainbowEgg3 = { id = 0, price = 99, label = "3 Rainbow Eggs" },
+	RainbowEgg8 = { id = 0, price = 249, label = "8 Rainbow Eggs" },
+	HopsBoost = { id = 0, price = 25, label = "Strength Boost" },
+	WinsBoost = { id = 0, price = 25, label = "Wins Boost" },
+	WinsPack1 = { id = 0, price = 19, label = "Tiny Pack" },
+	WinsPack2 = { id = 0, price = 49, label = "Small Pack" },
+	WinsPack3 = { id = 0, price = 99, label = "Medium Pack" },
+	WinsPack4 = { id = 0, price = 199, label = "Large Pack" },
+	WinsPackMega = { id = 0, price = 349, label = "Mega Pack (first time)" },
+	WinsPackMega2 = { id = 0, price = 449, label = "Mega Pack" },
 }
 
 -- What each Hops pack gives (shown on the buttons too).
@@ -61,9 +61,10 @@ export type Bundle = { rewards: { { kind: string, id: string?, amount: number } 
 
 local Bundles: { [string]: Bundle } = {
 	StarterPack = {
-		was = 199,
+		was = 249,
 		oneTime = true,
 		rewards = {
+			{ kind = "pet", id = "StarterUnicat", amount = 1 },
 			{ kind = "hops", amount = 10_000 },
 			{ kind = "wins", amount = 500 },
 			{ kind = "potion", id = "Hops", amount = 1 },
@@ -82,7 +83,7 @@ local Bundles: { [string]: Bundle } = {
 		},
 	},
 	PotionPack = { -- "Boost Bundle"
-		was = 243, -- 9 single boosts
+		was = 225, -- 9 single boosts
 		rewards = {
 			{ kind = "potion", id = "Hops", amount = 3 },
 			{ kind = "potion", id = "Wins", amount = 3 },
@@ -95,7 +96,7 @@ local Bundles: { [string]: Bundle } = {
 	WinsPack2 = { rewards = { { kind = "wins", amount = 50_000 } } },
 	WinsPack3 = { rewards = { { kind = "wins", amount = 200_000 } } },
 	WinsPack4 = { rewards = { { kind = "wins", amount = 500_000 } } },
-	WinsPackMega = { was = 518, oneTime = true, rewards = { { kind = "wins", amount = 1_000_000 } } },
+	WinsPackMega = { was = 449, oneTime = true, rewards = { { kind = "wins", amount = 1_000_000 } } },
 	WinsPackMega2 = { rewards = { { kind = "wins", amount = 1_000_000 } } },
 }
 

@@ -37,6 +37,31 @@ function Body.wings(b: Builder.Builder)
 	end
 end
 
+-- A fan of rainbow feathers on each side (Starter Pack pet).
+local RAINBOW = {
+	Color3.fromRGB(255, 70, 90),
+	Color3.fromRGB(255, 150, 50),
+	Color3.fromRGB(255, 225, 60),
+	Color3.fromRGB(90, 220, 110),
+	Color3.fromRGB(70, 170, 255),
+	Color3.fromRGB(170, 100, 255),
+}
+
+function Body.rainbowWings(b: Builder.Builder)
+	for _, side in { -1, 1 } do
+		for i, color in RAINBOW do
+			local tilt = rad((15 + (i - 1) * 17) * side)
+			b:add(
+				"Wing",
+				Vector3.new(0.06, 0.78 - i * 0.05, 0.2),
+				CFrame.new(side * 0.5, 0.1, 0.05) * CFrame.Angles(0, 0, -tilt) * CFrame.new(0, 0.36, 0),
+				color,
+				{ Material = Enum.Material.Neon }
+			)
+		end
+	end
+end
+
 function Body.batWings(b: Builder.Builder)
 	for _, side in { -1, 1 } do
 		b:add("Wing", Vector3.new(0.5, 0.32, 0.05), CFrame.new(side * 0.66, 0.12, 0.1) * CFrame.Angles(0, 0, rad(25 * side)), b.dark)

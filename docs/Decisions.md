@@ -7,7 +7,8 @@ Things I need from you, or choices I made for now that you can change. Newest fi
 
 ## Rock pivot (2026-10-13)
 - [x] **Theme:** +1 Frog Hop → a rock-lifting game on the same loop (lift for Strength, throw for Wins, pets kept). Plan, naming and stages: [[Rock Pivot]].
-- [ ] **Title:** working title *+1 Strength Every Lift*; pick after the icon test.
+- [x] **Prices:** middle ladder (19–449 Robux, most items 79–129); full list in [[Monetization Setup]]. Starter Pack 49 with an exclusive Rainbow Unicat pet.
+- [x] **Title:** *+1 Lift Rock For Pets* (your pick, 2026-10-13).
 
 ## Things only you can do
 - [ ] **Upload images to Roblox** — UI sheets done 2026-10-12 (icons, icons2, icons3, studs, pets, frogs uploaded from Studio; ids in `Config/UiImages.luau`; re-upload + new ids whenever a sheet changes). Still to do:
@@ -41,4 +42,4 @@ Things I need from you, or choices I made for now that you can change. Newest fi
 | Max players | 12 | More = more Friend Boost and busier boards |
 | Performance | No StreamingEnabled yet (forced off in default.project.json; sign/podium controllers WaitForChild on far worlds) | Decide after the Phase 8 playtest numbers |
 | Sounds | Hooks everywhere (click, hover, open, tab, error, claim, hop, splash, hatch, level up, purchase, music), all silent | Pick sounds from the Creator Store (or let me suggest ids) → `Config/Sounds.luau` |
-| Shop content (reference shop video layout) | Pack: Starter + Galaxy Pack (Galaxy Cat, 3 of each potion, 1M Hops, +10 rebirths; 270, was 799). Limited Offer: Rainbow Egg ×8/×3/×1 (269/107/41). 3-wide passes: +2 Pet Slots / Hatch x3 / Hatch x8. Boosts: Boost Bundle = Potion Pack (49, was 243), Hops / Wins Boost 27. Wins packs +10K/+50K/+200K/+500K (23/54/104/207), Mega +1M 414 first time then 518. Hops packs only on the HUD | Change names, contents or prices in `Config/Monetization` (prices must match the dashboard) |
+| Shop content (reference shop video layout) | Pack: Starter (Rainbow Unicat pet, 10K Strength, 500 Wins, a boost, +1 rebirth; 49, was 249) + Galaxy Pack (Galaxy Cat, 3 of each potion, 1M Strength, +10 rebirths; 299, was 799). Limited Offer: Rainbow Egg ×8/×3/×1 (249/99/39). 3-wide passes: +2 Pet Slots / Hatch x3 / Hatch x8. Boosts: Boost Bundle (99, was 225), Strength / Wins Boost 25. Wins packs +10K/+50K/+200K/+500K (19/49/99/199), Mega +1M 349 first time then 449. Strength packs only on the HUD | Change names, contents or prices in `Config/Monetization` (prices must match the dashboard) |

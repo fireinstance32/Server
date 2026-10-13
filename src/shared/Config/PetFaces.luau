@@ -19,6 +19,7 @@ PetFaces.Images = {
 	face_moth = 0,
 	face_dragon = 0,
 	face_unicorn = 0,
+	face_unicat = 0,
 	face_frog = 0,
 	face_axolotl = 0,
 	face_turtle = 0,

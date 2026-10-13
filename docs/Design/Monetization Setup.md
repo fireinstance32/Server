@@ -8,53 +8,75 @@ Every Robux item is wired in code but has `id = 0` until you create it. Until th
 ## Game passes (Monetization → Passes)
 | Config name | Name to use | Price | Description | id |
 |---|---|---|---|---|
-| `AutoHop` | Auto Hop | 23 | Automatically hops down the river while you stand in the Hop Zone. | ☐ |
+| `AutoHop` | Auto Lift | 49 | Automatically throws your rock while you stand in the Throw Zone. | ☐ |
 | `AutoRebirth` | Auto Rebirth | 99 | Rebirths for you as soon as you reach MAX LEVEL. | ☐ |
-| `DoubleHops` | +2x Hops | 5 | Doubles all the Hops you earn, forever. | ☐ |
-| `DoubleWins` | 2x Wins | 54 | Doubles all the Wins you earn, forever. | ☐ |
-| `ExtraPetSlots` | +2 Pet Slots | 149 | Equip 2 more pets at once. | ☐ |
-| `HatchTriple` | +3 Eggs (hatch 3 at once) | 149 | Hatch 3 eggs at once (R key). | ☐ |
-| `HatchOcto` | +8 Eggs (hatch 8 at once) | 399 | Hatch 8 eggs at once (R key). | ☐ |
-| `PetStorage` | +100 Pet Storage | 99 | Store 100 more pets. | ☐ |
-| `OfflineDouble` | Offline Rewards x2 | 79 | Earn twice as many Hops while you are offline. | ☐ |
-| `PondGolden` | Golden Pond (3x) | 90 | Unlocks the Golden Pond (3x Hops training) in every world. | ☐ |
-| `PondRainbow` | Rainbow Pond (15x) | 225 | Unlocks the Rainbow Pond (15x Hops training) in every world. | ☐ |
-| `PondCosmic` | Cosmic Pond (50x) | 540 | Unlocks the Cosmic Pond (50x Hops training) in every world. | ☐ |
+| `DoubleHops` | +2x Strength | 79 | Doubles all the Strength you earn, forever. | ☐ |
+| `DoubleWins` | 2x Wins | 99 | Doubles all the Wins you earn, forever. | ☐ |
+| `ExtraPetSlots` | +2 Pet Slots | 129 | Equip 2 more pets at once. | ☐ |
+| `HatchTriple` | +3 Eggs (hatch 3 at once) | 129 | Hatch 3 eggs at once (R key). | ☐ |
+| `HatchOcto` | +8 Eggs (hatch 8 at once) | 299 | Hatch 8 eggs at once (R key). | ☐ |
+| `PetStorage` | +100 Pet Storage | 59 | Store 100 more pets. | ☐ |
+| `OfflineDouble` | Offline Rewards x2 | 49 | Earn twice as much Strength while you are offline. | ☐ |
+| `PondGolden` | Golden Gym (3x) | 79 | Unlocks the Golden Gym (3x Strength training) in every world. | ☐ |
+| `PondRainbow` | Rainbow Gym (15x) | 199 | Unlocks the Rainbow Gym (15x Strength training) in every world. | ☐ |
+| `PondCosmic` | Cosmic Gym (50x) | 399 | Unlocks the Cosmic Gym (50x Strength training) in every world. | ☐ |
 
 ## Developer products (Monetization → Developer Products)
 | Config name | Name to use | Price | Description | id |
 |---|---|---|---|---|
-| `StarterPack` | Starter Pack | 36 | +10K Hops, +500 Wins and +1 Rebirth. One-time offer! | ☐ |
-| `HopsPack1` | +10K Hops | 10 | +10,000 Hops. | ☐ |
-| `HopsPack2` | +100K Hops | 41 | +100,000 Hops. | ☐ |
-| `HopsPack3` | +1M Hops | 86 | +1,000,000 Hops. | ☐ |
-| `SkipRebirth` | Skip Rebirth | 25 | Rebirth right now without reaching MAX LEVEL. | ☐ |
-| `PhoenixFrog` | Phoenix Frog | 199 | The Phoenix Frog: 1000 Hops per pad. Limited to 1000! | ☐ |
-| `RainbowEgg` | Rainbow Egg | 41 | Hatch one Rainbow Egg (Rainbow Frog, Galaxy Cat or Prism Dragon). | ☐ |
-| `RainbowTrail` | Rainbow Trail | 99 | Rainbow trail behind your frog (+10 multiplier). | ☐ |
-| `PotionPack` | Potion Pack (3 of each) | 49 | 3 Hops, 3 Wins and 3 Luck boosts. | ☐ |
-| `VoidTrail` | Void Trail | 149 | Void trail behind your frog (+15 multiplier). | ☐ |
+| `StarterPack` | Starter Pack | 49 | Rainbow Unicat pet, +10K Strength, +500 Wins, a Strength Boost and +1 Rebirth. One-time offer! | ☐ |
+| `GalaxyPack` | Galaxy Pack | 299 | Galaxy Cat pet, 3 of each boost, +1M Strength and +10 Rebirths. | ☐ |
+| `HopsPack1` | +10K Strength | 19 | +10,000 Strength. | ☐ |
+| `HopsPack2` | +100K Strength | 49 | +100,000 Strength. | ☐ |
+| `HopsPack3` | +1M Strength | 99 | +1,000,000 Strength. | ☐ |
+| `SkipRebirth` | Skip Rebirth | 29 | Rebirth right now without reaching MAX LEVEL. | ☐ |
+| `PhoenixFrog` | Phoenix Stone | 249 | The Phoenix Stone: 1000 Strength per bounce. Limited to 1000! | ☐ |
+| `RainbowEgg` | Rainbow Egg | 39 | Hatch one Rainbow Egg (Rainbow Golem, Galaxy Cat or Prism Dragon). | ☐ |
+| `RainbowEgg3` | 3 Rainbow Eggs | 99 | Hatch 3 Rainbow Eggs. | ☐ |
+| `RainbowEgg8` | 8 Rainbow Eggs | 249 | Hatch 8 Rainbow Eggs. | ☐ |
+| `PotionPack` | Boost Bundle | 99 | 3 Strength, 3 Wins and 3 Luck boosts. | ☐ |
+| `HopsBoost` | Strength Boost | 25 | One Strength boost. | ☐ |
+| `WinsBoost` | Wins Boost | 25 | One Wins boost. | ☐ |
+| `WinsPack1` | Tiny Wins Pack | 19 | +10,000 Wins. | ☐ |
+| `WinsPack2` | Small Wins Pack | 49 | +50,000 Wins. | ☐ |
+| `WinsPack3` | Medium Wins Pack | 99 | +200,000 Wins. | ☐ |
+| `WinsPack4` | Large Wins Pack | 199 | +500,000 Wins. | ☐ |
+| `WinsPackMega` | Mega Wins Pack (first time) | 349 | +1,000,000 Wins. First-time price! | ☐ |
+| `WinsPackMega2` | Mega Wins Pack | 449 | +1,000,000 Wins. | ☐ |
+| `RainbowTrail` | Rainbow Trail | 79 | Rainbow trail behind your rock (+10 multiplier). | ☐ |
+| `VoidTrail` | Void Trail | 129 | Void trail behind your rock (+15 multiplier). | ☐ |
 
 ## Gift products (Developer Products, in `GiftIds`)
 One developer product per giftable item, named `[GIFT] <item name>`, same price as the item. The buyer picks a player in the Shop › Gift section first.
 
 | Config name | Name to use |
 |---|---|
-| `DoubleHops` | [GIFT] +2x Hops |
+| `DoubleHops` | [GIFT] +2x Strength |
 | `DoubleWins` | [GIFT] 2x Wins |
-| `AutoHop` | [GIFT] Auto Hop |
+| `AutoHop` | [GIFT] Auto Lift |
 | `HatchTriple` | [GIFT] +3 Eggs (hatch 3 at once) |
 | `HatchOcto` | [GIFT] +8 Eggs (hatch 8 at once) |
 | `ExtraPetSlots` | [GIFT] +2 Pet Slots |
 | `PetStorage` | [GIFT] +100 Pet Storage |
 | `OfflineDouble` | [GIFT] Offline Rewards x2 |
-| `HopsPack1` | [GIFT] +10K Hops |
-| `HopsPack2` | [GIFT] +100K Hops |
-| `HopsPack3` | [GIFT] +1M Hops |
+| `HopsPack1` | [GIFT] +10K Strength |
+| `HopsPack2` | [GIFT] +100K Strength |
+| `HopsPack3` | [GIFT] +1M Strength |
 | `RainbowEgg` | [GIFT] Rainbow Egg |
-| `PotionPack` | [GIFT] Potion Pack (3 of each) |
+| `RainbowEgg3` | [GIFT] 3 Rainbow Eggs |
+| `RainbowEgg8` | [GIFT] 8 Rainbow Eggs |
+| `PotionPack` | [GIFT] Boost Bundle |
+| `GalaxyPack` | [GIFT] Galaxy Pack |
+| `HopsBoost` | [GIFT] Strength Boost |
+| `WinsBoost` | [GIFT] Wins Boost |
+| `AutoRebirth` | [GIFT] Auto Rebirth |
+| `PondGolden` | [GIFT] Golden Gym (3x) |
+| `PondRainbow` | [GIFT] Rainbow Gym (15x) |
+| `PondCosmic` | [GIFT] Cosmic Gym (50x) |
+
+**Prices (2026-10-13):** a middle ladder — small things 19–59, most passes and packs 79–129, big items 199–449. Nothing under 19 or over 449.
 
 ## Limited stock
-`Limited` in the same file sets how many can ever be sold across all servers (Phoenix Frog: 1000). The count is stored in the `FrogHop_LimitedStock_v1` DataStore.
+`Limited` in the same file sets how many can ever be sold across all servers (Phoenix Stone: 1000). The count is stored in the `FrogHop_LimitedStock_v1` DataStore.
 
 See also: [[Monetization]].

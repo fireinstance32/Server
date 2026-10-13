@@ -244,6 +244,17 @@ def face_dragon(f):
     fangs(f, 712)
 
 
+def face_unicat(f):
+    """Starter Pack pet: the cat face with lashes (unicorn cat)."""
+    f.ellipse(440, 650, 105, 82, CREAM)
+    f.ellipse(560, 650, 105, 82, CREAM)
+    eyes(f, lashes=True)
+    nose(f, 595, 60, 40, PINK)
+    mouth_w(f, 625, 48)
+    whiskers(f)
+    blush(f)
+
+
 def face_unicorn(f):
     muzzle(f, 690, 220, 150, (255, 225, 235, 255))
     eyes(f, 420, lashes=True)
