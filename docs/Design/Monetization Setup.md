@@ -10,7 +10,10 @@ Every Robux item is wired in code but has `id = 0` until you create it. Until th
 |---|---|---|---|---|
 | `AutoHop` | Auto Lift | 49 | Automatically throws your rock while you stand in the Throw Zone. | ☐ |
 | `AutoRebirth` | Auto Rebirth | 99 | Rebirths for you as soon as you reach MAX LEVEL. | ☐ |
-| `DoubleHops` | +2x Strength | 79 | Doubles all the Strength you earn, forever. | ☐ |
+| `DoubleHops` | +2x Strength | 5 | Strength multiplier tier 1: x2 Strength forever. | ☐ |
+| `StrengthX4` | +4x Strength | 19 | Tier 2: x4 Strength forever (replaces x2). | ☐ |
+| `StrengthX8` | +8x Strength | 49 | Tier 3: x8 Strength forever (replaces x4). | ☐ |
+| `StrengthX16` | +16x Strength | 129 | Tier 4: x16 Strength forever (replaces x8). | ☐ |
 | `DoubleWins` | 2x Wins | 99 | Doubles all the Wins you earn, forever. | ☐ |
 | `ExtraPetSlots` | +2 Pet Slots | 129 | Equip 2 more pets at once. | ☐ |
 | `HatchTriple` | +3 Eggs (hatch 3 at once) | 129 | Hatch 3 eggs at once (R key). | ☐ |
@@ -52,6 +55,9 @@ One developer product per giftable item, named `[GIFT] <item name>`, same price 
 | Config name | Name to use |
 |---|---|
 | `DoubleHops` | [GIFT] +2x Strength |
+| `StrengthX4` | [GIFT] +4x Strength |
+| `StrengthX8` | [GIFT] +8x Strength |
+| `StrengthX16` | [GIFT] +16x Strength |
 | `DoubleWins` | [GIFT] 2x Wins |
 | `AutoHop` | [GIFT] Auto Lift |
 | `HatchTriple` | [GIFT] +3 Eggs (hatch 3 at once) |
@@ -80,3 +86,6 @@ One developer product per giftable item, named `[GIFT] <item name>`, same price 
 `Limited` in the same file sets how many can ever be sold across all servers (Phoenix Stone: 1000). The count is stored in the `FrogHop_LimitedStock_v1` DataStore.
 
 See also: [[Monetization]].
+
+## Strength multiplier tiers
+Like the reference's Skill Multiplier [TIER n] (its prices are shown with the Roblox Plus 10% discount; ours are the full prices): x2 for 5, x4 for 19, x8 for 49, x16 for 129. They don't stack: the highest tier owned is the multiplier (`Monetization.strengthTier`). The HUD card and the Shop card always offer the next tier. More tiers can be added to `StrengthTiers` in `Config/Monetization`.

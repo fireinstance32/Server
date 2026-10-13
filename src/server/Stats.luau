@@ -14,6 +14,7 @@ local Trails = require(Shared.Config.Trails)
 local Potions = require(Shared.Config.Potions)
 local Events = require(Shared.Config.Events)
 local Titles = require(Shared.Config.Titles)
+local Monetization = require(Shared.Config.Monetization)
 local Multipliers = require(Shared.Util.Multipliers)
 
 local Passes = require(script.Parent.Passes)
@@ -135,7 +136,18 @@ local MODIFIERS: { Modifier } = {
 			return if title and title.stat == "wins" then title.bonus else nil
 		end,
 	},
-	{ id = "doubleHops", label = "2x Strength", stat = "hops", kind = "mult", value = passFactor("DoubleHops", 2) },
+	{
+		id = "doubleHops",
+		label = "Strength Pass",
+		stat = "hops",
+		kind = "mult",
+		-- The best Strength tier owned (2x / 4x / 8x / 16x; they don't stack).
+		value = function(player)
+			return (Monetization.strengthTier(function(pass)
+				return Passes.owns(player, pass)
+			end))
+		end,
+	},
 	{ id = "doubleWins", label = "2x Wins", stat = "wins", kind = "mult", value = passFactor("DoubleWins", 2) },
 }
 

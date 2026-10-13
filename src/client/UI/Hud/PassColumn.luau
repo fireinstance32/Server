@@ -1,5 +1,9 @@
 -- Right-side column: Starter Pack picture (until bought) and pass cards
--- (+2x Strength, 2x Wins).
+-- (Strength multiplier: the next tier to buy, 2x → 4x → 8x → 16x; 2x Wins).
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Monetization = require(ReplicatedStorage:WaitForChild("Shared").Config.Monetization)
 
 local Theme = require(script.Parent.Parent.Theme)
 local StarterPackIcon = require(script.Parent.StarterPackIcon)
@@ -65,8 +69,14 @@ function PassColumn.init(gui: ScreenGui, openMenu: (string) -> ())
 			color = spec.color,
 			order = i,
 			onClick = function()
-				if not Purchases.owns(spec.pass) then
-					Purchases.pass(spec.pass)
+				-- The Strength card always offers the next tier.
+				local pass = spec.pass
+				if pass == "DoubleHops" then
+					local _, nextTier = Monetization.strengthTier(Purchases.owns)
+					pass = if nextTier then nextTier.pass else pass
+				end
+				if not Purchases.owns(pass) then
+					Purchases.pass(pass)
 				end
 			end,
 		})
@@ -78,7 +88,14 @@ function PassColumn.init(gui: ScreenGui, openMenu: (string) -> ())
 		local data = State.data
 		starter.Visible = not (data and data.oneTime and data.oneTime.StarterPack)
 		for pass, card in cards do
-			card.setOwned(Purchases.owns(pass))
+			if pass == "DoubleHops" then
+				local best, nextTier = Monetization.strengthTier(Purchases.owns)
+				local shown = nextTier or { pass = "", factor = best or 16 }
+				local price = if nextTier then Monetization.Passes[nextTier.pass].price else 0
+				card.set(`+{shown.factor}x STRENGTH`, price, nextTier == nil)
+			else
+				card.setOwned(Purchases.owns(pass))
+			end
 		end
 	end)
 end

@@ -9,7 +9,12 @@ local Icon = require(script.Parent.Icon)
 
 local PassCard = {}
 
-export type PassCard = { button: TextButton, setOwned: (owned: boolean) -> () }
+export type PassCard = {
+	button: TextButton,
+	setOwned: (owned: boolean) -> (),
+	-- Tiered passes: show another tier's title and price.
+	set: (title: string, price: number, owned: boolean) -> (),
+}
 
 local function priceText(price: number): string
 	return `<font color="#F19B0B">ONLY</font>  <font color="#FFD83A">\u{E002}</font> <font color="#8CEB2A">{price}</font>`
@@ -42,7 +47,7 @@ function PassCard.create(props: {
 		})
 	end
 
-	Theme.label({
+	local titleLabel = Theme.label({
 		Size = UDim2.new(0.92, 0, 0.5, 0),
 		Position = UDim2.fromScale(0.04, 0.1),
 		Text = props.title,
@@ -60,10 +65,16 @@ function PassCard.create(props: {
 
 	button.Activated:Connect(props.onClick)
 
+	local price = props.price
 	return {
 		button = button,
 		setOwned = function(owned: boolean)
-			priceLabel.Text = if owned then "OWNED" else priceText(props.price)
+			priceLabel.Text = if owned then "OWNED" else priceText(price)
+		end,
+		set = function(title: string, newPrice: number, owned: boolean)
+			price = newPrice
+			titleLabel.Text = title
+			priceLabel.Text = if owned then "OWNED" else priceText(price)
 		end,
 	}
 end

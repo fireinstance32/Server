@@ -44,7 +44,7 @@ local ROWS: { { Wide.Spec } } = {
 		{ pass = "PondRainbow", caption = pondCaption("PondRainbow"), title = "Rainbow\nGym", icon = "portal", colors = "Gold", ink = Color3.fromRGB(255, 226, 70) },
 	},
 	{
-		{ pass = "DoubleHops", caption = "2X STRENGTH", title = "Double\nStrength", icon = "bolt", colors = "Blue" },
+		{ pass = "DoubleHops", caption = "UP TO 16X", title = "Strength\nMultiplier", icon = "bolt", colors = "Blue" },
 		{ pass = "DoubleWins", caption = "2X WINS", title = "Double\nWins", icon = "trophy", colors = "Purple" },
 	},
 	{
@@ -74,7 +74,18 @@ function PassSection.build(list: ScrollingFrame, order: number, giftOver: GuiObj
 	return function()
 		for name, button in buttons do
 			local owned = Purchases.owns(name)
-			Cards.setPrice(button, if owned then "OWNED" else `{Cards.Robux}{Monetization.Passes[name].price}`, owned)
+			local price = Monetization.Passes[name].price
+			if name == "DoubleHops" then
+				-- Next Strength tier: "4x ⏣19" … OWNED once 16x is owned.
+				local _, nextTier = Monetization.strengthTier(Purchases.owns)
+				owned = nextTier == nil
+				if nextTier then
+					price = Monetization.Passes[nextTier.pass].price
+					Cards.setPrice(button, `{nextTier.factor}x {Cards.Robux}{price}`, false)
+					continue
+				end
+			end
+			Cards.setPrice(button, if owned then "OWNED" else `{Cards.Robux}{price}`, owned)
 		end
 	end
 end

@@ -28,8 +28,14 @@ local function buy(card: Frame, spec: Spec, giftAt: Vector2, priceAt: Vector2, p
 		Cards.gift(card, giftAt, Vector2.new(80, priceSize.Y), spec.pass, giftOver)
 	end
 	return Cards.buy(card, priceAt, priceSize, `{Cards.Robux}{Monetization.Passes[spec.pass].price}`, function()
-		if not Purchases.owns(spec.pass) then
-			Purchases.pass(spec.pass)
+		-- The Strength card sells the next tier (2x → 4x → 8x → 16x).
+		local pass = spec.pass
+		if pass == "DoubleHops" then
+			local _, nextTier = Monetization.strengthTier(Purchases.owns)
+			pass = if nextTier then nextTier.pass else pass
+		end
+		if not Purchases.owns(pass) then
+			Purchases.pass(pass)
 		end
 	end)
 end

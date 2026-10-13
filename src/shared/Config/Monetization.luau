@@ -9,7 +9,11 @@ export type Item = { id: number, price: number, label: string }
 local Passes: { [string]: Item } = {
 	AutoHop = { id = 0, price = 49, label = "Auto Lift" },
 	AutoRebirth = { id = 0, price = 99, label = "Auto Rebirth" },
-	DoubleHops = { id = 0, price = 79, label = "+2x Strength" },
+	-- Strength multiplier tiers (StrengthTiers below): the best one owned counts.
+	DoubleHops = { id = 0, price = 5, label = "+2x Strength" },
+	StrengthX4 = { id = 0, price = 19, label = "+4x Strength" },
+	StrengthX8 = { id = 0, price = 49, label = "+8x Strength" },
+	StrengthX16 = { id = 0, price = 129, label = "+16x Strength" },
 	DoubleWins = { id = 0, price = 99, label = "2x Wins" },
 	ExtraPetSlots = { id = 0, price = 129, label = "+2 Pet Slots" },
 	HatchTriple = { id = 0, price = 129, label = "+3 Eggs (hatch 3 at once)" },
@@ -100,6 +104,33 @@ local Bundles: { [string]: Bundle } = {
 	WinsPackMega2 = { rewards = { { kind = "wins", amount = 1_000_000 } } },
 }
 
+-- Strength multiplier passes, cheapest first (reference "Skill Multiplier
+-- [TIER n]"). They don't stack: the highest tier owned is the multiplier.
+-- `DoubleHops` keeps its old name so passes already bought/gifted still count.
+export type StrengthTier = { pass: string, factor: number }
+local StrengthTiers: { StrengthTier } = {
+	{ pass = "DoubleHops", factor = 2 },
+	{ pass = "StrengthX4", factor = 4 },
+	{ pass = "StrengthX8", factor = 8 },
+	{ pass = "StrengthX16", factor = 16 },
+}
+
+-- The best tier owned (its factor, or nil) and the next tier to buy (nil
+-- once the top tier is owned).
+local function strengthTier(owns: (string) -> boolean): (number?, StrengthTier?)
+	local best: number? = nil
+	local nextTier: StrengthTier? = nil
+	for _, tier in StrengthTiers do
+		if owns(tier.pass) then
+			best = tier.factor
+			nextTier = nil
+		elseif not nextTier then
+			nextTier = tier
+		end
+	end
+	return best, nextTier
+end
+
 -- Several hatches of a Robux egg in one product (Shop "Buy 3 / Buy 8").
 local EggBundles: { [string]: { egg: string, count: number } } = {
 	RainbowEgg3 = { egg = "Rainbow", count = 3 },
@@ -115,6 +146,9 @@ local Limited: { [string]: number } = {
 -- name above). 0 = not created yet. Price shown = the item's price.
 local GiftIds: { [string]: number } = {
 	DoubleHops = 0,
+	StrengthX4 = 0,
+	StrengthX8 = 0,
+	StrengthX16 = 0,
 	DoubleWins = 0,
 	AutoHop = 0,
 	HatchTriple = 0,
@@ -146,4 +180,6 @@ return {
 	EggBundles = EggBundles,
 	Limited = Limited,
 	GiftIds = GiftIds,
+	StrengthTiers = StrengthTiers,
+	strengthTier = strengthTier,
 }
