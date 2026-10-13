@@ -10,6 +10,7 @@ local Zones = require(Shared.Config.Zones)
 local Format = require(Shared.Util.Format)
 
 local Parts = require(script.Parent.Parent.Parts)
+local Terraces = require(script.Parent.Parent.Terraces)
 
 local Signs = {}
 
@@ -34,7 +35,7 @@ end
 -- The sign for `zone` at lane distance `x`, centred over the water.
 function Signs.build(zone: Zones.Zone, x: number, parent: Instance)
 	local width = Game.RiverWidth + 24
-	local at = Vector3.new(x, Parts.BankTop + 15, 0)
+	local at = Vector3.new(x, Terraces.Tiers[2].top + 8, 0)
 	local board = Parts.block("Sign" .. zone.index, Vector3.new(width, 14, 0.2), CFrame.lookAt(at, at - Vector3.xAxis), Color3.new(1, 1, 1), parent)
 	board.Transparency = 1
 	board.CanCollide = false

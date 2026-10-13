@@ -5,6 +5,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Worlds = require(Shared.Config.Worlds)
+local Lobby = require(Shared.Config.Lobby)
 local Format = require(Shared.Util.Format)
 
 local DataService = require(script.Parent.DataService)
@@ -13,7 +14,7 @@ local Remotes = require(script.Parent.Parent.Remotes)
 local WorldService = {}
 
 -- Where travellers arrive (above the spawn / landing pad).
-local ARRIVAL = Vector3.new(-100, 5, 0)
+local ARRIVAL = Lobby.Spawn + Vector3.new(0, 4.5, 0)
 
 function WorldService.arrivalPoint(world: Worlds.World): Vector3
 	return ARRIVAL + Worlds.offset(world)

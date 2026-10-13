@@ -1,4 +1,4 @@
--- Row of pedestals, one per frog, each showing the frog with a prompt and a
+-- Pedestals on the lobby's rock shelf (Hub/Shelf), one per rock, each showing the frog with a prompt and a
 -- sign anchor. Signs and prompt text depend on what each player owns, so
 -- the client fills them in (client FrogPodiums controller).
 
@@ -52,7 +52,7 @@ function FrogPodiums.build(world: Model, config: Worlds.World)
 		prompt:SetAttribute("FrogId", frog.id)
 		prompt.Parent = pedestal
 
-		local anchor = Parts.block("SignAnchor", Vector3.one, CFrame.new(base + Vector3.new(0, 10.5, 0)), Color3.new(1, 1, 1), model)
+		local anchor = Parts.block("SignAnchor", Vector3.one, CFrame.new(base + Vector3.new(0, 8, 0)), Color3.new(1, 1, 1), model)
 		anchor.Transparency = 1
 		anchor.CanCollide = false
 

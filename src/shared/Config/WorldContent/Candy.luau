@@ -1,5 +1,7 @@
 -- World 3: Candy Falls.
 
+local Lobby = require(script.Parent.Parent.Lobby)
+
 local rgb = Color3.fromRGB
 
 return {
@@ -24,7 +26,7 @@ return {
 			name = "Candy Egg",
 			price = 3_600_000,
 			color = rgb(255, 150, 200),
-			position = Vector3.new(-75, 0, -50),
+			position = Lobby.egg(2),
 			pets = { { pet = "GummyBear", weight = 60 }, { pet = "CottonLamb", weight = 30 }, { pet = "LollipopPup", weight = 10 } },
 		},
 		{
@@ -32,7 +34,7 @@ return {
 			name = "Cupcake Egg",
 			price = 48_000_000,
 			color = rgb(250, 210, 170),
-			position = Vector3.new(-55, 0, -50),
+			position = Lobby.egg(4),
 			pets = { { pet = "ChocoBunny", weight = 60 }, { pet = "CandyUnicorn", weight = 35 }, { pet = "SugarDragon", weight = 5 } },
 		},
 	},

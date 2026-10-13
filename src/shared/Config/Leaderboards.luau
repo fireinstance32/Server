@@ -1,6 +1,7 @@
 -- Global leaderboards shown on boards in every hub (OrderedDataStores).
 
 local Game = require(script.Parent.Game)
+local Lobby = require(script.Parent.Lobby)
 
 export type Board = {
 	id: string,
@@ -47,9 +48,9 @@ Leaderboards.Rows = 10
 Leaderboards.RefreshSeconds = 60 -- write scores and re-read the top 10
 Leaderboards.PlaytimeTick = 10 -- seconds between timePlayed updates
 
--- Local positions (inside each hub) of the boards, behind the frog podiums.
+-- Local positions (inside each hub) of the boards, against the back wall.
 function Leaderboards.position(index: number): Vector3
-	return Vector3.new(-200 + (index - 1) * 70, 0, -168)
+	return Lobby.board(index)
 end
 
 return Leaderboards

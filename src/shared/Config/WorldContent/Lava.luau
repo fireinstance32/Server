@@ -1,5 +1,7 @@
 -- World 5: Lava Springs.
 
+local Lobby = require(script.Parent.Parent.Lobby)
+
 local rgb = Color3.fromRGB
 
 return {
@@ -24,7 +26,7 @@ return {
 			name = "Ember Egg",
 			price = 2_400_000_000,
 			color = rgb(255, 130, 60),
-			position = Vector3.new(-75, 0, -50),
+			position = Lobby.egg(2),
 			pets = { { pet = "EmberPup", weight = 60 }, { pet = "MagmaMole", weight = 30 }, { pet = "LavaLizard", weight = 10 } },
 		},
 		{
@@ -32,7 +34,7 @@ return {
 			name = "Inferno Egg",
 			price = 32_000_000_000,
 			color = rgb(200, 30, 30),
-			position = Vector3.new(-55, 0, -50),
+			position = Lobby.egg(4),
 			pets = { { pet = "FireFox", weight = 60 }, { pet = "PhoenixOwl", weight = 35 }, { pet = "InfernoDragon", weight = 5 } },
 		},
 	},

@@ -3,6 +3,7 @@
 -- x7 → x9), like the reference game.
 
 local WorldContent = require(script.Parent.WorldContent) :: { any }
+local Lobby = require(script.Parent.Lobby)
 local Events = require(script.Parent.Events) :: any
 
 export type Rarity = "Common" | "Uncommon" | "Rare" | "Epic" | "Legendary" | "Rainbow"
@@ -86,7 +87,7 @@ local Eggs: { Egg } = {
 		name = "Common Egg",
 		price = 50,
 		color = Color3.fromRGB(245, 245, 245),
-		position = Vector3.new(-75, 0, -50),
+		position = Lobby.egg(2),
 		pets = {
 			{ pet = "PebblePup", weight = 40 },
 			{ pet = "CloverBun", weight = 30 },
@@ -99,7 +100,7 @@ local Eggs: { Egg } = {
 		name = "Uncommon Egg",
 		price = 500,
 		color = Color3.fromRGB(110, 220, 110),
-		position = Vector3.new(-55, 0, -50),
+		position = Lobby.egg(3),
 		pets = {
 			{ pet = "LilyFrogling", weight = 40 },
 			{ pet = "ReedFox", weight = 30 },
@@ -112,7 +113,7 @@ local Eggs: { Egg } = {
 		name = "Rare Egg",
 		price = 4000,
 		color = Color3.fromRGB(90, 170, 255),
-		position = Vector3.new(-35, 0, -50),
+		position = Lobby.egg(4),
 		pets = {
 			{ pet = "FireflyBear", weight = 45 },
 			{ pet = "WillowOwl", weight = 35 },
@@ -126,7 +127,7 @@ local Eggs: { Egg } = {
 		price = 0,
 		product = "RainbowEgg",
 		color = Color3.fromRGB(255, 120, 200),
-		position = Vector3.new(-15, 0, -50),
+		position = Lobby.egg(5),
 		pets = {
 			{ pet = "RainbowFrog", weight = 60 },
 			{ pet = "GalaxyCat", weight = 35 },

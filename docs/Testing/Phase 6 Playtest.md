@@ -65,12 +65,17 @@ status: in progress
 - [ ] Note anything that looks off (size, facing, colours) with a screenshot
 
 ## 6.2 Map (reference style)
-- [ ] Every walkable top has the stud texture: plaza, paths, banks, cliffs, spawn, Throw Zone
-- [ ] Throw Zone: yellow studded checker pad with "THROW ZONE" readable from spawn; chevrons on the path point toward it
+- [ ] `Workspace.Map` has one model per world and is still there after Play → Stop (it's saved with the place); deleting one and pressing Play builds it again
+- [ ] No stud texture from the code (your plugin adds it); walk speed is 24
+- [ ] Lobby: a small courtyard closed in by two-tier terraced checker walls, grass on top, bushes on the ledge, trees up top; you can't walk out
+- [ ] Gyms in a row down one side; standing on a stand pad locks you facing the lobby; the rack is behind you
+- [ ] Rock shelf: lavender steps on the other side, one step per row of rocks, each rock on a pad; portals behind it face into the lobby
+- [ ] Back: eggs on stands in front of the 3 leaderboards (facing the lobby), two waterfalls between the boards
+- [ ] Throw Zone: orange/yellow checker strip at the water, as wide as the lane, "THROW ZONE" readable as you walk to it; chevrons on the path point toward it; throwing works anywhere on the strip
 - [ ] Lane: 9 zones, each with its own grass, two-colour checker walls (checks above the water, plain below) and water tint; no flicker (z-fighting) where walls meet banks
 - [ ] Each zone's floating sign faces you when you look down the lane from the Throw Zone and reads "icon Name icon / N Wins"
 - [ ] Props fit their zone (palms on the beach, cacti in the canyon, snowy pines, mushrooms, candy, crystals…) and none stand in the water or on paths
-- [ ] Hub: paths reach the gyms, podiums, eggs and portals; cliffs ring the hub with trees on top; you can't walk off the map
+- [ ] Paths: main path from the eggs past the spawn to the Throw Zone, cross path from the rock shelf to the gyms
 - [ ] Sky: sunrise down the lane, pink clouds, water clear enough to see the riverbed
 - [ ] Other worlds (Swamp, Candy, Space, Lava) build the same way with their own zone colours and icons
 - [ ] Frame rate is fine on a phone (if not: tell me, the map can stream or use fewer tiles)

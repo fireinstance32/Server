@@ -1,5 +1,6 @@
--- Row of training ponds from Config/Ponds: water, rim, lily pads, the stand
--- pad players train on, and an invisible sign anchor. Lock state differs per
+-- Row of gyms from Config/Ponds along the lobby's +Z wall: a low coloured
+-- platform, the stand pad players train on, the gym kit (GymKit) and an
+-- invisible sign anchor. Lock state differs per
 -- player, so the signs themselves are drawn by the client (PondSigns).
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -12,65 +13,50 @@ local GymKit = require(script.Parent.GymKit)
 
 local PondRow = {}
 
-local function flatCylinder(name: string, diameter: number, position: Vector3, color: Color3, parent: Instance): Part
-	local part = Parts.block(
-		name,
-		Vector3.new(0.4, diameter, diameter),
-		CFrame.new(position) * CFrame.Angles(0, 0, math.rad(90)),
-		color,
-		parent
-	)
-	part.Shape = Enum.PartType.Cylinder
-	part.CanCollide = false
-	return part
-end
+local RISE = 0.4 -- platform height above the floor
 
 local function buildPond(pond: Ponds.Pond, folder: Folder)
 	local model = Instance.new("Model")
 	model.Name = pond.id
 	local center = Ponds.center(pond)
-	local top = Parts.GroundTop
+	local base = Ponds.SurfaceY
+	local floor = base + RISE
 
-	local rim = Parts.block(
-		"Rim",
-		Vector3.new(Ponds.WidthX + 4, 1.2, Ponds.LengthZ + 4),
-		CFrame.new(center.X, top + 0.1, center.Z),
+	-- A low platform in the gym's dark colour with a glassy inlay in its
+	-- colour, and the stand pad in the middle.
+	Parts.block(
+		"Base",
+		Vector3.new(Ponds.WidthX, RISE + 1, Ponds.LengthZ),
+		CFrame.new(center.X, floor - (RISE + 1) / 2, center.Z),
 		pond.color:Lerp(Color3.new(0, 0, 0), 0.35),
-		model,
-		Enum.Material.Slate
+		model
 	)
-	rim.CanCollide = false
-	local water = Parts.block(
-		"Water",
-		Vector3.new(Ponds.WidthX, 1.2, Ponds.LengthZ),
-		CFrame.new(center.X, top + 0.2, center.Z),
+	local inlay = Parts.block(
+		"Inlay",
+		Vector3.new(Ponds.WidthX - 2, 0.1, Ponds.LengthZ - 2),
+		CFrame.new(center.X, floor + 0.05, center.Z),
 		pond.color,
 		model,
 		Enum.Material.Glass
 	)
-	water.Transparency = 0.2
-	water.CanCollide = false
-
-	for i = 1, Ponds.PadsPerPond do
-		flatCylinder("LilyPad", 5, Ponds.padPosition(pond, i) + Vector3.new(0, 0.6, 0), Parts.Colors.Pad, model)
-	end
+	inlay.Transparency = 0.15
+	inlay.CanCollide = false
 
 	local stand = Ponds.standPosition(pond)
 	local pad = Parts.block(
 		"StandPad",
-		Vector3.new(10, 0.6, 8),
-		CFrame.new(stand.X, top + 0.3, stand.Z),
-		Color3.fromRGB(230, 120, 70),
-		model,
-		Enum.Material.Brick
+		Vector3.new(7, 0.3, 7),
+		CFrame.new(stand.X, floor + 0.15, stand.Z),
+		pond.color:Lerp(Color3.new(1, 1, 1), 0.45),
+		model
 	)
 	pad:SetAttribute("PondId", pond.id)
-	GymKit.decorate(pond, model, pad)
+	GymKit.decorate(pond, model, pad, floor)
 
 	local anchor = Parts.block(
 		"SignAnchor",
 		Vector3.new(1, 1, 1),
-		CFrame.new(center.X, top + 9, center.Z + Ponds.LengthZ / 2),
+		CFrame.new(center.X, base + 11, center.Z + Ponds.LengthZ / 2 - 1),
 		Color3.new(1, 1, 1),
 		model
 	)

@@ -4,7 +4,7 @@
 -- Robux ponds unlock with a game pass and work in every world (reference:
 -- 0→1x, 2→4x, 4→10x, 6→20x; Robux 3x / 15x / 50x).
 --
--- Layout: one row along +X at RowZ. Positions are computed in functions (not
+-- Layout: one row along +X at RowZ (the lobby's +Z side). Positions are computed in functions (not
 -- at load) so the pure parts of this module stay unit-testable offline.
 
 export type Pond = {
@@ -34,15 +34,16 @@ for _, pond in Ponds.List do
 	Ponds.ById[pond.id] = pond
 end
 
--- Layout (studs). Ponds are WidthX × LengthZ rectangles in a row.
-Ponds.RowStartX = -230
-Ponds.Spacing = 36
-Ponds.RowZ = 112
-Ponds.WidthX = 28
-Ponds.LengthZ = 46
+-- Layout (studs). Gyms are WidthX × LengthZ platforms in a row along the
+-- lobby's +Z wall (Config/Lobby), the stand pad in the middle.
+Ponds.RowStartX = -138
+Ponds.Spacing = 16
+Ponds.RowZ = 56
+Ponds.WidthX = 13
+Ponds.LengthZ = 18
 Ponds.SurfaceY = 0.5
-Ponds.PadsPerPond = 8 -- lily pads the frog hops between while training
-Ponds.StandRadius = 7 -- how close to the stand pad counts as "on the pad"
+Ponds.PadsPerPond = 8 -- (legacy) lily pad loop, unused by the gym look
+Ponds.StandRadius = 4.5 -- how close to the stand pad counts as "on the pad"
 
 function Ponds.isUnlocked(pond: Pond, rebirths: number, ownsPass: (string) -> boolean): boolean
 	if pond.pass then
@@ -66,9 +67,9 @@ function Ponds.center(pond: Pond): Vector3
 	return Vector3.new(Ponds.RowStartX + (pond.index - 1) * Ponds.Spacing, Ponds.SurfaceY, Ponds.RowZ)
 end
 
--- The square pad at the pond's near (−Z) edge where the player stands.
+-- The square pad in the middle of the gym where the player stands.
 function Ponds.standPosition(pond: Pond): Vector3
-	return Ponds.center(pond) - Vector3.new(0, 0, Ponds.LengthZ / 2 + 5)
+	return Ponds.center(pond) - Vector3.new(0, 0, 2)
 end
 
 -- Lily pad i inside the pond, on an oval loop.

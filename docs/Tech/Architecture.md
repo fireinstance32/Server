@@ -18,7 +18,7 @@ Rojo maps:
 - `Remotes.luau` – `Remotes.handle(name, fn)`: every RemoteFunction goes through per-player rate limits (`Config/Security`) and pcall isolation.
 - `Rewards.luau` – grants `{ kind, id, amount }` rewards (potion, pet, frog, wins, hops); shared by daily, gifts, quests.
 - `Services/`
-  - `WorldBuilder/` – generates the greybox map from config (skipped if `Workspace.World` exists). Each world is built at local coordinates into `Workspace.World.<WorldId>`, then moved by `Worlds.offset(world)`.
+  - `WorldBuilder/` – builds each world at local coordinates, then moves it by `Worlds.offset(world)`. Scenery goes in `Workspace.Map.<WorldId>` (`buildMap`; saved with the place, only built if missing, so it can be edited in Studio); interactive parts go in `Workspace.World.<WorldId>` (`buildWorld`; rebuilt every start). Lobby layout: `Config/Lobby`.
     - `init` (entry) · `Parts` (block/sign helpers, palette) · `Environment` (lighting, per-zone biome banks, river water) · `Props` (trees, palms, rocks, reeds, flowers, mushrooms) · `River` (pads, zone arches) · `Plaza` (Hop Zone strip, spawn / landing pad) · `PondRow` (training ponds) · `FrogPodiums` (frog pedestals) · `Stands` (egg stands) · `Portals` (one portal per other world) · `Leaderboards` (board stands)
   - `WorldService` – `TravelWorld`: unlocks a world once you hold its Hops gate, teleports to its hub.
   - `DataService/` – `init` (profiles, `Changed`/`Loaded`, autosave) · `Template` (new profile, upgrades) · `Snapshot` (client view) · `Store` (DataStore + session locking)

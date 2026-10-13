@@ -61,12 +61,12 @@ function TrainLock.update(pond: Ponds.Pond?): boolean
 	if not world then
 		return false
 	end
-	-- Snap to the pad centre, facing the gym (pond is +Z of its stand pad).
+	-- Snap to the pad centre, facing out into the lobby (−Z; the rack is behind).
 	local offset = Worlds.offset(world)
 	local stand = Ponds.standPosition(pond) + offset
 	local at = Vector3.new(stand.X, root.Position.Y, stand.Z)
 	root.AssemblyLinearVelocity = Vector3.zero
-	root.CFrame = CFrame.lookAt(at, at + Vector3.new(0, 0, 1))
+	root.CFrame = CFrame.lookAt(at, at - Vector3.zAxis)
 	saved = { walk = hum.WalkSpeed, jump = hum.JumpPower, height = hum.JumpHeight, autoRotate = hum.AutoRotate }
 	hum.WalkSpeed = 0
 	hum.JumpPower = 0

@@ -36,7 +36,9 @@ tags: [planning, phase6]
 - [x] Per-world themes (`Config/Worlds` Themes): plaza colours with a 40-stud checker, lily pad colour, stud texture on the plaza once uploaded
 - [x] `WorldLighting`: lighting fades to each world's mood (Swamp dusk, Candy bright pink, Space night, Lava red haze)
 - [x] **Map rebuilt like the reference:** 9 biome zones down the lane (grass banks, checker walls, water tint, props, floating zone signs), studded hub with paths and chevrons, checker cliffs with trees, studded Throw Zone, sunrise sky (`WorldBuilder/Lane`, `Hub`, `Style`)
-- [x] Stud texture on every walkable surface
+- [x] ~~Stud texture on every walkable surface~~ removed 2026-10-13: the user adds studs with a plugin
+- [x] **Lobby like the reference screenshots** (2026-10-13): a small walled courtyard with two-tier terraced checker walls, gyms down one side, a rock shelf and portals on the other, eggs, boards and waterfalls at the back, and a wide checker Throw Zone at the water (`Config/Lobby`, `WorldBuilder/Terraces`, `Hub/*`)
+- [x] Map saved in `Workspace.Map` (built only if missing), so it can be edited in Studio; walk speed 24
 - [ ] Check the map in Play and polish (sign/checker facing, prop placement, performance: ~31k instances)
 - [ ] Skyboxes per world
 

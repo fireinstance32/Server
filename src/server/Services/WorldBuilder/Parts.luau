@@ -6,12 +6,10 @@ local Assets = require(ReplicatedStorage:WaitForChild("Shared").Util.Models.Asse
 
 local Parts = {}
 
-Parts.GroundTop = 0.5 -- Y of the plaza (hub floor)
-Parts.BankTop = 7.5 -- Y of the grass on top of the throw lane's banks
+Parts.GroundTop = 0.5 -- Y of the lobby floor (Config/Lobby.FloorY)
 Parts.Colors = {
 	Grass = Color3.fromRGB(110, 200, 90),
 	Wood = Color3.fromRGB(160, 110, 65),
-	Pad = Color3.fromRGB(70, 175, 70),
 }
 
 function Parts.block(name: string, size: Vector3, cframe: CFrame, color: Color3, parent: Instance, material: Enum.Material?): Part

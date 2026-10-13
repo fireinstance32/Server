@@ -1,5 +1,7 @@
 -- World 2: Mushroom Swamp.
 
+local Lobby = require(script.Parent.Parent.Lobby)
+
 local rgb = Color3.fromRGB
 
 return {
@@ -24,7 +26,7 @@ return {
 			name = "Swamp Egg",
 			price = 150_000,
 			color = rgb(120, 170, 110),
-			position = Vector3.new(-75, 0, -50),
+			position = Lobby.egg(2),
 			pets = { { pet = "SporeSlime", weight = 60 }, { pet = "BogBat", weight = 30 }, { pet = "CapToad", weight = 10 } },
 		},
 		{
@@ -32,7 +34,7 @@ return {
 			name = "Mushroom Egg",
 			price = 2_000_000,
 			color = rgb(220, 90, 90),
-			position = Vector3.new(-55, 0, -50),
+			position = Lobby.egg(4),
 			pets = { { pet = "GlowMoth", weight = 60 }, { pet = "WitchCat", weight = 35 }, { pet = "SwampDragon", weight = 5 } },
 		},
 	},

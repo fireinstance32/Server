@@ -8,16 +8,18 @@ Game.AutosaveInterval = 120
 
 -- World layout (studs). The river runs along +X starting at RiverOrigin.
 Game.RiverOrigin = Vector3.new(0, 0, 0)
-Game.RiverWidth = 44
+Game.RiverWidth = 64
 Game.PadSpacing = 12
 
--- Hop Zone: the painted strip at the river start where players stand to
--- launch (reference: "THROW ZONE"). A rectangle on the plaza, X × Z studs.
--- (Training happens at the ponds in Config/Ponds.)
-Game.HopZoneCenterX = -14
+-- Hop Zone: the painted strip at the water's edge where players stand to
+-- throw (reference: "THROW ZONE"), as wide as the lane. X × Z studs.
+-- (Training happens at the gyms in Config/Ponds; lobby layout: Config/Lobby.)
+Game.HopZoneCenterX = -10
 Game.HopZoneCenterZ = 0
-Game.HopZoneSizeX = 24
-Game.HopZoneSizeZ = 44
+Game.HopZoneSizeX = 20
+Game.HopZoneSizeZ = Game.RiverWidth
+
+Game.WalkSpeed = 24 -- every character's walk speed (Roblox default is 16)
 
 -- The hold-and-toss: wind-up before the frog leaves the hand (seconds).
 Game.TossWindup = 0.35

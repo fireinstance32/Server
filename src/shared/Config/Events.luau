@@ -15,6 +15,8 @@ export type Event = {
 	egg: any, -- Config/Pets egg (price is in event currency)
 }
 
+local Lobby = require(script.Parent.Lobby)
+
 local rgb = Color3.fromRGB
 
 local Events = {}
@@ -39,7 +41,7 @@ Events.List = {
 			name = "Pumpkin Egg",
 			price = 25, -- Candy Corn
 			color = rgb(255, 130, 20),
-			position = Vector3.new(-95, 0, -50),
+			position = Lobby.egg(1),
 			pets = {
 				{ pet = "CandyBat", weight = 55 },
 				{ pet = "PumpkinCat", weight = 30 },

@@ -13,11 +13,12 @@ local DataService = require(script.Parent.DataService)
 local EventService = {}
 
 local CHECK_SECONDS = 15
--- Where event decorations go in the Lily Valley hub (local positions).
+-- Where event decorations go in the Lily Valley lobby (local positions, on
+-- the open grass either side of the path; layout in Config/Lobby).
 local PROP_SPOTS = {
-	Vector3.new(-112, 0, 12), Vector3.new(-88, 0, 12), Vector3.new(-112, 0, -12), Vector3.new(-88, 0, -12),
-	Vector3.new(-95, 0, -38), Vector3.new(-40, 0, -30), Vector3.new(-40, 0, 30), Vector3.new(-160, 0, 50),
-	Vector3.new(-200, 0, -150), Vector3.new(-130, 0, -150), Vector3.new(-60, 0, -150),
+	Vector3.new(-104, 0, 16), Vector3.new(-104, 0, -16), Vector3.new(-84, 0, 24), Vector3.new(-84, 0, -24),
+	Vector3.new(-62, 0, 18), Vector3.new(-62, 0, -18), Vector3.new(-44, 0, 28), Vector3.new(-44, 0, -26),
+	Vector3.new(-34, 0, 12), Vector3.new(-34, 0, -12), Vector3.new(-152, 0, 56),
 }
 
 function EventService.active(): Events.Event?

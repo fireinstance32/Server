@@ -4,6 +4,7 @@
 -- Prices step up ~3x, mirroring the pacing of +1 Stone Skipping's World 1.
 
 local WorldContent = require(script.Parent.WorldContent) :: { any }
+local Lobby = require(script.Parent.Lobby)
 
 export type Frog = {
 	id: string,
@@ -73,11 +74,6 @@ for _, frog in Frogs do
 	byId[frog.id] = frog
 end
 
--- Podium row in the plaza (reference: stones on pedestals). Computed in a
--- function so this module still loads in offline tests.
-local PodiumRowZ = -120
-local PodiumStartX = -235
-local PodiumSpacing = 20
 
 -- Rocks on a world's podiums, in podium order.
 local function forWorld(worldId: string): { Frog }
@@ -91,8 +87,9 @@ local function forWorld(worldId: string): { Frog }
 end
 
 -- Local position (within a world's layout) of the index-th podium.
+-- (Computed when called, so this module still loads in offline tests.)
 local function podiumPosition(index: number): Vector3
-	return Vector3.new(PodiumStartX + (index - 1) * PodiumSpacing, 0.5, PodiumRowZ)
+	return Lobby.shelf(index)
 end
 
 return {

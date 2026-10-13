@@ -1,7 +1,7 @@
 -- The throw lane (reference "+1 Stone Skipping"): a long straight stretch of
--- water between raised checker-brick banks, one themed stretch per zone
--- (Banks), the zone names floating over the water (Signs), and the portal at
--- the far end.
+-- water between two-tier checker banks, one themed stretch per zone (Banks),
+-- the zone names floating over the water (Signs), and the portal at the far
+-- end. The banks start at the lobby's front wall (Config/Lobby).
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -9,6 +9,7 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Zones = require(Shared.Config.Zones)
 local Worlds = require(Shared.Config.Worlds)
+local Lobby = require(Shared.Config.Lobby)
 
 local Parts = require(script.Parent.Parts)
 local Banks = require(script.Banks)
@@ -53,10 +54,10 @@ function Lane.build(world: Model, config: Worlds.World)
 
 	local zones = Zones.ByWorld[config.id] or Zones.List
 	for i, zone in zones do
-		local startX = Game.RiverOrigin.X + zone.distance
+		local startX = if i == 1 then Lobby.FrontX else Game.RiverOrigin.X + zone.distance
 		local endX = Game.RiverOrigin.X + if zones[i + 1] then zones[i + 1].distance else Zones.RiverLength + TAIL
-		Banks.build(zone, startX, endX, banks, props, rng)
-		Signs.build(zone, startX + math.max(60 - zone.distance, 0) + 10, signs)
+		Banks.build(zone, startX, endX, i == 1, banks, props, rng)
+		Signs.build(zone, Game.RiverOrigin.X + zone.distance + math.max(60 - zone.distance, 0) + 10, signs)
 	end
 	-- Performance (8.5): hundreds of small props per world; they don't need
 	-- shadows or to be hit by raycasts.

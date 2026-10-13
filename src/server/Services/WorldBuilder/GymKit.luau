@@ -1,6 +1,6 @@
 -- Gym equipment around each gym's stand pad (imported Blender props, see
--- Parts.prop): a lifting platform on the pad itself, a loaded squat rack, a
--- bench, a plate tree, dumbbells and a kettlebell. Coloured by the gym. All
+-- Parts.prop): a lifting platform on the pad itself, a loaded rack, a plate
+-- tree, dumbbells and a kettlebell. Coloured by the gym. All
 -- visual: nothing here changes how training works, and without the import
 -- the gym keeps its plain pad.
 
@@ -13,21 +13,21 @@ local Parts = require(script.Parent.Parts)
 
 local GymKit = {}
 
--- name, width (studs), offset from the stand pad's centre (X, Z), turn (degrees).
+-- name, width (studs), offset from the stand pad's centre (X, Z), turn
+-- (degrees). The rack stands behind the player (+Z, by the wall).
 local LAYOUT: { { any } } = {
-	{ "BarbellRack", 9, -11, 1, 0 },
-	{ "Bench", 6, 11.5, -3, 90 },
-	{ "PlateTree", 3.2, 11.5, 3.5, 0 },
-	{ "Dumbbell", 2.6, -9, -4.5, 20 },
-	{ "Dumbbell", 2.6, -11.5, -5, -10 },
-	{ "Kettlebell", 2, -7.5, -6, 0 },
-	{ "WeightPile", 3.5, 8, -6, 30 },
+	{ "BarbellRack", 8, 0, 7, 0 },
+	{ "PlateTree", 3, -5, 7, 0 },
+	{ "Kettlebell", 2, 5, 7.5, 0 },
+	{ "Dumbbell", 2.4, -5, -3, 20 },
+	{ "Dumbbell", 2.4, 5, -3, -20 },
 }
 
-function GymKit.decorate(pond: Ponds.Pond, model: Model, pad: BasePart)
+-- Dresses gym `pond` (its platform top at `floorY`) around its stand pad.
+function GymKit.decorate(pond: Ponds.Pond, model: Model, pad: BasePart, floorY: number)
 	local stand = Ponds.standPosition(pond)
-	local floor = Vector3.new(stand.X, Parts.GroundTop, stand.Z)
-	if Parts.prop("LiftPlatform", pond.color, 10, CFrame.new(floor), model) then
+	local floor = Vector3.new(stand.X, floorY, stand.Z)
+	if Parts.prop("LiftPlatform", pond.color, 7, CFrame.new(floor), model) then
 		-- The platform is the pad's look; the pad keeps the PondId and its collision.
 		pad.Transparency = 1
 	end

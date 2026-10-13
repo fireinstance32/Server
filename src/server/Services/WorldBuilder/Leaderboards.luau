@@ -1,4 +1,4 @@
--- Leaderboard boards in each hub. LeaderboardService fills the rows
+-- Leaderboard boards against each lobby's back wall (Config/Lobby). LeaderboardService fills the rows
 -- (Row1..RowN TextLabels in each board's SurfaceGui).
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -9,7 +9,7 @@ local Parts = require(script.Parent.Parts)
 
 local Builder = {}
 
-local WIDTH, HEIGHT = 24, 30
+local WIDTH, HEIGHT = 20, 25
 
 local MEDALS = { Color3.fromRGB(255, 210, 60), Color3.fromRGB(215, 222, 235), Color3.fromRGB(230, 150, 90) }
 local INK = Color3.fromRGB(26, 24, 36)
@@ -100,17 +100,12 @@ function Builder.build(world: Model)
 		local base = Leaderboards.position(i)
 		local model = Instance.new("Model")
 		model.Name = def.id
+		-- Posts either side (along Z); the front face looks toward +X (the lobby).
 		for _, side in { -1, 1 } do
-			Parts.block("Post", Vector3.new(2, HEIGHT + 4, 2), CFrame.new(base + Vector3.new(side * (WIDTH / 2 + 1), (HEIGHT + 4) / 2, 0)), Parts.Colors.Wood, model)
+			Parts.block("Post", Vector3.new(2, HEIGHT + 4, 2), CFrame.new(base + Vector3.new(0, (HEIGHT + 4) / 2, side * (WIDTH / 2 + 1))), Parts.Colors.Wood, model)
 		end
-		-- Front face looks toward +Z (the plaza).
-		local board = Parts.block(
-			"Board",
-			Vector3.new(WIDTH, HEIGHT, 1),
-			CFrame.lookAt(base + Vector3.new(0, HEIGHT / 2 + 3, 0), base + Vector3.new(0, HEIGHT / 2 + 3, 10)),
-			Color3.fromRGB(30, 30, 38),
-			model
-		)
+		local mid = base + Vector3.new(0, HEIGHT / 2 + 3, 0)
+		local board = Parts.block("Board", Vector3.new(WIDTH, HEIGHT, 1), CFrame.lookAt(mid, mid + Vector3.xAxis), Color3.fromRGB(30, 30, 38), model)
 		surface(board, def)
 		model.Parent = folder
 	end

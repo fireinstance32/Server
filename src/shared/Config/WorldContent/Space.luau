@@ -1,5 +1,7 @@
 -- World 4: Cosmic Cove.
 
+local Lobby = require(script.Parent.Parent.Lobby)
+
 local rgb = Color3.fromRGB
 
 return {
@@ -24,7 +26,7 @@ return {
 			name = "Moon Egg",
 			price = 90_000_000,
 			color = rgb(200, 200, 215),
-			position = Vector3.new(-75, 0, -50),
+			position = Lobby.egg(2),
 			pets = { { pet = "MoonMouse", weight = 60 }, { pet = "StarPuppy", weight = 30 }, { pet = "AlienCat", weight = 10 } },
 		},
 		{
@@ -32,7 +34,7 @@ return {
 			name = "Galaxy Egg",
 			price = 1_200_000_000,
 			color = rgb(110, 70, 220),
-			position = Vector3.new(-55, 0, -50),
+			position = Lobby.egg(4),
 			pets = { { pet = "CometFox", weight = 60 }, { pet = "AstroOwl", weight = 35 }, { pet = "NebulaDragon", weight = 5 } },
 		},
 	},

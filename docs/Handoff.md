@@ -39,7 +39,8 @@ GIT_AUTHOR_NAME=Claude GIT_AUTHOR_EMAIL=noreply@anthropic.com GIT_COMMITTER_NAME
 - **Not done:**
   - (Rock pictures: done 2026-10-13, rendered from the Blender rocks.)
   - A rock icon (`gem` is standing in).
-  - Field map: rebuilt like the reference (2026-10-13: `WorldBuilder/Lane`, `Hub`, `Style`, studs everywhere) but not yet checked by eye; Studio 3D screenshots came back black. Blender rocks, props and nature models are done; the user still has to import `Rocks.fbx`, `Props.fbx` and `Nature.fbx`.
+  - Field map: lobby redone like the user's reference screenshots (2026-10-13: `Config/Lobby`, `WorldBuilder/Terraces`, `Hub/*`). **No stud texture in code** (the user has a plugin). Checked by eye with **edit-mode** `screen_capture` + `camera_position` (works; Play-mode captures are black). Blender rocks, props and nature models are imported.
+  - **Map vs World:** `Workspace.Map.<World>` (scenery + terrain water) is saved with the place and only built if missing; `Workspace.World.<World>` (interactive) is rebuilt every server start. To rebuild a map from Studio MCP in Edit, the command-bar `require` cache serves stale modules: clone `ReplicatedStorage.Shared` (rename the original away, put the clone in its place) and a clone of `WorldBuilder`, require the clone, call `buildMap(id)` / `buildWorld()`, then restore. Walk speed: `Config/Game.WalkSpeed` (24).
   - Training now locks the player on the stand pad (`Controllers/TrainLock`).
   - Real lift and throw animations.
 - **The user said stages 3 and 5 (icon/ad tests) are NOT next.** The game isn't ready. Focus on gameplay and art.
