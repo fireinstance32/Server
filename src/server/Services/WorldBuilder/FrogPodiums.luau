@@ -35,8 +35,8 @@ function FrogPodiums.build(world: Model, config: Worlds.World)
 		if Parts.prop("Podium", trim, 8.6, CFrame.new(base), model) then
 			pedestal.Transparency = 1
 		end
-		local display = Models.rock(frog.color, 3, frog.id, frog.ultimate)
-		display:PivotTo(CFrame.new(base + Vector3.new(0, 4.6, 0)) * CFrame.Angles(0, math.rad(-90), 0))
+		local display = Models.rock(frog.color, 4.5, frog.id, frog.ultimate)
+		display:PivotTo(CFrame.new(base + Vector3.new(0, 5.6, 0)) * CFrame.Angles(0, math.rad(-90), 0))
 		display.Name = "Display"
 		-- Clients add the rock's effects (Effects/RockAura).
 		display:SetAttribute("RockId", frog.id)
@@ -52,7 +52,7 @@ function FrogPodiums.build(world: Model, config: Worlds.World)
 		prompt:SetAttribute("FrogId", frog.id)
 		prompt.Parent = pedestal
 
-		local anchor = Parts.block("SignAnchor", Vector3.one, CFrame.new(base + Vector3.new(0, 9.5, 0)), Color3.new(1, 1, 1), model)
+		local anchor = Parts.block("SignAnchor", Vector3.one, CFrame.new(base + Vector3.new(0, 10.5, 0)), Color3.new(1, 1, 1), model)
 		anchor.Transparency = 1
 		anchor.CanCollide = false
 

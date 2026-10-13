@@ -658,8 +658,10 @@ def s_phoenix(p, rng):
 # --- ores (the Stone Valley ladder: Coal .. Diamond) ---
 
 
-def ore_stone(p, rng, scale=(1.1, 1.0, 0.85)):
-    stone = p["Stone"]
+def ore_stone(p, rng, scale=(1.1, 1.0, 0.85), role="Stone"):
+    # Metal ores sit in a dark stone of their own colour ("Shade"), so the
+    # rock reads as copper / iron / gold at a glance; gems sit in grey stone.
+    stone = p[role]
     rock(stone, rng, rough=0.09, cuts=12, cut=0.2, scale=scale)
     return stone
 
@@ -684,8 +686,8 @@ def gems(p, surf, rng, pockets, per, length):
 
 @shape("RockOre", smooth=("Ore",))
 def s_ore(p, rng):
-    """Grey stone flecked with ore: blotchy patches + small nuggets (Coal, Copper, Iron)."""
-    stone = ore_stone(p, rng)
+    """Ore-tinted stone flecked with ore: blotchy patches + small nuggets (Coal, Copper, Iron)."""
+    stone = ore_stone(p, rng, role="Shade")
     off = Vector((rng.uniform(-50, 50), 9, 1))
     coat(p["Ore"], stone, lambda co, n: smoothstep(0.32, 0.42, mnoise.noise(co * 3.2 + off)), lift=0.035, sink=0.03)
     nuggets(p, Surface(stone), rng, 9, 0.13)
@@ -694,7 +696,7 @@ def s_ore(p, rng):
 @shape("RockOreRich", smooth=("Ore",))
 def s_ore_rich(p, rng):
     """Stone cracked open by thick shining veins with fat nuggets (Silver, Gold)."""
-    stone = ore_stone(p, rng, scale=(1.15, 1.0, 0.9))
+    stone = ore_stone(p, rng, scale=(1.15, 1.0, 0.9), role="Shade")
     off = Vector((rng.uniform(-50, 50), 3, 8))
 
     def veins(co, _n):
