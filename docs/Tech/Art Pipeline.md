@@ -69,3 +69,15 @@ tags: [tech, art]
 1. **Home → Import 3D** → `C:\1FrogHop\assets\models\Props\Props.fbx` → Import.
 2. Drag it into `ReplicatedStorage.Assets` and rename it exactly `Props` (one Model per prop inside). If it comes in flattened, import `Props\Shapes\*.fbx` one by one straight into `Assets`, named as the file.
 3. **File → Save**, then Play (the world is built when the server starts).
+
+### Nature (lane and cliff scenery)
+- Script: `tools/blender/build_nature.py` (reuses the rock helpers): PalmTree, PalmTreeBent, RoundTree, RoundTreeTall, VoxelTree, VoxelTreeTall, Bush, AutumnTree, AutumnTreeTall, SnowPine, SnowPineTall, Cactus, CactusTall, Mushroom, MushroomPair, Boulder, BoulderPair, IceSpikes, CrystalCluster, Lollipop, Gumdrops, Pumpkin, Reeds, Flowers. Low-poly, faceted. Preview: [[Nature Preview.png]]
+  - Rebuild: `blender -b -P tools/blender/build_nature.py -- assets/models/Nature --preview "docs/Art/Nature Preview.png"`
+- Output: `assets/models/Nature/Nature.fbx` + `Nature/Shapes/<Name>.fbx`.
+- Fixed roles: Leaf, LeafLight, Bark, BarkDark, Coconut, Needle, Snow, Cactus, Petal, Dots, Gills, Ice (glass), CandyA/B/C, Pumpkin, Vine, Pollen, Berry. Body / Shade / Gem take the colour `WorldBuilder/Props` picks per kind (autumn leaves, caps, crystals, lollipops, petals).
+- In game: `WorldBuilder/Props.place` uses the model for each prop kind (scaled to a random width) and falls back to the part-built prop.
+
+#### Importing the nature models
+1. **Home → Import 3D** → `C:\1FrogHop\assets\models\Nature\Nature.fbx` → Import.
+2. Drag it into `ReplicatedStorage.Assets` and rename it exactly `Nature`. If it comes in flattened, import `Nature\Shapes\*.fbx` one by one straight into `Assets`, named as the file.
+3. **File → Save**, then Play.

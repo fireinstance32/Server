@@ -63,3 +63,25 @@ status: in progress
 - [ ] Egg stands and the hatch screen show the spotted egg in each egg's colour
 - [ ] Removing `Assets.Frog` brings the old part frog back (fallback works)
 - [ ] Note anything that looks off (size, facing, colours) with a screenshot
+
+## 6.2 Map (reference style)
+- [ ] Every walkable top has the stud texture: plaza, paths, banks, cliffs, spawn, Throw Zone
+- [ ] Throw Zone: yellow studded checker pad with "THROW ZONE" readable from spawn; chevrons on the path point toward it
+- [ ] Lane: 9 zones, each with its own grass, two-colour checker walls (checks above the water, plain below) and water tint; no flicker (z-fighting) where walls meet banks
+- [ ] Each zone's floating sign faces you when you look down the lane from the Throw Zone and reads "icon Name icon / N Wins"
+- [ ] Props fit their zone (palms on the beach, cacti in the canyon, snowy pines, mushrooms, candy, crystals…) and none stand in the water or on paths
+- [ ] Hub: paths reach the gyms, podiums, eggs and portals; cliffs ring the hub with trees on top; you can't walk off the map
+- [ ] Sky: sunrise down the lane, pink clouds, water clear enough to see the riverbed
+- [ ] Other worlds (Swamp, Candy, Space, Lava) build the same way with their own zone colours and icons
+- [ ] Frame rate is fine on a phone (if not: tell me, the map can stream or use fewer tiles)
+
+## 6.2 Nature models
+- [ ] `ReplicatedStorage.Assets.Nature` holds the 24 models
+- [ ] Lane and cliff props are the Blender models (not blocks); autumn trees, mushrooms, crystals, lollipops and flowers come in several colours; ice spikes are glassy
+- [ ] Removing `Assets.Nature` brings back the part-built props
+
+## 6.2 Training lock
+- [ ] Walk onto a gym's stand pad: you snap to the centre facing the rack and can't walk; the lift animation plays and Strength goes up
+- [ ] The THROW button shows a red STOP while training; pressing it lets you walk off
+- [ ] Jumping also lets you go; you aren't grabbed again until you leave the pad and step back on
+- [ ] Respawning while training doesn't leave you frozen

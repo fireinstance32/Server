@@ -20,9 +20,7 @@ local WorldLighting = require(Controllers.WorldLighting)
 local RockAura = require(script.Effects.RockAura)
 
 Hud.init({
-	onHop = function()
-		task.spawn(HopController.hop)
-	end,
+	onHop = HopController.press,
 	openMenu = Menus.open,
 	autoOpenMenu = function(name)
 		if not Menus.isOpen() then

@@ -20,6 +20,9 @@ tags: [planning, phase6]
 - [x] One lift animation (squat, clean, press, flex) + lift effects (`Effects/Lift`) + rock auras (`Effects/RockAura`)
 - [x] Props in Blender (`tools/blender/build_props.py`): gym equipment, Podium, PortalArch, Trophy — preview: ![[Props Preview.png]]; used by gyms, podiums and portals (`WorldBuilder/GymKit`, `Parts.prop`)
 - [ ] You import `Rocks/Rocks.fbx` and `Props/Props.fbx` ([[Art Pipeline]]) and check them in [[Phase 6 Playtest]]
+- [x] Nature models in Blender (`tools/blender/build_nature.py`): 24 trees, pines, cacti, mushrooms, boulders, ice, crystals, candy, pumpkins, reeds, flowers — preview: ![[Nature Preview.png]]
+- [ ] You import `Nature/Nature.fbx` ([[Art Pipeline]] → Nature) and check the lane in [[Phase 6 Playtest]]
+- [x] Training locks you on the stand pad while lifting (STOP / jump to leave)
 ## 6.2 VFX 🟡
 - [x] `Effects/World`: droplet splash on every pad, landing burst (ripples, golden sparkle fountain, mist), sparkles around you on level up
 - [x] `Effects/Screen`: confetti on NEW BEST / MAX LEVEL / Epic+ hatch, colour flash on new zone and rare hatch
@@ -32,7 +35,10 @@ tags: [planning, phase6]
 ## 6.5 World art pass 🟡
 - [x] Per-world themes (`Config/Worlds` Themes): plaza colours with a 40-stud checker, lily pad colour, stud texture on the plaza once uploaded
 - [x] `WorldLighting`: lighting fades to each world's mood (Swamp dusk, Candy bright pink, Space night, Lava red haze)
-- [ ] Props/decor per world beyond the river banks; skyboxes
+- [x] **Map rebuilt like the reference:** 9 biome zones down the lane (grass banks, checker walls, water tint, props, floating zone signs), studded hub with paths and chevrons, checker cliffs with trees, studded Throw Zone, sunrise sky (`WorldBuilder/Lane`, `Hub`, `Style`)
+- [x] Stud texture on every walkable surface
+- [ ] Check the map in Play and polish (sign/checker facing, prop placement, performance: ~31k instances)
+- [ ] Skyboxes per world
 
 ## 6.6 Playtest 🧪
 - [ ] I write the test plan: [[Phase 6 Playtest]] (started: models)

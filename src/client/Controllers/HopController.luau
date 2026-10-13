@@ -1,7 +1,8 @@
 -- Drives the HOP button: works out where the player stands (a pond's stand
 -- pad → Train, the Hop Zone → Launch), asks the server for a result, then
--- hands it to HopAnimation. Standing on an unlocked pond's pad trains
--- automatically (no button); Auto Hop (pass) repeats river launches.
+-- hands it to HopAnimation. Stepping onto an unlocked pond's pad locks the
+-- player in place and trains automatically (TrainLock; STOP or jump to
+-- leave); Auto Hop (pass) repeats river launches.
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -18,6 +19,7 @@ local Theme = require(script.Parent.Parent.UI.Theme)
 local Purchases = require(script.Parent.Parent.Purchases)
 local PondAccess = require(script.Parent.Parent.PondAccess)
 local HopAnimation = require(script.Parent.HopAnimation)
+local TrainLock = require(script.Parent.TrainLock)
 
 local HopController = {}
 
@@ -93,23 +95,34 @@ function HopController.hop()
 	busy = false
 end
 
+-- The HUD button: STOP while locked training, otherwise a hop.
+function HopController.press()
+	if TrainLock.isLocked() then
+		TrainLock.release()
+		return
+	end
+	task.spawn(HopController.hop)
+end
+
 function HopController.setAutoHop(enabled: boolean)
 	autoHop = enabled
 end
 
 function HopController.init()
-	local lastMode, lastPond, lastLocked = "unset", nil, nil
+	TrainLock.init()
+	local lastMode, lastPond, lastLocked, lastTraining = "unset", nil, nil, nil
 	RunService.Heartbeat:Connect(function()
 		local mode, pond = currentSpot()
 		local locked = pond ~= nil and not PondAccess.isUnlocked(pond)
-		if mode ~= lastMode or pond ~= lastPond or locked ~= lastLocked then
-			lastMode, lastPond, lastLocked = mode, pond, locked
-			Hud.setHopMode(mode, pond, locked)
+		local training = TrainLock.update(if mode == "Train" and not locked then pond else nil)
+		if mode ~= lastMode or pond ~= lastPond or locked ~= lastLocked or training ~= lastTraining then
+			lastMode, lastPond, lastLocked, lastTraining = mode, pond, locked, training
+			Hud.setHopMode(mode, pond, locked, training)
 		end
 		if busy then
 			return
 		end
-		local wantsAuto = (mode == "Train" and not locked) or (mode == "Launch" and autoHop)
+		local wantsAuto = (mode == "Train" and training) or (mode == "Launch" and autoHop)
 		if wantsAuto then
 			task.spawn(HopController.hop)
 		end

@@ -42,13 +42,16 @@ Hud.banner = Popups.banner
 Hud.reward = RewardPopup.show
 Hud.distance = DistanceMeter
 
--- mode: "Train" (with the pond), "Launch", or nil. Training is automatic,
--- so the button only shows at the dock, or on a locked pond to explain or
--- sell it.
-function Hud.setHopMode(mode: string?, pond: any?, locked: boolean?)
+-- mode: "Train" (with the pond), "Launch", or nil. Training is automatic
+-- while locked on a pad (`training`), so the button is STOP there; it also
+-- shows at the Throw Zone, and on a locked pond to explain or sell it.
+function Hud.setHopMode(mode: string?, pond: any?, locked: boolean?, training: boolean?)
 	AutoRebirth.setVisible(mode == "Train")
-	hopButton.Visible = mode == "Launch" or (mode == "Train" and locked == true)
-	if mode == "Launch" then
+	hopButton.Visible = mode == "Launch" or training == true or (mode == "Train" and locked == true)
+	if training then
+		Theme.setText(hopButton, "STOP")
+		Layout.recolor(hopButton, "Red")
+	elseif mode == "Launch" then
 		Theme.setText(hopButton, "THROW")
 		Layout.recolor(hopButton, "Green")
 	elseif mode == "Train" and locked and pond then

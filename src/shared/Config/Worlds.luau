@@ -45,7 +45,9 @@ Worlds.Themes = {
 		plaza = rgb(110, 200, 90),
 		plazaAlt = rgb(126, 214, 104),
 		pad = rgb(70, 175, 70),
-		lighting = { ClockTime = 14, Brightness = 2.5, OutdoorAmbient = rgb(150, 150, 150), atmosphere = rgb(200, 230, 255), density = 0.25, tint = rgb(255, 255, 255) },
+		-- Sunset look (reference). Early morning, so the low sun sits over the
+		-- far end of the lane (+X); it reads as a sunset.
+		lighting = { ClockTime = 6.55, Brightness = 2.6, OutdoorAmbient = rgb(185, 150, 160), atmosphere = rgb(255, 175, 150), density = 0.3, tint = rgb(255, 242, 235) },
 	},
 	Swamp = {
 		plaza = rgb(95, 122, 95),

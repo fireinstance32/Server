@@ -6,7 +6,8 @@ local Assets = require(ReplicatedStorage:WaitForChild("Shared").Util.Models.Asse
 
 local Parts = {}
 
-Parts.GroundTop = 0.5 -- Y of the plaza and river bank surfaces
+Parts.GroundTop = 0.5 -- Y of the plaza (hub floor)
+Parts.BankTop = 7.5 -- Y of the grass on top of the throw lane's banks
 Parts.Colors = {
 	Grass = Color3.fromRGB(110, 200, 90),
 	Wood = Color3.fromRGB(160, 110, 65),

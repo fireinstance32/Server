@@ -11,6 +11,8 @@ Every 3D model in the game, built by Blender scripts in `tools/blender/` (never 
 | `Rocks/Shapes/` | The same shapes one file each (fallback import) | `build_rocks.py` | `ReplicatedStorage.Assets.<Shape>` |
 | `Props/Props.fbx` | **All world props in one file** (gym, podium, portal, decor) | `build_props.py` | `ReplicatedStorage.Assets.Props` |
 | `Props/Shapes/` | The same props one file each | `build_props.py` | `ReplicatedStorage.Assets.<Prop>` |
+| `Nature/Nature.fbx` | **All scenery in one file** (trees, pines, cacti, mushrooms, crystals, candy…) | `build_nature.py` | `ReplicatedStorage.Assets.Nature` |
+| `Nature/Shapes/` | The same scenery one file each | `build_nature.py` | `ReplicatedStorage.Assets.<Name>` |
 | `Pets/Pet.fbx` | Cube pet (recoloured per pet) | `build_models.py` | `ReplicatedStorage.Assets.Pet` |
 | `Eggs/Egg.fbx` | Egg (recoloured per egg) | `build_models.py` | `ReplicatedStorage.Assets.Egg` |
 | `Legacy/Frog.fbx` | The cube frog from before the Rock Pivot (unused) | `build_models.py` | – |
@@ -27,5 +29,6 @@ Which rock uses which shape: `src/shared/Config/RockLooks.luau`. Preview: [[Rock
 ```
 blender -b -P tools/blender/build_rocks.py -- assets/models/Rocks --preview "docs/Art/Rocks Preview.png"
 blender -b -P tools/blender/build_props.py -- assets/models/Props --preview "docs/Art/Props Preview.png"
+blender -b -P tools/blender/build_nature.py -- assets/models/Nature --preview "docs/Art/Nature Preview.png"
 python tools/blender/build_models.py assets/models
 ```

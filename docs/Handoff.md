@@ -39,7 +39,8 @@ GIT_AUTHOR_NAME=Claude GIT_AUTHOR_EMAIL=noreply@anthropic.com GIT_COMMITTER_NAME
 - **Not done:**
   - (Rock pictures: done 2026-10-13, rendered from the Blender rocks.)
   - A rock icon (`gem` is standing in).
-  - The field map and gym art (stage 4). Blender rocks are done; the user still has to import them.
+  - Field map: rebuilt like the reference (2026-10-13: `WorldBuilder/Lane`, `Hub`, `Style`, studs everywhere) but not yet checked by eye; Studio 3D screenshots came back black. Blender rocks, props and nature models are done; the user still has to import `Rocks.fbx`, `Props.fbx` and `Nature.fbx`.
+  - Training now locks the player on the stand pad (`Controllers/TrainLock`).
   - Real lift and throw animations.
 - **The user said stages 3 and 5 (icon/ad tests) are NOT next.** The game isn't ready. Focus on gameplay and art.
 - **All Robux product and pass ids are 0.** The user creates them on the dashboard.
