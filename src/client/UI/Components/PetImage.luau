@@ -44,7 +44,7 @@ function PetImage.new(kind: "pet" | "frog", id: string, props: { [string]: any }
 		end
 	else
 		local frog = Frogs.ById[id] or Frogs.ById[Frogs.Default]
-		view = ModelView.new(Models.frog(frog.color, 2, frog.id), nil, "+X")
+		view = ModelView.new(Models.rock(frog.color, 2, frog.id, frog.ultimate), nil, "+X")
 	end
 	for key, value in props or {} do
 		(view :: any)[key] = value

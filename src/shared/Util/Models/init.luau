@@ -1,5 +1,5 @@
 --!strict
--- Frog, pet and egg models. Uses the imported cube-style meshes in
+-- Rock, pet and egg models. Uses the imported cube-style meshes in
 -- ReplicatedStorage.Assets when present (Models/Assets), otherwise the
 -- part-built models (Models/Pet for frogs and pets, Models/Placeholders for the egg). Callers only rely on
 -- PrimaryPart, so both look the same to the rest of the game.
@@ -7,6 +7,7 @@
 local Assets = require(script.Assets)
 local Placeholders = require(script.Placeholders)
 local Pet = require(script.Pet)
+local Rock = require(script.Rock)
 local PetLooks = require(script.Parent.Parent.Config.PetLooks)
 
 local Models = {}
@@ -30,24 +31,18 @@ local function nameTag(body: BasePart, name: string, height: number)
 	tag.Parent = body
 end
 
--- A cube frog `scale` studs wide, facing +X. Built like the pets ("frog"
--- look + per-frog extras such as crowns) unless an Assets.Frog mesh exists.
-function Models.frog(color: Color3, scale: number?, frogId: string?): Model
+-- A rock `scale` studs across (the equipped item). Part-built (Models/Rock)
+-- unless an imported Assets.Rock mesh exists. Glowing rocks are the
+-- ultimate ones.
+function Models.rock(color: Color3, scale: number?, rockId: string?, glow: boolean?): Model
 	local s = scale or 2
-	local template = Assets.template("Frog")
+	local template = Assets.template("Rock")
 	local model = template and Assets.build(template, "Body", color, s)
 	if model then
-		model.Name = "Frog"
+		model.Name = "Rock"
 		return model
 	end
-	local frog = Pet.build(color, s * 0.8, "frog", nil, PetLooks.FrogExtras[frogId or ""])
-	frog.Name = "Frog"
-	-- Pets face -Z; turn the frog to face +X and keep its pivot unrotated, so
-	-- callers' PivotTo(CFrame.new(pos)) keeps it facing +X.
-	local body = frog.PrimaryPart :: BasePart
-	frog:PivotTo(CFrame.Angles(0, -math.pi / 2, 0))
-	body.PivotOffset = CFrame.Angles(0, math.pi / 2, 0)
-	return frog
+	return Rock.build(color, s, rockId, glow)
 end
 
 export type PetDef = { id: string, name: string, color: Color3, rarity: string }

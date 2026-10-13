@@ -1,6 +1,7 @@
--- Plays hop results on the client: the frog model hopping pad to pad, splash
--- rings, floating numbers, camera follow and the landing banner. Purely
--- visual; rewards are already decided by the server.
+-- Plays results on the client: a lift rep in a gym, or the thrown rock
+-- bouncing down the field with splash rings, floating numbers, camera
+-- follow and the landing banner. Purely visual; rewards are already decided
+-- by the server.
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -11,7 +12,6 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Game = require(Shared.Config.Game)
 local Frogs = require(Shared.Config.Frogs)
 local Zones = require(Shared.Config.Zones)
-local Ponds = require(Shared.Config.Ponds)
 local Worlds = require(Shared.Config.Worlds)
 local Trails = require(Shared.Config.Trails)
 local Events = require(Shared.Config.Events)
@@ -22,6 +22,7 @@ local Hud = require(script.Parent.Parent.UI.Hud)
 local Theme = require(script.Parent.Parent.UI.Theme)
 local State = require(script.Parent.Parent.State)
 local TossAnimation = require(script.Parent.TossAnimation)
+local LiftAnimation = require(script.Parent.LiftAnimation)
 local FollowCamera = require(script.Parent.FollowCamera)
 local WorldFx = require(script.Parent.Parent.Effects.World)
 local ScreenFx = require(script.Parent.Parent.Effects.Screen)
@@ -30,7 +31,7 @@ local Ultimate = require(script.Parent.Parent.Effects.Ultimate)
 local HopAnimation = {}
 
 local player = Players.LocalPlayer
-local FROG_LIFT = Vector3.new(0, 1, 0) -- pad positions are pad surfaces; lift the frog onto them
+local FROG_LIFT = Vector3.new(0, 1.2, 0) -- pad positions are surfaces; lift the rock onto them
 
 -- Adds the equipped trail behind the hopping frog.
 local function attachTrail(frog: Model)
@@ -63,7 +64,7 @@ end
 local function spawnFrog(): Model
 	local frogId = State.data and State.data.equippedFrog or Frogs.Default
 	local def = Frogs.ById[frogId] or Frogs.ById[Frogs.Default]
-	local frog = Models.frog(def.color, 2.4, def.id)
+	local frog = Models.rock(def.color, 2.4, def.id, def.ultimate)
 	frog.Parent = Workspace
 	attachTrail(frog)
 	return frog
@@ -80,7 +81,8 @@ local function hopArc(frog: Model, a: Vector3, b: Vector3, height: number, durat
 		elapsed += RunService.RenderStepped:Wait()
 		local t = math.min(elapsed / duration, 1)
 		local pos = a:Lerp(b, t) + Vector3.new(0, height * 4 * t * (1 - t), 0)
-		frog:PivotTo(CFrame.new(pos) * rotation)
+		-- The rock tumbles forward as it flies.
+		frog:PivotTo(CFrame.new(pos) * rotation * CFrame.Angles(0, 0, -t * math.pi * 2))
 	end
 end
 
@@ -89,24 +91,10 @@ local function worldOffset(worldId: string?): Vector3
 	return Worlds.offset(world)
 end
 
+-- Training in a gym: one lift of the held rock with a +Strength pop at the top.
 function HopAnimation.playTraining(result)
-	local pond = Ponds.ById[result.pond] or Ponds.List[1]
-	local offset = worldOffset(result.world)
-	local frog = spawnFrog()
-	local perHop = result.hopsGained / result.bounces
-	local start = math.random(1, Ponds.PadsPerPond)
-	local lift = FROG_LIFT + Vector3.new(0, Ponds.SurfaceY, 0)
-	local from = Ponds.padPosition(pond, start) + lift + offset
-	frog:PivotTo(CFrame.new(from))
-	local hopTime = (Game.TrainingCooldown * 0.9) / result.bounces
-	for i = 1, result.bounces do
-		local to = Ponds.padPosition(pond, (start + i - 1) % Ponds.PadsPerPond + 1) + lift + offset
-		hopArc(frog, from, to, 3, hopTime)
-		WorldFx.splash(to, 0.7)
-		Hud.floatText(`+{Format.abbreviate(perHop)}`, Theme.Colors.Green)
-		from = to
-	end
-	frog:Destroy()
+	LiftAnimation.play(player.Character, Game.TrainingCooldown * 0.9)
+	Hud.floatText(`+{Format.abbreviate(result.hopsGained)}`, Theme.Colors.Green)
 end
 
 function HopAnimation.playLaunch(result)

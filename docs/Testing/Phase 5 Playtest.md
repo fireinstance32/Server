@@ -53,3 +53,4 @@ status: ready
 - [ ] Leaderboard boards: coloured title banner, striped rows, top 3 in gold/silver/bronze
 - [ ] Pond signs show the rebirth icon pill; frog podium signs show name, ⚡ Hops, 🏆 price
 - [ ] Frogs everywhere (podiums, in hand, hopping) are cube frogs; Kings wear crowns, Ninja a headband, Astro a helmet
+- [ ] **Rock pivot (2026-10-13):** you hold a chunky rock (not a frog) in your right hand; standing in a gym lifts it over your head again and again with a +Strength pop; the THROW button throws the rock, which tumbles and bounces down the field and the camera follows it; podiums and the Rocks tab show rocks (Meteorite / Phoenix Stone glow). Text says Strength / Rocks / Gyms everywhere

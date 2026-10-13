@@ -1,5 +1,6 @@
 --!strict
--- Frogs are the "stones" of Frog Hop: the equipped frog sets Hops gained per pad.
+-- Rocks (code name: frogs, kept so saves work): the equipped rock sets
+-- Strength gained per bounce.
 -- Prices step up ~3x, mirroring the pacing of +1 Stone Skipping's World 1.
 
 local WorldContent = require(script.Parent.WorldContent) :: { any }
@@ -17,15 +18,15 @@ export type Frog = {
 }
 
 local Frogs: { Frog } = {
-	{ id = "Baby", name = "Pebble", price = 0, perBounce = 1, color = Color3.fromRGB(120, 200, 90) },
-	{ id = "Leaf", name = "Mossy Stone", price = 2, perBounce = 2, color = Color3.fromRGB(80, 170, 60) },
-	{ id = "Mud", name = "Clay Rock", price = 10, perBounce = 4, color = Color3.fromRGB(130, 95, 60) },
-	{ id = "Pond", name = "River Stone", price = 40, perBounce = 8, color = Color3.fromRGB(60, 150, 140) },
-	{ id = "Tree", name = "Granite", price = 150, perBounce = 15, color = Color3.fromRGB(110, 230, 70) },
-	{ id = "Dart", name = "Toxic Rock", price = 500, perBounce = 30, color = Color3.fromRGB(40, 120, 255) },
-	{ id = "Bull", name = "Bullfrog", price = 1500, perBounce = 60, color = Color3.fromRGB(95, 120, 50) },
+	{ id = "Baby", name = "Pebble", price = 0, perBounce = 1, color = Color3.fromRGB(150, 150, 155) },
+	{ id = "Leaf", name = "Mossy Stone", price = 2, perBounce = 2, color = Color3.fromRGB(105, 140, 85) },
+	{ id = "Mud", name = "Clay Rock", price = 10, perBounce = 4, color = Color3.fromRGB(170, 110, 70) },
+	{ id = "Pond", name = "River Stone", price = 40, perBounce = 8, color = Color3.fromRGB(95, 130, 150) },
+	{ id = "Tree", name = "Granite", price = 150, perBounce = 15, color = Color3.fromRGB(185, 160, 155) },
+	{ id = "Dart", name = "Toxic Rock", price = 500, perBounce = 30, color = Color3.fromRGB(120, 220, 60) },
+	{ id = "Bull", name = "Boulder", price = 1500, perBounce = 60, color = Color3.fromRGB(115, 105, 95) },
 	{ id = "Golden", name = "Gold Nugget", price = 4500, perBounce = 120, color = Color3.fromRGB(255, 200, 40) },
-	{ id = "Ninja", name = "Shadow Rock", price = 14000, perBounce = 250, color = Color3.fromRGB(40, 40, 50) },
+	{ id = "Ninja", name = "Shadow Rock", price = 14000, perBounce = 250, color = Color3.fromRGB(55, 45, 75) },
 	{ id = "Royal", name = "Royal Gem", price = 40000, perBounce = 500, color = Color3.fromRGB(170, 70, 220) },
 	{
 		id = "ShootingStar",
