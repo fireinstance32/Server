@@ -38,3 +38,19 @@ tags: [tech, art]
 5. **File → Save** (the models live in the place file, not in Rojo).
 6. Play: podiums, held frog, hopping frog, pets, egg stands and the hatch screen use the new models. Delete a model from `Assets` to go back to the placeholder.
 - Used in [[Phase 6 - Spectacle]].
+
+### Rocks (Rock Pivot stage 4)
+- Script: `tools/blender/build_rocks.py`: **19 rock shapes + a Crown**, high-poly (5–20k tris each), shaped with noise, chiselled facets, craters, metaballs and "coats" (moss, frosting, ooze, gold inlays, lava plates). Preview: [[Rocks Preview.png]]
+  - Pebble, River (banded), Mossy, Rock (chiselled), Boulder, Nugget, Lava (glowing seams), Meteor (glow shards), Moon (craters), Candy (rock candy on a stick), Gummy (gummy bear), Frosted (cupcake), Mushroom, Toxic (glowing ooze), Rune (glowing carved lines), Royal (gold inlays), Comet (glowing tail), Galaxy (ringed orb), Phoenix (flame feathers); Crown for the 4 Kings.
+  - Rebuild: `blender -b -P tools/blender/build_rocks.py -- assets/models --preview "docs/Art/Rocks Preview.png"`
+  - Live: in a Blender MCP session, `exec` the file and call `showcase()` → a "Rocks" scene with every shape.
+- Output: `assets/models/Rocks.fbx` (all shapes, each under an empty named after it) and `assets/models/rocks/<Shape>.fbx` (one per file).
+- Parts are named `<Shape>_<Role>`; `Models/Assets.luau` colours each role from the rock's colour (Body, Shade, Crust, Glow = Neon, Crystal, Band, Cap, Jelly, Moss …; Stone/Gold/Frosting… keep a fixed colour). `Root` is a hidden centre part everything welds to.
+- Which rock uses which shape, and which wear the Crown: `src/shared/Config/RockLooks.luau` (unit-tested against `Config/Frogs`).
+- Rock pictures (Rocks tab, Daily, tooltips) are rendered from the same models: `blender -b -P tools/blender/render_rocks.py -- <dir>` then `python tools/textures/pack_icons.py <dir> rock_ frogs FrogIconAtlas 128 8`, upload `frogs.png`, put the id in `Config/UiImages`.
+
+#### Importing the rocks into Studio
+1. **Home → Import 3D** → `C:\1FrogHop\assets\models\Rocks.fbx` → Import.
+2. Drag the imported model into `ReplicatedStorage.Assets` and rename it exactly `Rocks`. Inside it there should be one Model per shape (`Rock`, `RockPebble`, … `Crown`).
+   - If the importer flattens it into one model instead, delete it and import the files in `C:\1FrogHop\assets\models\rocks\` one by one; put each straight into `Assets`, named as its file (`RockLava`, `Crown`…).
+3. **File → Save**. Play: podiums, the held rock, the thrown rock and the 3D views use the new rocks; Kings wear the crown. Delete `Assets.Rocks` to go back to the part-built rocks.

@@ -1,14 +1,16 @@
 --!strict
--- Rock, pet and egg models. Uses the imported cube-style meshes in
+-- Rock, pet and egg models. Uses the imported Blender meshes in
 -- ReplicatedStorage.Assets when present (Models/Assets), otherwise the
--- part-built models (Models/Pet for frogs and pets, Models/Placeholders for the egg). Callers only rely on
--- PrimaryPart, so both look the same to the rest of the game.
+-- part-built models (Models/Rock, Models/Pet, Models/Placeholders for the
+-- egg). Callers only rely on PrimaryPart, so both look the same to the rest
+-- of the game.
 
 local Assets = require(script.Assets)
 local Placeholders = require(script.Placeholders)
 local Pet = require(script.Pet)
 local Rock = require(script.Rock)
 local PetLooks = require(script.Parent.Parent.Config.PetLooks)
+local RockLooks = require(script.Parent.Parent.Config.RockLooks)
 
 local Models = {}
 
@@ -31,18 +33,40 @@ local function nameTag(body: BasePart, name: string, height: number)
 	tag.Parent = body
 end
 
--- A rock `scale` studs across (the equipped item). Part-built (Models/Rock)
--- unless an imported Assets.Rock mesh exists. Glowing rocks are the
--- ultimate ones.
+-- A rock `scale` studs across (the equipped item). Uses the rock's Blender
+-- shape (Config/RockLooks) from ReplicatedStorage.Assets, then the plain
+-- "Rock" shape, then the part-built rock (Models/Rock). Crowned rocks wear
+-- Assets.Crown; glowing rocks (the ultimate ones) get a light.
 function Models.rock(color: Color3, scale: number?, rockId: string?, glow: boolean?): Model
 	local s = scale or 2
-	local template = Assets.template("Rock")
-	local model = template and Assets.build(template, "Body", color, s)
-	if model then
-		model.Name = "Rock"
-		return model
+	local template = Assets.template(RockLooks.shapeFor(rockId)) or Assets.template("Rock")
+	local model = template and Assets.build(template, "Root", color, s)
+	if not model then
+		return Rock.build(color, s, rockId, glow)
 	end
-	return Rock.build(color, s, rockId, glow)
+	model.Name = "Rock"
+	local root = model.PrimaryPart :: BasePart
+	local crownTemplate = rockId and RockLooks.Crowned[rockId] and Assets.template("Crown")
+	local crown = crownTemplate and Assets.build(crownTemplate, "Root", color, s * 0.6)
+	if crown then
+		local box, size = model:GetBoundingBox()
+		local top = root.CFrame:PointToObjectSpace(box.Position).Y + size.Y / 2
+		local height = crown:GetExtentsSize().Y
+		crown:PivotTo(root.CFrame * CFrame.new(0, top + height * 0.2, 0))
+		local weld = Instance.new("WeldConstraint")
+		weld.Part0 = root
+		weld.Part1 = crown.PrimaryPart
+		weld.Parent = crown.PrimaryPart
+		crown.Parent = model
+	end
+	if glow then
+		local light = Instance.new("PointLight")
+		light.Color = color
+		light.Range = s * 4
+		light.Brightness = 1.5
+		light.Parent = root
+	end
+	return model
 end
 
 export type PetDef = { id: string, name: string, color: Color3, rarity: string }

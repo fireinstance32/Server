@@ -30,6 +30,15 @@ status: in progress
 - [ ] Legendary/Rainbow pets sparkle; equipped pets follow you and face forward
 - [ ] Hatch screen shows the new pets
 
+## 6.1 Rocks (Blender)
+- [ ] `ReplicatedStorage.Assets.Rocks` holds `Rock`, `RockPebble` … `RockPhoenix` and `Crown` (or each one straight in `Assets`)
+- [ ] Rock podiums: every rock has its own shape (Pebble flat and smooth, Mossy with a moss cap, Gold Nugget bubbly, Gummy Rock a gummy bear, Rock Candy on a stick, Cupcake Rock frosted with a cherry, Mushroom Rock with spotted mushrooms…) in the rock's colour
+- [ ] Glowing parts are Neon: lava seams, rune lines, toxic ooze, comet tail, galaxy ring, phoenix feathers
+- [ ] The four Kings wear a gold crown on top
+- [ ] The rock in your hand: right size, sits in the palm, no invisible-part gaps; thrown rock tumbles and hides/returns as before
+- [ ] Rocks tab and Daily Day 7 show rock pictures (not frogs)
+- [ ] Removing `Assets.Rocks` brings back the part-built rocks (fallback works)
+
 ## 6.1 Models (Blender frog/egg)
 - [ ] `ReplicatedStorage.Assets` has `Frog`, `Pet`, `Egg`
 - [ ] Frog podiums show cube frogs in each frog's colour (belly lighter, feet darker, white eyes)

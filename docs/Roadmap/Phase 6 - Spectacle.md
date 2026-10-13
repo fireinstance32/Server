@@ -13,7 +13,10 @@ tags: [planning, phase6]
 - [x] **Pets in Studio without Blender:** part-built cube pets, 21 animal looks with 3D details (ears, tails, wings, collars, horns, shells…), face + pattern **decals**, sparkles on Legendary/Rainbow — preview: ![[Pets Closeup.png]]
 - [ ] You upload the 26 pet images and send the ids ([[Art Pipeline]] → Uploading); check with `/petgallery`
 - [ ] Then compare with Blender pets and pick
-- [ ] Extras later: crowns for the King frogs
+- [x] Crowns for the King rocks (Blender `Crown`, worn by ToadKing / CandyKing / GalaxyKing / VolcanoKing)
+- [x] **Rocks in Blender (Rock Pivot stage 4):** 19 high-quality rock shapes (`tools/blender/build_rocks.py`), each rock picks one in `Config/RockLooks` — preview: ![[Rocks Preview.png]]
+- [x] Rock pictures rendered from the models (`tools/blender/render_rocks.py` → `frogs.png`, uploaded)
+- [ ] You import `Rocks.fbx` ([[Art Pipeline]] → Importing the rocks) and check them in [[Phase 6 Playtest]]
 ## 6.2 VFX 🟡
 - [x] `Effects/World`: droplet splash on every pad, landing burst (ripples, golden sparkle fountain, mist), sparkles around you on level up
 - [x] `Effects/Screen`: confetti on NEW BEST / MAX LEVEL / Epic+ hatch, colour flash on new zone and rare hatch

@@ -37,9 +37,9 @@ GIT_AUTHOR_NAME=Claude GIT_AUTHOR_EMAIL=noreply@anthropic.com GIT_COMMITTER_NAME
   - Shop replica, with prices on one ladder from 19 to 449. The list is in `docs/Design/Monetization Setup.md`.
   - Starter Pack (49 Robux) includes the new **Rainbow Unicat** pet. The HUD picture is `UI/Hud/StarterPackIcon.luau`.
 - **Not done:**
-  - Rock pictures: the `frogs.png` sheet still shows frogs, so the Rocks tab and the Daily Day 7 card show frogs.
+  - (Rock pictures: done 2026-10-13, rendered from the Blender rocks.)
   - A rock icon (`gem` is standing in).
-  - The field map, gym art and Blender rock models (stage 4).
+  - The field map and gym art (stage 4). Blender rocks are done; the user still has to import them.
   - Real lift and throw animations.
 - **The user said stages 3 and 5 (icon/ad tests) are NOT next.** The game isn't ready. Focus on gameplay and art.
 - **All Robux product and pass ids are 0.** The user creates them on the dashboard.
@@ -62,10 +62,12 @@ GIT_AUTHOR_NAME=Claude GIT_AUTHOR_EMAIL=noreply@anthropic.com GIT_COMMITTER_NAME
 - **Blender 5.2** is at `C:\Program Files\Blender Foundation\Blender 5.2\blender.exe` (headless `bpy` works).
 - **Gvesster Icon Pack** (paid): icons may only be scaled and packed, never edited or tinted. Never commit the pack folder.
 
-## Next task: live Blender MCP
-The user wants Claude to drive Blender live (the "blender-mcp" add-on by ahujasid on GitHub, plus its MCP server run with `uvx blender-mcp`).
-1. **Get the user's OK before downloading.** Tell them the file name, source and size, for example `addon.py` from github.com/ahujasid/blender-mcp and the `blender-mcp` PyPI package.
-2. Check that `uv` is installed. If it isn't, give the user the install command.
-3. The user installs `addon.py` in Blender (Edit → Preferences → Add-ons → Install from disk), opens the sidebar (N) → BlenderMCP tab → Connect.
-4. Register the server: `claude mcp add blender -- uvx blender-mcp`, then restart the session.
-5. Then start stage 4: model rock tiers (pebble → boulder → crystal / gold / lava / galaxy), export .fbx to `assets/models/`, and the user imports them into `ReplicatedStorage.Assets` as `Rock`. `Models.rock` already uses `Assets.template("Rock")` when it exists.
+## Blender (live)
+- The Blender MCP server is registered for this project (`.mcp.json`) and the add-on is installed. Blender must be open with the add-on connected; tools are `mcp__blender__*` (`execute_blender_code`, `look`, `get_scene_info`).
+- Rock models: `tools/blender/build_rocks.py` (19 shapes + Crown). Live: `exec` it with a non-main `__name__` and call `showcase()` → "Rocks" scene. Headless rebuild + export: see [[Art Pipeline#Rocks (Rock Pivot stage 4)]].
+- Rock → shape map: `Config/RockLooks.luau`. Rock pictures: `tools/blender/render_rocks.py` → `pack_icons.py ... rock_ frogs FrogIconAtlas 128 8` → upload (port 34901 may be taken by an old server; 34902 worked).
+
+## Next task
+1. **The user imports `assets/models/Rocks.fbx`** into `ReplicatedStorage.Assets` as `Rocks` ([[Art Pipeline]] → Importing the rocks), then checks [[Phase 6 Playtest]] → 6.1 Rocks. Check in Studio: held rock size/grip, crowns sit on top, Neon glow parts.
+2. Rest of stage 4: gyms and the throwing field map, then real lift/throw animations.
+3. A rock icon to replace `gem` in the HUD/menus (Gvesster pack first, per CLAUDE.md).

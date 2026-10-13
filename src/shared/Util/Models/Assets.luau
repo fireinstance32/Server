@@ -1,7 +1,9 @@
 --!strict
--- Imported Blender models (tools/blender/build_models.py → assets/models/*.fbx
--- → Studio 3D Importer → ReplicatedStorage.Assets.<Frog|Pet|Egg>). Each is
--- cloned, recoloured by part name, scaled and welded to its Body/Shell.
+-- Imported Blender models (tools/blender/build_models.py and build_rocks.py
+-- → assets/models/*.fbx → Studio 3D Importer → ReplicatedStorage.Assets).
+-- Each is cloned, recoloured by part role, scaled and welded to its root.
+-- A part's role is its name, or the part after the last "_" (the rock
+-- models name parts "<Shape>_<Role>", e.g. RockLava_Glow).
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -10,41 +12,103 @@ local Assets = {}
 local WHITE = Color3.new(1, 1, 1)
 local BLACK = Color3.new(0, 0, 0)
 
--- How each named part is coloured from the frog/pet/egg colour. Parts not
+local function same(c: Color3): Color3
+	return c
+end
+local function lighter(t: number): (Color3) -> Color3
+	return function(c)
+		return c:Lerp(WHITE, t)
+	end
+end
+local function darker(t: number): (Color3) -> Color3
+	return function(c)
+		return c:Lerp(BLACK, t)
+	end
+end
+local function fixed(r: number, g: number, b: number): (Color3) -> Color3
+	local color = Color3.fromRGB(r, g, b)
+	return function()
+		return color
+	end
+end
+
+-- How each role is coloured from the frog/pet/egg/rock colour. Roles not
 -- listed (eyes, pupils, mouth) keep the colour they were imported with.
+-- Keep the rock roles in step with ROLE_TINTS/FIXED in build_rocks.py.
 local TINTS: { [string]: (Color3) -> Color3 } = {
-	Body = function(c)
-		return c
-	end,
-	Shell = function(c)
-		return c
-	end,
+	Body = same,
+	Shell = same,
 	Belly = function(c)
 		return c:Lerp(Color3.new(1, 1, 0.85), 0.6)
 	end,
-	Spots = function(c)
-		return c:Lerp(WHITE, 0.55)
+	Spots = lighter(0.55),
+	Foot = darker(0.25),
+	Ear = darker(0.3),
+	-- Rocks
+	Root = same,
+	Shade = darker(0.35),
+	Crust = darker(0.78),
+	Crystal = lighter(0.3),
+	-- Dark rocks' glow lightens more, or the Neon would stay dark.
+	Glow = function(c)
+		local luminance = 0.299 * c.R + 0.587 * c.G + 0.114 * c.B
+		return c:Lerp(WHITE, if luminance < 0.3 then 0.55 else 0.15)
 	end,
-	Foot = function(c)
-		return c:Lerp(BLACK, 0.25)
-	end,
-	Ear = function(c)
-		return c:Lerp(BLACK, 0.3)
-	end,
+	Band = lighter(0.45),
+	Cap = same,
+	Jelly = same,
+	Moss = same,
+	Stone = fixed(125, 120, 115),
+	Stem = fixed(240, 230, 210),
+	Frosting = fixed(255, 235, 245),
+	Sprinkles = fixed(255, 90, 170),
+	Cherry = fixed(220, 20, 50),
+	Stick = fixed(200, 160, 110),
+	Shine = fixed(255, 255, 255),
+	Gold = fixed(255, 195, 45),
 }
 
--- The imported template, or nil if it hasn't been imported yet.
+-- Surface looks per role (everything else is SmoothPlastic).
+local LOOKS: { [string]: { material: Enum.Material?, reflectance: number?, transparency: number? } } = {
+	Root = { transparency = 1 },
+	Glow = { material = Enum.Material.Neon },
+	Crystal = { reflectance = 0.2 },
+	Gold = { material = Enum.Material.Metal, reflectance = 0.25 },
+	Jelly = { transparency = 0.2, reflectance = 0.1 },
+	Shine = { material = Enum.Material.Neon },
+}
+
+local function roleOf(name: string): string
+	return string.match(name, "_(%a+)$") or name
+end
+
+-- The imported template, or nil if it hasn't been imported yet. Looks in
+-- Assets and in Assets.Rocks (the combined Rocks.fbx import).
 function Assets.template(name: string): Model?
 	local folder = ReplicatedStorage:FindFirstChild("Assets")
-	local template = folder and folder:FindFirstChild(name)
+	if not folder then
+		return nil
+	end
+	local template = folder:FindFirstChild(name)
+	local rocks = folder:FindFirstChild("Rocks")
+	if not template and rocks then
+		template = rocks:FindFirstChild(name)
+	end
 	return if template and template:IsA("Model") then template else nil
 end
 
--- Clone of `template` coloured from `color`, `width` studs wide.
+-- Clone of `template` coloured from `color`, `width` studs wide, welded to
+-- its part whose role is `rootName`.
 function Assets.build(template: Model, rootName: string, color: Color3, width: number): Model?
 	local model = template:Clone()
-	local root = model:FindFirstChild(rootName, true)
-	if not (root and root:IsA("BasePart")) then
+	local root: BasePart? = nil
+	for _, part in model:GetDescendants() do
+		if part:IsA("BasePart") and roleOf(part.Name) == rootName then
+			root = part
+			break
+		end
+	end
+	if not root then
 		warn(`[Models] Assets.{template.Name} has no part named {rootName}; using the placeholder`)
 		model:Destroy()
 		return nil
@@ -57,9 +121,21 @@ function Assets.build(template: Model, rootName: string, color: Color3, width: n
 			part.CanQuery = false
 			part.CanTouch = false
 			part.CastShadow = false
-			local tint = TINTS[part.Name]
+			local role = roleOf(part.Name)
+			local tint = TINTS[role]
 			if tint then
 				part.Color = tint(color)
+				-- An imported PBR look would hide the tint.
+				local appearance = part:FindFirstChildOfClass("SurfaceAppearance")
+				if appearance then
+					appearance:Destroy()
+				end
+			end
+			local look = LOOKS[role]
+			if look then
+				part.Material = look.material or part.Material
+				part.Reflectance = look.reflectance or part.Reflectance
+				part.Transparency = look.transparency or part.Transparency
 			end
 			if part ~= root then
 				local weld = Instance.new("WeldConstraint")
