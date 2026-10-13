@@ -1,7 +1,6 @@
 -- Lighting and sky (reference: clear bright midday, crisp shadows, punchy
 -- colours, white clouds). Controllers/WorldLighting fades the per-world
--- parts of this. (Lighting.Technology can't be set from a script: set it to
--- Future in Studio, Lighting → Technology.)
+-- parts of this.
 
 local Lighting = game:GetService("Lighting")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -27,6 +26,10 @@ function Environment.buildLighting()
 	Lighting.OutdoorAmbient = look.OutdoorAmbient
 	Lighting.Ambient = Color3.fromRGB(90, 90, 105)
 	Lighting.GlobalShadows = true
+	-- Sharp sun shadows and glowing parts lighting their surroundings (the
+	-- reference look); "Soft" is flatter.
+	Lighting.LightingStyle = Enum.LightingStyle.Realistic
+	Lighting.PrioritizeLightingQuality = true
 	Lighting.ShadowSoftness = 0.15
 	Lighting.EnvironmentDiffuseScale = 1
 	Lighting.EnvironmentSpecularScale = 0.25

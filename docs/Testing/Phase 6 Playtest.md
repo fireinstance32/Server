@@ -97,5 +97,5 @@ status: in progress
 - [ ] The stand pad has white corner brackets and a chevron; standing on it locks you in place facing the lobby
 - [ ] Throw at low and high Strength: each zone takes about as long to cross as the next (300 studs each), and each zone needs the same Strength as before
 - [ ] Water is opaque bright blue on the lane, the gym pools and the waterfalls; you can still swim in the lane
-- [ ] Sunny lighting with clear shadows under trees and props (with Lighting.Technology = Future)
+- [ ] Sunny lighting with clear shadows under trees and props (Lighting Style = Realistic)
 - [ ] After importing `Decor.fbx` as `Assets.Decor`: the gyms use the torii, cherry tree, lantern, candle, lily pad, lotus and bamboo models instead of blocks
