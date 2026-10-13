@@ -29,10 +29,10 @@ local function info(reward: { kind: string, id: string?, amount: number?, label:
 		local frog = Frogs.ById[reward.id]
 		return {
 			title = frog.name,
-			sub = if frog.rewardOnly then "Limited" else "Frog",
+			sub = if frog.rewardOnly then "Limited" else "Rock",
 			subColor = PURPLE,
 			bonus = `+{Format.abbreviate(frog.perBounce)} per lift`,
-			note = if frog.rewardOnly then "Only from Day 7!" else nil,
+			note = if frog.rewardOnly then `Only from {frog.rewardOnly}!` else nil,
 		}
 	elseif reward.kind == "potion" and reward.id and Potions.ById[reward.id] then
 		local potion = Potions.ById[reward.id]

@@ -1,15 +1,16 @@
 """Builds the rock models for +1 Lift Rock For Pets.
 
 Headless (exports everything + an optional preview render):
-    blender -b -P tools/blender/build_rocks.py -- assets/models [--preview <png>]
+    blender -b -P tools/blender/build_rocks.py -- assets/models/Rocks [--preview <png>]
 Live Blender (e.g. through the Blender MCP): exec this file with a
 `__name__` other than "__main__" and call `showcase()`; it builds every shape
 in its own "Rocks" scene and leaves the user's other scenes alone.
 
 Output:
-    assets/models/Rocks.fbx          every shape, each under an empty named
-                                     after its template (import once in Studio)
-    assets/models/rocks/<Shape>.fbx  the same shapes one per file (fallback)
+    assets/models/Rocks/Rocks.fbx           every shape, each under an empty
+                                            named after its template (import
+                                            once in Studio)
+    assets/models/Rocks/Shapes/<Shape>.fbx  the same shapes one per file
 
 Mesh names are "<Shape>_<Role>". The role is the contract with
 src/shared/Util/Models/Assets.luau, which colours each part from the rock's
@@ -21,6 +22,8 @@ colour (see ROLE_TINTS below; FIXED roles keep one colour on every rock):
     Band      lighter stripes            Cap      the rock's colour (mushrooms)
     Jelly     the rock's colour, see-through
     Moss      the rock's colour (moss on a grey Stone)
+    Ore       the rock's colour, metallic (ore veins/nuggets in a grey Stone)
+    Gem       the rock's colour, glassy (gem crystals)
     Stone / Stem / Frosting / Sprinkles / Cherry / Stick / Shine / Gold: FIXED
 Which rock uses which shape (and which wear the Crown) is
 src/shared/Config/RockLooks.luau. Every shape is about 2 units across and
@@ -67,6 +70,8 @@ ROLE_TINTS = {
     "Cap": (lambda c: c, 0.6),
     "Jelly": (lambda c: c, 0.15),
     "Moss": (lambda c: c, 0.95),
+    "Ore": (lambda c: c, 0.35),
+    "Gem": (lambda c: c, 0.05),
 }
 FIXED = {
     "Root": srgb(128, 128, 128),
@@ -80,6 +85,10 @@ FIXED = {
     "Gold": srgb(255, 195, 45),
 }
 
+# Fixed roles that aren't plain matte (props add Steel, Iron, Rubber...).
+ROUGH = {"Gold": 0.2, "Steel": 0.25, "Iron": 0.45, "Rubber": 0.9, "Wood": 0.7}
+METAL = {"Gold": 1.0, "Steel": 1.0, "Iron": 0.6}
+
 
 def material(role, rgb):
     name = f"Rock{role}" if role in FIXED else f"Rock{role}_{'%.3f%.3f%.3f' % rgb}"
@@ -90,8 +99,8 @@ def material(role, rgb):
     mat.use_nodes = True
     bsdf = next(n for n in mat.node_tree.nodes if n.type == "BSDF_PRINCIPLED")
     if role in FIXED:
-        tint, rough = FIXED[role], (0.2 if role == "Gold" else 0.6)
-        metal = 1.0 if role == "Gold" else 0.0
+        tint, rough = FIXED[role], ROUGH.get(role, 0.6)
+        metal = METAL.get(role, 0.0)
     else:
         fn, rough = ROLE_TINTS[role]
         tint, metal = fn(rgb), 0.0
@@ -104,6 +113,11 @@ def material(role, rgb):
         bsdf.inputs["Emission Strength"].default_value = 0.6
     if role == "Jelly":
         bsdf.inputs["Transmission Weight"].default_value = 0.5
+    if role == "Ore":
+        bsdf.inputs["Metallic"].default_value = 0.7
+    if role == "Gem":
+        bsdf.inputs["Transmission Weight"].default_value = 0.6
+        bsdf.inputs["Coat Weight"].default_value = 1.0
     return mat
 
 
@@ -336,10 +350,28 @@ def s_rock(p, rng):
     rock(p["Shade"], rng, subdiv=4, rough=0.08, cuts=8, cut=0.2, at=(-0.1, 0.15, -0.36), scale=(0.95, 0.85, 0.5))
 
 
-@shape("RockPebble", smooth=("Body",))
+@shape("RockPebble", smooth=("Body", "Band", "Spots"))
 def s_pebble(p, rng):
-    """Smooth, flat, slightly wobbly pebble."""
-    rock(p["Body"], rng, rough=0.035, freq=1.0, cuts=0, scale=(1.25, 0.95, 0.55))
+    """A real beach pebble: lopsided and water-worn (soft facets rounded
+    off, one end fatter, a flatter belly), speckled, with a pale quartz vein."""
+    body = p["Body"]
+    verts = rock(body, rng, subdiv=5, rough=0.05, freq=0.9, cuts=7, cut=0.16)
+    # Wear the chiselled facets smooth.
+    for _ in range(14):
+        bmesh.ops.smooth_vert(body, verts=verts, factor=0.6, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+    for v in verts:
+        x, y, z = v.co
+        # Egg taper along X, flat belly, slight twist.
+        taper = 1.0 + 0.22 * x
+        bend = 0.12 * (1 - y * y)
+        v.co = Vector((x * 1.3, y * 0.92 * taper + 0.1 * x * x, (z * 0.66 if z > 0 else z * 0.4) * taper + bend * x))
+    coat(p["Band"], body, band((0.55, 0.25, 1), 0.04, 0.075, soft=0.6), lift=0.006, sink=0.02)
+    # Speckles: little flat flecks pressed into the surface.
+    surf = Surface(body)
+    for _ in range(34):
+        loc, n = surf.hit(rand_dir(rng, up=0.4))
+        s = rng.uniform(0.025, 0.055)
+        ellipsoid(p["Spots"], loc - n * 0.004, (s, s * rng.uniform(0.6, 1), 0.012), aim(n, rng.uniform(0, 3)), subdiv=2)
 
 
 @shape("RockRiver", smooth=("Body", "Band"))
@@ -623,6 +655,79 @@ def s_phoenix(p, rng):
         crystal(p["Glow"], 0.05, 0.08, loc - n * 0.04, n, chamfer=0)
 
 
+# --- ores (the Stone Valley ladder: Coal .. Diamond) ---
+
+
+def ore_stone(p, rng, scale=(1.1, 1.0, 0.85)):
+    stone = p["Stone"]
+    rock(stone, rng, rough=0.09, cuts=12, cut=0.2, scale=scale)
+    return stone
+
+
+def nuggets(p, surf, rng, count, size):
+    for _ in range(count):
+        loc, n = surf.hit(rand_dir(rng, up=0.3))
+        s = size * rng.uniform(0.7, 1.3)
+        rock(p["Ore"], rng, subdiv=3, rough=0.15, cuts=4, cut=0.25, at=tuple(loc + n * s * 0.1), scale=(s, s * 0.9, s * 0.7), rot=(rng.uniform(0, 3), rng.uniform(0, 3), rng.uniform(0, 3)))
+
+
+def gems(p, surf, rng, pockets, per, length):
+    """Gem crystals in clusters ("pockets") growing out of the stone."""
+    for _ in range(pockets):
+        loc, n = surf.hit(rand_dir(rng, up=0.8))
+        for k in range(per):
+            d = (n + rand_dir(rng) * 0.45).normalized()
+            r = length * rng.uniform(0.18, 0.26) * (1.25 if k == 0 else 1)
+            h = length * rng.uniform(0.55, 1.0) * (1.3 if k == 0 else 1)
+            crystal(p["Gem"], r, h, loc - n * 0.08 + rand_dir(rng) * 0.06, d, spin=rng.uniform(0, 1), chamfer=0.05)
+
+
+@shape("RockOre", smooth=("Ore",))
+def s_ore(p, rng):
+    """Grey stone flecked with ore: blotchy patches + small nuggets (Coal, Copper, Iron)."""
+    stone = ore_stone(p, rng)
+    off = Vector((rng.uniform(-50, 50), 9, 1))
+    coat(p["Ore"], stone, lambda co, n: smoothstep(0.32, 0.42, mnoise.noise(co * 3.2 + off)), lift=0.035, sink=0.03)
+    nuggets(p, Surface(stone), rng, 9, 0.13)
+
+
+@shape("RockOreRich", smooth=("Ore",))
+def s_ore_rich(p, rng):
+    """Stone cracked open by thick shining veins with fat nuggets (Silver, Gold)."""
+    stone = ore_stone(p, rng, scale=(1.15, 1.0, 0.9))
+    off = Vector((rng.uniform(-50, 50), 3, 8))
+
+    def veins(co, _n):
+        # Ridged noise: thin wandering lines where the noise crosses zero.
+        return max(smoothstep(0.1, 0.03, abs(mnoise.noise(co * 1.6 + off))), smoothstep(0.3, 0.4, mnoise.noise(co * 2.6 - off)))
+
+    coat(p["Ore"], stone, veins, lift=0.05, sink=0.03)
+    nuggets(p, Surface(stone), rng, 7, 0.22)
+
+
+@shape("RockGemOre", smooth=())
+def s_gem_ore(p, rng):
+    """Stone with gem crystal clusters bursting out of it (Emerald, Ruby)."""
+    stone = ore_stone(p, rng)
+    gems(p, Surface(stone), rng, 5, 5, 0.8)
+
+
+@shape("RockGemCluster", smooth=("Glow",))
+def s_gem_cluster(p, rng):
+    """A crown of big gem crystals on a stone base, glowing at the heart (Diamond)."""
+    stone = p["Stone"]
+    rock(stone, rng, rough=0.08, cuts=10, cut=0.2, at=(0, 0, -0.45), scale=(1.15, 1.05, 0.55))
+    crystal(p["Gem"], 0.32, 1.0, (0, 0, -0.3), (0.05, 0.02, 1), spin=0.3, chamfer=0.05)
+    for k in range(9):
+        a = k / 9 * math.tau + rng.uniform(-0.2, 0.2)
+        tilt = rng.uniform(0.35, 0.75)
+        d = Vector((math.cos(a) * tilt, math.sin(a) * tilt, 1))
+        base = Vector((math.cos(a) * 0.3, math.sin(a) * 0.3, -0.3))
+        r = rng.uniform(0.14, 0.22)
+        crystal(p["Gem"], r, rng.uniform(0.45, 0.8), base, d, spin=rng.uniform(0, 1), chamfer=0.05)
+    ellipsoid(p["Glow"], (0, 0, -0.12), (0.35, 0.35, 0.18))
+
+
 @shape("Crown")
 def s_crown(p, rng):
     """Gold crown the King rocks wear (placed on top by Models.rock)."""
@@ -690,7 +795,7 @@ def build(name, rgb, collection, seed=None):
         if role in SMOOTH[name]:
             for f in bm.faces:
                 f.smooth = True
-        elif role in ("Crystal", "Gold"):
+        elif role in ("Crystal", "Gold", "Gem"):
             for f in bm.faces:
                 f.smooth = False
         else:
@@ -726,11 +831,15 @@ SAMPLES = {
     "RockMoon": srgb(230, 230, 240),
     "RockComet": srgb(110, 200, 255),
     "RockGalaxy": srgb(60, 40, 160),
+    "RockOre": srgb(215, 120, 65),
+    "RockOreRich": srgb(255, 200, 50),
+    "RockGemOre": srgb(40, 210, 110),
+    "RockGemCluster": srgb(120, 230, 255),
     "Crown": srgb(255, 230, 90),
 }
 
 
-def lineup(collection, per_row=6, spacing=3.2):
+def lineup(collection, per_row=8, spacing=3.2):
     """Every shape in a grid, sitting on z=0. Returns the empties."""
     empties = []
     names = list(SAMPLES)
@@ -755,7 +864,7 @@ def stage(scene, path=None):
     scene.collection.objects.link(ground)
     cam = bpy.data.objects.new("RockCam", bpy.data.cameras.new("RockCam"))
     scene.collection.objects.link(cam)
-    cam.location = (0, -21, 15)
+    cam.location = (0, -27, 19)
     cam.rotation_euler = (math.radians(55), 0, 0)
     cam.data.lens = 38
     scene.camera = cam
@@ -812,11 +921,11 @@ def export(path):
 def main():
     args = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else sys.argv[1:]
     out = args[0]
-    os.makedirs(f"{out}/rocks", exist_ok=True)
+    os.makedirs(f"{out}/Shapes", exist_ok=True)
     for name in SAMPLES:
         bpy.ops.wm.read_factory_settings(use_empty=True)
         build(name, SAMPLES[name], bpy.context.scene.collection)
-        export(f"{out}/rocks/{name}.fbx")
+        export(f"{out}/Shapes/{name}.fbx")
     bpy.ops.wm.read_factory_settings(use_empty=True)
     scene = bpy.context.scene
     lineup(scene.collection)

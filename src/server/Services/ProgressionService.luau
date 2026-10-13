@@ -8,6 +8,7 @@ local Codes = require(Shared.Config.Codes)
 local Net = require(Shared.Net)
 
 local DataService = require(script.Parent.DataService)
+local Rewards = require(script.Parent.Parent.Rewards)
 local Remotes = require(script.Parent.Parent.Remotes)
 
 local ProgressionService = {}
@@ -68,6 +69,9 @@ local function redeemCode(player: Player, input: unknown): (boolean, string)
 	data.codes[code] = true
 	data.wins += reward.wins or 0
 	data.hops += reward.hops or 0
+	if reward.rock then
+		Rewards.grant(data, { kind = "frog", id = reward.rock })
+	end
 	DataService.changed(player)
 	return true, "Code redeemed!"
 end

@@ -44,3 +44,42 @@ t.test("unknown rocks fall back to the plain rock", function()
 	t.equal(RockLooks.shapeFor(nil), "Rock")
 	t.equal(RockLooks.shapeFor("Nope"), "Rock")
 end)
+
+local Codes = require("@shared/Config/Codes")
+local DailyRewards = require("@shared/Config/DailyRewards")
+local Gifts = require("@shared/Config/Gifts")
+
+local function earnedRock(id: string, from: string)
+	local rock = Frogs.ById[id]
+	assert(rock, `{from} gives unknown rock {id}`)
+	assert(rock.rewardOnly or rock.robuxOnly, `{from} gives {id}, which is also sold`)
+end
+
+t.test("rock rewards point at earn-only rocks", function()
+	for code, reward in Codes do
+		if reward.rock then
+			earnedRock(reward.rock, `code {code}`)
+		end
+	end
+	for day, reward in DailyRewards.Days do
+		if reward.kind == "frog" then
+			earnedRock(reward.id, `daily day {day}`)
+		end
+	end
+	for i, gift in Gifts.List do
+		if gift.reward.kind == "frog" then
+			earnedRock(gift.reward.id :: string, `gift {i}`)
+		end
+	end
+end)
+
+t.test("podium-less rocks are earned and stay off the podiums", function()
+	for _, rock in Frogs.List do
+		if rock.noPodium then
+			assert(rock.rewardOnly, `{rock.id} has no podium and no way to get it`)
+			for _, onPodium in Frogs.forWorld(rock.world or "Lily") do
+				assert(onPodium.id ~= rock.id, `{rock.id} is on a podium`)
+			end
+		end
+	end
+end)

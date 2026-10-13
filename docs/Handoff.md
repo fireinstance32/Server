@@ -64,10 +64,10 @@ GIT_AUTHOR_NAME=Claude GIT_AUTHOR_EMAIL=noreply@anthropic.com GIT_COMMITTER_NAME
 
 ## Blender (live)
 - The Blender MCP server is registered for this project (`.mcp.json`) and the add-on is installed. Blender must be open with the add-on connected; tools are `mcp__blender__*` (`execute_blender_code`, `look`, `get_scene_info`).
-- Rock models: `tools/blender/build_rocks.py` (19 shapes + Crown). Live: `exec` it with a non-main `__name__` and call `showcase()` → "Rocks" scene. Headless rebuild + export: see [[Art Pipeline#Rocks (Rock Pivot stage 4)]].
+- Models: `tools/blender/build_rocks.py` (23 rock shapes + Crown) and `build_props.py` (gym/world props); everything exported under `assets/models/` (index: `assets/models/README.md`). Live: `exec` it with a non-main `__name__` and call `showcase()` → "Rocks" scene. Headless rebuild + export: see [[Art Pipeline#Rocks (Rock Pivot stage 4)]].
 - Rock → shape map: `Config/RockLooks.luau`. Rock pictures: `tools/blender/render_rocks.py` → `pack_icons.py ... rock_ frogs FrogIconAtlas 128 8` → upload (port 34901 may be taken by an old server; 34902 worked).
 
 ## Next task
-1. **The user imports `assets/models/Rocks.fbx`** into `ReplicatedStorage.Assets` as `Rocks` ([[Art Pipeline]] → Importing the rocks), then checks [[Phase 6 Playtest]] → 6.1 Rocks. Check in Studio: held rock size/grip, crowns sit on top, Neon glow parts.
-2. Rest of stage 4: gyms and the throwing field map, then real lift/throw animations.
+1. **The user imports `assets/models/Rocks/Rocks.fbx` (as `Assets.Rocks`) and `assets/models/Props/Props.fbx` (as `Assets.Props`)** ([[Art Pipeline]]); auto-import isn't possible. Then Claude can check them through Studio MCP and the user runs [[Phase 6 Playtest]] → 6.1 Rocks / Lift + rock effects / Props. Check: held rock grip, prop placement (`Parts.prop` sits each prop's bounding box on the floor), arch facing.
+2. Rest of stage 4: the throwing field map (the gyms still sit on the old pond water).
 3. A rock icon to replace `gem` in the HUD/menus (Gvesster pack first, per CLAUDE.md).

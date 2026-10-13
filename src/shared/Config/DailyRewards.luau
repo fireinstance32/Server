@@ -13,7 +13,7 @@ local Days: { Reward } = {
 	{ kind = "potion", id = "Hops", amount = 1, label = "1 Strength Boost" },
 	{ kind = "pet", id = "FortuneNeko", label = "Fortune Neko" },
 	{ kind = "potion", id = "Wins", amount = 1, label = "1 Wins Boost" },
-	{ kind = "potion", id = "Luck", amount = 2, label = "2 Luck Boosts" },
+	{ kind = "frog", id = "Nugget", label = "Gold Nugget (Limited!)" },
 	{ kind = "potion", id = "Hops", amount = 3, label = "3 Strength Boosts" },
 	{ kind = "potion", id = "Wins", amount = 3, label = "3 Wins Boosts" },
 	{ kind = "frog", id = "ShootingStar", label = "Meteorite (Limited!)" },

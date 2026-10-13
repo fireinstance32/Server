@@ -11,7 +11,7 @@ UiImages.Ids = {
 	icons3 = 137541970315843,
 	studs = 111592566563956, -- studs.png: tiling brick-stud texture for panels
 	pets = 107708070810178, -- pets.png: every pet's picture (layout in Config/PetIconAtlas)
-	frogs = 89161103834414, -- frogs.png: every rock's picture (layout in Config/FrogIconAtlas)
+	frogs = 81136670797846, -- frogs.png: every rock's picture (layout in Config/FrogIconAtlas)
 } :: { [string]: number }
 
 -- Emoji shown until the icon sheet is uploaded.

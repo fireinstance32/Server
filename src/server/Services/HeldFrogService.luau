@@ -49,6 +49,9 @@ local function attach(player: Player, frogId: string)
 	local def = Frogs.ById[frogId] or Frogs.ById[Frogs.Default]
 	local model = Models.rock(def.color, HELD_SCALE, def.id, def.ultimate)
 	model.Name = MODEL_NAME
+	-- Clients add the rock's effects to tagged rocks (Effects/RockAura).
+	model:SetAttribute("RockId", def.id)
+	model:AddTag("RockAura")
 	for _, part in model:GetDescendants() do
 		if part:IsA("BasePart") then
 			part.Anchored = false

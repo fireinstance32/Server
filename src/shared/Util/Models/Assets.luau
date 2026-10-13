@@ -1,6 +1,6 @@
 --!strict
--- Imported Blender models (tools/blender/build_models.py and build_rocks.py
--- → assets/models/*.fbx → Studio 3D Importer → ReplicatedStorage.Assets).
+-- Imported Blender models (tools/blender/build_models.py, build_rocks.py and
+-- build_props.py → assets/models/**/*.fbx → Studio 3D Importer → ReplicatedStorage.Assets).
 -- Each is cloned, recoloured by part role, scaled and welded to its root.
 -- A part's role is its name, or the part after the last "_" (the rock
 -- models name parts "<Shape>_<Role>", e.g. RockLava_Glow).
@@ -66,6 +66,12 @@ local TINTS: { [string]: (Color3) -> Color3 } = {
 	Stick = fixed(200, 160, 110),
 	Shine = fixed(255, 255, 255),
 	Gold = fixed(255, 195, 45),
+	-- Props (build_props.py)
+	Wood = fixed(176, 124, 78),
+	Rubber = fixed(42, 42, 48),
+	Steel = fixed(188, 194, 204),
+	Iron = fixed(70, 72, 82),
+	Chalk = fixed(246, 246, 240),
 }
 
 -- Surface looks per role (everything else is SmoothPlastic).
@@ -76,6 +82,10 @@ local LOOKS: { [string]: { material: Enum.Material?, reflectance: number?, trans
 	Gold = { material = Enum.Material.Metal, reflectance = 0.25 },
 	Jelly = { transparency = 0.2, reflectance = 0.1 },
 	Shine = { material = Enum.Material.Neon },
+	Wood = { material = Enum.Material.WoodPlanks },
+	Steel = { material = Enum.Material.Metal, reflectance = 0.3 },
+	Iron = { material = Enum.Material.Metal },
+	Rubber = { material = Enum.Material.Rubber },
 }
 
 local function roleOf(name: string): string
@@ -83,16 +93,19 @@ local function roleOf(name: string): string
 end
 
 -- The imported template, or nil if it hasn't been imported yet. Looks in
--- Assets and in Assets.Rocks (the combined Rocks.fbx import).
+-- Assets and in Assets.Rocks / Assets.Props (the combined Rocks.fbx and
+-- Props.fbx imports).
 function Assets.template(name: string): Model?
 	local folder = ReplicatedStorage:FindFirstChild("Assets")
 	if not folder then
 		return nil
 	end
 	local template = folder:FindFirstChild(name)
-	local rocks = folder:FindFirstChild("Rocks")
-	if not template and rocks then
-		template = rocks:FindFirstChild(name)
+	for _, group in { "Rocks", "Props" } do
+		local sub = folder:FindFirstChild(group)
+		if not template and sub then
+			template = sub:FindFirstChild(name)
+		end
 	end
 	return if template and template:IsA("Model") then template else nil
 end

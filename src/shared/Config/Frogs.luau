@@ -15,19 +15,21 @@ export type Frog = {
 	rewardOnly: string?, -- can't be bought; how to get it (shown on the podium)
 	world: string?, -- world whose podiums sell it (nil = Lily Valley)
 	ultimate: boolean?, -- river hops play the ultimate cut-in (cosmetic)
+	noPodium: boolean?, -- earned only; not shown on a podium
 }
 
 local Frogs: { Frog } = {
-	{ id = "Baby", name = "Pebble", price = 0, perBounce = 1, color = Color3.fromRGB(150, 150, 155) },
-	{ id = "Leaf", name = "Mossy Stone", price = 2, perBounce = 2, color = Color3.fromRGB(105, 140, 85) },
-	{ id = "Mud", name = "Clay Rock", price = 10, perBounce = 4, color = Color3.fromRGB(170, 110, 70) },
-	{ id = "Pond", name = "River Stone", price = 40, perBounce = 8, color = Color3.fromRGB(95, 130, 150) },
-	{ id = "Tree", name = "Granite", price = 150, perBounce = 15, color = Color3.fromRGB(185, 160, 155) },
-	{ id = "Dart", name = "Toxic Rock", price = 500, perBounce = 30, color = Color3.fromRGB(120, 220, 60) },
-	{ id = "Bull", name = "Boulder", price = 1500, perBounce = 60, color = Color3.fromRGB(115, 105, 95) },
-	{ id = "Golden", name = "Gold Nugget", price = 4500, perBounce = 120, color = Color3.fromRGB(255, 200, 40) },
-	{ id = "Ninja", name = "Shadow Rock", price = 14000, perBounce = 250, color = Color3.fromRGB(55, 45, 75) },
-	{ id = "Royal", name = "Royal Gem", price = 40000, perBounce = 500, color = Color3.fromRGB(170, 70, 220) },
+	-- The ore ladder (ids kept from the old frog list so saves work).
+	{ id = "Baby", name = "Pebble", price = 0, perBounce = 1, color = Color3.fromRGB(165, 160, 150) },
+	{ id = "Leaf", name = "Stone", price = 2, perBounce = 2, color = Color3.fromRGB(140, 140, 145) },
+	{ id = "Mud", name = "Coal", price = 10, perBounce = 4, color = Color3.fromRGB(40, 40, 45) },
+	{ id = "Pond", name = "Copper", price = 40, perBounce = 8, color = Color3.fromRGB(215, 120, 65) },
+	{ id = "Tree", name = "Iron", price = 150, perBounce = 15, color = Color3.fromRGB(220, 190, 170) },
+	{ id = "Dart", name = "Silver", price = 500, perBounce = 30, color = Color3.fromRGB(210, 215, 225) },
+	{ id = "Bull", name = "Gold", price = 1500, perBounce = 60, color = Color3.fromRGB(255, 200, 50) },
+	{ id = "Golden", name = "Emerald", price = 4500, perBounce = 120, color = Color3.fromRGB(40, 210, 110) },
+	{ id = "Ninja", name = "Ruby", price = 14000, perBounce = 250, color = Color3.fromRGB(230, 30, 70) },
+	{ id = "Royal", name = "Diamond", price = 40000, perBounce = 500, color = Color3.fromRGB(120, 230, 255) },
 	{
 		id = "ShootingStar",
 		name = "Meteorite",
@@ -46,6 +48,15 @@ local Frogs: { Frog } = {
 		robuxOnly = true,
 		ultimate = true,
 	},
+	-- Unique rocks you can only earn (codes, quests, gifts, daily). No podium:
+	-- they show in the Rocks tab with how to get them.
+	{ id = "Mossy", name = "Mossy Stone", price = 0, perBounce = 5, color = Color3.fromRGB(105, 140, 85), rewardOnly = "Code: MOSSY", noPodium = true },
+	{ id = "Toxic", name = "Toxic Rock", price = 0, perBounce = 20, color = Color3.fromRGB(120, 220, 60), rewardOnly = "Code: SLIME", noPodium = true },
+	{ id = "RoyalGem", name = "Royal Gem", price = 0, perBounce = 40, color = Color3.fromRGB(170, 70, 220), rewardOnly = "Code: ROYAL", noPodium = true },
+	{ id = "River", name = "River Stone", price = 0, perBounce = 35, color = Color3.fromRGB(95, 130, 150), rewardOnly = "Quest: Level 20", noPodium = true },
+	{ id = "Nugget", name = "Gold Nugget", price = 0, perBounce = 45, color = Color3.fromRGB(255, 200, 40), rewardOnly = "Daily Day 4", noPodium = true },
+	{ id = "Boulder", name = "Boulder", price = 0, perBounce = 50, color = Color3.fromRGB(115, 105, 95), rewardOnly = "45 min gift", noPodium = true },
+	{ id = "Shadow", name = "Shadow Rock", price = 0, perBounce = 80, color = Color3.fromRGB(55, 45, 75), rewardOnly = "Quest: Rebirth", noPodium = true },
 }
 
 -- Frogs for Worlds 2–5 live in WorldContent/<World>.luau.
@@ -68,11 +79,11 @@ local PodiumRowZ = -120
 local PodiumStartX = -235
 local PodiumSpacing = 20
 
--- Frogs sold in a world, in podium order.
+-- Rocks on a world's podiums, in podium order.
 local function forWorld(worldId: string): { Frog }
 	local list = {}
 	for _, frog in Frogs do
-		if (frog.world or "Lily") == worldId then
+		if (frog.world or "Lily") == worldId and not frog.noPodium then
 			table.insert(list, frog)
 		end
 	end

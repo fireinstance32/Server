@@ -38,6 +38,21 @@ status: in progress
 - [ ] The rock in your hand: right size, sits in the palm, no invisible-part gaps; thrown rock tumbles and hides/returns as before
 - [ ] Rocks tab and Daily Day 7 show rock pictures (not frogs)
 - [ ] Removing `Assets.Rocks` brings back the part-built rocks (fallback works)
+- [ ] Stone Valley podiums go Pebble → Stone → Coal → Copper → Iron → Silver → Gold → Emerald → Ruby → Diamond (ore nuggets, then veins, then gems, then a diamond cluster); Pebble is a smooth lopsided pebble with a light vein
+- [ ] Reward rocks are not on podiums; codes MOSSY / SLIME / ROYAL give Mossy Stone / Toxic Rock / Royal Gem; tooltip says "Only from …"
+
+## 6.1 Lift + rock effects
+- [ ] Train in a gym: each rep squats with the rock at the shoulder, drives it overhead (arms straight), flexes the other arm, then relaxes; works on R15 and R6
+- [ ] At the squat: dust at the feet, motes rush into the rock; at the top: flash, rings, sparks, stars, light pop, small camera punch. Stronger rocks = bigger. Not blinding with auto-lift
+- [ ] Every rock (in hand and on podiums) has its aura: glints; lava embers, phoenix flames, toxic bubbles, rune wisps, gem twinkles…; comets orbit strong rocks, a halo on the strongest
+- [ ] Settings → effects off removes the particles (the pose stays)
+- [ ] Throw: wind-up and swing look right, rock leaves the hand
+
+## 6.1 Props (Blender)
+- [ ] `ReplicatedStorage.Assets.Props` holds LiftPlatform, Dumbbell, Kettlebell, Bench, BarbellRack, PlateTree, WeightPile, Podium, PortalArch, Trophy
+- [ ] Each gym: lifting platform on the stand pad (frame in the gym colour), rack, bench, plate tree, dumbbells, kettlebell, weight pile; nothing blocks walking onto the pad; training still works on the platform
+- [ ] Rock podiums are stone with gold trim and a glow ring in the rock's colour; the rock floats above; Buy prompt works
+- [ ] Portals are stone arches with a glowing rune in the target world's colour; Travel prompt works; you can't walk through the pillars
 
 ## 6.1 Models (Blender frog/egg)
 - [ ] `ReplicatedStorage.Assets` has `Frog`, `Pet`, `Egg`

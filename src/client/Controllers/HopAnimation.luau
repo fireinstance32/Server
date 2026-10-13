@@ -27,6 +27,7 @@ local FollowCamera = require(script.Parent.FollowCamera)
 local WorldFx = require(script.Parent.Parent.Effects.World)
 local ScreenFx = require(script.Parent.Parent.Effects.Screen)
 local Ultimate = require(script.Parent.Parent.Effects.Ultimate)
+local RockAura = require(script.Parent.Parent.Effects.RockAura)
 
 local HopAnimation = {}
 
@@ -67,6 +68,7 @@ local function spawnFrog(): Model
 	local frog = Models.rock(def.color, 2.4, def.id, def.ultimate)
 	frog.Parent = Workspace
 	attachTrail(frog)
+	RockAura.attach(frog, def.id)
 	return frog
 end
 
@@ -93,7 +95,8 @@ end
 
 -- Training in a gym: one lift of the held rock with a +Strength pop at the top.
 function HopAnimation.playTraining(result)
-	LiftAnimation.play(player.Character, Game.TrainingCooldown * 0.9)
+	local def = Frogs.ById[State.data and State.data.equippedFrog or Frogs.Default] or Frogs.ById[Frogs.Default]
+	LiftAnimation.play(player.Character, Game.TrainingCooldown * 0.9, def.color, def.perBounce)
 	Hud.floatText(`+{Format.abbreviate(result.hopsGained)}`, Theme.Colors.Green)
 end
 

@@ -1,5 +1,9 @@
 -- Shared helpers and palette for the world generator.
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Assets = require(ReplicatedStorage:WaitForChild("Shared").Util.Models.Assets)
+
 local Parts = {}
 
 Parts.GroundTop = 0.5 -- Y of the plaza and river bank surfaces
@@ -23,6 +27,39 @@ function Parts.block(name: string, size: Vector3, cframe: CFrame, color: Color3,
 	p.BottomSurface = Enum.SurfaceType.Smooth
 	p.Parent = parent
 	return p
+end
+
+-- An imported Blender prop (assets/models/Props, see Models/Assets) coloured
+-- from `color`, `width` studs across, standing on `cframe` (its bottom centre;
+-- the rotation turns it). Purely visual: no collisions. Nil until the props
+-- are imported, so callers keep their plain-part look as the fallback.
+function Parts.prop(name: string, color: Color3, width: number, cframe: CFrame, parent: Instance): Model?
+	local template = Assets.template(name)
+	local model = template and Assets.build(template, "Root", color, width)
+	if not model then
+		return nil
+	end
+	model:PivotTo(cframe)
+	-- Sit its world bounding box on the cframe's point.
+	local low, high = Vector3.one * math.huge, -Vector3.one * math.huge
+	for _, part in model:GetDescendants() do
+		if part:IsA("BasePart") and part.Transparency < 1 then
+			local half = part.Size / 2
+			local r = part.CFrame
+			local extent = Vector3.new(
+				math.abs(r.XVector.X) * half.X + math.abs(r.YVector.X) * half.Y + math.abs(r.ZVector.X) * half.Z,
+				math.abs(r.XVector.Y) * half.X + math.abs(r.YVector.Y) * half.Y + math.abs(r.ZVector.Y) * half.Z,
+				math.abs(r.XVector.Z) * half.X + math.abs(r.YVector.Z) * half.Y + math.abs(r.ZVector.Z) * half.Z
+			)
+			low = low:Min(r.Position - extent)
+			high = high:Max(r.Position + extent)
+		end
+	end
+	local at = cframe.Position
+	model:TranslateBy(Vector3.new(at.X - (low.X + high.X) / 2, at.Y - low.Y, at.Z - (low.Z + high.Z) / 2))
+	model.Name = name
+	model.Parent = parent
+	return model
 end
 
 function Parts.sign(parent: BasePart, title: string, subtitle: string?, color: Color3?)

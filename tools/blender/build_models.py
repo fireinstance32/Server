@@ -3,7 +3,8 @@
 Run (any machine with Blender's Python module, or `blender -b -P`):
     python tools/blender/build_models.py <out_dir> [--preview <png>]
 
-Writes Frog.fbx, Pet.fbx, Egg.fbx. Each model is several meshes whose
+Writes Pets/Pet.fbx, Eggs/Egg.fbx and Legacy/Frog.fbx (the frog is from
+before the Rock Pivot; nothing uses it now). Each model is several meshes whose
 object names are the contract with src/shared/Util/Models (the game
 recolours them per frog/pet):
     Frog: Body, Belly, Foot (tinted from the frog colour), Eye, Pupil, Mouth
@@ -14,6 +15,7 @@ matching the part-built placeholders.
 """
 
 import math
+import os
 import sys
 
 import bpy
@@ -231,13 +233,14 @@ def preview(path):
 def main():
     args = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else sys.argv[1:]
     out = args[0]
-    for name, build, color in [
-        ("Frog", frog, srgb(120, 200, 90)),
-        ("Pet", pet, srgb(220, 170, 120)),
-        ("Egg", egg, srgb(245, 245, 245)),
+    for folder, name, build, color in [
+        ("Legacy", "Frog", frog, srgb(120, 200, 90)),
+        ("Pets", "Pet", pet, srgb(220, 170, 120)),
+        ("Eggs", "Egg", egg, srgb(245, 245, 245)),
     ]:
         clear()
-        export(build(color), f"{out}/{name}.fbx")
+        os.makedirs(f"{out}/{folder}", exist_ok=True)
+        export(build(color), f"{out}/{folder}/{name}.fbx")
     if "--preview" in args:
         preview(args[args.index("--preview") + 1])
 

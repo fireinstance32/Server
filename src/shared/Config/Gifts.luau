@@ -17,7 +17,7 @@ local List: { Gift } = {
 	{ minutes = 16, reward = { kind = "egg", id = "Uncommon" }, label = "Uncommon Egg", icon = "🥚" },
 	{ minutes = 20, reward = { kind = "potion", id = "Luck", amount = 1 }, label = "1 Luck Boost", icon = "🍀" },
 	{ minutes = 25, reward = { kind = "wins", amount = 5000 }, label = "+5K Wins", icon = "🏆" },
-	{ minutes = 45, reward = { kind = "hops", amount = 50000 }, label = "+50K Strength", icon = "⚡" },
+	{ minutes = 45, reward = { kind = "frog", id = "Boulder" }, label = "Boulder rock", icon = "🪨" },
 	{ minutes = 65, reward = { kind = "egg", id = "Rare" }, label = "Rare Egg", icon = "🥚" },
 }
 

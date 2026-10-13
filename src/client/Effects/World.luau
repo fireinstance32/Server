@@ -1,62 +1,17 @@
--- 3D effects in the world (client only, cosmetic): water splashes on lily
--- pads, the landing burst, sparkles around a character. Built-in Roblox
--- particle textures, so nothing needs uploading.
-
-local Debris = game:GetService("Debris")
-local TweenService = game:GetService("TweenService")
-local Workspace = game:GetService("Workspace")
+-- 3D effects in the world (client only, cosmetic): splashes where the rock
+-- bounces, the landing burst, sparkles around a character.
 
 local Settings = require(script.Parent.Parent.Settings)
+local Kit = require(script.Parent.Kit)
 
 local World = {}
 
-local SPARKLE = "rbxasset://textures/particles/sparkles_main.dds"
-local SMOKE = "rbxasset://textures/particles/smoke_main.dds"
-
--- An invisible anchor part holding emitters, cleaned up after `life`.
-local function anchor(position: Vector3, life: number): Part
-	local part = Instance.new("Part")
-	part.Anchored = true
-	part.CanCollide = false
-	part.CanQuery = false
-	part.CanTouch = false
-	part.Transparency = 1
-	part.Size = Vector3.new(0.2, 0.2, 0.2)
-	part.CFrame = CFrame.new(position)
-	part.Parent = Workspace
-	Debris:AddItem(part, life)
-	return part
-end
-
-local function emitter(parent: Instance, props: { [string]: any }): ParticleEmitter
-	local e = Instance.new("ParticleEmitter")
-	e.Enabled = false
-	e.LightEmission = 0.3
-	for key, value in props do
-		(e :: any)[key] = value
-	end
-	e.Parent = parent
-	return e
-end
+local SPARKLE = Kit.Textures.Sparkle
+local SMOKE = Kit.Textures.Smoke
+local anchor, emitter = Kit.anchor, Kit.emitter
 
 local function ring(position: Vector3, color: Color3, from: number, to: number, time: number)
-	local part = Instance.new("Part")
-	part.Anchored = true
-	part.CanCollide = false
-	part.CanQuery = false
-	part.CanTouch = false
-	part.Shape = Enum.PartType.Cylinder
-	part.Material = Enum.Material.Neon
-	part.Color = color
-	part.Transparency = 0.3
-	part.Size = Vector3.new(0.2, from, from)
-	part.CFrame = CFrame.new(position + Vector3.new(0, 0.3, 0)) * CFrame.Angles(0, 0, math.rad(90))
-	part.Parent = Workspace
-	TweenService:Create(part, TweenInfo.new(time, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-		Size = Vector3.new(0.2, to, to),
-		Transparency = 1,
-	}):Play()
-	Debris:AddItem(part, time + 0.1)
+	Kit.ring(CFrame.new(position + Vector3.new(0, 0.3, 0)), color, from, to, time)
 end
 
 -- A frog landing on a pad: ripple + a little crown of droplets.

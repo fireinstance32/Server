@@ -80,8 +80,8 @@ local List: { Quest } = {
 		where = function()
 			return Ponds.standPosition(Ponds.List[1])
 		end,
-		reward = { kind = "potion", id = "Wins", amount = 1 },
-		rewardLabel = "Wins Boost",
+		reward = { kind = "frog", id = "River" },
+		rewardLabel = "River Stone",
 	},
 	{
 		text = "Rebirth!",
@@ -89,8 +89,8 @@ local List: { Quest } = {
 		progress = function(data)
 			return data.rebirths
 		end,
-		reward = { kind = "potion", id = "Hops", amount = 2 },
-		rewardLabel = "2 Strength Boosts",
+		reward = { kind = "frog", id = "Shadow" },
+		rewardLabel = "Shadow Rock",
 	},
 }
 

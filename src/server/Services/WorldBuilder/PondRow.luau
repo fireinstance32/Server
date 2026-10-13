@@ -8,6 +8,7 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Ponds = require(Shared.Config.Ponds)
 
 local Parts = require(script.Parent.Parts)
+local GymKit = require(script.Parent.GymKit)
 
 local PondRow = {}
 
@@ -64,6 +65,7 @@ local function buildPond(pond: Ponds.Pond, folder: Folder)
 		Enum.Material.Brick
 	)
 	pad:SetAttribute("PondId", pond.id)
+	GymKit.decorate(pond, model, pad)
 
 	local anchor = Parts.block(
 		"SignAnchor",

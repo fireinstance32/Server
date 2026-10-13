@@ -1,12 +1,11 @@
 -- The hold-and-toss: turns the character to face the river, winds the right
--- arm back, then swings it forward. Procedural (moves the shoulder joint) so
--- it needs no animation asset; Phase 6 can swap in a real animation.
--- Local-only for now: other players see the rock leave the hand, not the swing.
+-- arm back, then swings it forward. Procedural (see Pose) so it needs no
+-- animation asset. Local-only: other players see the rock leave the hand.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Game = require(ReplicatedStorage:WaitForChild("Shared").Config.Game)
-local Shoulder = require(script.Parent.Shoulder)
+local Pose = require(script.Parent.Pose)
 
 local TossAnimation = {}
 
@@ -26,15 +25,17 @@ function TossAnimation.play(character: Model?)
 
 	local windup = Game.TossWindup * 0.7
 	local swing = Game.TossWindup - windup
-	if not Shoulder.tween(character, -150, windup) then
+	-- Coil: crouch, lean back, arm far behind. Then whip: rise, lunge
+	-- forward and swing through.
+	if not Pose.to(character, { shoulder = -150, elbow = 20, squat = 0.55, arch = 14, flex = 0 }, windup) then
 		task.wait(Game.TossWindup)
 		return
 	end
 	task.wait(windup)
-	Shoulder.tween(character, 70, swing, Enum.EasingStyle.Back)
+	Pose.to(character, { shoulder = 80, elbow = 0, squat = 0.15, arch = -18 }, swing, Enum.EasingStyle.Back)
 	task.wait(swing)
 	task.delay(0.25, function()
-		Shoulder.tween(character, 0, 0.2)
+		Pose.relax(character :: Model, 0.25)
 	end)
 end
 

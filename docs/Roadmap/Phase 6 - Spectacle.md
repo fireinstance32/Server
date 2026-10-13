@@ -16,7 +16,10 @@ tags: [planning, phase6]
 - [x] Crowns for the King rocks (Blender `Crown`, worn by ToadKing / CandyKing / GalaxyKing / VolcanoKing)
 - [x] **Rocks in Blender (Rock Pivot stage 4):** 19 high-quality rock shapes (`tools/blender/build_rocks.py`), each rock picks one in `Config/RockLooks` — preview: ![[Rocks Preview.png]]
 - [x] Rock pictures rendered from the models (`tools/blender/render_rocks.py` → `frogs.png`, uploaded)
-- [ ] You import `Rocks.fbx` ([[Art Pipeline]] → Importing the rocks) and check them in [[Phase 6 Playtest]]
+- [x] Ore ladder shapes (Ore, OreRich, GemOre, GemCluster) and a proper pebble
+- [x] One lift animation (squat, clean, press, flex) + lift effects (`Effects/Lift`) + rock auras (`Effects/RockAura`)
+- [x] Props in Blender (`tools/blender/build_props.py`): gym equipment, Podium, PortalArch, Trophy — preview: ![[Props Preview.png]]; used by gyms, podiums and portals (`WorldBuilder/GymKit`, `Parts.prop`)
+- [ ] You import `Rocks/Rocks.fbx` and `Props/Props.fbx` ([[Art Pipeline]]) and check them in [[Phase 6 Playtest]]
 ## 6.2 VFX 🟡
 - [x] `Effects/World`: droplet splash on every pad, landing burst (ripples, golden sparkle fountain, mist), sparkles around you on level up
 - [x] `Effects/Screen`: confetti on NEW BEST / MAX LEVEL / Epic+ hatch, colour flash on new zone and rare hatch

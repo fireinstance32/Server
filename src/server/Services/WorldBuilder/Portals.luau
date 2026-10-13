@@ -38,10 +38,18 @@ function Portals.build(world: Model, config: Worlds.World)
 			local base = Portals.position(config, target)
 			local frame = Instance.new("Model")
 			frame.Name = target.id
-			for _, side in { -1, 1 } do
-				Parts.block("Post", Vector3.new(3, 18, 3), CFrame.new(base + Vector3.new(side * 8, 9, 0)), Parts.Colors.Wood, frame)
+			local posts = {
+				Parts.block("Post", Vector3.new(3, 18, 3), CFrame.new(base + Vector3.new(-8, 9, 0)), Parts.Colors.Wood, frame),
+				Parts.block("Post", Vector3.new(3, 18, 3), CFrame.new(base + Vector3.new(8, 9, 0)), Parts.Colors.Wood, frame),
+				Parts.block("Top", Vector3.new(19, 3, 3), CFrame.new(base + Vector3.new(0, 19.5, 0)), Parts.Colors.Wood, frame),
+			}
+			-- The stone arch (glowing rune in the target world's colour) once
+			-- imported; the wooden posts stay as its invisible collision.
+			if Parts.prop("PortalArch", target.color, 21, CFrame.new(base), frame) then
+				for _, post in posts do
+					post.Transparency = 1
+				end
 			end
-			Parts.block("Top", Vector3.new(19, 3, 3), CFrame.new(base + Vector3.new(0, 19.5, 0)), Parts.Colors.Wood, frame)
 			local gate = Parts.block(
 				"Gate",
 				Vector3.new(13, 16, 1),

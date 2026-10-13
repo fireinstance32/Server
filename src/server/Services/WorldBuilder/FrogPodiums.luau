@@ -29,9 +29,18 @@ function FrogPodiums.build(world: Model, config: Worlds.World)
 			model,
 			Enum.Material.SmoothPlastic
 		)
+		-- The carved stone podium once imported (glow ring in the rock's
+		-- colour); the plain pedestal stays as its invisible collision.
+		local trim = if frog.robuxOnly then Color3.fromRGB(170, 90, 230) else frog.color
+		if Parts.prop("Podium", trim, 8.6, CFrame.new(base), model) then
+			pedestal.Transparency = 1
+		end
 		local display = Models.rock(frog.color, 3, frog.id, frog.ultimate)
 		display:PivotTo(CFrame.new(base + Vector3.new(0, 4.6, 0)) * CFrame.Angles(0, math.rad(-90), 0))
 		display.Name = "Display"
+		-- Clients add the rock's effects (Effects/RockAura).
+		display:SetAttribute("RockId", frog.id)
+		display:AddTag("RockAura")
 		display.Parent = model
 
 		local prompt = Instance.new("ProximityPrompt")
