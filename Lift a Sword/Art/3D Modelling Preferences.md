@@ -55,7 +55,7 @@ Default for something new: **ask which way you want it.** If you're busy, use te
 
 ## Pets: what you asked for (2026-10-14)
 - **References:** cube pets with huge glossy eyes, painted muzzles and snouts, ears/horns/antlers on top, vivid glossy colours, dark outlines, tiny or no feet. "THESE ARE REFERENCES I WANT OUR PETS TO BE HIGHER QUALITY".
-- **Eyes:** big and the same size on every pet ("make sure the faces are sizing up, the eyes more defintely"). The current glossy eyes are approved.
+- **Eyes:** big and the same size on every pet ("make sure the faces are sizing up, the eyes more defintely"). The current glossy eyes are approved. New eye types are allowed (2026-10-14: "You can create more eyes if you want, but they need to be as high quality as the ones we have"): same size, same layers (dark rim, gradient iris, ring, two shines).
 - **Faces:** "the faces should all be sized the same, but not look the same". Same layout, different expression, muzzle, nose and colours.
 - **Nose and mouth must be big** ("resize the faces too, these look tiny").
 - **Approved (2026-10-14):** the v3 Wooden pets (smooth ears, painted markings, shaded muzzles, outline, folded owl wings): "that looks good as it is". Roll this out to every egg.
