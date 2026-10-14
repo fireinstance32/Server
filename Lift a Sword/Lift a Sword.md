@@ -12,7 +12,7 @@ Roblox strength simulator: pull giant swords out of themed pedestals down one lo
 
 ## Design
 - [[Lift a Sword Game Plan]]
-- [[Zones]]
+- [[Zones]] · [[Core Loop]]
 - [[Pets]]
 
 ## Art
