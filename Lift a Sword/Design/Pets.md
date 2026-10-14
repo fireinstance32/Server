@@ -54,6 +54,7 @@ Rarity in each egg is Common, Uncommon, Rare, Epic, Legendary. Eggs 13–16 add 
 - ✅ Egg 1 Wooden (2026-10-14, v3 quality pass, approved): ![[LS Pets Wooden Egg.png]]
 - ✅ Egg 2 Stone (2026-10-14): Mole (pink nose, whiskers, digging claws), RockTurtle (stone shell with six-sided plates and moss), Badger (face stripe, eye mask), GolemPup (stone body, floppy stone ears, moss, glowing crystals), MossBear (moss blanket, sprouts and a toadstool). ![[LS Pets Stone Egg.png]]
 - ✅ Egg 3 Bronze (2026-10-14): Beaver (buck teeth, scaly paddle tail), ClockworkMouse (wind-up key, side gear, curly tail), GearBug (bronze wing cases, gear on its back, antennae), SteamPig (sunglasses, steam pipe), BronzeBull (bronze body, horns, nose ring, gear studs). ![[LS Pets Bronze Egg.png]]
+- ✅ Egg 4 Iron (2026-10-14): Raccoon (eye mask, ringed tail), Armadillo (overlapping riveted steel bands), KnightDog (steel helmet with a red crest, blue cape), IronRhino (big horn out of the snout, riveted saddle plate), EmberWolf (glowing ember ears, flame crest and tail tip). ![[LS Pets Iron Egg.png]]
 - Model names are CamelCase (`RockTurtle`, `GolemPup`, `MossBear`); the names with spaces above are for the UI.
 - Builder: `C:\LiftASword\tools\blender\build_pets.py`. Shapes are in `pets/shapes.py`, one roster file per egg is `pets/eggNN_*.py`, the faces come from `pets/faces.py`, and fur markings from `pets/marks.py`. Moving parts (tails, wings) are their own meshes so they can be animated later.
 
