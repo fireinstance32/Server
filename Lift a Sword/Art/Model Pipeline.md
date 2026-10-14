@@ -39,7 +39,7 @@ Each builder works the same way: register a model with its role colours, kinds (
 - Meshes are named `<Model>_<Role>`, one material per role. Glow roles stay flat and become **Neon** with the role colour in Studio.
 - Base at z=0, front is −Y in Blender. The pivot is the Blender origin.
 - Lids and other moving parts get roles starting with `Lid…` (or similar) so code can find them.
-- Keep each mesh under 20k triangles (check with a quick FBX reimport count).
+- Keep each mesh under 20k triangles (check with a quick FBX reimport count). Pets: the `<Pet>_Outline` mesh is every part merged, so it's usually the biggest. Many repeated balls (wool puffs) use `subdiv=2`. 2026-10-14: the 4 woolly pets went over (23–27k) and were fixed this way.
 
 ## Into Studio
 1. You import the FBX (3D Importer). It arrives at **100 studs per Blender unit**, nested Model > Model > MeshParts, with SurfaceAppearances if textured.
