@@ -51,7 +51,9 @@ Rarity in each egg is Common, Uncommon, Rare, Epic, Legendary. Eggs 13–16 add 
 | 16 | VoidEgg | Imp (Wink), Skull Pup (Happy), Shadow Cat (Glow), Hellhound (Flame), Lich Owl (Glow), **Demon Lord** (Flame) |
 
 ## Built
-- ✅ Egg 1 Wooden (2026-10-14, v3 quality pass): ![[LS Pets Wooden Egg.png]]
+- ✅ Egg 1 Wooden (2026-10-14, v3 quality pass, approved): ![[LS Pets Wooden Egg.png]]
+- ✅ Egg 2 Stone (2026-10-14): Mole (pink nose, whiskers, digging claws), RockTurtle (stone shell with six-sided plates and moss), Badger (face stripe, eye mask), GolemPup (stone body, floppy stone ears, moss, glowing crystals), MossBear (moss blanket, sprouts and a toadstool). ![[LS Pets Stone Egg.png]]
+- Model names are CamelCase (`RockTurtle`, `GolemPup`, `MossBear`); the names with spaces above are for the UI.
 - Builder: `C:\LiftASword\tools\blender\build_pets.py`. Shapes are in `pets/shapes.py`, one roster file per egg is `pets/eggNN_*.py`, the faces come from `pets/faces.py`, and fur markings from `pets/marks.py`. Moving parts (tails, wings) are their own meshes so they can be animated later.
 
 ## Open

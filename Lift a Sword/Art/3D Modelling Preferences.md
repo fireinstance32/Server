@@ -58,6 +58,7 @@ Default for something new: **ask which way you want it.** If you're busy, use te
 - **Eyes:** big and the same size on every pet ("make sure the faces are sizing up, the eyes more defintely"). The current glossy eyes are approved.
 - **Faces:** "the faces should all be sized the same, but not look the same". Same layout, different expression, muzzle, nose and colours.
 - **Nose and mouth must be big** ("resize the faces too, these look tiny").
+- **Approved (2026-10-14):** the v3 Wooden pets (smooth ears, painted markings, shaded muzzles, outline, folded owl wings): "that looks good as it is". Roll this out to every egg.
 - **Everything except the eyes** needed to be "higher quality and just better". The fix was smooth, thick add-ons (no 4-sided pyramids), inner ears, painted markings instead of stuck-on parts, shaded muzzles and noses, and an outline.
 
 ## Rejected (don't repeat)

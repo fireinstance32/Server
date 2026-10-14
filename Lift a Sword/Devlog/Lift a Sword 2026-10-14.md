@@ -27,3 +27,5 @@ Back to [[Lift a Sword]].
   - **Faces:** the eyes are unchanged. The muzzles are raised shapes per animal: puffy squirrel cheeks, white fox cheeks, an owl face disc, a deer snout. Noses are glossy, mouths have a shaded inside and a tongue, and teeth and beak are shaded.
   - **Outline:** a dark outline shell, `<Pet>_Outline`. Its CastShadow must be off in Studio.
   ![[LS Pets Wooden Egg.png]]
+- **Pet look approved** ("that looks good as it is"), owl wings stay folded. Rolling it out egg by egg.
+- **Stone egg pets built and exported:** Mole, RockTurtle, Badger, GolemPup, MossBear. New add-ons are in `pets/props.py` (moss cap, turtle shell, claws, crystals, sprouts, toadstool). New face options: whiskers, a badger stripe, a pink mole nose, and turtle nostrils. The GolemPup's crystals are Neon. ![[LS Pets Stone Egg.png]]
