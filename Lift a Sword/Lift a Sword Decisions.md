@@ -13,6 +13,7 @@ Things I need from you, newest first. Back to [[Lift a Sword]].
 - **Textures for new models:** your call per category (see [[3D Modelling Preferences]]). The portal and chest are flat colour.
 
 ## Done
+- 2026-10-14: **Pets stay the same size:** one body size for all 84, and the add-ons make the animal (the hedgehog and owl were brought back to the standard size).
 - 2026-10-14: **Zone signs:** the hanging wooden signs are approved, and all 16 are placed. **Eggs:** 16, matching the roster.
 - 2026-10-14: **16 zones** in World 1; zone 16 is **Void / Shadow** (added in Studio, placeholder models). Pet roster approved (84 pets, see [[Pets]]); Treant Deer → Deer. Red pet eyes rejected; faces vary per pet.
 - 2026-10-14: **Stylised+** for everything (all 15 swords exported). Signs: universal, simple, smaller (the first universal try was too big and busy).

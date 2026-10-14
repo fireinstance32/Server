@@ -7,6 +7,8 @@ tags: [lift-a-sword, design, pets]
 
 **Style:** a chunky rounded cube with stubby legs. Only the parts that make each animal are added: ears, horns, wings, tails, halos. The face is one decal texture, not parts. See ![[LS Pet Face Mix.png]]
 
+**Size:** every pet has the same body size (you asked for this on 2026-10-14). Animals differ only by their add-ons, and Studio scales all pets by one shared factor.
+
 **Faces:** they aren't all the same. There are 12 face decals, and each pet uses one. Dark pets get a version with a white rim.
 
 | Face | Look |
