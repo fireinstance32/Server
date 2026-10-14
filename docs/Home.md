@@ -38,3 +38,6 @@ Roblox "+1" incremental game: press **HOP**, your frog leaps across lily pads, e
 - [[Decisions]] — things waiting on you
 - [[Roadmap]]
 - Devlog: [[2026-10-12]]
+
+## Other games
+- [[Lift a Sword]]: the sword-pulling strength sim (own folder: `Lift a Sword/`)
