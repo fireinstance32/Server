@@ -20,3 +20,4 @@ Back to [[Lift a Sword]].
 - **Eggs, all Stylised+:** all 16 are re-exported in the new look (the old realistic ones are backed up). Waiting on re-import: ![[LS Eggs Stylised+.png]]
 - **Pets started:** the Wooden egg's five are built and exported. A new pet builder (`build_pets.py` plus `pets/`) makes a cube body with stubby legs and adds the parts that make each animal. The face is one quad carrying the face PNG, from 12 faces (each with a dark-pet version). Tails and wings are separate meshes for animating later. ![[LS Pets Wooden Egg.png]]
 - **Open questions** for you are in [[Lift a Sword Decisions]] (pet look sign-off, face transparency in Studio, pet size).
+- **Pet fixes** (your feedback): the patches are kept inside the flat front, the owl has a rounded beak and soft tufts and tail feathers, and the hedgehog's quills are soft and lie back. All 5 are re-exported.

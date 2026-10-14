@@ -54,7 +54,14 @@ Default for something new: **ask which way you want it.** If you're busy, use te
 - **You import the FBX files yourself** (the Studio 3D importer). I then scale, colour, place and anchor them through the Studio MCP and tell you exactly which files to import.
 
 ## Rejected (don't repeat)
-- **Chibi pets** (round bodies, big eyes, blush) for Lift a Sword: "we don't want pets like that" (2026-10-13). For Frog Hop: "I need it to look like an actual roblox pet, I'll send references". **Pets are on hold; ask for references and a style before starting.**
+- **Chibi pets** (round bodies, big eyes, blush) for Lift a Sword: "we don't want pets like that" (2026-10-13). For Frog Hop: "I need it to look like an actual roblox pet, I'll send references". (Superseded 2026-10-14: the cube-pet style is chosen, see [[Pets]].)
+- **Pet details that look stuck on** (2026-10-14, "these dont look right"):
+  - belly and muzzle patches hanging over the rounded body edge, which look like stickers;
+  - a flat triangle beak over the face;
+  - big hard pyramid spikes that look like a crown;
+  - pointed cone tufts that look like cat ears or horns.
+  Keep patches inside the flat front, and make add-ons soft and rounded (round quills lying back, a curved beak where the mouth is).
+- **Pets in different sizes:** "try to keep the pets the same size" (2026-10-14). Every pet has the same body, and the add-ons make the animal.
 - **Blocky, boxy shapes** (first swords).
 - **Over-detailed realism** that doesn't fit the simulator style.
 - **Props nobody asked for:** spin wheel, daily rewards, fountain and loot chests were modelled and dropped. The spin wheel and daily rewards are UI. Confirm the list before building props.
