@@ -10,7 +10,7 @@ The core loop as agreed on 2026-10-14. **It's still a draft:** open points are l
 2. **Level up:** XP fills the Level bar, and you level up automatically. Levels open zones ("Reach Level N" walls) and climb into the millions.
 3. **Pull:** at a zone's pedestal, mash click/tap to fill the pull bar. Your Strength against the zone's Recommended Strength sets how fast it fills. When the bar is full the sword comes out and you get 💵 **Cash**.
 4. **Spend Cash** on eggs (pets), dumbbell chests and the zone upgrade pads, so you train and pull faster.
-5. **Moments:** while you train, a round **5x bubble** pops up on screen (UI, not in the world). Tap it for 5x training speed for 5 seconds. Each **level-up** gives screen shake, a burst round your character, a "+N Levels" popup and a sound.
+5. **Moments:** while you train, a round **5x bubble** pops up on screen (UI, not in the world). Tap it for 5x training speed for 5 seconds. Each **level-up** gives screen shake, a burst round your character and a sound (no "+N Levels" popup).
 
 ## Stats
 | Stat | You get it from | Boosted by | It's used for |
@@ -37,4 +37,5 @@ The core loop as agreed on 2026-10-14. **It's still a draft:** open points are l
 - **Zone training mats:** standing on an unlocked zone's `Mat` would multiply training. Not now.
 
 ## Open
+- **Balancing targets:** progression should feel fast, but the game must not be 1 hour long. Robux Strength passes stack (x2, then x4, and so on) and must clearly speed players up. Simulator: `C:\LiftASword	oolsalancealance_sim.py`.
 - First-pass numbers: Strength per lift, XP curve and zone Levels, Cash per pull per zone, prices for chests, pads and eggs, chest odds, and how the 27 dumbbells spread across the 6 chests.
