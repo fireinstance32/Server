@@ -9,11 +9,11 @@ Every Lift a Sword model and where it's at. Back to [[Lift a Sword]] · taste ru
 |---|---|---|---|
 | 16 swords | ✅ Stylised+ | textured | ✅ all 16 placed + masters in `ReplicatedStorage.Swords` (2026-10-14) |
 | 16 pedestals | ✅ Stylised+ | textured | VoidSwordPedestal ✅ placed. ⏳ the other 15: re-import from `Pedestals/Shapes` (Stylised+ export 2026-10-14) |
-| 16 eggs + stand | ✅ all 16 Stylised+ (2026-10-14) | textured | VoidEgg ✅ on stand 16. ⏳ the other 15: re-import from `Eggs/Shapes` (old realistic ones are placed for now) |
+| 16 eggs + stand | ✅ all 16 Stylised+ (2026-10-14) | textured | ✅ all 16 on their stands (2026-10-14). Glow roles Neon from `Eggs/colors.json`; replaced copies kept in ServerStorage › OldEggs |
 | 16 zone signs | ✅ hanging wooden signs (universal) | textured | ✅ all 16 placed, text kept on `SignFace` (2026-10-14) |
 | World 2 portal | to rebuild | textured, extremely high quality | moved to z = −1870 (past zone 16) |
 | Group chest | ✖ dropped (2026-10-14) | – | – |
-| Pets (84) | ✅ 84/84: all 16 eggs built and exported (see [[Pets]]) | Stylised+ cube pets: painted face quad, fur markings, `<Pet>_Outline` (CastShadow off) | ⏳ import from `Pets/Shapes` (not placed: no pet system yet) |
+| Pets (84) | ✅ 84/84: all 16 eggs built and exported (see [[Pets]]) | Stylised+ cube pets: painted face quad, fur markings, `<Pet>_Outline` (CastShadow off) | ✅ imported (2026-10-14): ReplicatedStorage › Pets › <Egg> › <Pet>, scaled 3/117.8 (a normal pet is ~3 studs tall), anchored and non-colliding, PrimaryPart = Body, glow roles Neon, Outline coloured with CastShadow off, `Egg` attribute. Not in the world yet: no pet system |
 | Spin wheel, daily rewards | ✖ will be UI | – | – |
 | Fountain, loot chests, gift | ✖ not wanted | – | – |
 

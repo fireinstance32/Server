@@ -7,7 +7,7 @@ Things I need from you, newest first. Back to [[Lift a Sword]].
 
 ## Open
 - **Pet faces in Studio:** each pet has a `<Pet>_Face` quad textured with its face PNG. If the import drops the transparency, set the quad's SurfaceAppearance `AlphaMode` to Transparency, or I can switch it to a Decal. Tell me which looks better once you've imported one.
-- **Pet size in game:** about 3 studs tall following the player? (assumed; Studio scales the model)
+- **Pet size in game:** about 3 studs tall: one shared Studio scale of 3/117.8 on the imported FBX (Mythics come out 25% bigger). Change it with `Model:ScaleTo` on every pet if it feels wrong in play
 - **World 2 zone count:** 15 like World 1? (assumed for now)
 - **Textures for new models:** your call per category (see [[3D Modelling Preferences]]). The portal and chest are flat colour.
 
