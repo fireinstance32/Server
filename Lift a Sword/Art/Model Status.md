@@ -20,7 +20,7 @@ Every Lift a Sword model and where it's at. Back to [[Lift a Sword]] · taste ru
 Import folder for the two pending models: `C:\LiftASword\assets\models\Landmarks\Shapes`.
 
 ## Ideas saved for later
-- Always-on animation: levitating eggs and rocks, spinning Void shards (`Orbit` roles on the Void sword and egg, `Float` on the Void pedestal are separate meshes for this), animated swords and pets. VFX later, when you say.
+- Always-on animation: levitating eggs and rocks, spinning Void shards (`Orbit` roles on the Void sword and egg, `Float` on the Void pedestal are separate meshes for this), animated swords and pets. VFX later, when you say. **Mythic pets** (25% bigger) also get their own animation and VFX (your note, 2026-10-14). Their moving parts are already separate roles: the GalaxyDragon `Orbit` ring and moons, the DemonLord `Flame` crown, the ExcaliburDragon `Gem` and wings, the ElderDragon wings and `Whisker`s.
 - Themed particles burst from the slot when a sword is pulled out (wood chips, rock dust, ice, embers…). A subtle splinter collar is on the Wooden stump to try first.
 - Animate the Galaxy Sword's nebula blade (a scrolling Texture, since a SurfaceAppearance can't scroll).
 - Group chest: a ProximityPrompt opens a "join the group to claim" UI, and the lid pops open.
