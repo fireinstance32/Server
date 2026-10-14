@@ -29,3 +29,4 @@ Back to [[Lift a Sword]].
   ![[LS Pets Wooden Egg.png]]
 - **Pet look approved** ("that looks good as it is"), owl wings stay folded. Rolling it out egg by egg.
 - **Stone egg pets built and exported:** Mole, RockTurtle, Badger, GolemPup, MossBear. New add-ons are in `pets/props.py` (moss cap, turtle shell, claws, crystals, sprouts, toadstool). New face options: whiskers, a badger stripe, a pink mole nose, and turtle nostrils. The GolemPup's crystals are Neon. ![[LS Pets Stone Egg.png]]
+- **Bronze egg pets built and exported** (BronzeEgg): Beaver (buck teeth, scaly paddle tail), ClockworkMouse (wind-up key, side gear, curly tail), GearBug (bronze wing cases, gear on its back, antennae), SteamPig (sunglasses, steam pipe), BronzeBull (bronze body, horns, nose ring, gear studs). ![[LS Pets Bronze Egg.png]]

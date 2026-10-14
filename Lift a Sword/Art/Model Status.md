@@ -13,7 +13,7 @@ Every Lift a Sword model and where it's at. Back to [[Lift a Sword]] · taste ru
 | 16 zone signs | ✅ hanging wooden signs (universal) | textured | ✅ all 16 placed, text kept on `SignFace` (2026-10-14) |
 | World 2 portal | to rebuild | textured, extremely high quality | moved to z = −1870 (past zone 16) |
 | Group chest | ✖ dropped (2026-10-14) | – | – |
-| Pets (84) | 🔨 10/84: Wooden egg (Squirrel, Hedgehog, Fox, Owl, Deer) and Stone egg (Mole, RockTurtle, Badger, GolemPup, MossBear) done | Stylised+ cube pets: painted face quad, fur markings, `<Pet>_Outline` (CastShadow off) | ⏳ import from `Pets/Shapes` (not placed: no pet system yet) |
+| Pets (84) | 🔨 15/84: eggs 1–3 done (see [[Pets]]) | Stylised+ cube pets: painted face quad, fur markings, `<Pet>_Outline` (CastShadow off) | ⏳ import from `Pets/Shapes` (not placed: no pet system yet) |
 | Spin wheel, daily rewards | ✖ will be UI | – | – |
 | Fountain, loot chests, gift | ✖ not wanted | – | – |
 
@@ -29,6 +29,7 @@ Import folder for the two pending models: `C:\LiftASword\assets\models\Landmarks
 ### 2026-10-14
 ![[LS Pets Wooden Egg.png]]
 ![[LS Pets Stone Egg.png]]
+![[LS Pets Bronze Egg.png]]
 ![[LS Eggs Stylised+.png]]
 ![[LS Void Sword.png]]
 ![[LS Void Egg.png]]
