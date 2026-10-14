@@ -37,5 +37,5 @@ The core loop as agreed on 2026-10-14. **It's still a draft:** open points are l
 - **Zone training mats:** standing on an unlocked zone's `Mat` would multiply training. Not now.
 
 ## Open
-- **Balancing targets:** progression should feel fast, but the game must not be 1 hour long. Robux Strength passes stack (x2, then x4, and so on) and must clearly speed players up. Simulator: `C:\LiftASword	oolsalancealance_sim.py`.
+- **Balancing targets:** progression should feel fast, but the game must not be 1 hour long. Robux Strength passes stack (x2, then x4, and so on) and must clearly speed players up. Simulator: `C:\LiftASword\tools\balance\balance_sim.py`.
 - First-pass numbers: Strength per lift, XP curve and zone Levels, Cash per pull per zone, prices for chests, pads and eggs, chest odds, and how the 27 dumbbells spread across the 6 chests.
