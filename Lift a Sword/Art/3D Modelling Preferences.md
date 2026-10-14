@@ -69,7 +69,7 @@ Default for something new: **ask which way you want it.** If you're busy, use te
   - big hard pyramid spikes that look like a crown;
   - pointed cone tufts that look like cat ears or horns.
   Keep patches inside the flat front, and make add-ons soft and rounded (round quills lying back, a curved beak where the mouth is).
-- **Pets in different sizes:** "try to keep the pets the same size" (2026-10-14). Every pet has the same body, and the add-ons make the animal.
+- **Pets in different sizes:** "try to keep the pets the same size" (2026-10-14). Every pet has the same body, and the add-ons make the animal. **Exception, Mythic pets:** "the mythical pets need a clear distinction maybe they are bigger?" then "25% bigger" (2026-10-14). The 4 Mythics (`mythic=True` in `@pet`) are built 1.25x, the whole model scaled about its feet.
 - **Blocky, boxy shapes** (first swords).
 - **Over-detailed realism** that doesn't fit the simulator style.
 - **Props nobody asked for:** spin wheel, daily rewards, fountain and loot chests were modelled and dropped. The spin wheel and daily rewards are UI. Confirm the list before building props.

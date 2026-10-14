@@ -7,7 +7,7 @@ tags: [lift-a-sword, design, pets]
 
 **Style:** a chunky rounded cube on tiny nub feet, after your reference pets (2026-10-14). Only the parts that make each animal are added: thick rounded ears with inner ears, horns, wings, smooth tails, halos. Fur markings (socks, bellies, stripes, spots) are painted into the texture, and a thin dark outline goes round the whole pet. The face is painted per pet onto the front, not modelled.
 
-**Size:** every pet has the same body size (you asked for this on 2026-10-14). Animals differ only by their add-ons, and Studio scales all pets by one shared factor.
+**Size:** every pet has the same body size (you asked for this on 2026-10-14). Animals differ only by their add-ons, and Studio scales all pets by one shared factor. **Exception:** the Mythic pets (ElderDragon, GalaxyDragon, ExcaliburDragon, DemonLord) are **25% bigger**, so they stand out (you asked for this on 2026-10-14). The FBX itself is bigger, so the shared Studio factor still works.
 
 **Faces:** every pet gets its own face PNG, all the same size but not looking the same. The eyes are the same size and spot on every pet (you approved them). Variety comes from:
 - the expression (one of the 12 below), the iris colour and pupils;
