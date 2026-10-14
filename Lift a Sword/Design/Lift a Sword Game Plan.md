@@ -19,7 +19,7 @@ A Roblox strength simulator in the **Lift a Weight / Lift a Hammer** style (pick
 ## Decided
 - The map stays simple and readable like the reference: one straight runway of coloured zone strips, 140 wide × 150 long per zone, on a sea, with raised biome banks for decor.
 - The player pulls the sword up out of the pedestal. A pull animation where the player stands on the pedestal and heaves; the grip starts about head height.
-- **Pets:** 5 per egg for the first ~18 eggs, then 6, like Lift a Weight. **On hold** until you pick a style.
+- **Pets:** 16 eggs: 1–12 hold 5 pets, 13–16 hold 6 (84 total). Cube style, decal faces. See [[Pets]].
 - The spin wheel and daily rewards are **UI**, not models.
 - The group chest opens a "join the group" UI through a ProximityPrompt.
 - The code will copy the +1 Frog Hop setup: Rojo, balance in Config, and a server-authoritative server.

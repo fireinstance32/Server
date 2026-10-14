@@ -13,6 +13,7 @@ Roblox strength simulator: pull giant swords out of themed pedestals down one lo
 ## Design
 - [[Lift a Sword Game Plan]]
 - [[Zones]]
+- [[Pets]]
 
 ## Art
 - [[Model Status]]: what's built, imported and placed
@@ -22,6 +23,7 @@ Roblox strength simulator: pull giant swords out of themed pedestals down one lo
 - [[Studio Layout]]
 
 ## Devlog
+- [[Lift a Sword 2026-10-14]]
 - [[Lift a Sword 2026-10-13]]
 
 ## Folder layout

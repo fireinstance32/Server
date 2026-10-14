@@ -3,7 +3,7 @@ tags: [lift-a-sword, design]
 ---
 # Zones
 
-The 15 zones down the runway, from spawn. Every zone's sword, pedestal, sign and egg share one theme. Numbers are what's in Studio now (2026-10-14); balance isn't final. Back to [[Lift a Sword]].
+The 16 zones down the runway, from spawn. Every zone's sword, pedestal, sign and egg share one theme. Numbers are what's in Studio now (2026-10-14); balance isn't final. Back to [[Lift a Sword]].
 
 | # | Theme | Sword | Recommended 💪 | Egg | Egg price 💵 | Glow |
 |---|---|---|---|---|---|---|
@@ -22,6 +22,6 @@ The 15 zones down the runway, from spawn. Every zone's sword, pedestal, sign and
 | 13 | Dragon | DragonSlayer | 50B | DragonEgg (wings, horns) | 250M | – |
 | 14 | Galaxy | GalaxySword | 1T | GalaxyEgg (planet ring) | 1B | ring, stars |
 | 15 | Excalibur | Excalibur | 999Qa | ExcaliburEgg (angel wings) | 4B | halo |
-| 16 | – | – | – | coming soon | 15B | – |
+| 16 | Void / Shadow | VoidSword | 10Qi | VoidEgg (rifts, orbiting shards) | 15B | rift, eye, shards |
 
-Zone centres run along z = 485, 335 … −1615 (150 apart), with the runway centred on x = −300. The egg stairs are at spawn, and the World 2 portal is past zone 15.
+Zone centres run along z = 485, 335 … −1765 (150 apart), with the runway centred on x = −300. The egg stairs are at spawn, and the World 2 portal is past zone 16 (moved to z = −1870 on 2026-10-14). Zone 16 was cloned from zone 15 in Studio: dark slate floor, neon purple mat, banks extended. Its Void sword, pedestal and sign are placed (2026-10-14). Decor (`Map.Decor.Zone_16`) is the asset pack recoloured, not new models: zone 13's rocks, bones and dead trees tinted void purple, neon void pools, purple crystals, and 14 floating rocks tagged `Levitate` for a future bob script.

@@ -12,6 +12,8 @@ Back to [[Lift a Sword]] · how the tools work: [[Model Pipeline]] · what's bui
 - **Roblox simulator style.** Bright, saturated, toy-like, readable from far away. Think front-page simulator thumbnails, not a realistic RPG.
 - **Glow accents work.** Neon parts (gems, veins, rings, runes, keyholes, halos) make tiers feel special. Each themed set gets its own glow colour.
 - **Mixed sizes for scattered details.** Splinters, shards, stars and +1s look best as "little ones and then bigger ones" rather than a uniform field (pedestal collars 2026-10-13, the +1 overlay).
+- **Stylised, but still textured** (2026-10-14): "stylized will work better for the game theme, but I like textured". So drop the noise (speckles, scratches, rust) and keep bold, clean painted details (strong grain lines, a few big cracks, bark grooves).
+- **Polish the joins.** The Stone Sword's two separate guard stones on a bare stick "look a little weird" (2026-10-14). Parts should look like one built object: one solid guard, the blade bedded into it, rope that leans and ties things together.
 - **Make it physically believable.** Ropes and wraps go all the way around ("the rope needs to wrap around?", Stone Sword), nothing floats, legs and supports look structural, and attachments touch what they attach to.
 
 ## Quality bar
@@ -27,7 +29,8 @@ Back to [[Lift a Sword]] · how the tools work: [[Model Pipeline]] · what's bui
 | Category | What you chose |
 |---|---|
 | Swords, pedestals, eggs, egg stand, signs | **Baked PBR textures** (wood grain, stone, metal, galaxy…). You called the textured Galaxy Sword "fantastic". |
-| Landmarks (World 2 portal, group chest) | **Flat colours, no textures** (2026-10-14). |
+| Landmarks (World 2 portal, group chest) | Flat colours at first (2026-10-14), then **the portal redone "extremely high quality, with textures"** (later on 2026-10-14). |
+| Eggs in Studio | The realistic textures **"don't match the map"** (2026-10-14): wood grain, rust and stone noise clash with the blocky, flat-coloured world. You picked **Stylised** ("stylized for sure"): clean colour, a soft top-lit gradient, crevice shading, light edges, and only big shapes (wood rings, stone slabs, scale cells, rope twist). No grain, rust or scratches. The galaxy texture stays. |
 | Reference stud textures | Ignore them ("don't worry about the stud texture"). |
 
 Default for something new: **ask which way you want it.** If you're busy, use textures for zone-themed tier items and flat glossy colour for big landmarks.

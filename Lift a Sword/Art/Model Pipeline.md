@@ -13,15 +13,17 @@ How Lift a Sword models get from code to Studio. My taste rules are in [[3D Mode
 ## Builders
 | File | Builds |
 |---|---|
-| `build_swords.py` | 15 swords, plus the shared shape helpers (box, cylinder, ball, sweep, gem, blade, harden, merge, aim…) |
-| `sword_textures.py` | procedural PBR recipes (steel, gold, wood, stone, ice, crystal, galaxy, lacquer…) baked to 1024 Color/Normal/Roughness/Metalness |
-| `build_pedestals.py` | 15 themed pedestals: `rock()`, `slot()`, `collar()`/`shards()` |
-| `build_eggs.py` | 15 zone eggs: `Egg` surface, `cap`, `strap`, `badge`, `crack`, `lathe`/`torus`, `flat`, shapes (SHIELD, STAR, GEAR, BOLT…) |
+| `build_swords.py` | 16 swords, plus the shared shape helpers (box, cylinder, ball, sweep, gem, blade, harden, merge, aim…) |
+| `sword_textures.py` | procedural PBR recipes (steel, gold, wood, stone, ice, crystal, galaxy, lacquer…) baked to 1024 Color/Normal/Roughness/Metalness. `STYLE = "toon+"` (Stylised+, the look for everything) swaps them for `toon()`. Toon kinds include `plank` (grain along X, for sign boards) and `void` (zone 16: violet cracks and star specks) |
+| `build_pedestals.py` | 16 themed pedestals: `rock()`, `slot()`, `collar()`/`shards()` |
+| `build_eggs.py` | 16 zone eggs: `Egg` surface, `cap`, `strap`, `badge`, `crack`, `lathe`/`torus`, `flat`, shapes (SHIELD, STAR, GEAR, BOLT…) |
 | `build_stand.py` | the octagonal egg stand (glowing `Accent` ring) |
-| `build_signs.py` | 15 zone signs, shared text board 2.4 × 1.5 units |
+| `build_signs.py` | sign sizes (board 2.4 × 1.5 units) and per-zone colours |
+| `build_zone_sign.py` | the 16 hanging wooden signs in use: planks on chains from a beam, posts and caps in the zone's material, a gem lamp on each post |
 | `build_landmarks.py` | World 2 portal and group chest. **Flat colours by default** (`--textured` to bake) |
 | `build_props.py` | unused props; kept as a helper source (`drum`, `sector`) |
-| `build_pets.py` | rejected chibi pets, on hold |
+| `build_pets.py` | the 84 cube pets. Shapes are in `pets/shapes.py` (body, ears, tails, wings, antlers, spikes…), one roster file per egg is `pets/eggNN_*.py` (registered with `@pet` from `pets/registry.py`), and the face is a `<Pet>_Face` quad textured with a PNG from `pets/faces.py`. Run with `--egg WoodenEgg`, `--preview <png>`, `--back` (3/4 rear view), `--no-export`. The old chibi builder is `build_pets.py.bak-chibi` |
+| `pets/faces.py` | plain Python + Pillow: `python tools/blender/pets/faces.py assets/models/Pets/Faces` writes the 12 faces plus `_Dark` (white rim) versions and `_sheet.png` |
 
 Each builder works the same way: register a model with its role colours, kinds (texture recipe) and glow roles, then `build()` hardens the normals, bakes (if textured) and `B.export` writes the FBX plus `colors.json`.
 
