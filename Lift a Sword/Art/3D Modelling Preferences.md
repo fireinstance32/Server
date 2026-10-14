@@ -53,6 +53,13 @@ Default for something new: **ask which way you want it.** If you're busy, use te
 - **Use my judgement:** "do what you think is best". Make the call, show it, and note it here.
 - **You import the FBX files yourself** (the Studio 3D importer). I then scale, colour, place and anchor them through the Studio MCP and tell you exactly which files to import.
 
+## Pets: what you asked for (2026-10-14)
+- **References:** cube pets with huge glossy eyes, painted muzzles and snouts, ears/horns/antlers on top, vivid glossy colours, dark outlines, tiny or no feet. "THESE ARE REFERENCES I WANT OUR PETS TO BE HIGHER QUALITY".
+- **Eyes:** big and the same size on every pet ("make sure the faces are sizing up, the eyes more defintely"). The current glossy eyes are approved.
+- **Faces:** "the faces should all be sized the same, but not look the same". Same layout, different expression, muzzle, nose and colours.
+- **Nose and mouth must be big** ("resize the faces too, these look tiny").
+- **Everything except the eyes** needed to be "higher quality and just better". The fix was smooth, thick add-ons (no 4-sided pyramids), inner ears, painted markings instead of stuck-on parts, shaded muzzles and noses, and an outline.
+
 ## Rejected (don't repeat)
 - **Chibi pets** (round bodies, big eyes, blush) for Lift a Sword: "we don't want pets like that" (2026-10-13). For Frog Hop: "I need it to look like an actual roblox pet, I'll send references". (Superseded 2026-10-14: the cube-pet style is chosen, see [[Pets]].)
 - **Pet details that look stuck on** (2026-10-14, "these dont look right"):

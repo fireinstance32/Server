@@ -6,7 +6,9 @@ tags: [lift-a-sword, planning, decisions]
 Things I need from you, newest first. Back to [[Lift a Sword]].
 
 ## Open
-- **Wooden egg pets (first 5):** Squirrel, Hedgehog, Fox, Owl, Deer, front and back: ![[LS Pets Wooden Egg.png]] Is this the look to roll out to all 84? I'm carrying on with the same style for the next eggs, so stop me early if anything's off.
+- **Wooden egg pets (first 5), quality pass:** Squirrel, Hedgehog, Fox, Owl, Deer, front and back: ![[LS Pets Wooden Egg.png]] The eyes are as you approved them. Everything else is new: smooth ears with inner ears, painted fur markings, shaded muzzles and noses, smooth tails, and a dark outline. Is this the look to roll out to all 84?
+- **Pet outline:** a `<Pet>_Outline` part (an inverted shell) draws the dark outline like your references. In Studio turn its **CastShadow off**, or the pet goes dark. If you'd rather have no outline, delete that part.
+- **Owl wings:** they're folded flat against the sides. They could be little spread wings instead, if you'd like the owl to read as a bird from the front.
 - **Pet faces in Studio:** each pet has a `<Pet>_Face` quad textured with its face PNG. If the import drops the transparency, set the quad's SurfaceAppearance `AlphaMode` to Transparency, or I can switch it to a Decal. Tell me which looks better once you've imported one.
 - **Pet size in game:** about 3 studs tall following the player? (assumed; Studio scales the model)
 - **World 2 zone count:** 15 like World 1? (assumed for now)

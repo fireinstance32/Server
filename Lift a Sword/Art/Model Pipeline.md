@@ -22,8 +22,8 @@ How Lift a Sword models get from code to Studio. My taste rules are in [[3D Mode
 | `build_zone_sign.py` | the 16 hanging wooden signs in use: planks on chains from a beam, posts and caps in the zone's material, a gem lamp on each post |
 | `build_landmarks.py` | World 2 portal and group chest. **Flat colours by default** (`--textured` to bake) |
 | `build_props.py` | unused props; kept as a helper source (`drum`, `sector`) |
-| `build_pets.py` | the 84 cube pets. Shapes are in `pets/shapes.py` (body, ears, tails, wings, antlers, spikes…), one roster file per egg is `pets/eggNN_*.py` (registered with `@pet` from `pets/registry.py`), and the face is a `<Pet>_Face` quad textured with a PNG from `pets/faces.py`. Run with `--egg WoodenEgg`, `--preview <png>`, `--back` (3/4 rear view), `--no-export`. The old chibi builder is `build_pets.py.bak-chibi` |
-| `pets/faces.py` | plain Python + Pillow: `python tools/blender/pets/faces.py assets/models/Pets/Faces` writes the 12 faces plus `_Dark` (white rim) versions and `_sheet.png` |
+| `build_pets.py` | the 84 cube pets. Shapes are in `pets/shapes.py` (body, ears, tails, wings, antlers, spikes…), one roster file per egg is `pets/eggNN_*.py` (registered with `@pet` from `pets/registry.py`), and the face is a `<Pet>_Face` quad textured with a per-pet PNG from `pets/faces.py`. Fur markings are a `marks=[...]` list (`pets/marks.py`: `blob`, `below`, `above`), mixed into the colour before the bake. `<Pet>_Outline` is an inverted shell for the dark outline (`OUTLINE = False` turns it off). Run with `--egg WoodenEgg`, `--preview <png>`, `--back` (3/4 rear view), `--no-export`. The old chibi builder is `build_pets.py.bak-chibi` |
+| `pets/faces.py` | plain Python + Pillow: `python tools/blender/pets/faces.py assets/models/Pets/Faces` is run by `build_pets.py`, which writes `Faces/_spec.json` from the registry and gets one `Face_<Pet>.png` per pet (the old shared faces are `faces_v1.py`) |
 
 Each builder works the same way: register a model with its role colours, kinds (texture recipe) and glow roles, then `build()` hardens the normals, bakes (if textured) and `B.export` writes the FBX plus `colors.json`.
 

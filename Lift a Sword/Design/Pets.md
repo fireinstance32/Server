@@ -5,11 +5,14 @@ tags: [lift-a-sword, design, pets]
 
 **Roster approved (2026-10-14).** 16 eggs: eggs 1–12 hold 5 pets each and eggs 13–16 hold 6, so 84 pets in all. Back to [[Lift a Sword]].
 
-**Style:** a chunky rounded cube with stubby legs. Only the parts that make each animal are added: ears, horns, wings, tails, halos. The face is one decal texture, not parts. See ![[LS Pet Face Mix.png]]
+**Style:** a chunky rounded cube on tiny nub feet, after your reference pets (2026-10-14). Only the parts that make each animal are added: thick rounded ears with inner ears, horns, wings, smooth tails, halos. Fur markings (socks, bellies, stripes, spots) are painted into the texture, and a thin dark outline goes round the whole pet. The face is painted per pet onto the front, not modelled.
 
 **Size:** every pet has the same body size (you asked for this on 2026-10-14). Animals differ only by their add-ons, and Studio scales all pets by one shared factor.
 
-**Faces:** they aren't all the same. There are 12 face decals, and each pet uses one. Dark pets get a version with a white rim.
+**Faces:** every pet gets its own face PNG, all the same size but not looking the same. The eyes are the same size and spot on every pet (you approved them). Variety comes from:
+- the expression (one of the 12 below), the iris colour and pupils;
+- the muzzle shape: round, puffy rodent cheeks, a fox's white cheeks, an owl's heart-shaped face disc, or a long deer snout;
+- the nose (glossy dog/cat/deer/button nose, pig snout, beak) and buck teeth.
 
 | Face | Look |
 |---|---|
@@ -48,8 +51,8 @@ Rarity in each egg is Common, Uncommon, Rare, Epic, Legendary. Eggs 13–16 add 
 | 16 | VoidEgg | Imp (Wink), Skull Pup (Happy), Shadow Cat (Glow), Hellhound (Flame), Lich Owl (Glow), **Demon Lord** (Flame) |
 
 ## Built
-- ✅ Egg 1 Wooden (2026-10-14): ![[LS Pets Wooden Egg.png]]
-- Builder: `C:\LiftASword\tools\blender\build_pets.py`. Shapes are in `pets/shapes.py`, one roster file per egg is `pets/eggNN_*.py`, and the faces come from `pets/faces.py`. Moving parts (tails, wings) are their own meshes so they can be animated later.
+- ✅ Egg 1 Wooden (2026-10-14, v3 quality pass): ![[LS Pets Wooden Egg.png]]
+- Builder: `C:\LiftASword\tools\blender\build_pets.py`. Shapes are in `pets/shapes.py`, one roster file per egg is `pets/eggNN_*.py`, the faces come from `pets/faces.py`, and fur markings from `pets/marks.py`. Moving parts (tails, wings) are their own meshes so they can be animated later.
 
 ## Open
 - (none) Egg 16 is the Void egg of the new zone 16.

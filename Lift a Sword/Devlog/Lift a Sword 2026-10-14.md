@@ -21,3 +21,9 @@ Back to [[Lift a Sword]].
 - **Pets started:** the Wooden egg's five are built and exported. A new pet builder (`build_pets.py` plus `pets/`) makes a cube body with stubby legs and adds the parts that make each animal. The face is one quad carrying the face PNG, from 12 faces (each with a dark-pet version). Tails and wings are separate meshes for animating later. ![[LS Pets Wooden Egg.png]]
 - **Open questions** for you are in [[Lift a Sword Decisions]] (pet look sign-off, face transparency in Studio, pet size).
 - **Pet fixes** (your feedback): the patches are kept inside the flat front, the owl has a rounded beak and soft tufts and tail feathers, and the hedgehog's quills are soft and lie back. All 5 are re-exported.
+- **Pets, quality pass** (after your references: everything except the eyes needed to be better). All 5 Wooden pets are re-exported.
+  - **Shapes:** rounder corners, thick leaf-shaped ears with inner ears and coloured tips, smooth tails (the radius used to step, which made rings), feather tufts for the owl, and branching antlers with rounded tips.
+  - **Fur markings** are painted into the texture (`pets/marks.py`): the squirrel's back stripes, the fox's socks and white chest, the deer's spots, and pale bellies.
+  - **Faces:** the eyes are unchanged. The muzzles are raised shapes per animal: puffy squirrel cheeks, white fox cheeks, an owl face disc, a deer snout. Noses are glossy, mouths have a shaded inside and a tongue, and teeth and beak are shaded.
+  - **Outline:** a dark outline shell, `<Pet>_Outline`. Its CastShadow must be off in Studio.
+  ![[LS Pets Wooden Egg.png]]
